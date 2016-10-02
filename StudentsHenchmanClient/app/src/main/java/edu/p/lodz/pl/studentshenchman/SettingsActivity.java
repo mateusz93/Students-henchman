@@ -3,10 +3,8 @@ package edu.p.lodz.pl.studentshenchman;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity {
 
     /**
      * Metoda tworzy aktywnosc.
@@ -14,7 +12,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_settings);
     }
 
     /**
@@ -66,28 +64,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
+    public void onBackPressed()
     {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        Intent anotherActivity;
-
-        switch (item.getItemId())
-        {
-            case R.id.action_settings:
-                anotherActivity = new Intent(MainActivity.this, SettingsActivity.class);
-                finish();
-
-                startActivity(anotherActivity);
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+        Intent previousActivity = new Intent(SettingsActivity.this, MainActivity.class);
+        finish();
+        startActivity(previousActivity);
     }
 }
