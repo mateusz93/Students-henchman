@@ -1,4 +1,6 @@
 <resources>
+    <!--activities titles-->
     <string name="app_name">Students Henchman</string>
+    <string name="dashboard">Dashboard</string>
     <string name="settings">Settings</string>
 </resources>
