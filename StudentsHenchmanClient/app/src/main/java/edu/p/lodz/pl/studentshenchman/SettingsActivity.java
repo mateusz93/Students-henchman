@@ -2,13 +2,12 @@ package edu.p.lodz.pl.studentshenchman;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
-public class SettingsActivity extends AppCompatActivity {
+import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainActivity;
 
-    /**
-     * Metoda tworzy aktywnosc.
-     */
+public class SettingsActivity extends StudentShenchmanMainActivity {
+    private static final String TAG = SettingsActivity.class.getName();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

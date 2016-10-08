@@ -11,10 +11,8 @@ import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainActivity;
 import edu.p.lodz.pl.studentshenchman.workers.DownloadWeatherSimpleWorker;
 
 public class MainActivity extends StudentShenchmanMainActivity {
+    private static final String TAG = MainActivity.class.getName();
 
-    /**
-     * Metoda tworzy aktywnosc.
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
