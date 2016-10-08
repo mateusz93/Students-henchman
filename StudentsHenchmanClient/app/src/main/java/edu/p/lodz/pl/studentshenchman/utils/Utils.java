@@ -1,5 +1,6 @@
 package edu.p.lodz.pl.studentshenchman.utils;
 
+import android.content.Context;
 import android.support.v7.widget.Toolbar;
 
 /**
@@ -7,10 +8,5 @@ import android.support.v7.widget.Toolbar;
  */
 public class Utils {
 
-    public static Toolbar prepareToolbar(Toolbar toolbar, int title, int icon) {
-        toolbar.setTitle(title);
-        toolbar.setNavigationIcon(icon);
 
-        return toolbar;
-    }
 }

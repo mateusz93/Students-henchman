@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 
 import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainActivity;
-import edu.p.lodz.pl.studentshenchman.utils.Utils;
 import edu.p.lodz.pl.studentshenchman.workers.DownloadWeatherSimpleWorker;
 
 public class MainActivity extends StudentShenchmanMainActivity {
@@ -23,8 +22,8 @@ public class MainActivity extends StudentShenchmanMainActivity {
         setContentView(R.layout.activity_main);
 
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
-        Utils.prepareToolbar(toolbar, R.string.dashboard, android.R.drawable.btn_plus);
-        setSupportActionBar(toolbar);
+        prepareToolbar();
+
 
         Button button = (Button) findViewById(R.id.button);
 
@@ -35,6 +34,16 @@ public class MainActivity extends StudentShenchmanMainActivity {
                 downloadDateWorker.runService();
             }
         });
+    }
+
+    public void prepareToolbar() {
+        toolbar.setTitle(R.string.dashboard);
+        toolbar.setNavigationIcon(android.R.drawable.btn_plus);
+        setSupportActionBar(toolbar);
+        if (null != getSupportActionBar()) {
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setDisplayUseLogoEnabled(true);
+        }
     }
 
     @Override
