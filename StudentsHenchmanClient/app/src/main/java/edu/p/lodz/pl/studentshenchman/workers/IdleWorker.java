@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import edu.p.lodz.pl.studentshenchman.workers.utils.ResponseError;
+
 /**
  * Created by Michał on 2016-10-05.
  */
@@ -33,7 +35,8 @@ public class IdleWorker extends AbstractWorker {
 
     @Override
     public void onError(Throwable e) {
-        onError(mContext, e.getMessage());
+        ResponseError responseError = new ResponseError(400, e.getMessage(), e);
+        onError(mContext, responseError);
     }
 
     @Override
