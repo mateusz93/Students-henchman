@@ -1,11 +1,11 @@
-package edu.p.lodz.pl.studentshenchman.Constants;
+package edu.p.lodz.pl.studentshenchman.constants;
 
 /**
  * Created by Michał on 2016-10-05.
  */
 public abstract class Constants {
 
-    public static final String DATE_FORMT = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'";
+    public static final String DATE_FORMAT = "yyyy\'-\'MM\'-\'dd\'T\'HH\':\'mm\':\'ss";
 
 
     public static final String PROTOCOL = "http";
@@ -16,6 +16,7 @@ public abstract class Constants {
     public static final int CONNECTION_TIMEOUT = 30;
     public static final int WRITE_TIMEOUT = 30;
 
-    public static final String BASE_SERVER_URL = PROTOCOL + "://" + HOST + ":" + PORT + "/mobile";
+    //public static final String BASE_SERVER_URL = PROTOCOL + "://" + HOST + ":" + PORT + "/mobile";
+    public static final String BASE_SERVER_URL = "https://query.yahooapis.com/";
 
 }
