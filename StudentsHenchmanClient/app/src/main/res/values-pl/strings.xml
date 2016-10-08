@@ -1,0 +1,6 @@
+<resources>
+    <!--activities titles-->
+    <string name="app_name">Students Henchman</string>
+    <string name="dashboard">Ekran główny</string>
+    <string name="settings">Ustawienia</string>
+</resources>
