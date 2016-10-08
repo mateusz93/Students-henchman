@@ -1,0 +1,3 @@
+http://localhost:8080/date	- zwraca bierzącą dane w formacie yyyy-MM-dd HH:mm
+http://localhost:8080/departments	- zwraca liste departamentów
+http://localhost:8080/departments/{name}	- zwraca departament

@@ -28,6 +28,3 @@ Klient mobilny jest lekką aplikacją, która pobiera dane z serwisu i przechowu
 ## Serwis
 
 Jego zadaniem jest cykliczne pobieranie udostępnionych danych o planach, zajęciach, grupach oraz odpowiadanie na żądania klientów mobilnych.
-
-#### Lista endpointów
-http://localhost:8080/date	- zwraca bierzącą dane w formacie yyyy-MM-dd HH:mm
