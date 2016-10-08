@@ -13,7 +13,7 @@ import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-import edu.p.lodz.pl.studentshenchman.Constants.Constants;
+import edu.p.lodz.pl.studentshenchman.constants.Constants;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -40,7 +40,7 @@ public class ServiceFactory {
 
     private static Gson getGson() {
         Gson gson = new GsonBuilder()
-                .setDateFormat(Constants.DATE_FORMT)
+                .setDateFormat(Constants.DATE_FORMAT)
                 .registerTypeAdapterFactory(new ItemTypeAdapterFactory())
                 .create();
 
@@ -50,15 +50,15 @@ public class ServiceFactory {
     private static OkHttpClient getHttpClient(final boolean retryIfFailure) {
 
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
-        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
 
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        builder.interceptors().add(httpLoggingInterceptor);
 
         builder.connectTimeout(Constants.CONNECTION_TIMEOUT, TimeUnit.SECONDS)
                 .readTimeout(Constants.READ_TIMEOUT, TimeUnit.SECONDS)
                 .writeTimeout(Constants.WRITE_TIMEOUT, TimeUnit.SECONDS)
-                .retryOnConnectionFailure(retryIfFailure);
+                .retryOnConnectionFailure(retryIfFailure)
+                .addInterceptor(httpLoggingInterceptor);
 
         return builder.build();
     }
