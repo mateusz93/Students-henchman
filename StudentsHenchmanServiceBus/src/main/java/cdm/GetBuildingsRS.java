@@ -2,6 +2,7 @@ package cdm;
 
 import model.Building;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,7 +10,7 @@ import java.util.List;
  */
 public class GetBuildingsRS {
 
-    private List<Building> buildings;
+    private List<Building> buildings = new ArrayList<>();
     private String status;
 
     public List<Building> getBuildings() {

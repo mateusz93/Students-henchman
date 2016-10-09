@@ -1,7 +1,5 @@
 package service;
 
-import cdm.GetBuildingByDepartmentRS;
-import cdm.GetBuildingByNameRS;
 import cdm.GetBuildingsRS;
 
 /**
@@ -9,8 +7,8 @@ import cdm.GetBuildingsRS;
  */
 public interface BuildingService {
 
-    GetBuildingByNameRS prepareResultForGetBuildingByName(String request);
-    GetBuildingByDepartmentRS prepareResultForGetBuildingByDepartment(String request);
+    GetBuildingsRS prepareResultForGetBuildingByName(String name);
+    GetBuildingsRS prepareResultForGetBuildingById(String id);
     GetBuildingsRS prepareResultForGetBuildings();
 
 }

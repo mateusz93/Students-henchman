@@ -24,9 +24,6 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Autowired
     private DepartmentRepository repository;
 
-    @Autowired
-    private ObjectMapper objectMapper;
-
     @Override
     public DepartmentsRS prepareResultForGetDepartments() {
         DepartmentsRS result = new DepartmentsRS();

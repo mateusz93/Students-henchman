@@ -1,15 +1,11 @@
 package controller;
 
-import cdm.GetBuildingByDepartmentRS;
-import cdm.GetBuildingByNameRS;
 import cdm.GetBuildingsRS;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import repository.BuildingRepository;
 import service.BuildingService;
 
@@ -29,22 +25,17 @@ public class BuildingController {
     private BuildingService buildingService;
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
-    public GetBuildingsRS getAllBuidings() {
+    public GetBuildingsRS getAllBuidings(@RequestParam(value="name", required=false) String name, @RequestParam(value="id", required=false) String id) {
         log.info("getAllBuidings core invoked");
-        return buildingService.prepareResultForGetBuildings();
+        if (StringUtils.isNotEmpty(name)) {
+            log.info("PathParameter: Name=" + name);
+            return buildingService.prepareResultForGetBuildingByName(name);
+        } else if (StringUtils.isNotEmpty(id)) {
+            log.info("PathParameter: id=" + id);
+            return buildingService.prepareResultForGetBuildingById(id);
+        } else {
+            return buildingService.prepareResultForGetBuildings();
+        }
     }
 
-    @RequestMapping(value = "/name", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-    public GetBuildingByNameRS getBuidingByName(@RequestBody String request) {
-        log.info("getBuidingByName core invoked.");
-        log.info("RequestBody: " + request.trim());
-        return buildingService.prepareResultForGetBuildingByName(request);
-    }
-
-    @RequestMapping(value = "/department", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-    public GetBuildingByDepartmentRS getBuidingsByDepartment(@RequestBody String request) {
-        log.info("getBuidingsByDepartment core invoked.");
-        log.info("RequestBody: " + request.trim());
-        return buildingService.prepareResultForGetBuildingByDepartment(request);
-    }
 }
