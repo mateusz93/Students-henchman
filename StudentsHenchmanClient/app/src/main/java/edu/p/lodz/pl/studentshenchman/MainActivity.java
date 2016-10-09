@@ -34,6 +34,15 @@ public class MainActivity extends StudentShenchmanMainActivity {
                 downloadDateWorker.runService();
             }
         });
+
+        Button settingsButton = (Button) findViewById(R.id.settingsButon);
+
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToSettings();
+            }
+        });
     }
 
     public void prepareToolbar() {
