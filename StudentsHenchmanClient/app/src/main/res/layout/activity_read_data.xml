@@ -67,7 +67,6 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="fill_parent"
                                 android:text="Tak"
-                                android:checked="true"
                                 android:layout_column="0"
                                 android:layout_weight="1"/>
 
@@ -76,6 +75,7 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="fill_parent"
                                 android:text="Nie"
+                                android:checked="true"
                                 android:layout_column="1"
                                 android:layout_weight="1"/>
                         </RadioGroup>
@@ -93,7 +93,9 @@
                 android:layout_weight="0.1"
                 android:background="#AAADD8E6"
                 android:padding="@dimen/activity_main_textview_padding"
-                android:layout_marginTop="@dimen/activity_main_button_margin">
+                android:layout_marginTop="@dimen/activity_main_button_margin"
+                android:id="@+id/tokenValueTableRow"
+                android:visibility="gone">
 
                 <EditText
                     android:layout_width="fill_parent"
