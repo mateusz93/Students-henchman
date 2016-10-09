@@ -2,14 +2,15 @@ package cdm;
 
 import model.Department;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @Author Mateusz Wieczorek on 10/9/16.
  */
-public class GetDepartmentsRS {
+public class DepartmentsRS {
 
-    private List<Department> departments;
+    private List<Department> departments = new ArrayList<>();
     private String status;
 
     public List<Department> getDepartments() {
@@ -30,7 +31,7 @@ public class GetDepartmentsRS {
 
     @Override
     public String toString() {
-        return "GetDepartmentsRS{" +
+        return "DepartmentsRS{" +
                 "departments=" + departments +
                 ", status='" + status + '\'' +
                 '}';

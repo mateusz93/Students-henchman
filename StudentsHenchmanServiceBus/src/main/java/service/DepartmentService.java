@@ -1,14 +1,14 @@
 package service;
 
-import cdm.GetDepartmentByNameRS;
-import cdm.GetDepartmentsRS;
+import cdm.DepartmentsRS;
 
 /**
  * @Author Mateusz Wieczorek on 10/9/16.
  */
 public interface DepartmentService {
 
-    GetDepartmentsRS prepareResultForGetDepartments();
-    GetDepartmentByNameRS prepareResultForGetDepartmentByName(String request);
+    DepartmentsRS prepareResultForGetDepartments();
+    DepartmentsRS prepareResultForGetDepartmentByName(String name);
+    DepartmentsRS prepareResultForGetDepartmentById(String id);
 
 }

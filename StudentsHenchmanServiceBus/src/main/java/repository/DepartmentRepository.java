@@ -8,4 +8,5 @@ import model.Department;
 public interface DepartmentRepository extends CrudRepository<Department, Long> {
 
     Department findByName(String name);
+    Department findById(Integer id);
 }

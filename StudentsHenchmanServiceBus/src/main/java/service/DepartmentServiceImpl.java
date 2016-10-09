@@ -1,8 +1,6 @@
 package service;
 
-import cdm.GetDepartmentByNameRQ;
-import cdm.GetDepartmentByNameRS;
-import cdm.GetDepartmentsRS;
+import cdm.DepartmentsRS;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import model.Department;
 import org.slf4j.Logger;
@@ -13,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import repository.DepartmentRepository;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -31,13 +28,13 @@ public class DepartmentServiceImpl implements DepartmentService {
     private ObjectMapper objectMapper;
 
     @Override
-    public GetDepartmentsRS prepareResultForGetDepartments() {
-        GetDepartmentsRS result = new GetDepartmentsRS();
+    public DepartmentsRS prepareResultForGetDepartments() {
+        DepartmentsRS result = new DepartmentsRS();
         List<Department> departments = (List<Department>) repository.findAll();
-        result.setDepartments(departments);
         if (CollectionUtils.isEmpty(departments)) {
             result.setStatus(HttpStatus.NOT_FOUND.getReasonPhrase());
         } else {
+            result.setDepartments(departments);
             result.setStatus(HttpStatus.FOUND.getReasonPhrase());
         }
         log.info("ResponseBody: " + result);
@@ -45,24 +42,30 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public GetDepartmentByNameRS prepareResultForGetDepartmentByName(String request) {
-        GetDepartmentByNameRS result = new GetDepartmentByNameRS();
-        try {
-            GetDepartmentByNameRQ getDepartmentByNameRQ = objectMapper.readValue(request, GetDepartmentByNameRQ.class);
-            Department department = repository.findByName(getDepartmentByNameRQ.getName());
-            result.setDepartment(department);
-            if (department != null) {
-                result.setStatus(HttpStatus.FOUND.getReasonPhrase());
-            } else {
-                result.setStatus(HttpStatus.NOT_FOUND.getReasonPhrase());
-            }
-            log.info("ResponseBody: " + result.toString());
-            return result;
-        } catch (IOException e) {
-            result.setStatus(HttpStatus.BAD_REQUEST.getReasonPhrase());
-            log.info("Exception: " + e.getMessage().trim());
-            log.info("ResponseBody: " + result);
-            return result;
+    public DepartmentsRS prepareResultForGetDepartmentByName(String name) {
+        DepartmentsRS result = new DepartmentsRS();
+        Department department = repository.findByName(name);
+        if (department != null) {
+            result.getDepartments().add(department);
+            result.setStatus(HttpStatus.FOUND.getReasonPhrase());
+        } else {
+            result.setStatus(HttpStatus.NOT_FOUND.getReasonPhrase());
         }
+        log.info("ResponseBody: " + result.toString());
+        return result;
+    }
+
+    @Override
+    public DepartmentsRS prepareResultForGetDepartmentById(String id) {
+        DepartmentsRS result = new DepartmentsRS();
+        Department department = repository.findById(Integer.valueOf(id));
+        if (department != null) {
+            result.getDepartments().add(department);
+            result.setStatus(HttpStatus.FOUND.getReasonPhrase());
+        } else {
+            result.setStatus(HttpStatus.NOT_FOUND.getReasonPhrase());
+        }
+        log.info("ResponseBody: " + result.toString());
+        return result;
     }
 }
