@@ -1,5 +1,7 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
@@ -18,6 +20,7 @@ public class SubjectsBlock implements Serializable {
     @Column(name = "nazwa_bloku")
     private String name;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "subjectsBlock", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Subject> subjects;
 
@@ -71,7 +74,6 @@ public class SubjectsBlock implements Serializable {
         return "SubjectsBlock{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", subjects=" + subjects +
                 '}';
     }
 }

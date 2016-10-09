@@ -1,5 +1,7 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
@@ -24,11 +26,12 @@ public class Building implements Serializable {
     @Column(name = "dlugosc_geograficzna")
     private double longitute;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_wydzialu")
     private Department department;
 
-    @OneToMany(mappedBy = "building", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    @OneToMany(mappedBy = "building", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Room> rooms;
 
     public Set<Room> getRooms() {
@@ -96,21 +99,6 @@ public class Building implements Serializable {
     }
 
     @Override
-    public int hashCode() {
-        int result;
-        long temp;
-        result = id;
-        result = 31 * result + name.hashCode();
-        temp = Double.doubleToLongBits(latitude);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(longitute);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + department.hashCode();
-        result = 31 * result + rooms.hashCode();
-        return result;
-    }
-
-    @Override
     public String toString() {
         return "Building{" +
                 "id=" + id +
@@ -118,7 +106,6 @@ public class Building implements Serializable {
                 ", latitude=" + latitude +
                 ", longitute=" + longitute +
                 ", department=" + department +
-                ", rooms=" + rooms +
                 '}';
     }
 }

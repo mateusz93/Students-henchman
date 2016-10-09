@@ -62,19 +62,10 @@ public class Department implements Serializable {
     }
 
     @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + name.hashCode();
-        result = 31 * result + buildings.hashCode();
-        return result;
-    }
-
-    @Override
     public String toString() {
         return "Department{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", buildings=" + buildings +
                 '}';
     }
 }

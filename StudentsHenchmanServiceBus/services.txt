@@ -1,3 +1,8 @@
 http://localhost:8080/date	- zwraca bierzącą dane w formacie yyyy-MM-dd HH:mm
-http://localhost:8080/departments	- zwraca liste departamentów
-http://localhost:8080/departments/{name}	- zwraca departament
+http://localhost:8080/departments	    Method.GET -  zwraca GetDepartmentsRS
+http://localhost:8080/departments/name	    Method.POST - przyjmuje GetDepartmentByNameRQ, zwraca GetDepartmentByNameRS
+http://localhost:8080/buildings	    Method.GET - zwraca GetBuildingsRS
+http://localhost:8080/buildings/name    Method.POST - przyjmuje GetBuildingByNameRQ, zwraca GetBuildingByNameRS
+http://localhost:8080/buildings/department    Method.POST - przyjmuje GetBuildingByDepartmentRQ, zwraca GetBuildingByDepartmentRS
+
+

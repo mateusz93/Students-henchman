@@ -1,17 +1,19 @@
 package controller;
 
+import cdm.GetDepartmentByNameRS;
+import cdm.GetDepartmentsRS;
 import model.Department;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import repository.DepartmentRepository;
+import service.DepartmentService;
 
 import java.util.List;
+
+import static org.hsqldb.lib.tar.TarHeaderField.name;
 
 /**
  * @Author Mateusz Wieczorek on 10/4/16.
@@ -25,17 +27,20 @@ public class DepartmentController {
     @Autowired
     private DepartmentRepository repository;
 
-    @RequestMapping(method = RequestMethod.GET)
-    public List<Department> getAllDepartment() {
+    @Autowired
+    private DepartmentService departmentService;
+
+    @RequestMapping(method = RequestMethod.GET, produces = "application/json")
+    public GetDepartmentsRS getAllDepartment() {
         log.info("getAllDepartment core invoked");
-        return (List<Department>) repository.findAll();
+        return departmentService.prepareResultForGetDepartments();
     }
 
-    @RequestMapping(value = "/{name}", method = RequestMethod.GET)
-    public Object getDepartment(@PathVariable String name) {
-        log.info("getDepartment core invoked. Param value: " + name);
-        Department department = repository.findByName(name);
-        return department != null ? department : HttpStatus.NOT_FOUND;
+    @RequestMapping(value = "/name", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    public GetDepartmentByNameRS getDepartment(@RequestBody String request) {
+        log.info("getDepartment core invoked.");
+        log.info("RequestBody: " + request.trim());
+        return departmentService.prepareResultForGetDepartmentByName(request);
     }
 
 }
