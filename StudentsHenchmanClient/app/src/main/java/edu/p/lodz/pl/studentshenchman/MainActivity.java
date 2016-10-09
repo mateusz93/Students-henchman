@@ -21,11 +21,11 @@ public class MainActivity extends StudentShenchmanMainActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        toolbar = (Toolbar) findViewById(R.id.tool_bar);
-        prepareToolbar();
+        //toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        //prepareToolbar();
 
 
-        Button button = (Button) findViewById(R.id.button);
+        Button button = (Button) findViewById(R.id.readDataButton);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
