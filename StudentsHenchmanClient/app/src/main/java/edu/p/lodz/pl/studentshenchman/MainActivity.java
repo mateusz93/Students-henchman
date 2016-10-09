@@ -43,6 +43,24 @@ public class MainActivity extends StudentShenchmanMainActivity {
                 goToSettings();
             }
         });
+
+        Button saveDataButton = (Button) findViewById(R.id.saveDataButton);
+
+        saveDataButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToSaveData();
+            }
+        });
+
+        Button readDataButton = (Button) findViewById(R.id.readDataButton);
+
+        readDataButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToReadData();
+            }
+        });
     }
 
     public void prepareToolbar() {
@@ -75,6 +93,18 @@ public class MainActivity extends StudentShenchmanMainActivity {
 
     private void goToSettings() {
         Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+        finish();
+        startActivity(intent);
+    }
+
+    private void goToSaveData() {
+        Intent intent = new Intent(MainActivity.this, SaveDataActivity.class);
+        finish();
+        startActivity(intent);
+    }
+
+    private void goToReadData() {
+        Intent intent = new Intent(MainActivity.this, ReadDataActivity.class);
         finish();
         startActivity(intent);
     }

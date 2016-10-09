@@ -14,8 +14,8 @@
 
     <style name="button" parent="@android:style/Widget.Button">
         <item name="android:gravity">center_vertical|center_horizontal</item>
-        <item name="android:textColor">#FF000000</item>
-        <item name="android:shadowColor">#FF000000</item>
+        <item name="android:textColor">#CC3A3A3A</item>
+        <item name="android:shadowColor">#CC3A3A3A</item>
         <item name="android:shadowDx">0</item>
         <item name="android:shadowDy">-1</item>
         <item name="android:shadowRadius">0.2</item>
