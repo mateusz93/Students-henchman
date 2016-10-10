@@ -1,7 +1,5 @@
 package cdm;
 
-import model.Department;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +9,6 @@ import java.util.List;
 public class DepartmentsRS {
 
     private List<Department> departments = new ArrayList<>();
-    private String status;
 
     public List<Department> getDepartments() {
         return departments;
@@ -21,19 +18,11 @@ public class DepartmentsRS {
         this.departments = departments;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
 
     @Override
     public String toString() {
         return "DepartmentsRS{" +
                 "departments=" + departments +
-                ", status='" + status + '\'' +
                 '}';
     }
 }

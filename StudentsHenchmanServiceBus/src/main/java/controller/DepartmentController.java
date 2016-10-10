@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import repository.DepartmentRepository;
 import service.DepartmentService;
 
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * @Author Mateusz Wieczorek on 10/4/16.
  */
@@ -29,16 +31,18 @@ public class DepartmentController {
 
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
-    public DepartmentsRS getDepartment(@RequestParam(value="name", required=false) String name, @RequestParam(value="id", required=false) String id) {
+    public DepartmentsRS getDepartment(@RequestParam(value="name", required=false) String name,
+                                       @RequestParam(value="id", required=false) String id,
+                                       HttpServletResponse httpResponse) {
         log.info("getDepartment core invoked.");
         if (StringUtils.isNotEmpty(name)) {
             log.info("PathParameter: Name=" + name);
-            return departmentService.prepareResultForGetDepartmentByName(name);
+            return departmentService.prepareResultForGetDepartmentByName(httpResponse, name);
         } else if (StringUtils.isNotEmpty(id)) {
             log.info("PathParameter: id=" + id);
-            return departmentService.prepareResultForGetDepartmentById(id);
+            return departmentService.prepareResultForGetDepartmentById(httpResponse, id);
         } else {
-            return departmentService.prepareResultForGetDepartments();
+            return departmentService.prepareResultForGetDepartments(httpResponse);
         }
     }
 

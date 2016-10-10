@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import repository.DepartmentRepository;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -24,45 +26,66 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Autowired
     private DepartmentRepository repository;
 
+    @Autowired
+    private ObjectMapper mapper;
+
+    private DepartmentsRS result = new DepartmentsRS();
+
     @Override
-    public DepartmentsRS prepareResultForGetDepartments() {
-        DepartmentsRS result = new DepartmentsRS();
-        List<Department> departments = (List<Department>) repository.findAll();
-        if (CollectionUtils.isEmpty(departments)) {
-            result.setStatus(HttpStatus.NOT_FOUND.getReasonPhrase());
-        } else {
-            result.setDepartments(departments);
-            result.setStatus(HttpStatus.FOUND.getReasonPhrase());
+    public DepartmentsRS prepareResultForGetDepartments(HttpServletResponse httpResponse) {
+        try {
+            List<Department> departments = (List<Department>) repository.findAll();
+            if (CollectionUtils.isEmpty(departments)) {
+                httpResponse.setStatus(HttpStatus.NOT_FOUND.value());
+            } else {
+                for (Department department : departments) {
+                    String departmentInString = mapper.writeValueAsString(department);
+                    result.getDepartments().add(mapper.readValue(departmentInString, cdm.Department.class));
+                }
+                httpResponse.setStatus(HttpStatus.FOUND.value());
+            }
+            log.info("ResponseBody: " + result.toString());
+        } catch (IOException e) {
+            log.error("Exception: " + e.getMessage());
         }
-        log.info("ResponseBody: " + result);
         return result;
     }
 
     @Override
-    public DepartmentsRS prepareResultForGetDepartmentByName(String name) {
-        DepartmentsRS result = new DepartmentsRS();
-        Department department = repository.findByName(name);
-        if (department != null) {
-            result.getDepartments().add(department);
-            result.setStatus(HttpStatus.FOUND.getReasonPhrase());
-        } else {
-            result.setStatus(HttpStatus.NOT_FOUND.getReasonPhrase());
+    public DepartmentsRS prepareResultForGetDepartmentByName(HttpServletResponse httpResponse, String name) {
+        try {
+            Department department = repository.findByName(name);
+            if (department != null) {
+                String departmentInString = mapper.writeValueAsString(department);
+                result.getDepartments().add(mapper.readValue(departmentInString, cdm.Department.class));
+                httpResponse.setStatus(HttpStatus.FOUND.value());
+            } else {
+                httpResponse.setStatus(HttpStatus.NOT_FOUND.value());
+            }
+            log.info("ResponseBody: " + result.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+            log.error("Exception: " + e.getMessage());
         }
-        log.info("ResponseBody: " + result.toString());
         return result;
     }
 
     @Override
-    public DepartmentsRS prepareResultForGetDepartmentById(String id) {
-        DepartmentsRS result = new DepartmentsRS();
-        Department department = repository.findById(Integer.valueOf(id));
-        if (department != null) {
-            result.getDepartments().add(department);
-            result.setStatus(HttpStatus.FOUND.getReasonPhrase());
-        } else {
-            result.setStatus(HttpStatus.NOT_FOUND.getReasonPhrase());
+    public DepartmentsRS prepareResultForGetDepartmentById(HttpServletResponse httpResponse, String id) {
+        try {
+            Department department = repository.findById(Integer.valueOf(id));
+            if (department != null) {
+                String departmentInString = mapper.writeValueAsString(department);
+                result.getDepartments().add(mapper.readValue(departmentInString, cdm.Department.class));
+                httpResponse.setStatus(HttpStatus.FOUND.value());
+            } else {
+                httpResponse.setStatus(HttpStatus.NOT_FOUND.value());
+            }
+            log.info("ResponseBody: " + result.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+            log.error("Exception: " + e.getMessage());
         }
-        log.info("ResponseBody: " + result.toString());
         return result;
     }
 }

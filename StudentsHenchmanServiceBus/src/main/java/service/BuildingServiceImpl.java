@@ -1,6 +1,7 @@
 package service;
 
-import cdm.GetBuildingsRS;
+import cdm.BuildingsRS;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import model.Building;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import repository.BuildingRepository;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -23,45 +26,65 @@ public class BuildingServiceImpl implements BuildingService {
     @Autowired
     private BuildingRepository repository;
 
+    @Autowired
+    private ObjectMapper mapper;
+
+    private BuildingsRS result = new BuildingsRS();
+
     @Override
-    public GetBuildingsRS prepareResultForGetBuildingByName(String name) {
-        GetBuildingsRS result = new GetBuildingsRS();
-        Building building = repository.findByName(name);
-        if (building != null) {
-            result.getBuildings().add(building);
-            result.setStatus(HttpStatus.FOUND.getReasonPhrase());
-        } else {
-            result.setStatus(HttpStatus.NOT_FOUND.getReasonPhrase());
+    public BuildingsRS prepareResultForGetBuildingByName(HttpServletResponse httpResponse, String name) {
+        try {
+            Building building = repository.findByName(name);
+            if (building != null) {
+                String buildingInString = mapper.writeValueAsString(building);
+                result.getBuildings().add(mapper.readValue(buildingInString, cdm.Building.class));
+                httpResponse.setStatus(HttpStatus.FOUND.value());
+            } else {
+                httpResponse.setStatus(HttpStatus.NOT_FOUND.value());
+            }
+            log.info("ResponseBody: " + result.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+            log.error("Exception: " + e.getMessage());
         }
-        log.info("ResponseBody: " + result);
         return result;
     }
 
     @Override
-    public GetBuildingsRS prepareResultForGetBuildingById(String id) {
-        GetBuildingsRS result = new GetBuildingsRS();
-        Building building = repository.findById(Integer.valueOf(id));
-        if (building != null) {
-            result.getBuildings().add(building);
-            result.setStatus(HttpStatus.FOUND.getReasonPhrase());
-        } else {
-            result.setStatus(HttpStatus.NOT_FOUND.getReasonPhrase());
+    public BuildingsRS prepareResultForGetBuildingById(HttpServletResponse httpResponse, String id) {
+        try {
+            Building building = repository.findById(Integer.valueOf(id));
+            if (building != null) {
+                String buildingInString = mapper.writeValueAsString(building);
+                result.getBuildings().add(mapper.readValue(buildingInString, cdm.Building.class));
+                httpResponse.setStatus(HttpStatus.FOUND.value());
+            } else {
+                httpResponse.setStatus(HttpStatus.NOT_FOUND.value());
+            }
+            log.info("ResponseBody: " + result.toString());
+        } catch (IOException e) {
+            log.error("Exception: " + e.getMessage());
         }
-        log.info("ResponseBody: " + result);
         return result;
     }
 
     @Override
-    public GetBuildingsRS prepareResultForGetBuildings() {
-        GetBuildingsRS result = new GetBuildingsRS();
-        List<Building> buildings = (List<Building>) repository.findAll();
-        if (CollectionUtils.isEmpty(buildings)) {
-            result.setStatus(HttpStatus.NOT_FOUND.getReasonPhrase());
-        } else {
-            result.setBuildings(buildings);
-            result.setStatus(HttpStatus.FOUND.getReasonPhrase());
+    public BuildingsRS prepareResultForGetBuildings(HttpServletResponse httpResponse) {
+        try {
+            List<Building> buildings = (List<Building>) repository.findAll();
+            if (CollectionUtils.isEmpty(buildings)) {
+                httpResponse.setStatus(HttpStatus.NOT_FOUND.value());
+            } else {
+                for (Building building : buildings) {
+                    String buildingInString = mapper.writeValueAsString(building);
+                    result.getBuildings().add(mapper.readValue(buildingInString, cdm.Building.class));
+                }
+                httpResponse.setStatus(HttpStatus.FOUND.value());
+            }
+            log.info("ResponseBody: " + result.toString());
+        } catch (IOException e) {
+            log.error("Exception: " + e.getMessage());
         }
-        log.info("ResponseBody: " + result);
         return result;
     }
 }

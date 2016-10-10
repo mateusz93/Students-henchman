@@ -1,17 +1,14 @@
 package cdm;
 
-import model.Building;
-
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @Author Mateusz Wieczorek on 10/9/16.
  */
-public class GetBuildingsRS {
+public class BuildingsRS {
 
     private List<Building> buildings = new ArrayList<>();
-    private String status;
 
     public List<Building> getBuildings() {
         return buildings;
@@ -21,19 +18,10 @@ public class GetBuildingsRS {
         this.buildings = buildings;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     @Override
     public String toString() {
-        return "GetBuildingsRS{" +
+        return "BuildingsRS{" +
                 "buildings=" + buildings +
-                ", status='" + status + '\'' +
                 '}';
     }
 }
