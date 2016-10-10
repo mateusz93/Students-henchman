@@ -1,5 +1,7 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
@@ -21,6 +23,14 @@ public class Specialization implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_przedmiotu")
     private Subject subject;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_kierunku")
+    private Field field;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "specialization", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Subject> subjects;
 
     public long getId() {
         return id;
@@ -46,6 +56,22 @@ public class Specialization implements Serializable {
         this.subject = subject;
     }
 
+    public Field getField() {
+        return field;
+    }
+
+    public void setField(Field field) {
+        this.field = field;
+    }
+
+    public Set<Subject> getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(Set<Subject> subjects) {
+        this.subjects = subjects;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -55,7 +81,9 @@ public class Specialization implements Serializable {
 
         if (id != that.id) return false;
         if (!name.equals(that.name)) return false;
-        return subject.equals(that.subject);
+        if (!subject.equals(that.subject)) return false;
+        if (!field.equals(that.field)) return false;
+        return subjects.equals(that.subjects);
 
     }
 
@@ -64,6 +92,8 @@ public class Specialization implements Serializable {
         int result = id;
         result = 31 * result + name.hashCode();
         result = 31 * result + subject.hashCode();
+        result = 31 * result + field.hashCode();
+        result = 31 * result + subjects.hashCode();
         return result;
     }
 
@@ -73,6 +103,8 @@ public class Specialization implements Serializable {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", subject=" + subject +
+                ", field=" + field +
+                ", subjects=" + subjects +
                 '}';
     }
 }

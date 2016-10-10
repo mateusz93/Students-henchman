@@ -46,6 +46,10 @@ public class Subject implements Serializable {
     @JoinColumn(name = "id_bloku_obieralnego")
     private SubjectsBlock subjectsBlock;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_specjalizacji")
+    private Specialization specialization;
+
     public SubjectsBlock getSubjectsBlock() {
         return subjectsBlock;
     }
@@ -134,6 +138,14 @@ public class Subject implements Serializable {
         this.teacherName = teacherName;
     }
 
+    public Specialization getSpecialization() {
+        return specialization;
+    }
+
+    public void setSpecialization(Specialization specialization) {
+        this.specialization = specialization;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -151,7 +163,8 @@ public class Subject implements Serializable {
         if (!name.equals(subject.name)) return false;
         if (!teacherName.equals(subject.teacherName)) return false;
         if (!room.equals(subject.room)) return false;
-        return subjectsBlock.equals(subject.subjectsBlock);
+        if (!subjectsBlock.equals(subject.subjectsBlock)) return false;
+        return specialization.equals(subject.specialization);
 
     }
 
@@ -168,6 +181,7 @@ public class Subject implements Serializable {
         result = 31 * result + teacherName.hashCode();
         result = 31 * result + room.hashCode();
         result = 31 * result + subjectsBlock.hashCode();
+        result = 31 * result + specialization.hashCode();
         return result;
     }
 
@@ -185,6 +199,7 @@ public class Subject implements Serializable {
                 ", teacherName='" + teacherName + '\'' +
                 ", room=" + room +
                 ", subjectsBlock=" + subjectsBlock +
+                ", specialization=" + specialization +
                 '}';
     }
 }

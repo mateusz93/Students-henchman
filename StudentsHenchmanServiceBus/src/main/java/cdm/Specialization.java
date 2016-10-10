@@ -10,6 +10,7 @@ public class Specialization implements Serializable {
     private int id;
     private String name;
     private Subject subject;
+    private Field field;
 
     public long getId() {
         return id;
@@ -35,12 +36,21 @@ public class Specialization implements Serializable {
         this.subject = subject;
     }
 
+    public Field getField() {
+        return field;
+    }
+
+    public void setField(Field field) {
+        this.field = field;
+    }
+
     @Override
     public String toString() {
         return "Specialization{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", subject=" + subject +
+                ", field=" + field +
                 '}';
     }
 }

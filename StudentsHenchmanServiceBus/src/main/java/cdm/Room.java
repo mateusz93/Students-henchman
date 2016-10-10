@@ -1,6 +1,5 @@
 package cdm;
 
-import javax.persistence.*;
 import java.io.Serializable;
 
 /**

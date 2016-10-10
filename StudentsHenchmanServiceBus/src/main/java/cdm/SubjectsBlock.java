@@ -9,6 +9,7 @@ public class SubjectsBlock implements Serializable {
 
     private int id;
     private String name;
+    private Field field;
 
     public long getId() {
         return id;
@@ -26,11 +27,20 @@ public class SubjectsBlock implements Serializable {
         this.name = name;
     }
 
+    public Field getField() {
+        return field;
+    }
+
+    public void setField(Field field) {
+        this.field = field;
+    }
+
     @Override
     public String toString() {
         return "SubjectsBlock{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", field=" + field +
                 '}';
     }
 }

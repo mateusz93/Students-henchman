@@ -20,6 +20,10 @@ public class SubjectsBlock implements Serializable {
     @Column(name = "nazwa_bloku")
     private String name;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_kierunku")
+    private Field field;
+
     @JsonIgnore
     @OneToMany(mappedBy = "subjectsBlock", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Subject> subjects;
@@ -48,6 +52,14 @@ public class SubjectsBlock implements Serializable {
         this.name = name;
     }
 
+    public Field getField() {
+        return field;
+    }
+
+    public void setField(Field field) {
+        this.field = field;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -57,6 +69,7 @@ public class SubjectsBlock implements Serializable {
 
         if (id != that.id) return false;
         if (!name.equals(that.name)) return false;
+        if (!field.equals(that.field)) return false;
         return subjects.equals(that.subjects);
 
     }
@@ -65,6 +78,7 @@ public class SubjectsBlock implements Serializable {
     public int hashCode() {
         int result = id;
         result = 31 * result + name.hashCode();
+        result = 31 * result + field.hashCode();
         result = 31 * result + subjects.hashCode();
         return result;
     }
@@ -74,6 +88,8 @@ public class SubjectsBlock implements Serializable {
         return "SubjectsBlock{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", field=" + field +
+                ", subjects=" + subjects +
                 '}';
     }
 }

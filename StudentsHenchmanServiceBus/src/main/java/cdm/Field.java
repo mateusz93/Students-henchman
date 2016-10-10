@@ -1,16 +1,15 @@
 package cdm;
 
-import java.io.Serializable;
-
 /**
- * @Author Mateusz Wieczorek on 10/4/16.
+ * @Author Mateusz Wieczorek on 10/10/16.
  */
-public class Department implements Serializable {
+public class Field {
 
     private int id;
     private String name;
+    private Department department;
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
@@ -26,11 +25,20 @@ public class Department implements Serializable {
         this.name = name;
     }
 
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
     @Override
     public String toString() {
-        return "Department{" +
+        return "Field{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", department=" + department +
                 '}';
     }
 }

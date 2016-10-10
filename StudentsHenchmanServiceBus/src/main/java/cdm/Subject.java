@@ -18,6 +18,7 @@ public class Subject implements Serializable {
     private String teacherName;
     private Room room;
     private SubjectsBlock subjectsBlock;
+    private Specialization specialization;
 
     public SubjectsBlock getSubjectsBlock() {
         return subjectsBlock;
@@ -107,6 +108,14 @@ public class Subject implements Serializable {
         this.teacherName = teacherName;
     }
 
+    public Specialization getSpecialization() {
+        return specialization;
+    }
+
+    public void setSpecialization(Specialization specialization) {
+        this.specialization = specialization;
+    }
+
     @Override
     public String toString() {
         return "Subject{" +
@@ -121,6 +130,7 @@ public class Subject implements Serializable {
                 ", teacherName='" + teacherName + '\'' +
                 ", room=" + room +
                 ", subjectsBlock=" + subjectsBlock +
+                ", specialization=" + specialization +
                 '}';
     }
 }

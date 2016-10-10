@@ -24,6 +24,10 @@ public class Department implements Serializable {
     @OneToMany(mappedBy = "department", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Building> buildings;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "department", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Field> fields;
+
     public long getId() {
         return id;
     }
@@ -48,6 +52,14 @@ public class Department implements Serializable {
         this.buildings = buildings;
     }
 
+    public Set<Field> getFields() {
+        return fields;
+    }
+
+    public void setFields(Set<Field> fields) {
+        this.fields = fields;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -57,8 +69,18 @@ public class Department implements Serializable {
 
         if (id != that.id) return false;
         if (!name.equals(that.name)) return false;
-        return buildings.equals(that.buildings);
+        if (!buildings.equals(that.buildings)) return false;
+        return fields.equals(that.fields);
 
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + name.hashCode();
+        result = 31 * result + buildings.hashCode();
+        result = 31 * result + fields.hashCode();
+        return result;
     }
 
     @Override
@@ -66,6 +88,8 @@ public class Department implements Serializable {
         return "Department{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", buildings=" + buildings +
+                ", fields=" + fields +
                 '}';
     }
 }
