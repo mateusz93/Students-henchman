@@ -24,6 +24,15 @@ public class MainActivity extends StudentShenchmanMainActivity {
         //toolbar = (Toolbar) findViewById(R.id.tool_bar);
         //prepareToolbar();
 
+        Button buttonTimetable = (Button) findViewById(R.id.timesheetButton);
+
+        buttonTimetable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToTimetable();
+            }
+        });
+
 
         Button button = (Button) findViewById(R.id.readDataButton);
 
@@ -89,6 +98,12 @@ public class MainActivity extends StudentShenchmanMainActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void goToTimetable() {
+        Intent intent = new Intent(MainActivity.this, TimetableActivity.class);
+        finish();
+        startActivity(intent);
     }
 
     private void goToSettings() {
