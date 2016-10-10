@@ -1,6 +1,5 @@
 package cdm;
 
-import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -12,6 +11,7 @@ public class User implements Serializable {
     private String firstName;
     private String lastName;
     private String email;
+    private String subjectIds;
     private String hashCode;
 
     public long getId() {
@@ -54,6 +54,14 @@ public class User implements Serializable {
         this.hashCode = hashCode;
     }
 
+    public String getSubjectIds() {
+        return subjectIds;
+    }
+
+    public void setSubjectIds(String subjectIds) {
+        this.subjectIds = subjectIds;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -61,6 +69,7 @@ public class User implements Serializable {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
+                ", subjectIds='" + subjectIds + '\'' +
                 ", hashCode='" + hashCode + '\'' +
                 '}';
     }

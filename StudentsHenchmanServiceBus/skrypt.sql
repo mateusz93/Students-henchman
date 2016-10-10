@@ -44,7 +44,8 @@ CREATE TABLE UZYTKOWNICY (
 	imie VARCHAR(30) NOT NULL,
 	nazwisko VARCHAR(30) NOT NULL,
 	email VARCHAR(256) NOT NULL,
-	hash_preferencji VARCHAR(256) NOT NULL
+	hash_preferencji VARCHAR(256) NOT NULL,
+	id_przedmiotow VARCHAR(500)
 );
 
 CREATE TABLE PRZEDMIOTY (
@@ -91,10 +92,10 @@ INSERT INTO WYDZIALY (nazwa_wydzialu) VALUES ('weeia');
 INSERT INTO KIERUNKI (nazwa_kierunku, id_wydzialu) VALUES ('Informatyka', (SELECT ID FROM WYDZIALY));
 INSERT INTO BUDYNKI (nazwa_budynku, szerokosc_geograficzna,dlugosc_geograficzna, id_wydzialu) VALUES ('Centrum Technologii Informatycznych', 51.7469995, 19.4557481, 1);
 INSERT INTO SALE (id_budynku, nazwa_sali) VALUES ((SELECT ID FROM BUDYNKI), '301');
-INSERT INTO UZYTKOWNICY (imie,nazwisko,email,hash_preferencji) VALUES ('Janek', 'Kowalski', 'jkowalski93@gmail.com','0x07e547d9586f6a73f73fbac0435ed76951218fb7d0c8d788a309d785436bbb642e93a252a954f23912547d1e8a3b5ed6e1bfd7097821233fa0538f3db854fee6');
 INSERT INTO PRZEDMIOTY (id_specjalizacji, id_sali,nazwa_przedmiotu,ilosc_zajec,cykl,pierwszy_tydzien_zajec, dzien_tygodnia,godzina,czas_trwania,prowadzacy) VALUES ((select id from SPECJALIZACJE), (select id from SALE), 'Programowanie sieciowe 2', 15, 1, 1, 3, 12, 2, 'R.Wajman');
 INSERT INTO PRZEDMIOTY (id_specjalizacji, id_sali,nazwa_przedmiotu,ilosc_zajec,cykl,pierwszy_tydzien_zajec, dzien_tygodnia,godzina,czas_trwania,prowadzacy) VALUES ((select id from SPECJALIZACJE), (select id from SALE), 'Algorytmy', 15, 1, 1, 2, 8, 2, 'J.Dokimuk');
 INSERT INTO PRZEDMIOTY (id_specjalizacji, id_sali,nazwa_przedmiotu,ilosc_zajec,cykl,pierwszy_tydzien_zajec, dzien_tygodnia,godzina,czas_trwania,prowadzacy) VALUES ((select id from SPECJALIZACJE), (select id from SALE), 'Seminarium dyplomowe', 15, 1, 1, 1, 8, 2 , 'A.Napieralski');
+INSERT INTO UZYTKOWNICY (imie,nazwisko,email,hash_preferencji, id_przedmiotow) VALUES ('Janek', 'Kowalski', 'jkowalski93@gmail.com','0x07e547d9586f6a73f73fbac0435ed76951218fb7d0c8d788a309d785436bbb642e93a252a954f23912547d1e8a3b5ed6e1bfd7097821233fa0538f3db854fee6', '1');
 INSERT INTO SPECJALIZACJE (nazwa_specjalizacji, id_kierunku) VALUES ('TM1', (SELECT ID FROM KIERUNKI));
 INSERT INTO BLOKI_OBIERALNE (nazwa_bloku, id_kierunku) VALUES ('ZPS', (SELECT ID FROM KIERUNKI));
 

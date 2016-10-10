@@ -26,6 +26,9 @@ public class User implements Serializable {
     @Column(name = "hash_preferencji")
     private String hashCode;
 
+    @Column(name = "id_przedmiotow")
+    private String subjectIds;
+
     public long getId() {
         return id;
     }
@@ -66,6 +69,14 @@ public class User implements Serializable {
         this.hashCode = hashCode;
     }
 
+    public String getSubjectIds() {
+        return subjectIds;
+    }
+
+    public void setSubjectIds(String subjectIds) {
+        this.subjectIds = subjectIds;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -77,7 +88,8 @@ public class User implements Serializable {
         if (!firstName.equals(user.firstName)) return false;
         if (!lastName.equals(user.lastName)) return false;
         if (!email.equals(user.email)) return false;
-        return hashCode.equals(user.hashCode);
+        if (!hashCode.equals(user.hashCode)) return false;
+        return subjectIds.equals(user.subjectIds);
 
     }
 
@@ -88,6 +100,7 @@ public class User implements Serializable {
         result = 31 * result + lastName.hashCode();
         result = 31 * result + email.hashCode();
         result = 31 * result + hashCode.hashCode();
+        result = 31 * result + subjectIds.hashCode();
         return result;
     }
 
@@ -99,6 +112,7 @@ public class User implements Serializable {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", hashCode='" + hashCode + '\'' +
+                ", subjectIds='" + subjectIds + '\'' +
                 '}';
     }
 }
