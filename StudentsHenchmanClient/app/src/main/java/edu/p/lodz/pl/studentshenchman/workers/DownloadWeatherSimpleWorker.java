@@ -8,7 +8,9 @@ import android.widget.Toast;
 import edu.p.lodz.pl.studentshenchman.factories.ServiceFactory;
 import edu.p.lodz.pl.studentshenchman.workers.endpoints.WeatherEndpoints;
 import edu.p.lodz.pl.studentshenchman.workers.utils.ResponseError;
+import edu.p.lodz.pl.studentshenchman.workers.utils.WorkerResponseCode;
 import edu.p.lodz.pl.studentshenchman.workers.woeid_dto.WOEID;
+import retrofit2.adapter.rxjava.HttpException;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -46,8 +48,7 @@ public class DownloadWeatherSimpleWorker extends AbstractWorker<WOEID> {
 
     @Override
     public void onError(Throwable e) {
-        ResponseError responseError = new ResponseError(400, e.getMessage(), e);
-        onError(mContext, responseError);
+        onError(mContext, e);
     }
 
     @Override

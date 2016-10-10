@@ -5,29 +5,29 @@ package edu.p.lodz.pl.studentshenchman.workers.utils;
  */
 public class ResponseError {
 
-    private int code;
+    private WorkerResponseCode code;
     private String message;
     private Throwable throwable;
 
     public ResponseError() {
     }
 
-    public ResponseError(int code, String message) {
+    public ResponseError(WorkerResponseCode code, String message) {
         this.code = code;
         this.message = message;
     }
 
-    public ResponseError(int code, String message, Throwable throwable) {
+    public ResponseError(WorkerResponseCode code, String message, Throwable throwable) {
         this.code = code;
         this.message = message;
         this.throwable = throwable;
     }
 
-    public int getCode() {
+    public WorkerResponseCode getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(WorkerResponseCode code) {
         this.code = code;
     }
 
@@ -50,7 +50,7 @@ public class ResponseError {
     @Override
     public String toString() {
         return "ResponseError{" +
-                "code=" + code +
+                "code=" + code.getResponseCode() +
                 ", message='" + message + '\'' +
                 '}';
     }

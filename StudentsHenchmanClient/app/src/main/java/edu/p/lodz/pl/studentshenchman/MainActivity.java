@@ -34,7 +34,7 @@ public class MainActivity extends StudentShenchmanMainActivity {
         });
 
 
-        Button button = (Button) findViewById(R.id.readDataButton);
+        Button button = (Button) findViewById(R.id.timesheetButton);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
