@@ -24,7 +24,7 @@ public class User implements Serializable {
     private String email;
 
     @Column(name = "hash_preferencji")
-    private String hashCode;
+    private String lessonPlanVersion;
 
     @Column(name = "id_przedmiotow")
     private String subjectIds;
@@ -61,12 +61,12 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public String getHashCode() {
-        return hashCode;
+    public String getLessonPlanVersion() {
+        return lessonPlanVersion;
     }
 
-    public void setHashCode(String hashCode) {
-        this.hashCode = hashCode;
+    public void setLessonPlanVersion(String lessonPlanVersion) {
+        this.lessonPlanVersion = lessonPlanVersion;
     }
 
     public String getSubjectIds() {
@@ -88,7 +88,7 @@ public class User implements Serializable {
         if (!firstName.equals(user.firstName)) return false;
         if (!lastName.equals(user.lastName)) return false;
         if (!email.equals(user.email)) return false;
-        if (!hashCode.equals(user.hashCode)) return false;
+        if (!lessonPlanVersion.equals(user.lessonPlanVersion)) return false;
         return subjectIds.equals(user.subjectIds);
 
     }
@@ -99,7 +99,7 @@ public class User implements Serializable {
         result = 31 * result + firstName.hashCode();
         result = 31 * result + lastName.hashCode();
         result = 31 * result + email.hashCode();
-        result = 31 * result + hashCode.hashCode();
+        result = 31 * result + lessonPlanVersion.hashCode();
         result = 31 * result + subjectIds.hashCode();
         return result;
     }
@@ -111,7 +111,7 @@ public class User implements Serializable {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", hashCode='" + hashCode + '\'' +
+                ", lessonPlanVersion='" + lessonPlanVersion + '\'' +
                 ", subjectIds='" + subjectIds + '\'' +
                 '}';
     }

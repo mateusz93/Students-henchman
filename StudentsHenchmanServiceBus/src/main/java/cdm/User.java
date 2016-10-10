@@ -12,7 +12,7 @@ public class User implements Serializable {
     private String lastName;
     private String email;
     private String subjectIds;
-    private String hashCode;
+    private String lessonPlanVersion;
 
     public long getId() {
         return id;
@@ -46,12 +46,12 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public String getHashCode() {
-        return hashCode;
+    public String getLessonPlanVersion() {
+        return lessonPlanVersion;
     }
 
-    public void setHashCode(String hashCode) {
-        this.hashCode = hashCode;
+    public void setLessonPlanVersion(String lessonPlanVersion) {
+        this.lessonPlanVersion = lessonPlanVersion;
     }
 
     public String getSubjectIds() {
@@ -70,7 +70,7 @@ public class User implements Serializable {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", subjectIds='" + subjectIds + '\'' +
-                ", hashCode='" + hashCode + '\'' +
+                ", lessonPlanVersion='" + lessonPlanVersion + '\'' +
                 '}';
     }
 }
