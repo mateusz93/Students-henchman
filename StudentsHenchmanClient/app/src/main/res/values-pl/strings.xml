@@ -5,6 +5,7 @@
     <string name="settings">Ustawienia</string>
     <string name="faculties_prompt">Wydział</string>
     <string name="monday">Poniedziałek</string>
+    <string name="tuesday">Wtorek</string>
     <string-array name="faculties">
         <item>Organizacji i Zarządzania</item>
         <item>Wzornictwa</item>

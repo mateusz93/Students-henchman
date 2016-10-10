@@ -10,14 +10,14 @@ import android.view.ViewGroup;
 
 import edu.p.lodz.pl.studentshenchman.R;
 
-public class MondayFragment extends Fragment {
+public class TuesdayFragment extends Fragment {
 
     private static final String FRAGMENT_NUMBER = "numer_fragmentu";
 
-    public MondayFragment() {}
+    public TuesdayFragment() {}
 
-    public static MondayFragment getInstance(int fragmentNumber) {
-        MondayFragment fragment = new MondayFragment();
+    public static TuesdayFragment getInstance(int fragmentNumber) {
+        TuesdayFragment fragment = new TuesdayFragment();
 
         Bundle args = new Bundle();
         args.putInt(FRAGMENT_NUMBER, fragmentNumber);
@@ -35,7 +35,7 @@ public class MondayFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        View view = inflater.inflate(R.layout.fragment_monday, container, false);
+        View view = inflater.inflate(R.layout.fragment_tuesday, container, false);
         return view;
     }
 

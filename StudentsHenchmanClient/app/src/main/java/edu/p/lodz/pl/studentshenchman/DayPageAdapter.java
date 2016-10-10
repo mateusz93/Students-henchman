@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import edu.p.lodz.pl.studentshenchman.fragments.MondayFragment;
+import edu.p.lodz.pl.studentshenchman.fragments.TuesdayFragment;
 
 public class DayPageAdapter extends FragmentPagerAdapter {
 
@@ -24,6 +25,9 @@ public class DayPageAdapter extends FragmentPagerAdapter {
             case 0:
                 return MondayFragment.getInstance(0);
 
+            case 1:
+                return TuesdayFragment.getInstance(1);
+
             default:
                 return null;
         }
@@ -31,7 +35,7 @@ public class DayPageAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 1;
+        return 2;
     }
 
     @Override
@@ -40,6 +44,9 @@ public class DayPageAdapter extends FragmentPagerAdapter {
         {
             case 0:
                 return context.getResources().getString(R.string.monday);
+
+            case 1:
+                return context.getResources().getString(R.string.tuesday);
 
             default:
                 return null;
