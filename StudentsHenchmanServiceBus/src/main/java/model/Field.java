@@ -31,6 +31,14 @@ public class Field {
     @OneToMany(mappedBy = "field", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<SubjectsBlock> subjectsBlocks;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "field", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<User> users;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "field", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Subject> subjects;
+
     public int getId() {
         return id;
     }
@@ -71,6 +79,22 @@ public class Field {
         this.subjectsBlocks = subjectsBlocks;
     }
 
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+
+    public Set<Subject> getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(Set<Subject> subjects) {
+        this.subjects = subjects;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -82,7 +106,9 @@ public class Field {
         if (!name.equals(field.name)) return false;
         if (!department.equals(field.department)) return false;
         if (!specializations.equals(field.specializations)) return false;
-        return subjectsBlocks.equals(field.subjectsBlocks);
+        if (!subjectsBlocks.equals(field.subjectsBlocks)) return false;
+        if (!users.equals(field.users)) return false;
+        return subjects.equals(field.subjects);
 
     }
 
@@ -93,6 +119,8 @@ public class Field {
         result = 31 * result + department.hashCode();
         result = 31 * result + specializations.hashCode();
         result = 31 * result + subjectsBlocks.hashCode();
+        result = 31 * result + users.hashCode();
+        result = 31 * result + subjects.hashCode();
         return result;
     }
 
@@ -104,6 +132,8 @@ public class Field {
                 ", department=" + department +
                 ", specializations=" + specializations +
                 ", subjectsBlocks=" + subjectsBlocks +
+                ", users=" + users +
+                ", subjects=" + subjects +
                 '}';
     }
 }

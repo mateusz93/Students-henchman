@@ -29,6 +29,18 @@ public class User implements Serializable {
     @Column(name = "id_przedmiotow")
     private String subjectIds;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_kierunku")
+    private Field field;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_specjalizacji")
+    private Specialization specialization;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_bloku_obieralnego")
+    private SubjectsBlock subjectsBlock;
+
     public long getId() {
         return id;
     }
@@ -77,6 +89,30 @@ public class User implements Serializable {
         this.subjectIds = subjectIds;
     }
 
+    public Field getField() {
+        return field;
+    }
+
+    public void setField(Field field) {
+        this.field = field;
+    }
+
+    public Specialization getSpecialization() {
+        return specialization;
+    }
+
+    public void setSpecialization(Specialization specialization) {
+        this.specialization = specialization;
+    }
+
+    public SubjectsBlock getSubjectsBlock() {
+        return subjectsBlock;
+    }
+
+    public void setSubjectsBlock(SubjectsBlock subjectsBlock) {
+        this.subjectsBlock = subjectsBlock;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -89,7 +125,10 @@ public class User implements Serializable {
         if (!lastName.equals(user.lastName)) return false;
         if (!email.equals(user.email)) return false;
         if (!lessonPlanVersion.equals(user.lessonPlanVersion)) return false;
-        return subjectIds.equals(user.subjectIds);
+        if (!subjectIds.equals(user.subjectIds)) return false;
+        if (!field.equals(user.field)) return false;
+        if (!specialization.equals(user.specialization)) return false;
+        return subjectsBlock.equals(user.subjectsBlock);
 
     }
 
@@ -101,6 +140,9 @@ public class User implements Serializable {
         result = 31 * result + email.hashCode();
         result = 31 * result + lessonPlanVersion.hashCode();
         result = 31 * result + subjectIds.hashCode();
+        result = 31 * result + field.hashCode();
+        result = 31 * result + specialization.hashCode();
+        result = 31 * result + subjectsBlock.hashCode();
         return result;
     }
 
@@ -113,6 +155,9 @@ public class User implements Serializable {
                 ", email='" + email + '\'' +
                 ", lessonPlanVersion='" + lessonPlanVersion + '\'' +
                 ", subjectIds='" + subjectIds + '\'' +
+                ", field=" + field +
+                ", specialization=" + specialization +
+                ", subjectsBlock=" + subjectsBlock +
                 '}';
     }
 }

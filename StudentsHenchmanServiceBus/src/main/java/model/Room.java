@@ -17,6 +17,9 @@ public class Room implements Serializable {
     @Column(name = "nazwa_sali")
     private String name;
 
+    @Column(name = "kod")
+    private String code;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_budynku")
     private Building building;
@@ -45,6 +48,14 @@ public class Room implements Serializable {
         this.building = building;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -54,6 +65,7 @@ public class Room implements Serializable {
 
         if (id != room.id) return false;
         if (!name.equals(room.name)) return false;
+        if (!code.equals(room.code)) return false;
         return building.equals(room.building);
 
     }
@@ -62,6 +74,7 @@ public class Room implements Serializable {
     public int hashCode() {
         int result = id;
         result = 31 * result + name.hashCode();
+        result = 31 * result + code.hashCode();
         result = 31 * result + building.hashCode();
         return result;
     }
@@ -71,6 +84,7 @@ public class Room implements Serializable {
         return "Room{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", code='" + code + '\'' +
                 ", building=" + building +
                 '}';
     }

@@ -26,12 +26,15 @@ public class Building implements Serializable {
     @Column(name = "dlugosc_geograficzna")
     private double longitute;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @Column(name = "kod")
+    private String code;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_wydzialu")
     private Department department;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "building", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "building", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Room> rooms;
 
     public Set<Room> getRooms() {
@@ -82,6 +85,14 @@ public class Building implements Serializable {
         this.longitute = longitute;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -93,9 +104,26 @@ public class Building implements Serializable {
         if (Double.compare(building.latitude, latitude) != 0) return false;
         if (Double.compare(building.longitute, longitute) != 0) return false;
         if (!name.equals(building.name)) return false;
+        if (!code.equals(building.code)) return false;
         if (!department.equals(building.department)) return false;
         return rooms.equals(building.rooms);
 
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = id;
+        result = 31 * result + name.hashCode();
+        temp = Double.doubleToLongBits(latitude);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(longitute);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + code.hashCode();
+        result = 31 * result + department.hashCode();
+        result = 31 * result + rooms.hashCode();
+        return result;
     }
 
     @Override
@@ -105,7 +133,9 @@ public class Building implements Serializable {
                 ", name='" + name + '\'' +
                 ", latitude=" + latitude +
                 ", longitute=" + longitute +
+                ", code='" + code + '\'' +
                 ", department=" + department +
+                ", rooms=" + rooms +
                 '}';
     }
 }

@@ -118,7 +118,7 @@ public class Subject implements Serializable {
 
     @Override
     public String toString() {
-        return "Subject{" +
+        return "Course{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", quantity=" + quantity +

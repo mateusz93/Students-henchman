@@ -22,7 +22,7 @@ public class Specialization implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_przedmiotu")
-    private Subject subject;
+    private Course Course;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_kierunku")
@@ -31,6 +31,10 @@ public class Specialization implements Serializable {
     @JsonIgnore
     @OneToMany(mappedBy = "specialization", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Subject> subjects;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "specialization", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<User> users;
 
     public long getId() {
         return id;
@@ -48,12 +52,12 @@ public class Specialization implements Serializable {
         this.name = name;
     }
 
-    public Subject getSubject() {
-        return subject;
+    public Course getCourse() {
+        return Course;
     }
 
-    public void setSubject(Subject subject) {
-        this.subject = subject;
+    public void setCourse(Course course) {
+        this.Course = course;
     }
 
     public Field getField() {
@@ -62,6 +66,15 @@ public class Specialization implements Serializable {
 
     public void setField(Field field) {
         this.field = field;
+    }
+
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 
     public Set<Subject> getSubjects() {
@@ -81,9 +94,10 @@ public class Specialization implements Serializable {
 
         if (id != that.id) return false;
         if (!name.equals(that.name)) return false;
-        if (!subject.equals(that.subject)) return false;
+        if (!Course.equals(that.Course)) return false;
         if (!field.equals(that.field)) return false;
-        return subjects.equals(that.subjects);
+        if (!subjects.equals(that.subjects)) return false;
+        return users.equals(that.users);
 
     }
 
@@ -91,9 +105,10 @@ public class Specialization implements Serializable {
     public int hashCode() {
         int result = id;
         result = 31 * result + name.hashCode();
-        result = 31 * result + subject.hashCode();
+        result = 31 * result + Course.hashCode();
         result = 31 * result + field.hashCode();
         result = 31 * result + subjects.hashCode();
+        result = 31 * result + users.hashCode();
         return result;
     }
 
@@ -102,9 +117,10 @@ public class Specialization implements Serializable {
         return "Specialization{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", subject=" + subject +
+                ", Course=" + Course +
                 ", field=" + field +
                 ", subjects=" + subjects +
+                ", users=" + users +
                 '}';
     }
 }

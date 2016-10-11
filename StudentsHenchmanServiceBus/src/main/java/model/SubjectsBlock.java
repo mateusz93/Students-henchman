@@ -28,13 +28,9 @@ public class SubjectsBlock implements Serializable {
     @OneToMany(mappedBy = "subjectsBlock", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Subject> subjects;
 
-    public Set<Subject> getSubjects() {
-        return subjects;
-    }
-
-    public void setSubjects(Set<Subject> subjects) {
-        this.subjects = subjects;
-    }
+    @JsonIgnore
+    @OneToMany(mappedBy = "subjectsBlock", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<User> users;
 
     public long getId() {
         return id;
@@ -60,6 +56,22 @@ public class SubjectsBlock implements Serializable {
         this.field = field;
     }
 
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+
+    public Set<Subject> getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(Set<Subject> subjects) {
+        this.subjects = subjects;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -70,7 +82,8 @@ public class SubjectsBlock implements Serializable {
         if (id != that.id) return false;
         if (!name.equals(that.name)) return false;
         if (!field.equals(that.field)) return false;
-        return subjects.equals(that.subjects);
+        if (!subjects.equals(that.subjects)) return false;
+        return users.equals(that.users);
 
     }
 
@@ -80,6 +93,7 @@ public class SubjectsBlock implements Serializable {
         result = 31 * result + name.hashCode();
         result = 31 * result + field.hashCode();
         result = 31 * result + subjects.hashCode();
+        result = 31 * result + users.hashCode();
         return result;
     }
 
@@ -90,6 +104,7 @@ public class SubjectsBlock implements Serializable {
                 ", name='" + name + '\'' +
                 ", field=" + field +
                 ", subjects=" + subjects +
+                ", users=" + users +
                 '}';
     }
 }
