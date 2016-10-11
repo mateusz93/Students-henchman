@@ -17,7 +17,6 @@ public class TimetableActivity extends AppCompatActivity {
 
         viewPager = (ViewPager) findViewById(R.id.container);
 
-
         if (viewPager != null) {
             DayPageAdapter dayPageAdapter = new DayPageAdapter(getSupportFragmentManager(), getApplicationContext());
             viewPager.setAdapter(dayPageAdapter);
