@@ -5,5 +5,8 @@ http://localhost:8080/departments?id={id}	    Method.GET - zwraca DepartmentsRS
 http://localhost:8080/buildings	    Method.GET - zwraca GetBuildingsRS
 http://localhost:8080/buildings?name={name}    Method.GET - zwraca GetBuildingsRS
 http://localhost:8080/buildings?id={id}   Method.GET - zwraca GetBuildingsRS
+http://localhost:8080/users?id={id}    Method.GET - zwraca User
+http://localhost:8080/users?email={email}    Method.GET - zwraca User
+http://localhost:8080/users/new   Method.POST - przyjmuje CreateUserRQ,  zwraca CreateUserRS
 
 
