@@ -1,11 +1,11 @@
 <resources>
     <!--activities titles-->
     <string name="app_name">Students Henchman</string>
-    <string name="dashboard">Dashboard</string>
-    <string name="settings">Settings</string>
-    <string name="faculties_prompt">Faculty</string>
-    <string name="monday">Monday</string>
-    <string name="tuesday">Tuesday</string>
+    <string name="dashboard">Ekran główny</string>
+    <string name="settings">Ustawienia</string>
+    <string name="faculties_prompt">Wydział</string>
+    <string name="monday">Poniedziałek</string>
+    <string name="tuesday">Wtorek</string>
     <string-array name="faculties">
         <item>Organizacji i Zarządzania</item>
         <item>Wzornictwa</item>
@@ -22,7 +22,4 @@
         <item>Informatyka</item>
         <item>Matematyka</item>
     </string-array>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
