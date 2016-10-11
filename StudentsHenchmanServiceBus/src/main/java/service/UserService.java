@@ -2,7 +2,7 @@ package service;
 
 import cdm.CreateUserRQ;
 import cdm.CreateUserRS;
-import cdm.User;
+import model.User;
 
 import javax.servlet.http.HttpServletResponse;
 

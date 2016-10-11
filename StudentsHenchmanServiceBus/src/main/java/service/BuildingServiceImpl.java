@@ -12,7 +12,6 @@ import org.springframework.util.CollectionUtils;
 import repository.BuildingRepository;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -29,62 +28,45 @@ public class BuildingServiceImpl implements BuildingService {
     @Autowired
     private ObjectMapper mapper;
 
-    private BuildingsRS result = new BuildingsRS();
-
     @Override
     public BuildingsRS prepareResultForGetBuildingByName(HttpServletResponse httpResponse, String name) {
-        try {
-            Building building = repository.findByName(name);
-            if (building != null) {
-                String buildingInString = mapper.writeValueAsString(building);
-                result.getBuildings().add(mapper.readValue(buildingInString, cdm.Building.class));
-                httpResponse.setStatus(HttpStatus.FOUND.value());
-            } else {
-                httpResponse.setStatus(HttpStatus.NOT_FOUND.value());
-            }
-            log.info("ResponseBody: " + result.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-            log.error("Exception: " + e.getMessage());
+        BuildingsRS result = new BuildingsRS();
+        Building building = repository.findByName(name);
+        if (building != null) {
+            result.getBuildings().add(building);
+            httpResponse.setStatus(HttpStatus.FOUND.value());
+        } else {
+            httpResponse.setStatus(HttpStatus.NOT_FOUND.value());
         }
+        log.info("ResponseBody: " + result.toString());
         return result;
     }
 
     @Override
     public BuildingsRS prepareResultForGetBuildingById(HttpServletResponse httpResponse, String id) {
-        try {
-            Building building = repository.findById(Integer.valueOf(id));
-            if (building != null) {
-                String buildingInString = mapper.writeValueAsString(building);
-                result.getBuildings().add(mapper.readValue(buildingInString, cdm.Building.class));
-                httpResponse.setStatus(HttpStatus.FOUND.value());
-            } else {
-                httpResponse.setStatus(HttpStatus.NOT_FOUND.value());
-            }
-            log.info("ResponseBody: " + result.toString());
-        } catch (IOException e) {
-            log.error("Exception: " + e.getMessage());
+        BuildingsRS result = new BuildingsRS();
+        Building building = repository.findById(Integer.valueOf(id));
+        if (building != null) {
+            result.getBuildings().add(building);
+            httpResponse.setStatus(HttpStatus.FOUND.value());
+        } else {
+            httpResponse.setStatus(HttpStatus.NOT_FOUND.value());
         }
+        log.info("ResponseBody: " + result.toString());
         return result;
     }
 
     @Override
     public BuildingsRS prepareResultForGetBuildings(HttpServletResponse httpResponse) {
-        try {
-            List<Building> buildings = (List<Building>) repository.findAll();
-            if (CollectionUtils.isEmpty(buildings)) {
-                httpResponse.setStatus(HttpStatus.NOT_FOUND.value());
-            } else {
-                for (Building building : buildings) {
-                    String buildingInString = mapper.writeValueAsString(building);
-                    result.getBuildings().add(mapper.readValue(buildingInString, cdm.Building.class));
-                }
-                httpResponse.setStatus(HttpStatus.FOUND.value());
-            }
-            log.info("ResponseBody: " + result.toString());
-        } catch (IOException e) {
-            log.error("Exception: " + e.getMessage());
+        BuildingsRS result = new BuildingsRS();
+        List<Building> buildings = (List<Building>) repository.findAll();
+        if (CollectionUtils.isEmpty(buildings)) {
+            httpResponse.setStatus(HttpStatus.NOT_FOUND.value());
+        } else {
+            result.getBuildings().addAll(buildings);
+            httpResponse.setStatus(HttpStatus.FOUND.value());
         }
+        log.info("ResponseBody: " + result.toString());
         return result;
     }
 }

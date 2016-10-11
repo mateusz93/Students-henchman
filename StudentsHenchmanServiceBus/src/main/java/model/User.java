@@ -12,7 +12,7 @@ public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private long id;
 
     @Column(name = "imie")
     private String firstName;
@@ -29,15 +29,15 @@ public class User implements Serializable {
     @Column(name = "id_przedmiotow")
     private String subjectIds;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_kierunku")
     private Field field;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_specjalizacji")
     private Specialization specialization;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_bloku_obieralnego")
     private SubjectsBlock subjectsBlock;
 
@@ -45,7 +45,7 @@ public class User implements Serializable {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -130,20 +130,6 @@ public class User implements Serializable {
         if (!specialization.equals(user.specialization)) return false;
         return subjectsBlock.equals(user.subjectsBlock);
 
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + firstName.hashCode();
-        result = 31 * result + lastName.hashCode();
-        result = 31 * result + email.hashCode();
-        result = 31 * result + lessonPlanVersion.hashCode();
-        result = 31 * result + subjectIds.hashCode();
-        result = 31 * result + field.hashCode();
-        result = 31 * result + specialization.hashCode();
-        result = 31 * result + subjectsBlock.hashCode();
-        return result;
     }
 
     @Override

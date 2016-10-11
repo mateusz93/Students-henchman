@@ -14,36 +14,36 @@ public class Field {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private long id;
 
     @Column(name = "nazwa_kierunku")
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_wydzialu")
     private Department department;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "field", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "field", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Specialization> specializations;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "field", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "field", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<SubjectsBlock> subjectsBlocks;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "field", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "field", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<User> users;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "field", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "field", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Subject> subjects;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -113,27 +113,11 @@ public class Field {
     }
 
     @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + name.hashCode();
-        result = 31 * result + department.hashCode();
-        result = 31 * result + specializations.hashCode();
-        result = 31 * result + subjectsBlocks.hashCode();
-        result = 31 * result + users.hashCode();
-        result = 31 * result + subjects.hashCode();
-        return result;
-    }
-
-    @Override
     public String toString() {
         return "Field{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", department=" + department +
-                ", specializations=" + specializations +
-                ", subjectsBlocks=" + subjectsBlocks +
-                ", users=" + users +
-                ", subjects=" + subjects +
                 '}';
     }
 }

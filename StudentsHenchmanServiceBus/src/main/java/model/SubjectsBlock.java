@@ -15,28 +15,28 @@ public class SubjectsBlock implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private long id;
 
     @Column(name = "nazwa_bloku")
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_kierunku")
     private Field field;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "subjectsBlock", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "subjectsBlock", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Subject> subjects;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "subjectsBlock", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "subjectsBlock", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<User> users;
 
     public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -88,23 +88,11 @@ public class SubjectsBlock implements Serializable {
     }
 
     @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + name.hashCode();
-        result = 31 * result + field.hashCode();
-        result = 31 * result + subjects.hashCode();
-        result = 31 * result + users.hashCode();
-        return result;
-    }
-
-    @Override
     public String toString() {
         return "SubjectsBlock{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", field=" + field +
-                ", subjects=" + subjects +
-                ", users=" + users +
                 '}';
     }
 }

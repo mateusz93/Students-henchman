@@ -2,7 +2,7 @@ package controller;
 
 import cdm.CreateUserRQ;
 import cdm.CreateUserRS;
-import cdm.User;
+import model.User;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

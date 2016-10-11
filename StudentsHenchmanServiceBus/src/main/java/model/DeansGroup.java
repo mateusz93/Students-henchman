@@ -12,7 +12,7 @@ public class DeansGroup implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private long id;
 
     @Column(name = "nazwa_grupy_dziekanskiej")
     private String name;
@@ -21,7 +21,7 @@ public class DeansGroup implements Serializable {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -43,13 +43,6 @@ public class DeansGroup implements Serializable {
         if (id != that.id) return false;
         return name.equals(that.name);
 
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + name.hashCode();
-        return result;
     }
 
     @Override

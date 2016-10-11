@@ -1,5 +1,7 @@
 package cdm;
 
+import model.Department;
+
 import java.util.ArrayList;
 import java.util.List;
 

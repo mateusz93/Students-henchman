@@ -14,20 +14,20 @@ public class CourseType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private long id;
 
     @Column(name = "typ")
     private String type;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "courseType", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "courseType", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Course> courses;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -61,19 +61,10 @@ public class CourseType {
     }
 
     @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + type.hashCode();
-        result = 31 * result + courses.hashCode();
-        return result;
-    }
-
-    @Override
     public String toString() {
         return "CourseType{" +
                 "id=" + id +
                 ", type='" + type + '\'' +
-                ", courses=" + courses +
                 '}';
     }
 }

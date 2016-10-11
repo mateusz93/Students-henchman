@@ -2,8 +2,8 @@ package service;
 
 import cdm.CreateUserRQ;
 import cdm.CreateUserRS;
-import cdm.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import model.User;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import repository.UserRepository;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.time.LocalDateTime;
 
 /**
@@ -30,42 +29,28 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private ObjectMapper mapper;
 
-    private User result = new User();
-
     @Override
     public User prepareResultForGetUserByEmail(HttpServletResponse httpResponse, String email) {
-        try {
-            model.User user = repository.findByEmail(email);
-            if (user != null) {
-                String userInString = mapper.writeValueAsString(user);
-                result = mapper.readValue(userInString, User.class);
-                httpResponse.setStatus(HttpStatus.FOUND.value());
-            } else {
-                httpResponse.setStatus(HttpStatus.NOT_FOUND.value());
-            }
-            log.info("ResponseBody: " + result.toString());
-        } catch (IOException e) {
-            log.error("Exception: " + e.getMessage());
+        User user = repository.findByEmail(email);
+        if (user != null) {
+            httpResponse.setStatus(HttpStatus.FOUND.value());
+        } else {
+            httpResponse.setStatus(HttpStatus.NOT_FOUND.value());
         }
-        return result;
+        log.info("ResponseBody: " + user);
+        return user;
     }
 
     @Override
     public User prepareResultForGetUserById(HttpServletResponse httpResponse, String id) {
-        try {
-            model.User user = repository.findById(Integer.valueOf(id));
-            if (user != null) {
-                String userInString = mapper.writeValueAsString(user);
-                result = mapper.readValue(userInString, User.class);
-                httpResponse.setStatus(HttpStatus.FOUND.value());
-            } else {
-                httpResponse.setStatus(HttpStatus.NOT_FOUND.value());
-            }
-            log.info("ResponseBody: " + result.toString());
-        } catch (IOException e) {
-            log.error("Exception: " + e.getMessage());
+        User user = repository.findById(Integer.valueOf(id));
+        if (user != null) {
+            httpResponse.setStatus(HttpStatus.FOUND.value());
+        } else {
+            httpResponse.setStatus(HttpStatus.NOT_FOUND.value());
         }
-        return result;
+        log.info("ResponseBody: " + user);
+        return user;
     }
 
     @Override
@@ -79,14 +64,23 @@ public class UserServiceImpl implements UserService {
         user.setEmail(request.getEmail());
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
-        user.setSubjectIds(request.getLastName());
+        user.setSubjectIds(getSubjectIds(request));
         user.setLessonPlanVersion(String.valueOf(LocalDateTime.now().hashCode()));
-
+        log.info("Saving user..");
         user = repository.save(user);
-        result.setId((int) user.getId());
+        result.setId(user.getId());
         result.setLessonPlanVersion(user.getLessonPlanVersion());
         httpResponse.setStatus(HttpStatus.CREATED.value());
+        log.info("ResponseBody: " + user);
         return result;
+    }
+
+    private String getSubjectIds(CreateUserRQ request) {
+        StringBuilder s = new StringBuilder();
+        for (Long id : request.getSubjectIds()) {
+            s.append(id).append(",");
+        }
+        return s.toString();
     }
 
     private boolean isNotCorrectRequest(CreateUserRQ request) {

@@ -15,32 +15,32 @@ public class Specialization implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private long id;
 
     @Column(name = "nazwa_specjalizacji")
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_przedmiotu")
     private Course Course;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_kierunku")
     private Field field;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "specialization", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "specialization", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Subject> subjects;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "specialization", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "specialization", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<User> users;
 
     public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -102,25 +102,12 @@ public class Specialization implements Serializable {
     }
 
     @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + name.hashCode();
-        result = 31 * result + Course.hashCode();
-        result = 31 * result + field.hashCode();
-        result = 31 * result + subjects.hashCode();
-        result = 31 * result + users.hashCode();
-        return result;
-    }
-
-    @Override
     public String toString() {
         return "Specialization{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", Course=" + Course +
                 ", field=" + field +
-                ", subjects=" + subjects +
-                ", users=" + users +
                 '}';
     }
 }

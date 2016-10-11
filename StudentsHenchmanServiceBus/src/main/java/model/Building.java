@@ -15,7 +15,7 @@ public class Building implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private long id;
 
     @Column(name = "nazwa_budynku")
     private String name;
@@ -29,12 +29,12 @@ public class Building implements Serializable {
     @Column(name = "kod")
     private String code;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_wydzialu")
     private Department department;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "building", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "building", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Room> rooms;
 
     public Set<Room> getRooms() {
@@ -57,7 +57,7 @@ public class Building implements Serializable {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -111,22 +111,6 @@ public class Building implements Serializable {
     }
 
     @Override
-    public int hashCode() {
-        int result;
-        long temp;
-        result = id;
-        result = 31 * result + name.hashCode();
-        temp = Double.doubleToLongBits(latitude);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(longitute);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + code.hashCode();
-        result = 31 * result + department.hashCode();
-        result = 31 * result + rooms.hashCode();
-        return result;
-    }
-
-    @Override
     public String toString() {
         return "Building{" +
                 "id=" + id +
@@ -135,7 +119,6 @@ public class Building implements Serializable {
                 ", longitute=" + longitute +
                 ", code='" + code + '\'' +
                 ", department=" + department +
-                ", rooms=" + rooms +
                 '}';
     }
 }

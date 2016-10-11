@@ -11,7 +11,7 @@ public class Subject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private long id;
 
     @Column(name = "nazwa")
     private String name;
@@ -19,23 +19,23 @@ public class Subject {
     @Column(name = "kod")
     private String code;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_kierunku")
     private Field field;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_specjalizacji")
     private Specialization specialization;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_bloku_obieralnego")
     private SubjectsBlock subjectsBlock;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -93,17 +93,6 @@ public class Subject {
         if (!specialization.equals(subject.specialization)) return false;
         return subjectsBlock.equals(subject.subjectsBlock);
 
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + name.hashCode();
-        result = 31 * result + code.hashCode();
-        result = 31 * result + field.hashCode();
-        result = 31 * result + specialization.hashCode();
-        result = 31 * result + subjectsBlock.hashCode();
-        return result;
     }
 
     @Override

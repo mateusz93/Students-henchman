@@ -12,7 +12,7 @@ public class Room implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private long id;
 
     @Column(name = "nazwa_sali")
     private String name;
@@ -20,7 +20,7 @@ public class Room implements Serializable {
     @Column(name = "kod")
     private String code;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_budynku")
     private Building building;
 
@@ -28,7 +28,7 @@ public class Room implements Serializable {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -68,15 +68,6 @@ public class Room implements Serializable {
         if (!code.equals(room.code)) return false;
         return building.equals(room.building);
 
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + name.hashCode();
-        result = 31 * result + code.hashCode();
-        result = 31 * result + building.hashCode();
-        return result;
     }
 
     @Override

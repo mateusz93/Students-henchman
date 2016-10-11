@@ -12,38 +12,38 @@ public class Course implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private long id;
 
     @Column(name = "nazwa_przedmiotu")
     private String name;
 
     @Column(name = "ilosc_zajec")
-    private int quantity;
+    private long quantity;
 
     @Column(name = "cykl")
-    private int cycle;
+    private long cycle;
 
     @Column(name = "pierwszy_tydzien_zajec")
-    private int firstSubjectWeek;
+    private long firstSubjectWeek;
 
     @Column(name = "dzien_tygodnia")
-    private int weekDay;
+    private long weekDay;
 
-    @Column(name = "godzina")
-    private int time;
+    @Column(name = "godzina_rozpoczecia")
+    private long startTime;
 
-    @Column(name = "czas_trwania")
-    private int duration;
+    @Column(name = "godzina_zakonczenia")
+    private long finishTime;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_prowadzacego")
     private Teacher teacher;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_sali")
     private Room room;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_typu_zajec")
     private CourseType courseType;
 
@@ -51,7 +51,7 @@ public class Course implements Serializable {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -71,31 +71,31 @@ public class Course implements Serializable {
         this.name = name;
     }
 
-    public int getQuantity() {
+    public long getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(long quantity) {
         this.quantity = quantity;
     }
 
-    public int getCycle() {
+    public long getCycle() {
         return cycle;
     }
 
-    public void setCycle(int cycle) {
+    public void setCycle(long cycle) {
         this.cycle = cycle;
     }
 
-    public int getFirstSubjectWeek() {
+    public long getFirstSubjectWeek() {
         return firstSubjectWeek;
     }
 
-    public void setFirstSubjectWeek(int firstSubjectWeek) {
+    public void setFirstSubjectWeek(long firstSubjectWeek) {
         this.firstSubjectWeek = firstSubjectWeek;
     }
 
-    public int getWeekDay() {
+    public long getWeekDay() {
         return weekDay;
     }
 
@@ -103,20 +103,20 @@ public class Course implements Serializable {
         this.weekDay = weekDay;
     }
 
-    public int getTime() {
-        return time;
+    public long getStartTime() {
+        return startTime;
     }
 
-    public void setTime(int time) {
-        this.time = time;
+    public void setStartTime(long startTime) {
+        this.startTime = startTime;
     }
 
-    public int getDuration() {
-        return duration;
+    public long getFinishTime() {
+        return finishTime;
     }
 
-    public void setDuration(int duration) {
-        this.duration = duration;
+    public void setFinishTime(long finishTime) {
+        this.finishTime = finishTime;
     }
 
     public CourseType getCourseType() {
@@ -147,29 +147,13 @@ public class Course implements Serializable {
         if (cycle != course.cycle) return false;
         if (firstSubjectWeek != course.firstSubjectWeek) return false;
         if (weekDay != course.weekDay) return false;
-        if (time != course.time) return false;
-        if (duration != course.duration) return false;
+        if (startTime != course.startTime) return false;
+        if (finishTime != course.finishTime) return false;
         if (!name.equals(course.name)) return false;
         if (!teacher.equals(course.teacher)) return false;
         if (!room.equals(course.room)) return false;
         return courseType.equals(course.courseType);
 
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + name.hashCode();
-        result = 31 * result + quantity;
-        result = 31 * result + cycle;
-        result = 31 * result + firstSubjectWeek;
-        result = 31 * result + weekDay;
-        result = 31 * result + time;
-        result = 31 * result + duration;
-        result = 31 * result + teacher.hashCode();
-        result = 31 * result + room.hashCode();
-        result = 31 * result + courseType.hashCode();
-        return result;
     }
 
     @Override
@@ -181,8 +165,8 @@ public class Course implements Serializable {
                 ", cycle=" + cycle +
                 ", firstSubjectWeek=" + firstSubjectWeek +
                 ", weekDay=" + weekDay +
-                ", time=" + time +
-                ", duration=" + duration +
+                ", startTime=" + startTime +
+                ", finishTime=" + finishTime +
                 ", teacher=" + teacher +
                 ", room=" + room +
                 ", courseType=" + courseType +

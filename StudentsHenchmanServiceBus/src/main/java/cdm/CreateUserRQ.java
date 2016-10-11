@@ -1,5 +1,7 @@
 package cdm;
 
+import java.util.List;
+
 /**
  * @Author Mateusz Wieczorek on 10/10/16.
  */
@@ -8,7 +10,7 @@ public class CreateUserRQ {
     private String firstName;
     private String lastName;
     private String email;
-    private String subjectIds;
+    private List<Long> subjectIds;
 
     public String getFirstName() {
         return firstName;
@@ -16,16 +18,6 @@ public class CreateUserRQ {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
-    }
-
-    @Override
-    public String toString() {
-        return "CreateUserRQ{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", subjectIds='" + subjectIds + '\'' +
-                '}';
     }
 
     public String getEmail() {
@@ -44,12 +36,22 @@ public class CreateUserRQ {
         this.lastName = lastName;
     }
 
-    public String getSubjectIds() {
+    public List<Long> getSubjectIds() {
         return subjectIds;
     }
 
-    public void setSubjectIds(String subjectIds) {
+    public void setSubjectIds(List<Long> subjectIds) {
         this.subjectIds = subjectIds;
     }
+
+    @Override
+    public String toString() {
+        return "CreateUserRQ{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
+
 
 }
