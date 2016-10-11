@@ -30,7 +30,7 @@ public class UserController {
     private UserService userService;
 
 
-    @RequestMapping(method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
     public User getUser(@RequestParam(value="id", required=false) String id,
                         @RequestParam(value="email", required=false) String email,
                         HttpServletResponse httpResponse) {
@@ -41,10 +41,9 @@ public class UserController {
         } else if (StringUtils.isNotEmpty(email)) {
             log.info("PathParameter: email=" + email);
             return userService.prepareResultForGetUserByEmail(httpResponse, email);
-        } else {
-            httpResponse.setStatus(HttpStatus.BAD_REQUEST.value());
-            return null;
         }
+        httpResponse.setStatus(HttpStatus.BAD_REQUEST.value());
+        return null;
     }
 
     @RequestMapping(value = "/new", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")

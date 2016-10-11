@@ -29,7 +29,7 @@ public class BuildingController {
     @Autowired
     private BuildingService buildingService;
 
-    @RequestMapping(method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
     public BuildingsRS getBuidings(@RequestParam(value="name", required=false) String name,
                                    @RequestParam(value="id", required=false) String id,
                                    HttpServletResponse httpResponse) {
@@ -40,9 +40,8 @@ public class BuildingController {
         } else if (StringUtils.isNotEmpty(id)) {
             log.info("PathParameter: id=" + id);
             return buildingService.prepareResultForGetBuildingById(httpResponse, id);
-        } else {
-            return buildingService.prepareResultForGetBuildings(httpResponse);
         }
+        return buildingService.prepareResultForGetBuildings(httpResponse);
     }
 
 }

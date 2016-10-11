@@ -1,3 +1,5 @@
+Wszystkie usługi korzystają z Content-Type: application/json
+
 http://localhost:8080/date  Method.GET	- zwraca bierzącą dane w formacie yyyy-MM-dd HH:mm
 http://localhost:8080/departments	    Method.GET -  zwraca DepartmentsRS
 http://localhost:8080/departments?name={name}	    Method.GET - zwraca DepartmentsRS

@@ -18,7 +18,7 @@ public class DateController {
 
     private static final Logger log = LoggerFactory.getLogger(DateController.class);
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
     public String getCurrentDate() {
         log.info("getCurrentDate core invoked");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");

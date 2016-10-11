@@ -30,7 +30,7 @@ public class DepartmentController {
     private DepartmentService departmentService;
 
 
-    @RequestMapping(method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
     public DepartmentsRS getDepartment(@RequestParam(value="name", required=false) String name,
                                        @RequestParam(value="id", required=false) String id,
                                        HttpServletResponse httpResponse) {
@@ -41,9 +41,8 @@ public class DepartmentController {
         } else if (StringUtils.isNotEmpty(id)) {
             log.info("PathParameter: id=" + id);
             return departmentService.prepareResultForGetDepartmentById(httpResponse, id);
-        } else {
-            return departmentService.prepareResultForGetDepartments(httpResponse);
         }
+        return departmentService.prepareResultForGetDepartments(httpResponse);
     }
 
 }
