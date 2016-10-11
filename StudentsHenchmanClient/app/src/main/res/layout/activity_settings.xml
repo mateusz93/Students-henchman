@@ -89,7 +89,8 @@ tools:context="edu.p.lodz.pl.studentshenchman.SettingsActivity">
                     android:layout_weight="0.2"
                     android:background="#AAADD8E6"
                     android:padding="@dimen/activity_main_textview_padding"
-                    android:layout_marginTop="@dimen/activity_main_button_margin">
+                    android:layout_marginTop="@dimen/activity_main_button_margin"
+                    android:id="@+id/typeTableRow">
 
                     <TableLayout
                         android:layout_width="fill_parent"
@@ -140,7 +141,8 @@ tools:context="edu.p.lodz.pl.studentshenchman.SettingsActivity">
                     android:layout_weight="0.2"
                     android:background="#AAADD8E6"
                     android:padding="@dimen/activity_main_textview_padding"
-                    android:layout_marginTop="@dimen/activity_main_button_margin">
+                    android:layout_marginTop="@dimen/activity_main_button_margin"
+                    android:id="@+id/subjectTableRow">
 
                     <TableLayout
                         android:layout_width="fill_parent"
@@ -191,7 +193,8 @@ tools:context="edu.p.lodz.pl.studentshenchman.SettingsActivity">
                     android:layout_weight="0.2"
                     android:background="#AAADD8E6"
                     android:padding="@dimen/activity_main_textview_padding"
-                    android:layout_marginTop="@dimen/activity_main_button_margin">
+                    android:layout_marginTop="@dimen/activity_main_button_margin"
+                    android:id="@+id/majorTableRow">
 
                     <TableLayout
                         android:layout_width="fill_parent"
@@ -273,7 +276,8 @@ tools:context="edu.p.lodz.pl.studentshenchman.SettingsActivity">
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:layout_weight="0.2"
-                    android:layout_marginTop="@dimen/activity_main_button_margin">
+                    android:layout_marginTop="@dimen/activity_main_button_margin"
+                    android:id="@+id/readButtonTableRow">
 
                     <Button
                         android:layout_width="fill_parent"

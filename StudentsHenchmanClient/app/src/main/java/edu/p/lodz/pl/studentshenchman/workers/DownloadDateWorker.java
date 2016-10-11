@@ -9,6 +9,8 @@ import java.util.Date;
 import edu.p.lodz.pl.studentshenchman.factories.ServiceFactory;
 import edu.p.lodz.pl.studentshenchman.workers.endpoints.DateEndpoints;
 import edu.p.lodz.pl.studentshenchman.workers.utils.ResponseError;
+import edu.p.lodz.pl.studentshenchman.workers.utils.WorkerResponseCode;
+import retrofit2.adapter.rxjava.HttpException;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -47,8 +49,8 @@ public class DownloadDateWorker extends AbstractWorker<Date> {
 
     @Override
     public void onError(Throwable e) {
-        ResponseError responseError = new ResponseError(400, e.getMessage(), e);
-        onError(mContext, responseError);
+        onError(mContext, e);
+
     }
 
     @Override

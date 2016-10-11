@@ -20,7 +20,8 @@
         <activity android:name=".abstract_ui.StudentShenchmanMainActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".SaveDataActivity" />
-        <activity android:name=".ReadDataActivity"></activity>
+        <activity android:name=".ReadDataActivity" />
+        <activity android:name=".TimetableActivity"></activity>
     </application>
 
 </manifest>

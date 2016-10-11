@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import edu.p.lodz.pl.studentshenchman.workers.utils.ResponseError;
+import edu.p.lodz.pl.studentshenchman.workers.utils.WorkerResponseCode;
 
 /**
  * Created by Michał on 2016-10-05.
@@ -35,8 +36,7 @@ public class IdleWorker extends AbstractWorker {
 
     @Override
     public void onError(Throwable e) {
-        ResponseError responseError = new ResponseError(400, e.getMessage(), e);
-        onError(mContext, responseError);
+        onError(mContext, e);
     }
 
     @Override
