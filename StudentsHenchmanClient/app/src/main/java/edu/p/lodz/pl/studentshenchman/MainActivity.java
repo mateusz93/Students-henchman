@@ -20,8 +20,8 @@ public class MainActivity extends StudentShenchmanMainActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        toolbar = (Toolbar) findViewById(R.id.tool_bar);
-//        prepareToolbar();
+        //toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        //prepareToolbar();
 
         Button buttonTimetable = (Button) findViewById(R.id.timesheetButton);
 
@@ -69,11 +69,19 @@ public class MainActivity extends StudentShenchmanMainActivity {
                 goToReadData();
             }
         });
+
+        Button scanQRCode = (Button) findViewById(R.id.scanQRCode);
+
+        scanQRCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToScanQRCode();
+            }
+        });
     }
 
     public void prepareToolbar() {
-        toolbar.setTitle(R.string.dashboard);
-        toolbar.setNavigationIcon(android.R.drawable.btn_plus);
+
         setSupportActionBar(toolbar);
         if (null != getSupportActionBar()) {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -119,6 +127,12 @@ public class MainActivity extends StudentShenchmanMainActivity {
 
     private void goToReadData() {
         Intent intent = new Intent(MainActivity.this, ReadDataActivity.class);
+        finish();
+        startActivity(intent);
+    }
+
+    private void goToScanQRCode() {
+        Intent intent = new Intent(MainActivity.this, QRCodeScanActivity.class);
         finish();
         startActivity(intent);
     }
