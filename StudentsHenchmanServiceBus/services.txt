@@ -14,11 +14,16 @@ http://localhost:8080/mobile/specializations	    Method.GET - zwraca Specializat
 http://localhost:8080/mobile/specializations?name={name}    Method.GET - zwraca SpecializationsRS
 http://localhost:8080/mobile/specializations?id={id}   Method.GET - zwraca SpecializationsRS
 http://localhost:8080/mobile/specializations?fieldId={fieldId}   Method.GET - zwraca SpecializationsRS
+http://localhost:8080/mobile/teachers   Method.GET - zwraca TeacherRS
 http://localhost:8080/mobile/teachers?id={id}   Method.GET - zwraca TeacherRS
 http://localhost:8080/mobile/teachers?firstName={firstName}   Method.GET - zwraca TeacherRS
 http://localhost:8080/mobile/teachers?lastName={lastName}   Method.GET - zwraca TeacherRS
 http://localhost:8080/mobile/teachers?email={email}   Method.GET - zwraca TeacherRS
+http://localhost:8080/mobile/subjects   Method.GET - zwraca SubjectRS
 http://localhost:8080/mobile/subjects?id={id}   Method.GET - zwraca SubjectRS
 http://localhost:8080/mobile/subjects?name={name}   Method.GET - zwraca SubjectRS
 http://localhost:8080/mobile/subjects?code={code}   Method.GET - zwraca SubjectRS
+http://localhost:8080/mobile/deansGroups   Method.GET - zwraca DeansGroupRS
+http://localhost:8080/mobile/deansGroups?id={id}   Method.GET - zwraca DeansGroupRS
+http://localhost:8080/mobile/deansGroups?name={name}   Method.GET - zwraca DeansGroupRS
 
