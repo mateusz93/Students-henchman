@@ -26,4 +26,6 @@ http://localhost:8080/mobile/subjects?code={code}   Method.GET - zwraca SubjectR
 http://localhost:8080/mobile/deansGroups   Method.GET - zwraca DeansGroupRS
 http://localhost:8080/mobile/deansGroups?id={id}   Method.GET - zwraca DeansGroupRS
 http://localhost:8080/mobile/deansGroups?name={name}   Method.GET - zwraca DeansGroupRS
-
+http://localhost:8080/mobile/courses   Method.GET - zwraca CourseRS
+http://localhost:8080/mobile/courses?id={id}   Method.GET - zwraca CourseRS
+http://localhost:8080/mobile/courses?name={name}   Method.GET - zwraca CourseRS
