@@ -4,16 +4,16 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
               android:background="@drawable/bg"
-              tools:context="edu.p.lodz.pl.studentshenchman.TimetableActivity">
+              tools:context="edu.p.lodz.pl.studentshenchman.timetable_plan.activity.TimetableActivity">
 
-    <LinearLayout
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar"/>
+
+    <fragment
+        android:id="@+id/days_fragment"
+        android:name="edu.p.lodz.pl.studentshenchman.timetable_plan.fragments.TimetableDaysFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/bg"/>
-    </LinearLayout>
+        android:layout_height="match_parent"
+        />
 </LinearLayout>
