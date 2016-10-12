@@ -21,10 +21,6 @@ public class Specialization implements Serializable {
     private String name;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_przedmiotu")
-    private Course Course;
-
-    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_kierunku")
     private Field field;
 
@@ -52,14 +48,6 @@ public class Specialization implements Serializable {
         this.name = name;
     }
 
-    public Course getCourse() {
-        return Course;
-    }
-
-    public void setCourse(Course course) {
-        this.Course = course;
-    }
-
     public Field getField() {
         return field;
     }
@@ -67,7 +55,6 @@ public class Specialization implements Serializable {
     public void setField(Field field) {
         this.field = field;
     }
-
 
     public Set<User> getUsers() {
         return users;
@@ -94,7 +81,6 @@ public class Specialization implements Serializable {
 
         if (id != that.id) return false;
         if (!name.equals(that.name)) return false;
-        if (!Course.equals(that.Course)) return false;
         if (!field.equals(that.field)) return false;
         if (!subjects.equals(that.subjects)) return false;
         return users.equals(that.users);
@@ -106,7 +92,6 @@ public class Specialization implements Serializable {
         return "Specialization{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", Course=" + Course +
                 ", field=" + field +
                 '}';
     }

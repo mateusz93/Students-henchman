@@ -45,7 +45,7 @@ public class BuildingServiceImpl implements BuildingService {
     @Override
     public BuildingsRS prepareResultForGetBuildingById(HttpServletResponse httpResponse, String id) {
         BuildingsRS result = new BuildingsRS();
-        Building building = repository.findById(Integer.valueOf(id));
+        Building building = repository.findById(Long.valueOf(id));
         if (building != null) {
             result.getBuildings().add(building);
             httpResponse.setStatus(HttpStatus.FOUND.value());

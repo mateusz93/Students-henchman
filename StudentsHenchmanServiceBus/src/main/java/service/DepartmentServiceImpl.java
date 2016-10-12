@@ -59,7 +59,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public DepartmentsRS prepareResultForGetDepartmentById(HttpServletResponse httpResponse, String id) {
         DepartmentsRS result = new DepartmentsRS();
-        Department department = repository.findById(Integer.valueOf(id));
+        Department department = repository.findById(Long.valueOf(id));
         if (department != null) {
             result.getDepartments().add(department);
             httpResponse.setStatus(HttpStatus.FOUND.value());

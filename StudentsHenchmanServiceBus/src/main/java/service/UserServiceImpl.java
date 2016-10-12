@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User prepareResultForGetUserById(HttpServletResponse httpResponse, String id) {
-        User user = repository.findById(Integer.valueOf(id));
+        User user = repository.findById(Long.valueOf(id));
         if (user != null) {
             httpResponse.setStatus(HttpStatus.FOUND.value());
         } else {

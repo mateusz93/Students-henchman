@@ -8,5 +8,5 @@ import model.Building;
 public interface BuildingRepository extends CrudRepository<Building, Long> {
 
     Building findByName(String name);
-    Building findById(Integer id);
+    Building findById(Long id);
 }

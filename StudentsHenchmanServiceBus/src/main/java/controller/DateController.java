@@ -13,7 +13,7 @@ import java.time.format.DateTimeFormatter;
  * @Author Mateusz Wieczorek on 10/1/16.
  */
 @RestController
-@RequestMapping(value = "/date")
+@RequestMapping("/mobile/date")
 public class DateController {
 
     private static final Logger log = LoggerFactory.getLogger(DateController.class);

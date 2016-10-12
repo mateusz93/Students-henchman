@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  * @Author Mateusz Wieczorek on 10/10/16.
  */
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/mobile/users")
 public class UserController {
 
     private static final Logger log = LoggerFactory.getLogger(UserController.class);

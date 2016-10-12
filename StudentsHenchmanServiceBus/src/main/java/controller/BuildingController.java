@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  * @Author Mateusz Wieczorek on 10/8/16.
  */
 @RestController
-@RequestMapping("/buildings")
+@RequestMapping("/mobile/buildings")
 public class BuildingController {
 
     private static final Logger log = LoggerFactory.getLogger(BuildingController.class);

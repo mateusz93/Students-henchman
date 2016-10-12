@@ -7,7 +7,7 @@ import model.User;
  */
 public interface UserRepository extends CrudRepository<User, Long> {
 
-    User findById(Integer id);
+    User findById(Long id);
     User findByFirstName(String firstName);
     User findByLastName(String lastName);
     User findByEmail(String email);
