@@ -3,11 +3,6 @@ body {
     font-family: 'Arial'
 }
 
-span {
-    display: inline-block;
-    vertical-align: middle;
-}
-
 div.scroll {
     overflow-y: scroll;
     overflow-x: hidden;
@@ -78,6 +73,7 @@ a {
     width: 45%;
     color: #FFF;
     height: 80%;
+    cursor: pointer;
 }
 
 .left_button {
