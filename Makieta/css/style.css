@@ -14,7 +14,7 @@ div.scroll {
     width: 80%;
     margin: auto;
     padding: 16px;
-    height: 10%;
+    height: 35%;
 }
 
 a {
@@ -24,6 +24,7 @@ a {
 
 .screen {
     background-color: #FFF;
+    position: relative;
 }
 
 .vertical_screen {
@@ -55,4 +56,49 @@ a {
     background-color: aquamarine;
     margin: 2px;
     padding: 2px;
+}
+
+.buttons_box {
+    padding-top: 16px;
+    width: 100%;
+    height: 25%;
+}
+
+.buttons_row {
+    width: 80%;
+    height: 45%;
+    margin: auto;
+    height: 
+}
+
+.menu_button {
+    background-color: #750105;
+    margin: 2px;
+    padding: 2px;
+    width: 45%;
+    color: #FFF;
+    height: 80%;
+}
+
+.left_button {
+    float: left;
+}
+
+.right_button {
+    float: right;
+}
+
+.footer {
+    width: 100%;
+    background-color: #750105;
+    height: 10%;
+    color: #FFF;
+    position: absolute;   
+    bottom: 0;
+    left: 0;
+    
+}
+
+#footer_copyright {
+    
 }
