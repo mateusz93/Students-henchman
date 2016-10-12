@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import edu.p.lodz.pl.studentshenchman.R;
 
 /**
@@ -39,7 +41,7 @@ public class SubjectListAdapter extends RecyclerView.Adapter<SubjectListAdapter.
         holder.subjectName.setText("Analiza Matematyczna");
         holder.time.setText("8:15 - 9:45");
         holder.place.setText("Budynek xxx sala 104");
-        //Picasso.with(mContext).load(R.color.colorPrimary).into(holder.placeImage);
+        Picasso.with(mContext).load(R.color.colorPrimary).into(holder.placeImage);
 
         Bitmap photo = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.nav);
 
@@ -82,13 +84,13 @@ public class SubjectListAdapter extends RecyclerView.Adapter<SubjectListAdapter.
             time = (TextView) itemView.findViewById(R.id.time);
             place = (TextView) itemView.findViewById(R.id.place);
             placeNameHolder = (LinearLayout) itemView.findViewById(R.id.placeNameHolder);
-            //placeImage = (ImageView) itemView.findViewById(R.id.placeImage);
-            placeHolder.setOnClickListener(this);
+            placeImage = (ImageView) itemView.findViewById(R.id.placeImage);
+            // placeHolder.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            mItemClickListener.onItemClick(v, getPosition());
+            // mItemClickListener.onItemClick(v, getPosition());
         }
     }
 

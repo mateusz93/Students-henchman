@@ -6,9 +6,6 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -75,7 +72,7 @@ public class DayFragment extends StudentShenchmanMainFragment {
 
     }
 
-    @Override
+    /*@Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.grid_manager_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
@@ -94,5 +91,5 @@ public class DayFragment extends StudentShenchmanMainFragment {
 
     private void toggleGrid() {
         // menager moze zmienic widok
-    }
+    }*/
 }
