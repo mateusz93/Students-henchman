@@ -1,7 +1,6 @@
 package service;
 
 import cdm.TeacherRS;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import model.Teacher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,11 +24,9 @@ public class TeacherServiceImpl implements TeacherService {
     @Autowired
     private TeacherRepository teacherRepository;
 
-    @Autowired
-    private ObjectMapper mapper;
-
     @Override
     public TeacherRS prepareResultForGetTeacherByLastName(HttpServletResponse httpResponse, String lastName) {
+        log.info("PathParameter: lastName=" + lastName);
         TeacherRS result = new TeacherRS();
         List<Teacher> teachers = teacherRepository.findByLastName(lastName);
         if (CollectionUtils.isEmpty(teachers)) {
@@ -44,6 +41,7 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public TeacherRS prepareResultForGetTeacherByFirstName(HttpServletResponse httpResponse, String firstName) {
+        log.info("PathParameter: firstName=" + firstName);
         TeacherRS result = new TeacherRS();
         List<Teacher> teachers = teacherRepository.findByFirstName(firstName);
         if (CollectionUtils.isEmpty(teachers)) {
@@ -58,6 +56,7 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public TeacherRS prepareResultForGetTeacherById(HttpServletResponse httpResponse, String id) {
+        log.info("PathParameter: id=" + id);
         TeacherRS result = new TeacherRS();
         Teacher teacher = teacherRepository.findById(Long.valueOf(id));
         if (teacher != null) {
@@ -72,6 +71,7 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public TeacherRS prepareResultForGetTeacherByEmail(HttpServletResponse httpResponse, String email) {
+        log.info("PathParameter: email=" + email);
         TeacherRS result = new TeacherRS();
         Teacher teacher = teacherRepository.findByEmail(email);
         if (teacher != null) {

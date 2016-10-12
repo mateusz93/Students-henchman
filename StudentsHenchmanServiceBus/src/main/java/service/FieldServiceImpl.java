@@ -1,7 +1,6 @@
 package service;
 
 import cdm.FieldRS;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import model.Department;
 import model.Field;
 import org.slf4j.Logger;
@@ -12,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import repository.DepartmentRepository;
 import repository.FieldRepository;
+
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
@@ -28,9 +28,6 @@ public class FieldServiceImpl implements FieldService {
 
     @Autowired
     private DepartmentRepository departmentRepository;
-
-    @Autowired
-    private ObjectMapper mapper;
 
     @Override
     public FieldRS prepareResultForGetFieldByName(HttpServletResponse httpResponse, String name) {

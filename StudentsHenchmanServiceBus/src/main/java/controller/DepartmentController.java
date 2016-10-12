@@ -36,10 +36,8 @@ public class DepartmentController {
                                        HttpServletResponse httpResponse) {
         log.info("getDepartment core invoked.");
         if (StringUtils.isNotEmpty(name)) {
-            log.info("PathParameter: Name=" + name);
             return departmentService.prepareResultForGetDepartmentByName(httpResponse, name);
         } else if (StringUtils.isNotEmpty(id)) {
-            log.info("PathParameter: id=" + id);
             return departmentService.prepareResultForGetDepartmentById(httpResponse, id);
         }
         return departmentService.prepareResultForGetDepartments(httpResponse);

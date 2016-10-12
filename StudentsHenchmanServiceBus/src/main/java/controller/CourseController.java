@@ -35,10 +35,8 @@ public class CourseController {
                                HttpServletResponse httpResponse) {
         log.info("getCourses core invoked");
         if (StringUtils.isNotEmpty(name)) {
-            log.info("PathParameter: Name=" + name);
             return courseService.prepareResultForGetCourseByName(httpResponse, name);
         } else if (StringUtils.isNotEmpty(id)) {
-            log.info("PathParameter: id=" + id);
             return courseService.prepareResultForGetCourseById(httpResponse, id);
         }
         return courseService.prepareResultForGetCourses(httpResponse);

@@ -35,10 +35,8 @@ public class BuildingController {
                                    HttpServletResponse httpResponse) {
         log.info("getBuidings core invoked");
         if (StringUtils.isNotEmpty(name)) {
-            log.info("PathParameter: Name=" + name);
             return buildingService.prepareResultForGetBuildingByName(httpResponse, name);
         } else if (StringUtils.isNotEmpty(id)) {
-            log.info("PathParameter: id=" + id);
             return buildingService.prepareResultForGetBuildingById(httpResponse, id);
         }
         return buildingService.prepareResultForGetBuildings(httpResponse);

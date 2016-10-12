@@ -1,7 +1,6 @@
 package service;
 
 import cdm.BuildingsRS;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import model.Building;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,11 +24,9 @@ public class BuildingServiceImpl implements BuildingService {
     @Autowired
     private BuildingRepository repository;
 
-    @Autowired
-    private ObjectMapper mapper;
-
     @Override
     public BuildingsRS prepareResultForGetBuildingByName(HttpServletResponse httpResponse, String name) {
+        log.info("PathParameter: Name=" + name);
         BuildingsRS result = new BuildingsRS();
         Building building = repository.findByName(name);
         if (building != null) {
@@ -44,6 +41,7 @@ public class BuildingServiceImpl implements BuildingService {
 
     @Override
     public BuildingsRS prepareResultForGetBuildingById(HttpServletResponse httpResponse, String id) {
+        log.info("PathParameter: id=" + id);
         BuildingsRS result = new BuildingsRS();
         Building building = repository.findById(Long.valueOf(id));
         if (building != null) {

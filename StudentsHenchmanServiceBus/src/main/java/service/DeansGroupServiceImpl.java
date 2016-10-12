@@ -1,7 +1,6 @@
 package service;
 
 import cdm.DeansGroupRS;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import model.DeansGroup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,11 +24,9 @@ public class DeansGroupServiceImpl implements DeansGroupService {
     @Autowired
     private DeansGroupRepository repository;
 
-    @Autowired
-    private ObjectMapper mapper;
-
     @Override
     public DeansGroupRS prepareResultForGetDeansGroupByName(HttpServletResponse httpResponse, String name) {
+        log.info("PathParameter: Name=" + name);
         DeansGroupRS result = new DeansGroupRS();
         DeansGroup deansGroup = repository.findByName(name);
         if (deansGroup != null) {
@@ -44,6 +41,7 @@ public class DeansGroupServiceImpl implements DeansGroupService {
 
     @Override
     public DeansGroupRS prepareResultForGetDeansGroupById(HttpServletResponse httpResponse, String id) {
+        log.info("PathParameter: id=" + id);
         DeansGroupRS result = new DeansGroupRS();
         DeansGroup deansGroup = repository.findById(Long.valueOf(id));
         if (deansGroup != null) {

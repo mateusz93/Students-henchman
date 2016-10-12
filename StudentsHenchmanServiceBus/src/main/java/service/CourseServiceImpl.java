@@ -1,7 +1,6 @@
 package service;
 
 import cdm.CourseRS;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import model.Course;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,11 +24,9 @@ public class CourseServiceImpl implements CourseService {
     @Autowired
     private CourseRepository repository;
 
-    @Autowired
-    private ObjectMapper mapper;
-
     @Override
     public CourseRS prepareResultForGetCourseByName(HttpServletResponse httpResponse, String name) {
+        log.info("PathParameter: Name=" + name);
         CourseRS result = new CourseRS();
         List<Course> courses = repository.findByName(name);
         if (CollectionUtils.isEmpty(courses)) {
@@ -44,6 +41,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public CourseRS prepareResultForGetCourseById(HttpServletResponse httpResponse, String id) {
+        log.info("PathParameter: id=" + id);
         CourseRS result = new CourseRS();
         Course course = repository.findById(Long.valueOf(id));
         if (course != null) {

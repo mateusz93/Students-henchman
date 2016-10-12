@@ -1,9 +1,6 @@
 package service;
 
-import cdm.SpecializationRS;
 import cdm.SubjectRS;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import model.Specialization;
 import model.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,11 +24,9 @@ public class SubjectServiceImpl implements SubjectService {
     @Autowired
     private SubjectRepository repository;
 
-    @Autowired
-    private ObjectMapper mapper;
-
     @Override
     public SubjectRS prepareResultForGetSubjectByName(HttpServletResponse httpResponse, String name) {
+        log.info("PathParameter: name=" + name);
         SubjectRS result = new SubjectRS();
         List<Subject> subjects = repository.findByName(name);
         if (CollectionUtils.isEmpty(subjects)) {
@@ -46,6 +41,7 @@ public class SubjectServiceImpl implements SubjectService {
 
     @Override
     public SubjectRS prepareResultForGetSubjectByCode(HttpServletResponse httpResponse, String code) {
+        log.info("PathParameter: code=" + code);
         SubjectRS result = new SubjectRS();
         Subject subject = repository.findByCode(code);
         if (subject != null) {
@@ -60,6 +56,7 @@ public class SubjectServiceImpl implements SubjectService {
 
     @Override
     public SubjectRS prepareResultForGetSubjectById(HttpServletResponse httpResponse, String id) {
+        log.info("PathParameter: id=" + id);
         SubjectRS result = new SubjectRS();
         Subject subject = repository.findById(Long.valueOf(id));
         if (subject != null) {

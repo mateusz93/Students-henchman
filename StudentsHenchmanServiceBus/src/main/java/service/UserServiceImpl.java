@@ -2,7 +2,6 @@ package service;
 
 import cdm.CreateUserRQ;
 import cdm.CreateUserRS;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import model.User;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -26,11 +25,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository repository;
 
-    @Autowired
-    private ObjectMapper mapper;
-
     @Override
     public User prepareResultForGetUserByEmail(HttpServletResponse httpResponse, String email) {
+        log.info("PathParameter: email=" + email);
         User user = repository.findByEmail(email);
         if (user != null) {
             httpResponse.setStatus(HttpStatus.FOUND.value());
@@ -43,6 +40,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User prepareResultForGetUserById(HttpServletResponse httpResponse, String id) {
+        log.info("PathParameter: id=" + id);
         User user = repository.findById(Long.valueOf(id));
         if (user != null) {
             httpResponse.setStatus(HttpStatus.FOUND.value());
@@ -55,6 +53,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public CreateUserRS createUser(CreateUserRQ request, HttpServletResponse httpResponse) {
+        log.info("RequestBody: " + request.toString());
         CreateUserRS result = new CreateUserRS();
         if (isNotCorrectRequest(request)) {
             httpResponse.setStatus(HttpStatus.BAD_REQUEST.value());

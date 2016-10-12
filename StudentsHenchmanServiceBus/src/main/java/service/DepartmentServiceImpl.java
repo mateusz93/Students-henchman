@@ -1,7 +1,6 @@
 package service;
 
 import cdm.DepartmentsRS;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import model.Department;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,9 +24,6 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Autowired
     private DepartmentRepository repository;
 
-    @Autowired
-    private ObjectMapper mapper;
-
     @Override
     public DepartmentsRS prepareResultForGetDepartments(HttpServletResponse httpResponse) {
         DepartmentsRS result = new DepartmentsRS();
@@ -44,6 +40,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public DepartmentsRS prepareResultForGetDepartmentByName(HttpServletResponse httpResponse, String name) {
+        log.info("PathParameter: Name=" + name);
         DepartmentsRS result = new DepartmentsRS();
         Department department = repository.findByName(name);
         if (department != null) {
@@ -58,6 +55,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public DepartmentsRS prepareResultForGetDepartmentById(HttpServletResponse httpResponse, String id) {
+        log.info("PathParameter: id=" + id);
         DepartmentsRS result = new DepartmentsRS();
         Department department = repository.findById(Long.valueOf(id));
         if (department != null) {

@@ -37,13 +37,10 @@ public class SpecializationController {
                                               HttpServletResponse httpResponse) {
         log.info("getSpecialization core invoked.");
         if (StringUtils.isNotEmpty(name)) {
-            log.info("PathParameter: Name=" + name);
             return specializationService.prepareResultForGetSpecializationByName(httpResponse, name);
         } else if (StringUtils.isNotEmpty(id)) {
-            log.info("PathParameter: id=" + id);
             return specializationService.prepareResultForGetSpecializationById(httpResponse, id);
         } else if (StringUtils.isNotEmpty(fieldId)) {
-            log.info("PathParameter: fieldId=" + fieldId);
             return specializationService.prepareResultForGetSpecializationByFieldId(httpResponse, fieldId);
         }
         return specializationService.prepareResultForGetSpecializations(httpResponse);

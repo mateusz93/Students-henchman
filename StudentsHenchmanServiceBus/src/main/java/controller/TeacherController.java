@@ -37,16 +37,12 @@ public class TeacherController {
                                 HttpServletResponse httpResponse) {
         log.info("getTeacher core invoked.");
         if (StringUtils.isNotEmpty(lastName)) {
-            log.info("PathParameter: lastName=" + lastName);
             return teacherService.prepareResultForGetTeacherByLastName(httpResponse, lastName);
         } else if (StringUtils.isNotEmpty(firstName)) {
-            log.info("PathParameter: firstName=" + firstName);
             return teacherService.prepareResultForGetTeacherByFirstName(httpResponse, firstName);
         } else if (StringUtils.isNotEmpty(id)) {
-            log.info("PathParameter: id=" + id);
             return teacherService.prepareResultForGetTeacherById(httpResponse, id);
         } else if (StringUtils.isNotEmpty(email)) {
-            log.info("PathParameter: email=" + email);
             return teacherService.prepareResultForGetTeacherByEmail(httpResponse, email);
         }
         return teacherService.prepareResultForGetTeachers(httpResponse);

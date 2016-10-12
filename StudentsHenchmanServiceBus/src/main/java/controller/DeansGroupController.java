@@ -35,10 +35,8 @@ public class DeansGroupController {
                                       HttpServletResponse httpResponse) {
         log.info("getDeansGroup core invoked.");
         if (StringUtils.isNotEmpty(name)) {
-            log.info("PathParameter: Name=" + name);
             return deansGroupService.prepareResultForGetDeansGroupByName(httpResponse, name);
         } else if (StringUtils.isNotEmpty(id)) {
-            log.info("PathParameter: id=" + id);
             return deansGroupService.prepareResultForGetDeansGroupById(httpResponse, id);
         }
         return deansGroupService.prepareResultForGetDeansGroups(httpResponse);

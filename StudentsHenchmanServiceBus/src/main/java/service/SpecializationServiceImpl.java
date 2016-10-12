@@ -1,7 +1,6 @@
 package service;
 
 import cdm.SpecializationRS;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import model.Field;
 import model.Specialization;
 import org.slf4j.Logger;
@@ -30,11 +29,9 @@ public class SpecializationServiceImpl implements SpecializationService {
     @Autowired
     private FieldRepository fieldRepository;
 
-    @Autowired
-    private ObjectMapper mapper;
-
     @Override
     public SpecializationRS prepareResultForGetSpecializationByName(HttpServletResponse httpResponse, String name) {
+        log.info("PathParameter: Name=" + name);
         SpecializationRS result = new SpecializationRS();
         List<Specialization> specializations = specializationRepository.findByName(name);
         if (CollectionUtils.isEmpty(specializations)) {
@@ -49,6 +46,7 @@ public class SpecializationServiceImpl implements SpecializationService {
 
     @Override
     public SpecializationRS prepareResultForGetSpecializationById(HttpServletResponse httpResponse, String id) {
+        log.info("PathParameter: id=" + id);
         SpecializationRS result = new SpecializationRS();
         Specialization specialization = specializationRepository.findById(Long.valueOf(id));
         if (specialization != null) {
@@ -77,6 +75,7 @@ public class SpecializationServiceImpl implements SpecializationService {
 
     @Override
     public SpecializationRS prepareResultForGetSpecializationByFieldId(HttpServletResponse httpResponse, String fieldId) {
+        log.info("PathParameter: fieldId=" + fieldId);
         SpecializationRS result = new SpecializationRS();
         Field field = fieldRepository.findById(Long.valueOf(fieldId));
         List<Specialization> specializations = specializationRepository.findByField(field);

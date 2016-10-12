@@ -36,13 +36,10 @@ public class SubjectController {
                                 HttpServletResponse httpResponse) {
         log.info("getSubject core invoked.");
         if (StringUtils.isNotEmpty(name)) {
-            log.info("PathParameter: name=" + name);
             return subjectService.prepareResultForGetSubjectByName(httpResponse, name);
         } else if (StringUtils.isNotEmpty(code)) {
-            log.info("PathParameter: code=" + code);
             return subjectService.prepareResultForGetSubjectByCode(httpResponse, code);
         } else if (StringUtils.isNotEmpty(id)) {
-            log.info("PathParameter: id=" + id);
             return subjectService.prepareResultForGetSubjectById(httpResponse, id);
         }
         return subjectService.prepareResultForGetSubjects(httpResponse);
