@@ -21,7 +21,8 @@
         <activity android:name=".SettingsActivity" />
         <activity android:name=".SaveDataActivity" />
         <activity android:name=".ReadDataActivity" />
-        <activity android:name=".timetable_plan.activity.TimetableActivity"></activity>
+        <activity android:name=".timetable_plan.activity.TimetableActivity"/>
+        <activity android:name=".QRCodeScanActivity"/>
     </application>
 
 </manifest>
