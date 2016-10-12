@@ -1,5 +1,6 @@
 package repository;
 
+import model.Department;
 import model.Field;
 
 import java.util.List;
@@ -10,5 +11,6 @@ import java.util.List;
 public interface FieldRepository extends CrudRepository<Field, Long> {
 
     List<Field> findByName(String name);
+    List<Field> findByDepartment(Department department);
     Field findById(Long id);
 }

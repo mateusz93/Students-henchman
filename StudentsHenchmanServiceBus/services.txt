@@ -29,3 +29,7 @@ http://localhost:8080/mobile/deansGroups?name={name}   Method.GET - zwraca Deans
 http://localhost:8080/mobile/courses   Method.GET - zwraca CourseRS
 http://localhost:8080/mobile/courses?id={id}   Method.GET - zwraca CourseRS
 http://localhost:8080/mobile/courses?name={name}   Method.GET - zwraca CourseRS
+http://localhost:8080/mobile/fields   Method.GET - zwraca FieldRS
+http://localhost:8080/mobile/fields?id={id}   Method.GET - zwraca FieldRS
+http://localhost:8080/mobile/fields?name={name}   Method.GET - zwraca FieldRS
+http://localhost:8080/mobile/fields?departmentId={departmentId}   Method.GET - zwraca FieldRS
