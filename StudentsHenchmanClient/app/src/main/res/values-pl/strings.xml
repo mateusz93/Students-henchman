@@ -3,9 +3,18 @@
     <string name="app_name">Students Henchman</string>
     <string name="dashboard">Ekran główny</string>
     <string name="settings">Ustawienia</string>
-    <string name="faculties_prompt">Wydział</string>
+    <string name="timetable_activity_title">Plan Zajęć</string>
+
+    <!--dni tygodnia-->
     <string name="monday">Poniedziałek</string>
     <string name="tuesday">Wtorek</string>
+    <string name="wednesday">Sroda</string>
+    <string name="thursday">Czwarter</string>
+    <string name="friday">Piątek</string>
+    <string name="saturday">Sobota</string>
+    <string name="sunday">Niedziela</string>
+
+    <string name="faculties_prompt">Wydział</string>
     <string-array name="faculties">
         <item>Organizacji i Zarządzania</item>
         <item>Wzornictwa</item>
