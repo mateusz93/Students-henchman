@@ -36,12 +36,12 @@ public class SpecializationServiceImpl implements SpecializationService {
     @Override
     public SpecializationRS prepareResultForGetSpecializationByName(HttpServletResponse httpResponse, String name) {
         SpecializationRS result = new SpecializationRS();
-        Specialization specialization = specializationRepository.findByName(name);
-        if (specialization != null) {
-            result.getSpecializations().add(specialization);
-            httpResponse.setStatus(HttpStatus.FOUND.value());
-        } else {
+        List<Specialization> specializations = specializationRepository.findByName(name);
+        if (CollectionUtils.isEmpty(specializations)) {
             httpResponse.setStatus(HttpStatus.NOT_FOUND.value());
+        } else {
+            result.getSpecializations().addAll(specializations);
+            httpResponse.setStatus(HttpStatus.FOUND.value());
         }
         log.info("ResponseBody: " + result.toString());
         return result;

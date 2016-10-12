@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface SpecializationRepository extends CrudRepository<Specialization, Long> {
 
-    Specialization findByName(String name);
+    List<Specialization> findByName(String name);
     Specialization findById(Long id);
     List<Specialization> findByField(Field field);
 }
