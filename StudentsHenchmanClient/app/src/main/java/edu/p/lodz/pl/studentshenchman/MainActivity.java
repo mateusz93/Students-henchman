@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainActivity;
+import edu.p.lodz.pl.studentshenchman.timetable_plan.activity.TimetableActivity;
 
 public class MainActivity extends StudentShenchmanMainActivity {
     private static final String TAG = MainActivity.class.getName();
@@ -20,8 +21,8 @@ public class MainActivity extends StudentShenchmanMainActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //toolbar = (Toolbar) findViewById(R.id.tool_bar);
-        //prepareToolbar();
+        toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        prepareToolbar();
 
         Button buttonTimetable = (Button) findViewById(R.id.timesheetButton);
 
@@ -86,6 +87,7 @@ public class MainActivity extends StudentShenchmanMainActivity {
         if (null != getSupportActionBar()) {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setDisplayUseLogoEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
         }
     }
 
