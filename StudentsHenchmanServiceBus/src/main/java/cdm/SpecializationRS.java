@@ -2,6 +2,7 @@ package cdm;
 
 import model.Specialization;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,7 +10,7 @@ import java.util.List;
  */
 public class SpecializationRS {
 
-    private List<Specialization> specializations;
+    private List<Specialization> specializations = new ArrayList<>();
 
     public List<Specialization> getSpecializations() {
         return specializations;

@@ -2,6 +2,7 @@ package cdm;
 
 import model.Teacher;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,7 +10,7 @@ import java.util.List;
  */
 public class TeacherRS {
 
-    private List<Teacher> teachers;
+    private List<Teacher> teachers = new ArrayList<>();
 
     public List<Teacher> getTeachers() {
         return teachers;

@@ -2,6 +2,7 @@ package cdm;
 
 import model.Subject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,7 +10,7 @@ import java.util.List;
  */
 public class SubjectRS {
 
-    private List<Subject> subjects;
+    private List<Subject> subjects = new ArrayList<>();
 
     public List<Subject> getSubjects() {
         return subjects;

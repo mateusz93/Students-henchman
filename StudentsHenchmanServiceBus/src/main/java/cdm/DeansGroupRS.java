@@ -2,6 +2,7 @@ package cdm;
 
 import model.DeansGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,7 +10,7 @@ import java.util.List;
  */
 public class DeansGroupRS {
 
-    private List<DeansGroup> deansGroups;
+    private List<DeansGroup> deansGroups = new ArrayList<>();
 
     public List<DeansGroup> getDeansGroups() {
         return deansGroups;
