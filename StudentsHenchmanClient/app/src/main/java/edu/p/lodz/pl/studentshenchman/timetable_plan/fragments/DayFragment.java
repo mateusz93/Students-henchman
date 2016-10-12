@@ -2,10 +2,14 @@ package edu.p.lodz.pl.studentshenchman.timetable_plan.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import edu.p.lodz.pl.studentshenchman.R;
 import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainFragment;
@@ -22,7 +26,8 @@ public class DayFragment extends StudentShenchmanMainFragment {
     public static final String TAB_NAME = "tab_name";
     public static final String TAB_NUMBER = "tab_number";
 
-    private TextView mEmptyText;
+    private RecyclerView mRecyclerView;
+    private StaggeredGridLayoutManager mStaggeredLayoutManager;
 
     public static DayFragment getInstance(String tabName, int tabNumber) {
         DayFragment day = new DayFragment();
@@ -35,13 +40,28 @@ public class DayFragment extends StudentShenchmanMainFragment {
         return day;
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
         View view = inflater.inflate(R.layout.day_fragment, container, false);
-        mEmptyText = (TextView) view.findViewById(R.id.empty_text);
+
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.list);
+        mStaggeredLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(mStaggeredLayoutManager);
+
+        mRecyclerView.setHasFixedSize(true);
+        //  mAdapter = new TravelListAdapter(this);
+        //  mRecyclerView.setAdapter(mAdapter);
+
+        // mAdapter.setOnItemClickListener(onItemClickListener);
 
         return view;
 
@@ -49,8 +69,27 @@ public class DayFragment extends StudentShenchmanMainFragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        mEmptyText.setText(getArguments().getString(TAB_NAME));
 
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.grid_manager_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == R.id.action_toggle_grid) {
+            toggleGrid();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void toggleGrid() {
+        // menager moze zmienic widok
+    }
 }

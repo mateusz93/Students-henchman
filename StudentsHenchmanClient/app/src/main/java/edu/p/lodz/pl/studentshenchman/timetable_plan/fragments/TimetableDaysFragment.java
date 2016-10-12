@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ToxicBakery.viewpager.transforms.CubeInTransformer;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +47,7 @@ public class TimetableDaysFragment extends StudentShenchmanMainFragment {
         List<Fragment> fragments = getRequiredFragments();
         mTimeTableDaysAdapter = new TimeTableDaysAdapter(getContext(), getFragmentManager(), fragments);
         mViewPager.setAdapter(mTimeTableDaysAdapter);
+        mViewPager.setPageTransformer(true, new CubeInTransformer());
         setUpActionBar(fragments);
 
         return view;
@@ -81,6 +84,13 @@ public class TimetableDaysFragment extends StudentShenchmanMainFragment {
         });
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
+
+        mViewPager.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
     }
 
