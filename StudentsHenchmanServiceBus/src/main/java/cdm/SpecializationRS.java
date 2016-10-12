@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class SpecializationRS {
 
-    List<Specialization> specializations;
+    private List<Specialization> specializations;
 
     public List<Specialization> getSpecializations() {
         return specializations;

@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class TeacherRS {
 
-    List<Teacher> teachers;
+    private List<Teacher> teachers;
 
     public List<Teacher> getTeachers() {
         return teachers;
