@@ -12,8 +12,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
 import edu.p.lodz.pl.studentshenchman.R;
 
 /**
@@ -24,6 +22,7 @@ public class SubjectListAdapter extends RecyclerView.Adapter<SubjectListAdapter.
     private static final String TAG = SubjectListAdapter.class.getName();
 
     private Context mContext;
+    private OnItemClickListener mItemClickListener;
 
     public SubjectListAdapter(Context context) {
         this.mContext = context;
@@ -89,7 +88,15 @@ public class SubjectListAdapter extends RecyclerView.Adapter<SubjectListAdapter.
 
         @Override
         public void onClick(View v) {
-            // cos zrob jak juz kliknal
+            mItemClickListener.onItemClick(v, getPosition());
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
+    }
+
+    public void setOnItemClickListener(final OnItemClickListener mItemClickListener) {
+        this.mItemClickListener = mItemClickListener;
     }
 }
