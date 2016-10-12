@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -103,25 +102,4 @@ public class TimetableDaysFragment extends StudentShenchmanMainFragment {
         super.onViewCreated(view, savedInstanceState);
 
     }
-
-    ActionBar.TabListener tabListener = new ActionBar.TabListener() {
-        @Override
-        public void onTabSelected(ActionBar.Tab tab, android.support.v4.app.FragmentTransaction ft) {
-            mViewPager.setCurrentItem(tab.getPosition());
-
-        }
-
-        @Override
-        public void onTabUnselected(ActionBar.Tab tab, android.support.v4.app.FragmentTransaction ft) {
-
-        }
-
-        @Override
-        public void onTabReselected(ActionBar.Tab tab, android.support.v4.app.FragmentTransaction ft) {
-
-        }
-
-    };
-
-
 }
