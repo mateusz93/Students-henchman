@@ -2,6 +2,7 @@ package edu.p.lodz.pl.studentshenchman.timetable_plan.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 
 import edu.p.lodz.pl.studentshenchman.R;
 import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainFragment;
+import edu.p.lodz.pl.studentshenchman.timetable_plan.adapters.SubjectListAdapter;
 
 /**
  * Created by Michał on 2016-10-12.
@@ -28,6 +30,7 @@ public class DayFragment extends StudentShenchmanMainFragment {
 
     private RecyclerView mRecyclerView;
     private StaggeredGridLayoutManager mStaggeredLayoutManager;
+    private SubjectListAdapter mAdapter;
 
     public static DayFragment getInstance(String tabName, int tabNumber) {
         DayFragment day = new DayFragment();
@@ -58,11 +61,11 @@ public class DayFragment extends StudentShenchmanMainFragment {
         mRecyclerView.setLayoutManager(mStaggeredLayoutManager);
 
         mRecyclerView.setHasFixedSize(true);
-        //  mAdapter = new TravelListAdapter(this);
-        //  mRecyclerView.setAdapter(mAdapter);
+        mAdapter = new SubjectListAdapter(getContext());
+        mRecyclerView.setAdapter(mAdapter);
 
         // mAdapter.setOnItemClickListener(onItemClickListener);
-
+        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeBasic();
         return view;
 
     }
