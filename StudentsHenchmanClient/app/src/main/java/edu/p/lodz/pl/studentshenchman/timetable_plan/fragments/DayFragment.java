@@ -1,11 +1,13 @@
 package edu.p.lodz.pl.studentshenchman.timetable_plan.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -56,13 +58,22 @@ public class DayFragment extends StudentShenchmanMainFragment {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.list);
         mStaggeredLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mStaggeredLayoutManager);
+        mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), mRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                // do whatever
+            }
 
+            @Override
+            public void onLongItemClick(View view, int position) {
+                // do whatever
+            }
+        }));
         mRecyclerView.setHasFixedSize(true);
         mAdapter = new SubjectListAdapter(getContext());
         mRecyclerView.setAdapter(mAdapter);
 
         // mAdapter.setOnItemClickListener(onItemClickListener);
-        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeBasic();
         return view;
 
     }
@@ -70,5 +81,55 @@ public class DayFragment extends StudentShenchmanMainFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
+    }
+
+    private static class RecyclerItemClickListener implements RecyclerView.OnItemTouchListener {
+
+        private OnItemClickListener mListener;
+
+        public interface OnItemClickListener {
+            void onItemClick(View view, int position);
+
+
+            void onLongItemClick(View view, int position);
+        }
+
+        GestureDetector mGestureDetector;
+
+        public RecyclerItemClickListener(Context context, final RecyclerView recyclerView, OnItemClickListener listener) {
+            mListener = listener;
+            mGestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+                @Override
+                public boolean onSingleTapUp(MotionEvent e) {
+                    return true;
+                }
+
+                @Override
+                public void onLongPress(MotionEvent e) {
+                    View child = recyclerView.findChildViewUnder(e.getX(), e.getY());
+                    if (child != null && mListener != null) {
+                        mListener.onLongItemClick(child, recyclerView.getChildAdapterPosition(child));
+                    }
+                }
+            });
+        }
+
+        @Override
+        public boolean onInterceptTouchEvent(RecyclerView view, MotionEvent e) {
+            View childView = view.findChildViewUnder(e.getX(), e.getY());
+            if (childView != null && mListener != null && mGestureDetector.onTouchEvent(e)) {
+                mListener.onItemClick(childView, view.getChildAdapterPosition(childView));
+                return true;
+            }
+            return false;
+        }
+
+        @Override
+        public void onTouchEvent(RecyclerView view, MotionEvent motionEvent) {
+        }
+
+        @Override
+        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+        }
     }
 }
