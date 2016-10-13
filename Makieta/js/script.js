@@ -2,8 +2,8 @@ var sites = {
     main: 'mainActivity.html',
     settings: 'settingsActivity.html',
     import: 'readDataActivity.html',
-    export: 'saveDataActivity',
-    timetable: 'timetableActivity',
+    export: 'saveDataActivity.html',
+    timetable: 'timetableActivity.html',
     
 };
 
