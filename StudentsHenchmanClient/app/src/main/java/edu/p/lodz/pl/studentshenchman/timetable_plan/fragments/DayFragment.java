@@ -71,25 +71,4 @@ public class DayFragment extends StudentShenchmanMainFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
     }
-
-    /*@Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.grid_manager_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        if (item.getItemId() == R.id.action_toggle_grid) {
-            toggleGrid();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void toggleGrid() {
-        // menager moze zmienic widok
-    }*/
 }
