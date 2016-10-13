@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.ToxicBakery.viewpager.transforms.CubeInTransformer;
 
@@ -65,7 +66,7 @@ public class TimetableDaysFragment extends StudentShenchmanMainFragment {
         mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.sunday)));
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-
+        mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -85,10 +86,9 @@ public class TimetableDaysFragment extends StudentShenchmanMainFragment {
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
 
-        mViewPager.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
+        mViewPager.setOnClickListener((view) -> {
+            {
+                Toast.makeText(getContext(), "xxxx", Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -30,7 +30,7 @@ public class TimetableActivity extends StudentShenchmanMainActivity {
         toolbar.setNavigationIcon(android.R.drawable.btn_plus);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
+        //getSupportActionBar().setHomeButtonEnabled(true);
     }
 
     @Override
