@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="edu.p.lodz.pl.studentshenchman">
+<manifest package="edu.p.lodz.pl.studentshenchman"
+          xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -12,16 +12,18 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".abstract_ui.StudentShenchmanMainActivity" />
-        <activity android:name=".SettingsActivity" />
-        <activity android:name=".SaveDataActivity" />
-        <activity android:name=".ReadDataActivity" />
-        <activity android:name=".TimetableActivity"></activity>
+        <activity android:name=".abstract_ui.StudentShenchmanMainActivity"/>
+        <activity android:name=".SettingsActivity"/>
+        <activity android:name=".SaveDataActivity"/>
+        <activity android:name=".ReadDataActivity"/>
+        <activity android:name=".timetable_plan.activity.TimetableActivity"/>
+        <activity android:name=".QRCodeScanActivity"/>
+        <activity android:name=".timetable_plan.activity.SubjectDetailsActivity"/>
     </application>
 
 </manifest>

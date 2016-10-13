@@ -1,10 +1,25 @@
 body {
     background-color: #000;
+    font-family: 'Arial'
+}
+
+div.scroll {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    width: 80%;
+    margin: auto;
+    padding: 16px;
+    height: 35%;
+}
+
+a {
+    color: white;
+    text-decoration: none;
 }
 
 .screen {
-    background-image: url("../images/bg.jpg");
     background-color: #FFF;
+    position: relative;
 }
 
 .vertical_screen {
@@ -20,10 +35,82 @@ body {
 }
 
 .logo {
-    background-image: url("../images/logo.png");
-    background-size: cover;
+    background-color: #750105;
+    color: #FFFFFF;
+    font-size: 64px;
+    text-align: center;
+    vertical-align: middle;
     width: 100%;
     height: 25%;
     padding-bottom: 20px;
+    display: inline-block;
 }
 
+.subject_box {
+    font-size: 24px;
+    background-color: aquamarine;
+    margin: 2px;
+    padding: 2px;
+}
+
+.buttons_box {
+    padding-top: 16px;
+    width: 100%;
+    height: 25%;
+}
+
+.buttons_row {
+    width: 80%;
+    height: 45%;
+    margin: auto;
+    height: 
+}
+
+.menu_button {
+    background-color: #750105;
+    margin: 2px;
+    padding: 2px;
+    width: 45%;
+    color: #FFF;
+    height: 80%;
+    cursor: pointer;
+}
+
+.left_button {
+    float: left;
+}
+
+.right_button {
+    float: right;
+}
+
+.settings_item {
+    
+}
+
+.settings_desc {
+    
+}
+
+.settings_option {
+    
+}
+
+.settings_wide_option {
+    
+}
+
+.footer {
+    width: 100%;
+    background-color: #750105;
+    height: 10%;
+    color: #FFF;
+    position: absolute;   
+    bottom: 0;
+    left: 0;
+    
+}
+
+#footer_copyright {
+    
+}

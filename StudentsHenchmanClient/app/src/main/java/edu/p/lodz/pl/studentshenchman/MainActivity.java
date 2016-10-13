@@ -9,7 +9,8 @@ import android.view.View;
 import android.widget.Button;
 
 import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainActivity;
-import edu.p.lodz.pl.studentshenchman.workers.DownloadWeatherSimpleWorker;
+import edu.p.lodz.pl.studentshenchman.database.DatabaseHelper;
+import edu.p.lodz.pl.studentshenchman.timetable_plan.activity.TimetableActivity;
 
 public class MainActivity extends StudentShenchmanMainActivity {
     private static final String TAG = MainActivity.class.getName();
@@ -21,9 +22,10 @@ public class MainActivity extends StudentShenchmanMainActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //toolbar = (Toolbar) findViewById(R.id.tool_bar);
-        //prepareToolbar();
+        toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        prepareToolbar();
 
+        DatabaseHelper.getInstance(getApplicationContext());
         Button buttonTimetable = (Button) findViewById(R.id.timesheetButton);
 
         buttonTimetable.setOnClickListener(new View.OnClickListener() {
@@ -34,7 +36,7 @@ public class MainActivity extends StudentShenchmanMainActivity {
         });
 
 
-        Button button = (Button) findViewById(R.id.timesheetButton);
+       /* Button button = (Button) findViewById(R.id.timesheetButton);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,7 +44,7 @@ public class MainActivity extends StudentShenchmanMainActivity {
                 DownloadWeatherSimpleWorker downloadDateWorker = new DownloadWeatherSimpleWorker(getApplicationContext());
                 downloadDateWorker.runService();
             }
-        });
+        });*/
 
         Button settingsButton = (Button) findViewById(R.id.settingsButon);
 
@@ -70,15 +72,24 @@ public class MainActivity extends StudentShenchmanMainActivity {
                 goToReadData();
             }
         });
+
+        Button scanQRCode = (Button) findViewById(R.id.scanQRCode);
+
+        scanQRCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToScanQRCode();
+            }
+        });
     }
 
     public void prepareToolbar() {
-        toolbar.setTitle(R.string.dashboard);
-        toolbar.setNavigationIcon(android.R.drawable.btn_plus);
+
         setSupportActionBar(toolbar);
         if (null != getSupportActionBar()) {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setDisplayUseLogoEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
         }
     }
 
@@ -120,6 +131,12 @@ public class MainActivity extends StudentShenchmanMainActivity {
 
     private void goToReadData() {
         Intent intent = new Intent(MainActivity.this, ReadDataActivity.class);
+        finish();
+        startActivity(intent);
+    }
+
+    private void goToScanQRCode() {
+        Intent intent = new Intent(MainActivity.this, QRCodeScanActivity.class);
         finish();
         startActivity(intent);
     }
