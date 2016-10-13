@@ -4,6 +4,7 @@
     <string name="dashboard">Dashboard</string>
     <string name="settings">Settings</string>
     <string name="timetable_activity_title">TimeTable</string>
+    <string name="subject_details_activity_title">Subject Details</string>
 
     <!--dni tygodnia-->
     <string name="monday">Monday</string>

@@ -1,9 +1,6 @@
 package edu.p.lodz.pl.studentshenchman.timetable_plan.adapters;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.support.v7.graphics.Palette;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,7 +42,7 @@ public class SubjectListAdapter extends RecyclerView.Adapter<SubjectListAdapter.
         holder.place.setText("Budynek xxx sala 104");
         Picasso.with(mContext).load(R.drawable.bg).into(holder.subjectImage);
 
-       // Bitmap photo = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.bg);
+        // Bitmap photo = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.bg);
 
        /* Palette.generateAsync(photo, new Palette.PaletteAsyncListener() {
             public void onGenerated(Palette palette) {
@@ -126,7 +123,7 @@ public class SubjectListAdapter extends RecyclerView.Adapter<SubjectListAdapter.
 
         @Override
         public void onClick(View v) {
-            // mItemClickListener.onItemClick(v, getPosition());
+            mItemClickListener.onItemClick(v, getPosition());
         }
     }
 
