@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainActivity;
+import edu.p.lodz.pl.studentshenchman.database.DatabaseHelper;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.activity.TimetableActivity;
 
 public class MainActivity extends StudentShenchmanMainActivity {
@@ -24,6 +25,7 @@ public class MainActivity extends StudentShenchmanMainActivity {
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         prepareToolbar();
 
+        DatabaseHelper.getInstance(getApplicationContext());
         Button buttonTimetable = (Button) findViewById(R.id.timesheetButton);
 
         buttonTimetable.setOnClickListener(new View.OnClickListener() {
