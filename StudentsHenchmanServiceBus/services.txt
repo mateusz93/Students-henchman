@@ -40,3 +40,7 @@ http://localhost:8080/mobile/rooms   Method.GET - zwraca RoomRS
 http://localhost:8080/mobile/rooms?id={id}   Method.GET - zwraca RoomRS
 http://localhost:8080/mobile/rooms?name={name}   Method.GET - zwraca RoomRS
 http://localhost:8080/mobile/rooms?code={code}   Method.GET - zwraca RoomRS
+http://localhost:8080/mobile/subjectsBlocks   Method.GET - zwraca SubjectsBlockRS
+http://localhost:8080/mobile/subjectsBlocks?id={id}   Method.GET - zwraca SubjectsBlockRS
+http://localhost:8080/mobile/subjectsBlocks?name={name}   Method.GET - zwraca SubjectsBlockRS
+http://localhost:8080/mobile/subjectsBlocks?fieldId={fieldId}   Method.GET - zwraca SubjectsBlockRS
