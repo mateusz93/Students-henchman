@@ -4,6 +4,7 @@
     <string name="dashboard">Ekran główny</string>
     <string name="settings">Ustawienia</string>
     <string name="timetable_activity_title">Plan Zajęć</string>
+    <string name="subject_details_activity_title">Szczegóły zajęć</string>
 
     <!--dni tygodnia-->
     <string name="monday">Poniedziałek</string>
