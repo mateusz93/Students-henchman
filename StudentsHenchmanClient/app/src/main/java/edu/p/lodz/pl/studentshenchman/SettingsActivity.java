@@ -2,13 +2,6 @@ package edu.p.lodz.pl.studentshenchman;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Spinner;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 
 import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainActivity;
 
@@ -27,7 +20,7 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
     }
 
     private void goToDashBoard() {
-        Intent previousActivity = new Intent(SettingsActivity.this, MainActivity.class);
+        Intent previousActivity = new Intent(SettingsActivity.this, DashboardActivity.class);
         finish();
         startActivity(previousActivity);
     }

@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@drawable/bg"
-    tools:context="edu.p.lodz.pl.studentshenchman.MainActivity">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@color/bg_color"
+                tools:context="edu.p.lodz.pl.studentshenchman.DashboardActivity">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <TableLayout
             android:layout_width="fill_parent"
@@ -27,27 +23,27 @@
                 android:layout_weight="0.5">
 
                 <ImageView
+                    android:id="@+id/logo"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:layout_column="0"
-                    android:src="@drawable/logo"
-                    android:id="@+id/logo"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:src="@drawable/logo"/>
 
             </TableRow>
 
             <TableRow
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:layout_weight="0.25"
-                android:layout_marginTop="@dimen/activity_main_button_margin">
+                android:layout_marginTop="@dimen/activity_main_button_margin"
+                android:layout_weight="0.25">
 
                 <TableLayout
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:layout_weight="1"
-                    android:padding="@dimen/activity_main_textview_padding"
-                    android:background="#AAADD8E6">
+                    android:background="#AAADD8E6"
+                    android:padding="@dimen/activity_main_textview_padding">
 
                     <TableRow
                         android:layout_width="fill_parent"
@@ -55,16 +51,16 @@
                         android:layout_weight="0.25">
 
                         <TextView
+                            android:id="@+id/widgetTitle"
                             android:layout_width="fill_parent"
                             android:layout_height="fill_parent"
-                            android:text="Najbliższy przedmiot"
-                            android:id="@+id/widgetTitle"
                             android:layout_column="0"
-                            android:textSize="20sp"
-                            android:textStyle="bold"
-                            android:paddingBottom="@dimen/activity_main_textview_padding"
+                            android:layout_weight="1"
                             android:background="@drawable/header_border"
-                            android:layout_weight="1" />
+                            android:paddingBottom="@dimen/activity_main_textview_padding"
+                            android:text="Najbliższy przedmiot"
+                            android:textSize="20sp"
+                            android:textStyle="bold"/>
 
                     </TableRow>
 
@@ -83,70 +79,74 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="fill_parent"
                                 android:layout_weight="0.25">
+
                                 <TextView
-                                    android:layout_width="fill_parent"
-                                    android:layout_height="fill_parent"
-                                    android:text="Projektowanie aplikacji mobilnych"
                                     android:id="@+id/nextSubjectName"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="fill_parent"
                                     android:layout_column="0"
+                                    android:layout_weight="1"
                                     android:scaleType="centerCrop"
-                                    android:layout_weight="1" />
+                                    android:text="Projektowanie aplikacji mobilnych"/>
                             </TableRow>
 
                             <TableRow
                                 android:layout_width="fill_parent"
                                 android:layout_height="fill_parent"
                                 android:layout_weight="0.25">
+
                                 <TextView
-                                    android:layout_width="fill_parent"
-                                    android:layout_height="fill_parent"
-                                    android:text="8.15 - 10.00"
                                     android:id="@+id/nextSubjectTime"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="fill_parent"
                                     android:layout_column="0"
+                                    android:layout_weight="1"
                                     android:scaleType="centerCrop"
-                                    android:layout_weight="1" />
+                                    android:text="8.15 - 10.00"/>
                             </TableRow>
 
                             <TableRow
                                 android:layout_width="fill_parent"
                                 android:layout_height="fill_parent"
                                 android:layout_weight="0.25">
+
                                 <TextView
-                                    android:layout_width="fill_parent"
-                                    android:layout_height="fill_parent"
-                                    android:text="CTI, Sala 303"
                                     android:id="@+id/nextSubjectPlace"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="fill_parent"
                                     android:layout_column="0"
+                                    android:layout_weight="1"
                                     android:scaleType="centerCrop"
-                                    android:layout_weight="1" />
+                                    android:text="CTI, Sala 303"/>
                             </TableRow>
 
                             <TableRow
                                 android:layout_width="fill_parent"
                                 android:layout_height="fill_parent"
                                 android:layout_weight="0.25">
+
                                 <TextView
+                                    android:id="@+id/nextSubjectTeacher"
                                     android:layout_width="fill_parent"
                                     android:layout_height="fill_parent"
-                                    android:text="Dr. inz Rafal Kielbik"
-                                    android:id="@+id/nextSubjectTeacher"
                                     android:layout_column="0"
+                                    android:layout_weight="1"
                                     android:scaleType="centerCrop"
-                                    android:layout_weight="1" />
+                                    android:text="Dr. inz Rafal Kielbik"/>
                             </TableRow>
 
                         </TableLayout>
 
                         <Button
+                            android:id="@+id/localizationButton"
                             android:layout_width="fill_parent"
                             android:layout_height="fill_parent"
-                            android:text=""
-                            android:id="@+id/localizationButton"
                             android:layout_column="1"
                             android:layout_margin="@dimen/activity_main_button_margin"
+                            android:layout_weight="1"
                             android:background="@drawable/nav"
                             android:scaleType="center"
-                            android:layout_weight="1" />
+                            android:text=""/>
 
                     </TableRow>
 
@@ -161,98 +161,63 @@
                 <TableLayout
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                    android:layout_marginTop="@dimen/activity_main_button_margin">
+                    android:layout_marginTop="@dimen/activity_main_button_margin"
+                    android:layout_weight="1">
 
                     <TableRow
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
-                        android:layout_weight="0.3"
-                        android:layout_marginTop="@dimen/activity_main_button_margin">
+                        android:layout_marginTop="@dimen/activity_main_button_margin"
+                        android:layout_weight="0.3">
 
                         <Button
-                            android:layout_width="fill_parent"
-                            android:layout_height="fill_parent"
-                            android:text="Plan zajęć"
                             android:id="@+id/timesheetButton"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
                             android:layout_column="0"
                             android:layout_marginBottom="@dimen/activity_main_button_margin"
                             android:layout_marginRight="@dimen/activity_main_button_margin"
-                            android:padding="@dimen/activity_main_button_padding"
-                            android:textAllCaps="true"
-                            android:textStyle="bold"
+                            android:layout_weight="1"
                             android:background="#AAADD8E6"
-                            android:layout_weight="1" />
+                            android:padding="@dimen/activity_main_button_padding"
+                            android:text="Plan zajęć"
+                            android:textAllCaps="true"
+                            android:textStyle="bold"/>
 
                         <Button
-                            android:layout_width="fill_parent"
-                            android:layout_height="fill_parent"
-                            android:text="Ustawienia"
                             android:id="@+id/settingsButon"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
                             android:layout_column="1"
                             android:layout_marginBottom="@dimen/activity_main_button_margin"
                             android:layout_marginLeft="@dimen/activity_main_button_margin"
-                            android:padding="@dimen/activity_main_button_padding"
-                            android:textAllCaps="true"
-                            android:textStyle="bold"
+                            android:layout_weight="1"
                             android:background="#AAADD8E6"
-                            android:layout_weight="1" />
+                            android:padding="@dimen/activity_main_button_padding"
+                            android:text="Ustawienia"
+                            android:textAllCaps="true"
+                            android:textStyle="bold"/>
                     </TableRow>
 
                     <TableRow
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
-                        android:layout_weight="0.3"
-                        android:layout_marginTop="@dimen/activity_main_button_margin">
+                        android:layout_marginTop="@dimen/activity_main_button_margin"
+                        android:layout_weight="0.3">
 
                         <Button
-                            android:layout_width="fill_parent"
-                            android:layout_height="fill_parent"
-                            android:text="Zapisz dane na serwerze"
-                            android:id="@+id/saveDataButton"
-                            android:layout_column="0"
-                            android:layout_marginBottom="@dimen/activity_main_button_margin"
-                            android:layout_marginRight="@dimen/activity_main_button_margin"
-                            android:padding="@dimen/activity_main_button_padding"
-                            android:textAllCaps="true"
-                            android:textStyle="bold"
-                            android:background="#AAADD8E6"
-                            android:layout_weight="1" />
-
-                        <Button
-                            android:layout_width="fill_parent"
-                            android:layout_height="fill_parent"
-                            android:text="Wczytaj dane z serwera"
-                            android:id="@+id/readDataButton"
-                            android:layout_column="1"
-                            android:layout_marginBottom="@dimen/activity_main_button_margin"
-                            android:layout_marginLeft="@dimen/activity_main_button_margin"
-                            android:padding="@dimen/activity_main_button_padding"
-                            android:textAllCaps="true"
-                            android:textStyle="bold"
-                            android:background="#AAADD8E6"
-                            android:layout_weight="1" />
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:layout_weight="0.3"
-                        android:layout_marginTop="@dimen/activity_main_button_margin">
-
-                        <Button
-                            android:layout_width="fill_parent"
-                            android:layout_height="fill_parent"
-                            android:text="Skanuj kod QR"
                             android:id="@+id/scanQRCode"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
                             android:layout_column="0"
                             android:layout_marginBottom="@dimen/activity_main_button_margin"
                             android:layout_marginRight="@dimen/activity_main_button_margin"
-                            android:padding="@dimen/activity_main_button_padding"
-                            android:textAllCaps="true"
-                            android:textStyle="bold"
+                            android:layout_weight="1"
                             android:background="#AAADD8E6"
-                            android:layout_weight="1" />
+                            android:padding="@dimen/activity_main_button_padding"
+                            android:text="Skanuj kod QR"
+                            android:textAllCaps="true"
+                            android:textStyle="bold"/>
                     </TableRow>
 
                 </TableLayout>

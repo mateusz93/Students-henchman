@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
-import edu.p.lodz.pl.studentshenchman.MainActivity;
+import edu.p.lodz.pl.studentshenchman.DashboardActivity;
 import edu.p.lodz.pl.studentshenchman.R;
 import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainActivity;
 
@@ -39,7 +39,7 @@ public class TimetableActivity extends StudentShenchmanMainActivity {
     }
 
     private void goToDashboard() {
-        Intent previousActivity = new Intent(TimetableActivity.this, MainActivity.class);
+        Intent previousActivity = new Intent(TimetableActivity.this, DashboardActivity.class);
         finish();
         startActivity(previousActivity);
     }

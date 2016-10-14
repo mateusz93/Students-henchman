@@ -10,7 +10,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".DashboardActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -19,8 +19,6 @@
         </activity>
         <activity android:name=".abstract_ui.StudentShenchmanMainActivity"/>
         <activity android:name=".SettingsActivity"/>
-        <activity android:name=".SaveDataActivity"/>
-        <activity android:name=".ReadDataActivity"/>
         <activity android:name=".timetable_plan.activity.TimetableActivity"/>
         <activity android:name=".QRCodeScanActivity"/>
         <activity android:name=".timetable_plan.activity.SubjectDetailsActivity"/>
