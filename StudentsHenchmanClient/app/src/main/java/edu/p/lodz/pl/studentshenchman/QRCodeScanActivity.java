@@ -35,7 +35,7 @@ public class QRCodeScanActivity extends StudentShenchmanMainActivity {
     }
 
     private void goToDashboard() {
-        Intent previousActivity = new Intent(QRCodeScanActivity.this, MainActivity.class);
+        Intent previousActivity = new Intent(QRCodeScanActivity.this, DashboardActivity.class);
         finish();
         startActivity(previousActivity);
     }

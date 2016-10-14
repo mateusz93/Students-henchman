@@ -11,15 +11,15 @@ import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainActivity;
 import edu.p.lodz.pl.studentshenchman.database.DatabaseHelper;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.activity.TimetableActivity;
 
-public class MainActivity extends StudentShenchmanMainActivity {
-    private static final String TAG = MainActivity.class.getName();
+public class DashboardActivity extends StudentShenchmanMainActivity {
+    private static final String TAG = DashboardActivity.class.getName();
 
     Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_dashboard);
 
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         prepareToolbar();
@@ -76,20 +76,20 @@ public class MainActivity extends StudentShenchmanMainActivity {
     }
 
     private void goToTimetable() {
-        Intent intent = new Intent(MainActivity.this, TimetableActivity.class);
+        Intent intent = new Intent(DashboardActivity.this, TimetableActivity.class);
         finish();
         startActivity(intent);
     }
 
     private void goToSettings() {
-        Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+        Intent intent = new Intent(DashboardActivity.this, SettingsActivity.class);
         finish();
         startActivity(intent);
     }
 
 
     private void goToScanQRCode() {
-        Intent intent = new Intent(MainActivity.this, QRCodeScanActivity.class);
+        Intent intent = new Intent(DashboardActivity.this, QRCodeScanActivity.class);
         finish();
         startActivity(intent);
     }
