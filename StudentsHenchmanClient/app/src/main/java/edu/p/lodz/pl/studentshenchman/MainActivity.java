@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 
 import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainActivity;
@@ -26,61 +25,26 @@ public class MainActivity extends StudentShenchmanMainActivity {
         prepareToolbar();
 
         DatabaseHelper.getInstance(getApplicationContext());
+
         Button buttonTimetable = (Button) findViewById(R.id.timesheetButton);
 
-        buttonTimetable.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToTimetable();
-            }
-        });
+        buttonTimetable.setOnClickListener((view) ->
+                goToTimetable()
 
-
-       /* Button button = (Button) findViewById(R.id.timesheetButton);
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DownloadWeatherSimpleWorker downloadDateWorker = new DownloadWeatherSimpleWorker(getApplicationContext());
-                downloadDateWorker.runService();
-            }
-        });*/
+        );
 
         Button settingsButton = (Button) findViewById(R.id.settingsButon);
 
-        settingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToSettings();
-            }
-        });
-
-        Button saveDataButton = (Button) findViewById(R.id.saveDataButton);
-
-        saveDataButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToSaveData();
-            }
-        });
-
-        Button readDataButton = (Button) findViewById(R.id.readDataButton);
-
-        readDataButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToReadData();
-            }
-        });
+        settingsButton.setOnClickListener((view) ->
+                goToSettings()
+        );
 
         Button scanQRCode = (Button) findViewById(R.id.scanQRCode);
 
-        scanQRCode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToScanQRCode();
-            }
-        });
+        scanQRCode.setOnClickListener((view) ->
+                goToScanQRCode()
+
+        );
     }
 
     public void prepareToolbar() {
@@ -123,17 +87,6 @@ public class MainActivity extends StudentShenchmanMainActivity {
         startActivity(intent);
     }
 
-    private void goToSaveData() {
-        Intent intent = new Intent(MainActivity.this, SaveDataActivity.class);
-        finish();
-        startActivity(intent);
-    }
-
-    private void goToReadData() {
-        Intent intent = new Intent(MainActivity.this, ReadDataActivity.class);
-        finish();
-        startActivity(intent);
-    }
 
     private void goToScanQRCode() {
         Intent intent = new Intent(MainActivity.this, QRCodeScanActivity.class);
