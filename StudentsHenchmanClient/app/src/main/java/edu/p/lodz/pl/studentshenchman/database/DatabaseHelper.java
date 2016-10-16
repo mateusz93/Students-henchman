@@ -8,6 +8,8 @@ import android.util.Log;
 import java.util.HashMap;
 import java.util.Map;
 
+import edu.p.lodz.pl.studentshenchman.database.models.Room;
+import edu.p.lodz.pl.studentshenchman.database.models.Teacher;
 import edu.p.lodz.pl.studentshenchman.database.models.User;
 
 
@@ -32,6 +34,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private Map<String, String> tables = new HashMap<String, String>() {
         {
             put(User.TABLE_NAME, createTableQuery(User.TABLE_NAME, User.COLUMN_NAMES, User.COLUMN_TYPES));
+            put(Teacher.TABLE_NAME, createTableQuery(Teacher.TABLE_NAME, Teacher.COLUMN_NAMES, Teacher.COLUMN_TYPES));
+            put(Room.TABLE_NAME, createTableQuery(Room.TABLE_NAME, Room.COLUMN_NAMES, Room.COLUMN_TYPES));
         }
     };
 
