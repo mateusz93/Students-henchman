@@ -1,0 +1,48 @@
+div#single_subject
+{
+	float: left;
+	width: 280px;
+	padding: 20px;
+	background: #333333;
+
+}
+
+div#single_subject h1
+{
+	float: left;
+	width: 236px;
+	font-size: 16px;
+	padding: 4px 0px 4px 30px;
+	border-bottom: 1px solid #505050;
+	font-weight: normal;
+	background: url('../images/time_icon.png') no-repeat 6px 6px;
+}
+
+div#navigate
+{
+	float: left;
+	width: 14px;
+	height: 14px;
+	padding: 7px 0px 7px 0px;
+	border-bottom: 1px solid #505050;
+}
+
+div#widget_content
+{
+	float: left;
+	width: 280px;
+	padding: 10px 0px 0px 0px;
+	line-height: 24px;
+}
+
+div#widget_content table td
+{
+	vertical-align: top;
+}
+
+div#single_subject_notes
+{
+	float: left;
+	width: 280px;
+	padding: 20px;
+}
