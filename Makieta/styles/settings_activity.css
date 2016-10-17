@@ -1,7 +1,9 @@
 div#settings
 {
 	float: left;
-	width: 320px;
+	width: 280px;
+	padding: 20px;
+	background: #333333;
 
 }
 
@@ -9,37 +11,35 @@ div#single_setting
 {
 	float: left;
 	width: 260px;
-	padding: 20px;
 	margin: 5px 10px;
-	background: #333333;
+	border-bottom: 2px solid #1f9fde;
 }
 
 div#single_setting h2
 {
 	float: left;
-	width: 260px;
-	font-size: 14px;
-	padding-bottom: 10px;
-	border-bottom: 1px solid #505050;
-	font-weight: normal;
+	width: 80px;
+	padding: 10px 0px;
+	font-size: 10px;
+	letter-spacing: 2px;
+	text-transform: uppercase;
 }
 
 div#single_setting select
 {
 	float: left;
-	width: 260px;
+	width: 180px;
 	height: 30px;
-	padding: 5px;
-	margin: 10px 0px;
+	padding: 0px 10px;
 	font-size: 12px;
-
-	border-bottom-left-radius: 10px;
+	background: #333333;
+	color: #dddddd;
 }
 
 div#download
 {
 	float: left;
-	width: 300px;
+	width: 260px;
 	margin: 5px 10px;
 	padding: 10px 0px;
 	text-align: center;
