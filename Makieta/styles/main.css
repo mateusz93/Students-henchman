@@ -30,6 +30,35 @@ div#screen
 	background: #1F1F1F;
 }
 
+div#toolbar
+{
+	float: left;
+	width: 280px;
+	padding: 30px 20px;
+}
+
+div#toolbar_drawer
+{
+	float: left;
+	width: 24px;
+	height: 16px;
+}
+
+div#toolbar_logo
+{
+	float: left;
+	width: 232px;
+	height: 16px;
+	text-align: center;
+}
+
+div#toolbar_menu
+{
+	float: left;
+	width: 24px;
+	height: 16px;
+}
+
 .little-margin
 {
 	padding-bottom: 6px;

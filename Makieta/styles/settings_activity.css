@@ -1,0 +1,52 @@
+div#settings
+{
+	float: left;
+	width: 320px;
+
+}
+
+div#single_setting
+{
+	float: left;
+	width: 260px;
+	padding: 20px;
+	margin: 5px 10px;
+	background: #333333;
+}
+
+div#single_setting h2
+{
+	float: left;
+	width: 260px;
+	font-size: 14px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #505050;
+	font-weight: normal;
+}
+
+div#single_setting select
+{
+	float: left;
+	width: 260px;
+	height: 30px;
+	padding: 5px;
+	margin: 10px 0px;
+	font-size: 12px;
+}
+
+div#download
+{
+	float: left;
+	width: 300px;
+	margin: 5px 10px;
+	padding: 10px 0px;
+	text-align: center;
+	background: #1f9fde;
+}
+
+div#download a
+{
+	text-decoration: none;
+	color: #ffffff;
+	text-transform: uppercase;
+}
