@@ -1,0 +1,47 @@
+*
+{
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+body
+{
+	background: #FFFFFF;
+	font: 12px Arial;
+	color: #FFFFFF;
+}
+
+div#phone
+{
+	margin: 100px auto;
+	width: 364px;
+	height: 672px;
+	background: #000000;
+	border-radius: 30px;
+}
+
+div#screen
+{
+	float: left;
+	margin: 22px;
+	width: 320px;
+	height: 578px;
+	background: #1F1F1F;
+}
+
+.little-margin
+{
+	padding-bottom: 6px;
+}
+
+.light-grey
+{
+	color: #dddddd;
+}
+
+.light-blue
+{
+	color: #1f9fde;
+}
+

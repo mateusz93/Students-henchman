@@ -1,0 +1,79 @@
+div#toolbar
+{
+	float: left;
+	width: 280px;
+	padding: 30px 20px;
+}
+
+div#timetable_days
+{
+	float: left;
+	width: 320px;
+	background: #333333;
+}
+
+div#timetable_days a
+{
+	float: left;
+	margin: 0px 9px;
+	padding: 10px 0px;
+	color: #dddddd;
+	text-decoration: none;
+	border-bottom: 2px solid #333333;
+}
+
+div#timetable_days a:hover
+{
+	border-bottom: 2px solid #1f9fde;
+}
+
+div#timetable
+{
+	float: left;
+	width: 300px;
+	margin: 0px 10px;
+	padding: 5px 0px;
+}
+
+div#timetable img
+{
+	float: left;
+}
+
+div#toolbar_drawer
+{
+	float: left;
+	width: 24px;
+	height: 16px;
+}
+
+div#toolbar_logo
+{
+	float: left;
+	width: 232px;
+	height: 16px;
+	text-align: center;
+}
+
+div#toolbar_menu
+{
+	float: left;
+	width: 24px;
+	height: 16px;
+}
+
+
+div.single_subject
+{
+	float: left;
+	width: 280px;
+	padding: 10px 10px 10px 10px;
+	margin: 5px 0px;
+	line-height: 24px;
+	background: #333333;
+}
+
+div.single_subject table td
+{
+	vertical-align: top;
+}
