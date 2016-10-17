@@ -32,6 +32,8 @@ div#single_setting select
 	padding: 5px;
 	margin: 10px 0px;
 	font-size: 12px;
+
+	border-bottom-left-radius: 10px;
 }
 
 div#download
