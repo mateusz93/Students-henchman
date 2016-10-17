@@ -36,6 +36,16 @@ div#single_setting select
 	color: #dddddd;
 }
 
+div#single_setting_group
+{
+	float: left;
+	width: 160px;
+	padding: 0px 10px;
+	font-size: 12px;
+	background: #333333;
+	color: #dddddd;
+}
+
 div#download
 {
 	float: left;
