@@ -25,6 +25,15 @@
         <item name="android:clickable">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="dashboardIcon">
+        <item name="android:background">#1f9fde</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">0.50</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_margin">2dp</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
 </resources>
