@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
+import android.widget.ImageButton;
 
 import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainActivity;
 import edu.p.lodz.pl.studentshenchman.database.DatabaseHelper;
@@ -21,25 +21,25 @@ public class DashboardActivity extends StudentShenchmanMainActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-        toolbar = (Toolbar) findViewById(R.id.tool_bar);
-        prepareToolbar();
+        /*toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        prepareToolbar();*/
 
         DatabaseHelper.getInstance(getApplicationContext());
 
-        Button buttonTimetable = (Button) findViewById(R.id.timesheetButton);
+        ImageButton buttonTimetable = (ImageButton) findViewById(R.id.timetable_icon);
 
         buttonTimetable.setOnClickListener((view) ->
                 goToTimetable()
 
         );
 
-        Button settingsButton = (Button) findViewById(R.id.settingsButon);
+        ImageButton settingsButton = (ImageButton) findViewById(R.id.settings_icon);
 
         settingsButton.setOnClickListener((view) ->
                 goToSettings()
         );
 
-        Button scanQRCode = (Button) findViewById(R.id.scanQRCode);
+        ImageButton scanQRCode = (ImageButton) findViewById(R.id.qrcode_scanner_icon);
 
         scanQRCode.setOnClickListener((view) ->
                 goToScanQRCode()

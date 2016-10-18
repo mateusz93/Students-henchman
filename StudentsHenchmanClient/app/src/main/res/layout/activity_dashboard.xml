@@ -1,231 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:background="@color/bg_color"
                 tools:context="edu.p.lodz.pl.studentshenchman.DashboardActivity">
 
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:src="@drawable/logo"/>
+
+
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:id="@+id/nearest_lesson"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_below="@+id/logo"
+        android:orientation="horizontal">
 
-        <TableLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1">
 
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="0.5">
+    </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/logo"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_column="0"
-                    android:layout_weight="1"
-                    android:src="@drawable/logo"/>
+    <LinearLayout
+        android:id="@+id/dashboard_icons"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/nearest_lesson">
 
-            </TableRow>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_marginTop="@dimen/activity_main_button_margin"
-                android:layout_weight="0.25">
+            <!-- position 1 -->
+            <ImageView
+                style="@style/dashboardIcon"
+                android:src="@drawable/timetable_icon"/>
 
-                <TableLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                    android:background="#AAADD8E6"
-                    android:padding="@dimen/activity_main_textview_padding">
+            <!-- position 3 -->
+            <ImageView
+                style="@style/dashboardIcon"
+                android:src="@drawable/timetable_icon"/>
 
-                    <TableRow
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:layout_weight="0.25">
+        </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/widgetTitle"
-                            android:layout_width="fill_parent"
-                            android:layout_height="fill_parent"
-                            android:layout_column="0"
-                            android:layout_weight="1"
-                            android:background="@drawable/header_border"
-                            android:paddingBottom="@dimen/activity_main_textview_padding"
-                            android:text="Najbliższy przedmiot"
-                            android:textSize="20sp"
-                            android:textStyle="bold"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-                    </TableRow>
+            <!-- position 2 -->
+            <ImageView
+                style="@style/dashboardIcon"
+                android:src="@drawable/timetable_icon"/>
 
-                    <TableRow
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:layout_weight="0.75">
+            <!-- position 4 -->
+            <ImageView
+                style="@style/dashboardIcon"
+                android:src="@drawable/timetable_icon"/>
 
-                        <TableLayout
-                            android:layout_width="fill_parent"
-                            android:layout_height="fill_parent"
-                            android:layout_weight="1"
-                            android:paddingTop="@dimen/activity_main_textview_padding">
-
-                            <TableRow
-                                android:layout_width="fill_parent"
-                                android:layout_height="fill_parent"
-                                android:layout_weight="0.25">
-
-                                <TextView
-                                    android:id="@+id/nextSubjectName"
-                                    android:layout_width="fill_parent"
-                                    android:layout_height="fill_parent"
-                                    android:layout_column="0"
-                                    android:layout_weight="1"
-                                    android:scaleType="centerCrop"
-                                    android:text="Projektowanie aplikacji mobilnych"/>
-                            </TableRow>
-
-                            <TableRow
-                                android:layout_width="fill_parent"
-                                android:layout_height="fill_parent"
-                                android:layout_weight="0.25">
-
-                                <TextView
-                                    android:id="@+id/nextSubjectTime"
-                                    android:layout_width="fill_parent"
-                                    android:layout_height="fill_parent"
-                                    android:layout_column="0"
-                                    android:layout_weight="1"
-                                    android:scaleType="centerCrop"
-                                    android:text="8.15 - 10.00"/>
-                            </TableRow>
-
-                            <TableRow
-                                android:layout_width="fill_parent"
-                                android:layout_height="fill_parent"
-                                android:layout_weight="0.25">
-
-                                <TextView
-                                    android:id="@+id/nextSubjectPlace"
-                                    android:layout_width="fill_parent"
-                                    android:layout_height="fill_parent"
-                                    android:layout_column="0"
-                                    android:layout_weight="1"
-                                    android:scaleType="centerCrop"
-                                    android:text="CTI, Sala 303"/>
-                            </TableRow>
-
-                            <TableRow
-                                android:layout_width="fill_parent"
-                                android:layout_height="fill_parent"
-                                android:layout_weight="0.25">
-
-                                <TextView
-                                    android:id="@+id/nextSubjectTeacher"
-                                    android:layout_width="fill_parent"
-                                    android:layout_height="fill_parent"
-                                    android:layout_column="0"
-                                    android:layout_weight="1"
-                                    android:scaleType="centerCrop"
-                                    android:text="Dr. inz Rafal Kielbik"/>
-                            </TableRow>
-
-                        </TableLayout>
-
-                        <Button
-                            android:id="@+id/localizationButton"
-                            android:layout_width="fill_parent"
-                            android:layout_height="fill_parent"
-                            android:layout_column="1"
-                            android:layout_margin="@dimen/activity_main_button_margin"
-                            android:layout_weight="1"
-                            android:background="@drawable/nav"
-                            android:scaleType="center"
-                            android:text=""/>
-
-                    </TableRow>
-
-                </TableLayout>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="0.25">
-
-                <TableLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_marginTop="@dimen/activity_main_button_margin"
-                    android:layout_weight="1">
-
-                    <TableRow
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:layout_marginTop="@dimen/activity_main_button_margin"
-                        android:layout_weight="0.3">
-
-                        <Button
-                            android:id="@+id/timesheetButton"
-                            android:layout_width="fill_parent"
-                            android:layout_height="fill_parent"
-                            android:layout_column="0"
-                            android:layout_marginBottom="@dimen/activity_main_button_margin"
-                            android:layout_marginRight="@dimen/activity_main_button_margin"
-                            android:layout_weight="1"
-                            android:background="#AAADD8E6"
-                            android:padding="@dimen/activity_main_button_padding"
-                            android:text="Plan zajęć"
-                            android:textAllCaps="true"
-                            android:textStyle="bold"/>
-
-                        <Button
-                            android:id="@+id/settingsButon"
-                            android:layout_width="fill_parent"
-                            android:layout_height="fill_parent"
-                            android:layout_column="1"
-                            android:layout_marginBottom="@dimen/activity_main_button_margin"
-                            android:layout_marginLeft="@dimen/activity_main_button_margin"
-                            android:layout_weight="1"
-                            android:background="#AAADD8E6"
-                            android:padding="@dimen/activity_main_button_padding"
-                            android:text="Ustawienia"
-                            android:textAllCaps="true"
-                            android:textStyle="bold"/>
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:layout_marginTop="@dimen/activity_main_button_margin"
-                        android:layout_weight="0.3">
-
-                        <Button
-                            android:id="@+id/scanQRCode"
-                            android:layout_width="fill_parent"
-                            android:layout_height="fill_parent"
-                            android:layout_column="0"
-                            android:layout_marginBottom="@dimen/activity_main_button_margin"
-                            android:layout_marginRight="@dimen/activity_main_button_margin"
-                            android:layout_weight="1"
-                            android:background="#AAADD8E6"
-                            android:padding="@dimen/activity_main_button_padding"
-                            android:text="Skanuj kod QR"
-                            android:textAllCaps="true"
-                            android:textStyle="bold"/>
-                    </TableRow>
-
-                </TableLayout>
-
-            </TableRow>
-
-        </TableLayout>
-
+        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>
