@@ -38,14 +38,16 @@
             android:orientation="vertical">
 
             <!-- position 1 -->
-            <ImageView
+            <ImageButton
+                android:id="@+id/timetable_icon"
                 style="@style/dashboardIcon"
-                android:src="@drawable/timetable_icon"/>
+                android:src="@drawable/timetable_dashboard_icon"/>
 
             <!-- position 3 -->
-            <ImageView
+            <ImageButton
+                android:id="@+id/settings_icon"
                 style="@style/dashboardIcon"
-                android:src="@drawable/timetable_icon"/>
+                android:src="@drawable/settings_dashboard_icon"/>
 
         </LinearLayout>
 
@@ -56,14 +58,15 @@
             android:orientation="vertical">
 
             <!-- position 2 -->
-            <ImageView
+            <ImageButton
+                android:id="@+id/qrcode_scanner_icon"
                 style="@style/dashboardIcon"
-                android:src="@drawable/timetable_icon"/>
+                android:src="@drawable/timetable_dashboard_icon"/>
 
             <!-- position 4 -->
-            <ImageView
+            <ImageButton
                 style="@style/dashboardIcon"
-                android:src="@drawable/timetable_icon"/>
+                android:src="@drawable/timetable_dashboard_icon"/>
 
         </LinearLayout>
     </LinearLayout>
