@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -39,6 +40,7 @@ public class SubjectListAdapter extends RecyclerView.Adapter<SubjectListAdapter.
         holder.lessonBuilding.setText("CTI");
         holder.lessonRoom.setText("301");
         holder.lessonTeacher.setText("Dr. inz. Rafal Kielbik");
+        holder.navigateLesson.setVisibility(View.GONE);
 
 
         // Bitmap photo = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.bg);
@@ -108,6 +110,7 @@ public class SubjectListAdapter extends RecyclerView.Adapter<SubjectListAdapter.
         public TextView lessonBuilding;
         public TextView lessonRoom;
         public TextView lessonTeacher;
+        public ImageView navigateLesson;
 
 
         public ViewHolder(View itemView) {
@@ -118,6 +121,7 @@ public class SubjectListAdapter extends RecyclerView.Adapter<SubjectListAdapter.
             lessonBuilding = (TextView) itemView.findViewById(R.id.item_building_name);
             lessonTeacher = (TextView) itemView.findViewById(R.id.item_teacher_name);
             lessonRoom = (TextView) itemView.findViewById(R.id.item_room_name);
+            navigateLesson = (ImageView) itemView.findViewById(R.id.navigate_item_icon);
             lessonMainHolder.setOnClickListener(this);
         }
 

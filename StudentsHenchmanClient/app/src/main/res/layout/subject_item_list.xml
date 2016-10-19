@@ -41,6 +41,14 @@
                 android:textSize="20dp"/>
         </LinearLayout>
 
+        <ImageView
+            android:id="@+id/navigate_item_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/time_icon"/>
+
         <View
             android:id="@+id/divider"
             android:layout_width="match_parent"

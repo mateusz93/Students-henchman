@@ -26,11 +26,11 @@ public class DashboardActivity extends StudentShenchmanMainActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-        mLessonName = (TextView) findViewById(R.id.lesson_name);
-        mTeacher = (TextView) findViewById(R.id.widget_teacher_name);
-        mBuilding = (TextView) findViewById(R.id.widget_building_name);
-        mRoom = (TextView) findViewById(R.id.widget_room_name);
-        mLessonTime = (TextView) findViewById(R.id.widget_lesson_time);
+        mLessonName = (TextView) findViewById(R.id.item_lesson_name);
+        mTeacher = (TextView) findViewById(R.id.item_teacher_name);
+        mBuilding = (TextView) findViewById(R.id.item_building_name);
+        mRoom = (TextView) findViewById(R.id.item_room_name);
+        mLessonTime = (TextView) findViewById(R.id.item_lesson_time);
 
         mLessonName.setText("Projektowanie aplikacji internetowych");
         mTeacher.setText("Dr. inz Rafal Kielbik");
