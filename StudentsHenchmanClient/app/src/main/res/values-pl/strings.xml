@@ -15,6 +15,10 @@
     <string name="saturday">Sobota</string>
     <string name="sunday">Niedziela</string>
 
+    <string name="nearest_lesson">Najbliższe zajęcia</string>
+    <string name="localication">Lokalizacja:</string>
+    <string name="teacher">Wykładowca:</string>
+
     <string name="faculties_prompt">Wydział</string>
     <string-array name="faculties">
         <item>Organizacji i Zarządzania</item>

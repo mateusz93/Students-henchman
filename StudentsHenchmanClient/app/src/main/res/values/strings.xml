@@ -15,6 +15,10 @@
     <string name="saturday">Saturday</string>
     <string name="sunday">Sunday</string>
 
+    <string name="nearest_lesson">Nearest lesson</string>
+    <string name="localication">Localization:</string>
+    <string name="teacher">Teacher:</string>
+
     <string name="faculties_prompt">Faculty</string>
 
     <string-array name="faculties">
