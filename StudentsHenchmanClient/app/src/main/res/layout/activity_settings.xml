@@ -4,7 +4,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/bg_color"
-                tools:context="edu.p.lodz.pl.studentshenchman.SettingsActivity">
+                tools:context="edu.p.lodz.pl.studentshenchman.settings.SettingsActivity">
 
     <LinearLayout
         android:layout_width="fill_parent"
