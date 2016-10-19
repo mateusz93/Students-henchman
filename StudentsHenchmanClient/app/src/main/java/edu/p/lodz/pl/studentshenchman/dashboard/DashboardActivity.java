@@ -1,4 +1,4 @@
-package edu.p.lodz.pl.studentshenchman;
+package edu.p.lodz.pl.studentshenchman.dashboard;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageButton;
 
+import edu.p.lodz.pl.studentshenchman.QRCodeScanActivity;
+import edu.p.lodz.pl.studentshenchman.R;
+import edu.p.lodz.pl.studentshenchman.SettingsActivity;
 import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainActivity;
 import edu.p.lodz.pl.studentshenchman.database.DatabaseHelper;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.activity.TimetableActivity;

@@ -1,9 +1,11 @@
-package edu.p.lodz.pl.studentshenchman;
+package edu.p.lodz.pl.studentshenchman.settings;
 
 import android.content.Intent;
 import android.os.Bundle;
 
+import edu.p.lodz.pl.studentshenchman.R;
 import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainActivity;
+import edu.p.lodz.pl.studentshenchman.dashboard.DashboardActivity;
 
 public class SettingsActivity extends StudentShenchmanMainActivity {
     private static final String TAG = SettingsActivity.class.getName();

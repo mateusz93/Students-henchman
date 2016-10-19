@@ -1,10 +1,12 @@
-package edu.p.lodz.pl.studentshenchman;
+package edu.p.lodz.pl.studentshenchman.qr_scanner;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
+import edu.p.lodz.pl.studentshenchman.R;
 import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainActivity;
+import edu.p.lodz.pl.studentshenchman.dashboard.DashboardActivity;
 
 public class QRCodeScanActivity extends StudentShenchmanMainActivity {
     private static final String TAG = QRCodeScanActivity.class.getName();
