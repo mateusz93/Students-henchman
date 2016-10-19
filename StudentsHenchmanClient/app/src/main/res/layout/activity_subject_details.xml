@@ -6,6 +6,7 @@
                                                  android:layout_height="match_parent"
                                                  android:background="@color/bg_color"
                                                  android:orientation="vertical"
+                                                 android:padding="7dp"
                                                  tools:context=".timetable_plan.activity.SubjectDetailsActivity">
 
     <RelativeLayout
@@ -16,7 +17,13 @@
             android:id="@+id/tool_bar"
             layout="@layout/tool_bar"/>
 
-        <LinearLayout
+        <include
+            android:id="@+id/lesson_details"
+            layout="@layout/subject_item_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tool_bar"/>
+        <!--<LinearLayout
             android:id="@+id/main_info_holder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -74,22 +81,22 @@
                 android:textColor="@android:color/white"/>
 
 
-        </LinearLayout>
+        </LinearLayout>-->
 
-        <TextView
-            android:id="@+id/vertical_separator"
+        <View
+            android:id="@+id/separator"
             android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:layout_below="@+id/main_info_holder"
-            android:layout_margin="2dp"
-            android:background="@android:color/white"
-            />
+            android:layout_height="2dp"
+            android:layout_below="@+id/lesson_details"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/divider_color"/>
 
         <ListView
             android:id="@+id/subject_note_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/vertical_separator"/>
+            android:layout_below="@+id/separator"/>
     </RelativeLayout>
 
     <android.support.design.widget.FloatingActionButton

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +29,7 @@ public class SubjectDetailsActivity extends StudentShenchmanMainActivity {
     private TextView mLector;
     private TextView mLocationBuild;
     private TextView mLocationRoom;
+    private ImageView mLessonNavigator;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,13 +38,14 @@ public class SubjectDetailsActivity extends StudentShenchmanMainActivity {
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         prepareToolbar();
 
-        mSubjectName = (TextView) findViewById(R.id.subject_name);
-        mSubjectType = (TextView) findViewById(R.id.subject_type);
-        mTime = (TextView) findViewById(R.id.time);
-        mLector = (TextView) findViewById(R.id.lector);
-        mLocationBuild = (TextView) findViewById(R.id.location_build);
-        mLocationRoom = (TextView) findViewById(R.id.location_room);
+        mSubjectName = (TextView) findViewById(R.id.item_lesson_name);
+        //mSubjectType = (TextView) findViewById(R.id.subject_type);
+        mTime = (TextView) findViewById(R.id.item_lesson_time);
+        mLector = (TextView) findViewById(R.id.item_teacher_name);
+        mLocationBuild = (TextView) findViewById(R.id.item_building_name);
+        mLocationRoom = (TextView) findViewById(R.id.item_room_name);
         mSubjectNoteList = (ListView) findViewById(R.id.subject_note_list);
+        mLessonNavigator = (ImageView) findViewById(R.id.navigate_item_icon);
         mAddSubjectNoteFAB = (FloatingActionButton) findViewById(R.id.add_note_fab);
         mAddSubjectNoteFAB.setOnClickListener(new AddNoteOnClickListener());
 
