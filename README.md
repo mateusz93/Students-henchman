@@ -19,7 +19,7 @@ Aplikacja domyślnie startuje na porcie 8080
 
 #### Zatrzymanie aplikacji
 1. ps x | grep students-henchman-service-bus-1.0.jar
-2. kill -9 <processId>
+2. kill -15 <processId>
 
 ## Klient mobilny
 
