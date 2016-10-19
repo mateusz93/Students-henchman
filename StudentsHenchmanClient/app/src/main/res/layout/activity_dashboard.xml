@@ -20,7 +20,7 @@
 
     <!--poczatek widgetu-->
     <include
-        android:id="@+id/ner"
+        android:id="@+id/nearest_lesson_item"
         layout="@layout/subject_item_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
         android:id="@+id/dashboard_icons"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/ner">
+        android:layout_below="@+id/nearest_lesson_item">
 
         <LinearLayout
             android:layout_width="0dp"
