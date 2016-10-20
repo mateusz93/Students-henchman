@@ -48,7 +48,7 @@ public class TimetableDaysFragment extends StudentShenchmanMainFragment {
         List<Fragment> fragments = getRequiredFragments();
         mTimeTableDaysAdapter = new TimeTableDaysAdapter(getContext(), getFragmentManager(), fragments);
         mViewPager.setAdapter(mTimeTableDaysAdapter);
-        mViewPager.setPageTransformer(true, new CubeInTransformer());
+        mViewPager.setPageTransformer(false, new CubeInTransformer());
         setUpActionBar();
 
         return view;
