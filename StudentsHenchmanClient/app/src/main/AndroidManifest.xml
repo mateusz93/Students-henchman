@@ -3,6 +3,7 @@
           xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -20,7 +21,7 @@
         <activity android:name=".abstract_ui.StudentShenchmanMainActivity"/>
         <activity android:name=".SettingsActivity"/>
         <activity android:name=".timetable_plan.activity.TimetableActivity"/>
-        <activity android:name=".QRCodeScanActivity"/>
+        <activity android:name=".SimpleScanner"/>
         <activity android:name=".timetable_plan.activity.SubjectDetailsActivity"/>
     </application>
 
