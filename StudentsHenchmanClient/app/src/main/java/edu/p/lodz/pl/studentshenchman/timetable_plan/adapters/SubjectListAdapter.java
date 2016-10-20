@@ -35,22 +35,13 @@ public class SubjectListAdapter extends RecyclerView.Adapter<SubjectListAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        holder.lessonHeaderTitle.setText("WYKLAD");
         holder.lessonName.setText("Analiza Matematyczna");
         holder.lessonTime.setText("8:15 - 9:45");
         holder.lessonBuilding.setText("CTI");
         holder.lessonRoom.setText("301");
         holder.lessonTeacher.setText("Dr. inz. Rafal Kielbik");
         holder.navigateLesson.setVisibility(View.GONE);
-
-
-        // Bitmap photo = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.bg);
-
-       /* Palette.generateAsync(photo, new Palette.PaletteAsyncListener() {
-            public void onGenerated(Palette palette) {
-                int mutedLight = palette.getMutedColor(mContext.getResources().getColor(android.R.color.black));
-                holder.subjectInfoHolder.setBackgroundColor(mutedLight);
-            }
-        });*/
 
     }
 
@@ -105,6 +96,7 @@ public class SubjectListAdapter extends RecyclerView.Adapter<SubjectListAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public RelativeLayout lessonMainHolder;
+        public TextView lessonHeaderTitle;
         public TextView lessonName;
         public TextView lessonTime;
         public TextView lessonBuilding;
@@ -116,6 +108,7 @@ public class SubjectListAdapter extends RecyclerView.Adapter<SubjectListAdapter.
         public ViewHolder(View itemView) {
             super(itemView);
             lessonMainHolder = (RelativeLayout) itemView.findViewById(R.id.lesson_main_holder);
+            lessonHeaderTitle=(TextView) itemView.findViewById(R.id.item_lesson_header_title);
             lessonName = (TextView) itemView.findViewById(R.id.item_lesson_name);
             lessonTime = (TextView) itemView.findViewById(R.id.item_lesson_time);
             lessonBuilding = (TextView) itemView.findViewById(R.id.item_building_name);

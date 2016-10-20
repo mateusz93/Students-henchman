@@ -49,21 +49,15 @@ public class TimetableDaysFragment extends StudentShenchmanMainFragment {
         mTimeTableDaysAdapter = new TimeTableDaysAdapter(getContext(), getFragmentManager(), fragments);
         mViewPager.setAdapter(mTimeTableDaysAdapter);
         mViewPager.setPageTransformer(true, new CubeInTransformer());
-        setUpActionBar(fragments);
+        setUpActionBar();
 
         return view;
 
     }
 
-    private void setUpActionBar(List<Fragment> fragments) {
+    private void setUpActionBar() {
 
-        mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.monday)));
-        mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.tuesday)));
-        mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.wednesday)));
-        mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.thursday)));
-        mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.friday)));
-        mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.saturday)));
-        mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.sunday)));
+        mTabLayout.setTabsFromPagerAdapter(mTimeTableDaysAdapter);
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         mTabLayout.setupWithViewPager(mViewPager);

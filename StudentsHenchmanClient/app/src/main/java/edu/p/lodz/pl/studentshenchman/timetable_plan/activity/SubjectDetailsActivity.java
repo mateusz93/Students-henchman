@@ -23,6 +23,7 @@ public class SubjectDetailsActivity extends StudentShenchmanMainActivity {
     private Toolbar toolbar;
     private ListView mSubjectNoteList;
     private FloatingActionButton mAddSubjectNoteFAB;
+    private TextView mHeaderTitle;
     private TextView mSubjectName;
     private TextView mSubjectType;
     private TextView mTime;
@@ -40,6 +41,7 @@ public class SubjectDetailsActivity extends StudentShenchmanMainActivity {
 
         mSubjectName = (TextView) findViewById(R.id.item_lesson_name);
         //mSubjectType = (TextView) findViewById(R.id.subject_type);
+        mHeaderTitle =(TextView) findViewById(R.id.item_lesson_header_title);
         mTime = (TextView) findViewById(R.id.item_lesson_time);
         mLector = (TextView) findViewById(R.id.item_teacher_name);
         mLocationBuild = (TextView) findViewById(R.id.item_building_name);
@@ -49,6 +51,7 @@ public class SubjectDetailsActivity extends StudentShenchmanMainActivity {
         mAddSubjectNoteFAB = (FloatingActionButton) findViewById(R.id.add_note_fab);
         mAddSubjectNoteFAB.setOnClickListener(new AddNoteOnClickListener());
 
+        mHeaderTitle.setText("WYKLAD");
     }
 
     private void prepareToolbar() {
