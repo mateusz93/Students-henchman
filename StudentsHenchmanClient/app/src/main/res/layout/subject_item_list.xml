@@ -33,6 +33,7 @@
                 android:src="@drawable/time_icon"/>
 
             <TextView
+                android:id="@+id/item_lesson_header_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -85,7 +86,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/localication"
-                    android:textColor="@color/dashboard_icon_bg_color"/>
+                    style="@style/lesson_item_value_label"/>
 
                 <TextView
                     android:id="@+id/item_building_name"
@@ -116,7 +117,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/teacher"
-                    android:textColor="@color/dashboard_icon_bg_color"/>
+                    style="@style/lesson_item_value_label"/>
 
                 <TextView
                     android:id="@+id/item_teacher_name"
