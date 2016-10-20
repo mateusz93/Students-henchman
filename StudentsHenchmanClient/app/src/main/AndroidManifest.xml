@@ -24,15 +24,19 @@
             android:launchMode="singleTop"/>
         <activity
             android:name=".settings.SettingsActivity"
+            android:label="@string/settings_activity_title"
             android:launchMode="singleTop"/>
         <activity
             android:name=".timetable_plan.activity.TimetableActivity"
+            android:label="@string/timetable_activity_title"
             android:launchMode="singleTop"/>
         <activity
             android:name=".qr_scanner.QRCodeScanActivity"
+            android:label="@string/qr_scanner_activity_title"
             android:launchMode="singleTop"/>
         <activity
             android:name=".timetable_plan.activity.SubjectDetailsActivity"
+            android:label="@string/subject_details_activity_title"
             android:launchMode="singleTop"/>
     </application>
 
