@@ -10,36 +10,32 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.p.lodz.pl.studentshenchman.database.models.Department;
-
 /**
  * @author Michal Warcholinski
  */
-public class DepartmentAdapter extends BaseAdapter {
-	private static final String TAG = DepartmentAdapter.class.getName();
+public class FieldAdapter extends BaseAdapter {
+	private static final String TAG = FieldAdapter.class.getName();
+	private final Context mContext;
+	private ArrayList<Object> mValues;
 
-	Context mContext;
-	List<Department> mValues;
-
-	public DepartmentAdapter(Context context, List<Department> values) {
+	public FieldAdapter(Context context, List<Object> values) {
 		mContext = context;
 		init(values);
 	}
 
-	private void init(List<Department> values) {
+	private void init(List<Object> values) {
 		mValues = new ArrayList<>(values);
-		mValues.add(0, new Department());
+		//mValues.add(0,new Field())
 	}
 
 	@Override
 	public int getCount() {
-		//return mValues.size();
-		return 10;
+		return 15;
 	}
 
 	@Override
-	public Department getItem(int position) {
-		return mValues.get(position);
+	public Object getItem(int position) {
+		return null;
 	}
 
 	@Override
@@ -59,13 +55,15 @@ public class DepartmentAdapter extends BaseAdapter {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
 
-		viewHolder.text.setText("Department");
+		viewHolder.text.setText("Kierunek");
+
 
 		return convertView;
-
 	}
 
+
 	private class ViewHolder {
+
 		public TextView text;
 
 		public ViewHolder(View view) {

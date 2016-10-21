@@ -8,38 +8,34 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import edu.p.lodz.pl.studentshenchman.database.models.Department;
 
 /**
  * @author Michal Warcholinski
  */
-public class DepartmentAdapter extends BaseAdapter {
-	private static final String TAG = DepartmentAdapter.class.getName();
+public class SpecializationAdapter extends BaseAdapter {
 
-	Context mContext;
-	List<Department> mValues;
 
-	public DepartmentAdapter(Context context, List<Department> values) {
+	private final Context mContext;
+	private ArrayList<Object> mValues;
+
+	public SpecializationAdapter(Context context, ArrayList<Object> values) {
 		mContext = context;
 		init(values);
 	}
 
-	private void init(List<Department> values) {
+	private void init(ArrayList<Object> values) {
 		mValues = new ArrayList<>(values);
-		mValues.add(0, new Department());
+		//mValues.add(0,);
 	}
 
 	@Override
 	public int getCount() {
-		//return mValues.size();
-		return 10;
+		return 15;
 	}
 
 	@Override
-	public Department getItem(int position) {
-		return mValues.get(position);
+	public Object getItem(int position) {
+		return null;
 	}
 
 	@Override
@@ -59,17 +55,16 @@ public class DepartmentAdapter extends BaseAdapter {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
 
-		viewHolder.text.setText("Department");
+		viewHolder.text.setText("Specjalizacja");
 
 		return convertView;
-
 	}
 
 	private class ViewHolder {
 		public TextView text;
 
-		public ViewHolder(View view) {
-			text = (TextView) view.findViewById(android.R.id.text1);
+		public ViewHolder(View convertView) {
+			text = (TextView) convertView.findViewById(android.R.id.text1);
 		}
 	}
 }
