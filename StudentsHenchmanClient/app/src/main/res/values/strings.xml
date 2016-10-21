@@ -37,4 +37,9 @@
     <string name="settings_type_label">Type:</string>
     <string name="settings_kind_label">Kind:</string>
 
+    <!--login-->
+    <string name="login_button">Login</string>
+    <string name="clear_button">Clear</string>
+    <string name="login_hint_text">Enter login or email</string>
+
 </resources>
