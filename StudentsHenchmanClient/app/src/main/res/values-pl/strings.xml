@@ -1,10 +1,13 @@
 <resources>
-    <!--activities titles-->
+
     <string name="app_name">Students Henchman</string>
-    <string name="dashboard">Ekran główny</string>
-    <string name="settings">Ustawienia</string>
+
+    <!--activities titles-->
+    <string name="dashboard_activity_title">Ekran główny</string>
+    <string name="settings_activity_title">Ustawienia</string>
     <string name="timetable_activity_title">Plan Zajęć</string>
     <string name="subject_details_activity_title">Szczegóły zajęć</string>
+    <string name="qr_scanner_activity_title">QR Scanner</string>
 
     <!--dni tygodnia-->
     <string name="monday">Poniedziałek</string>
@@ -15,9 +18,17 @@
     <string name="saturday">Sobota</string>
     <string name="sunday">Niedziela</string>
 
+    <!--lesson widget-->
     <string name="nearest_lesson">Najbliższe zajęcia</string>
-    <string name="localication">Lokalizacja:</string>
+    <string name="localization">Lokalizacja:</string>
     <string name="teacher">Wykładowca:</string>
+
+    <!--notes-->
+    <string name="note_added_date">Data dodania:</string>
+    <string name="note_content">Treść:</string>
+
+    <!--menu-->
+    <string name="settings">Ustawienia</string>
 
     <string name="faculties_prompt">Wydział</string>
     <string-array name="faculties">

@@ -85,7 +85,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/localication"
+                    android:text="@string/localization"
                     style="@style/lesson_item_value_label"/>
 
                 <TextView

@@ -25,15 +25,18 @@
             android:launchMode="singleTop"/>
         <activity
             android:name=".settings.SettingsActivity"
+            android:label="@string/settings_activity_title"
             android:launchMode="singleTop"/>
         <activity
             android:name=".timetable_plan.activity.TimetableActivity"
+            android:label="@string/timetable_activity_title"
             android:launchMode="singleTop"/>
         <activity
             android:name=".SimpleScanner"
             android:launchMode="singleTop"/>
         <activity
             android:name=".timetable_plan.activity.SubjectDetailsActivity"
+            android:label="@string/subject_details_activity_title"
             android:launchMode="singleTop"/>
     </application>
 

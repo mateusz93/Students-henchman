@@ -21,16 +21,7 @@ public class SubjectDetailsActivity extends StudentShenchmanMainActivity {
     private static final String TAG = SubjectDetailsActivity.class.getName();
 
     private Toolbar toolbar;
-    private ListView mSubjectNoteList;
-    private FloatingActionButton mAddSubjectNoteFAB;
-    private TextView mHeaderTitle;
-    private TextView mSubjectName;
-    private TextView mSubjectType;
-    private TextView mTime;
-    private TextView mLector;
-    private TextView mLocationBuild;
-    private TextView mLocationRoom;
-    private ImageView mLessonNavigator;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,19 +30,7 @@ public class SubjectDetailsActivity extends StudentShenchmanMainActivity {
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         prepareToolbar();
 
-        mSubjectName = (TextView) findViewById(R.id.item_lesson_name);
-        //mSubjectType = (TextView) findViewById(R.id.subject_type);
-        mHeaderTitle =(TextView) findViewById(R.id.item_lesson_header_title);
-        mTime = (TextView) findViewById(R.id.item_lesson_time);
-        mLector = (TextView) findViewById(R.id.item_teacher_name);
-        mLocationBuild = (TextView) findViewById(R.id.item_building_name);
-        mLocationRoom = (TextView) findViewById(R.id.item_room_name);
-        mSubjectNoteList = (ListView) findViewById(R.id.subject_note_list);
-        mLessonNavigator = (ImageView) findViewById(R.id.navigate_item_icon);
-        mAddSubjectNoteFAB = (FloatingActionButton) findViewById(R.id.add_note_fab);
-        mAddSubjectNoteFAB.setOnClickListener(new AddNoteOnClickListener());
 
-        mHeaderTitle.setText("WYKLAD");
     }
 
     private void prepareToolbar() {
@@ -72,13 +51,6 @@ public class SubjectDetailsActivity extends StudentShenchmanMainActivity {
         Intent intent = new Intent(SubjectDetailsActivity.this, TimetableActivity.class);
         finish();
         startActivity(intent);
-    }
-
-    public class AddNoteOnClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(View v) {
-            Toast.makeText(getApplicationContext(), "DODAJ NOTATKE DO PRZEDMIOTU", Toast.LENGTH_SHORT).show();
-        }
     }
 
 }
