@@ -12,7 +12,7 @@ import com.google.zxing.Result;
 
 import java.io.IOException;
 
-import edu.p.lodz.pl.studentshenchman.classes.Information;
+import edu.p.lodz.pl.studentshenchman.qr_scanner.classes.Information;
 import edu.p.lodz.pl.studentshenchman.dashboard.DashboardActivity;
 import edu.p.lodz.pl.studentshenchman.utils.AlertDialogActivity;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;

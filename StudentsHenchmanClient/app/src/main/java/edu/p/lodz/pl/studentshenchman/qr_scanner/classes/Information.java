@@ -1,4 +1,4 @@
-package edu.p.lodz.pl.studentshenchman.classes;
+package edu.p.lodz.pl.studentshenchman.qr_scanner.classes;
 
 /**
  * Created by marcin on 21.10.16.

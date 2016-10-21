@@ -1,4 +1,4 @@
-package edu.p.lodz.pl.studentshenchman.timetable_plan.adapters;
+package edu.p.lodz.pl.studentshenchman.settings.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;

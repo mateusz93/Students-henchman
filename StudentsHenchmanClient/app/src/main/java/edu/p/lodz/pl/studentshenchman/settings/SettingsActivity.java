@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import edu.p.lodz.pl.studentshenchman.R;
 import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainActivity;
 import edu.p.lodz.pl.studentshenchman.dashboard.DashboardActivity;
-import edu.p.lodz.pl.studentshenchman.timetable_plan.adapters.DepartmentAdapter;
+import edu.p.lodz.pl.studentshenchman.settings.adapters.DepartmentAdapter;
 
 public class SettingsActivity extends StudentShenchmanMainActivity {
 	private static final String TAG = SettingsActivity.class.getName();
