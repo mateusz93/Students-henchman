@@ -4,6 +4,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/bg_color"
+                android:padding="7sp"
                 tools:context="edu.p.lodz.pl.studentshenchman.settings.SettingsActivity">
 
     <include
@@ -15,9 +16,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tool_bar"
+        android:background="@color/widget_bg_color"
         android:orientation="vertical"
-        android:padding="7sp"
-        android:background="@color/widget_bg_color">
+        android:padding="7sp">
 
         <!--wydział-->
         <LinearLayout
@@ -47,7 +48,8 @@
             android:id="@+id/field_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/field_label"
@@ -60,17 +62,19 @@
                 android:id="@+id/field_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
+
+            <View
+                style="@style/horizontal_divider"/>
         </LinearLayout>
 
-        <View
-            style="@style/horizontal_divider"/>
 
         <!--specjalizacja-->
         <LinearLayout
             android:id="@+id/specialization_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/specialization_label"
@@ -83,10 +87,11 @@
                 android:id="@+id/specialization_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
+
+            <View
+                style="@style/horizontal_divider"/>
         </LinearLayout>
 
-        <View
-            style="@style/horizontal_divider"/>
 
         <!--typ studiów-->
         <LinearLayout
