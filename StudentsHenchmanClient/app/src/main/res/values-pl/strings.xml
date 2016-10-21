@@ -30,21 +30,11 @@
     <!--menu-->
     <string name="settings">Ustawienia</string>
 
-    <string name="faculties_prompt">Wydział</string>
-    <string-array name="faculties">
-        <item>Organizacji i Zarządzania</item>
-        <item>Wzornictwa</item>
-    </string-array>
-    <string name="types_prompt">Kierunek</string>
-    <string-array name="types">
-        <item>Inżynierskie dzienne</item>
-        <item>Inżynierskie zaoczne</item>
-        <item>Magisterskie dzienne</item>
-        <item>Magisterskie zaoczne</item>
-    </string-array>
-    <string name="subjects_prompt">Kierunek</string>
-    <string-array name="subjects">
-        <item>Informatyka</item>
-        <item>Matematyka</item>
-    </string-array>
+    <!--settings-->
+    <string name="settings_department_label">Wydział:</string>
+    <string name="settings_field_label">Kierunek:</string>
+    <string name="settings_specialization_label">Specjalizacja:</string>
+    <string name="settings_type_label">Typ:</string>
+    <string name="settings_kind_label">Rodzaj:</string>
+
 </resources>

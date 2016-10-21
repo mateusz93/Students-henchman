@@ -9,7 +9,6 @@
     <string name="subject_details_activity_title">Subject Details</string>
     <string name="qr_scanner_activity_title">QR Scanner</string>
 
-
     <!--dni tygodnia-->
     <string name="monday">Monday</string>
     <string name="tuesday">Tuesday</string>
@@ -31,25 +30,11 @@
     <!--menu-->
     <string name="settings">Settings</string>
 
-    <string name="faculties_prompt">Faculty</string>
+    <!--settings-->
+    <string name="settings_department_label">Department:</string>
+    <string name="settings_field_label">Field:</string>
+    <string name="settings_specialization_label">Specialization:</string>
+    <string name="settings_type_label">Type:</string>
+    <string name="settings_kind_label">Kind:</string>
 
-    <string-array name="faculties">
-        <item>Organizacji i Zarządzania</item>
-        <item>Wzornictwa</item>
-    </string-array>
-    <string name="types_prompt">Kierunek</string>
-    <string-array name="types">
-        <item>Inżynierskie dzienne</item>
-        <item>Inżynierskie zaoczne</item>
-        <item>Magisterskie dzienne</item>
-        <item>Magisterskie zaoczne</item>
-    </string-array>
-    <string name="subjects_prompt">Kierunek</string>
-    <string-array name="subjects">
-        <item>Informatyka</item>
-        <item>Matematyka</item>
-    </string-array>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
