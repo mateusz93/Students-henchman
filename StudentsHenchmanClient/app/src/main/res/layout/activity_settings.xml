@@ -1,143 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/bg_color"
-                android:padding="7sp"
-                tools:context="edu.p.lodz.pl.studentshenchman.settings.SettingsActivity">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/bg_color"
+            android:padding="7sp"
+            tools:context="edu.p.lodz.pl.studentshenchman.settings.SettingsActivity">
 
-    <include
-        android:id="@+id/tool_bar"
-        layout="@layout/tool_bar"/>
 
-    <LinearLayout
-        android:id="@+id/main_holder"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tool_bar"
-        android:background="@color/widget_bg_color"
-        android:orientation="vertical"
-        android:padding="7sp">
+        android:layout_height="wrap_content">
 
-        <!--wydział-->
+        <include
+            android:id="@+id/tool_bar"
+            layout="@layout/tool_bar"/>
+
         <LinearLayout
-            android:id="@+id/department_content"
+            android:id="@+id/main_holder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/department_label"
-                style="@style/lesson_item_value_label"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/settings_department_label"/>
-
-            <Spinner
-                android:id="@+id/department_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-
-        <View
-            style="@style/horizontal_divider"/>
-
-        <!--kierunek-->
-        <LinearLayout
-            android:id="@+id/field_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_below="@+id/tool_bar"
+            android:background="@color/widget_bg_color"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:padding="7sp">
 
-            <TextView
-                android:id="@+id/field_label"
-                style="@style/lesson_item_value_label"
+            <!--wydział-->
+            <LinearLayout
+                android:id="@+id/department_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/settings_field_label"/>
+                android:orientation="vertical">
 
-            <Spinner
-                android:id="@+id/field_spinner"
+                <TextView
+                    android:id="@+id/department_label"
+                    style="@style/lesson_item_value_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_department_label"/>
+
+                <Spinner
+                    android:id="@+id/department_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <View
+                style="@style/horizontal_divider"/>
+
+            <!--kierunek-->
+            <LinearLayout
+                android:id="@+id/field_content"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/field_label"
+                    style="@style/lesson_item_value_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_field_label"/>
+
+                <Spinner
+                    android:id="@+id/field_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <View
+                    style="@style/horizontal_divider"/>
+            </LinearLayout>
+
+
+            <!--specjalizacja-->
+            <LinearLayout
+                android:id="@+id/specialization_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/specialization_label"
+                    style="@style/lesson_item_value_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_specialization_label"/>
+
+                <Spinner
+                    android:id="@+id/specialization_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <View
+                    style="@style/horizontal_divider"/>
+            </LinearLayout>
+
+
+            <!--typ studiów-->
+            <LinearLayout
+                android:id="@+id/type_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/type_label"
+                    style="@style/lesson_item_value_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_type_label"/>
+
+                <Spinner
+                    android:id="@+id/type_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <View
+                style="@style/horizontal_divider"/>
+
+            <!--rodzaj studiów-->
+            <LinearLayout
+                android:id="@+id/kind_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/kind_label"
+                    style="@style/lesson_item_value_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_kind_label"/>
+
+                <Spinner
+                    android:id="@+id/kind_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
 
             <View
                 style="@style/horizontal_divider"/>
         </LinearLayout>
 
+    </RelativeLayout>
 
-        <!--specjalizacja-->
-        <LinearLayout
-            android:id="@+id/specialization_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <TextView
-                android:id="@+id/specialization_label"
-                style="@style/lesson_item_value_label"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/settings_specialization_label"/>
-
-            <Spinner
-                android:id="@+id/specialization_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-            <View
-                style="@style/horizontal_divider"/>
-        </LinearLayout>
-
-
-        <!--typ studiów-->
-        <LinearLayout
-            android:id="@+id/type_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/type_label"
-                style="@style/lesson_item_value_label"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/settings_type_label"/>
-
-            <Spinner
-                android:id="@+id/type_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-
-        <View
-            style="@style/horizontal_divider"/>
-
-        <!--rodzaj studiów-->
-        <LinearLayout
-            android:id="@+id/kind_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/kind_label"
-                style="@style/lesson_item_value_label"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/settings_kind_label"/>
-
-            <Spinner
-                android:id="@+id/kind_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-
-        <View
-            style="@style/horizontal_divider"/>
-    </LinearLayout>
-
-</RelativeLayout>
+</ScrollView>
