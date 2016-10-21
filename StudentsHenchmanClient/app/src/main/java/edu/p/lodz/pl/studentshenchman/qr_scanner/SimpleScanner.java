@@ -1,4 +1,4 @@
-package edu.p.lodz.pl.studentshenchman;
+package edu.p.lodz.pl.studentshenchman.qr_scanner;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +8,8 @@ import android.widget.Toast;
 import com.google.zxing.Result;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
+
+import edu.p.lodz.pl.studentshenchman.utils.AlertDialogActivity;
 import edu.p.lodz.pl.studentshenchman.classes.Information;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 

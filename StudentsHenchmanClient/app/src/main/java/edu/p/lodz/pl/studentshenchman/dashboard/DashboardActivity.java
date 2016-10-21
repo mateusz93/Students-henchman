@@ -11,7 +11,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import edu.p.lodz.pl.studentshenchman.R;
-import edu.p.lodz.pl.studentshenchman.SimpleScanner;
+import edu.p.lodz.pl.studentshenchman.qr_scanner.SimpleScanner;
 import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainActivity;
 import edu.p.lodz.pl.studentshenchman.database.DatabaseHelper;
 import edu.p.lodz.pl.studentshenchman.settings.SettingsActivity;

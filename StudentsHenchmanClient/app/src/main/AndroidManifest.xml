@@ -32,7 +32,7 @@
             android:label="@string/timetable_activity_title"
             android:launchMode="singleTop"/>
         <activity
-            android:name=".SimpleScanner"
+            android:name=".qr_scanner.SimpleScanner"
             android:launchMode="singleTop"/>
         <activity
             android:name=".timetable_plan.activity.SubjectDetailsActivity"
