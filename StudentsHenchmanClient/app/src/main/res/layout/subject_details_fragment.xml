@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout android:id="@+id/main_layout"
-                                                 xmlns:android="http://schemas.android.com/apk/res/android"
-                                                 android:layout_width="match_parent"
-                                                 android:layout_height="match_parent"
-                                                 android:background="@color/bg_color"
-                                                 android:orientation="vertical"
-                                                 android:padding="7dp">
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/main_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color"
+    android:orientation="vertical"
+    android:padding="7dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -18,19 +19,15 @@
             android:layout_height="wrap_content"/>
 
         <View
-            android:id="@+id/separator"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_below="@+id/lesson_details"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/divider_color"/>
+            android:id="@+id/divider"
+            style="@style/horizontal_divider"
+            android:layout_below="@+id/lesson_details"/>
 
         <ListView
             android:id="@+id/subject_note_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/separator"
+            android:layout_below="@+id/divider"
             android:padding="3dp"/>
     </RelativeLayout>
 

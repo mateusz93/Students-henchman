@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView android:id="@+id/placeCard"
-                                    xmlns:android="http://schemas.android.com/apk/res/android"
-                                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_margin="4dp"
-                                    card_view:cardCornerRadius="1dp"
-                                    card_view:cardElevation="0dp">
+<android.support.v7.widget.CardView
+    android:id="@+id/placeCard"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    card_view:cardCornerRadius="1dp"
+    card_view:cardElevation="0dp">
 
     <RelativeLayout
         android:id="@+id/lesson_main_holder"
@@ -52,12 +53,9 @@
 
         <View
             android:id="@+id/divider"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
+            style="@style/horizontal_divider"
             android:layout_below="@+id/header_widget"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/divider_color"/>
+            />
 
         <TextView
             android:id="@+id/item_lesson_name"
@@ -83,10 +81,10 @@
                 android:orientation="vertical">
 
                 <TextView
+                    style="@style/lesson_item_value_label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/localization"
-                    style="@style/lesson_item_value_label"/>
+                    android:text="@string/localization"/>
 
                 <TextView
                     android:id="@+id/item_building_name"
@@ -114,10 +112,10 @@
                 android:orientation="vertical">
 
                 <TextView
+                    style="@style/lesson_item_value_label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/teacher"
-                    style="@style/lesson_item_value_label"/>
+                    android:text="@string/teacher"/>
 
                 <TextView
                     android:id="@+id/item_teacher_name"
