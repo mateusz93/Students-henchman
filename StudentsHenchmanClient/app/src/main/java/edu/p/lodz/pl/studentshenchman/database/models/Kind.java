@@ -40,4 +40,45 @@ public class Kind implements BaseColumns {
             "integer",                              //EXTERNAL_KIND_ID
             "text",                                 //NAME
     };
+
+    private long id;
+    private long externalId;
+    private String name;
+
+    public Kind() {
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getExternalId() {
+        return externalId;
+    }
+
+    public void setExternalId(long externalId) {
+        this.externalId = externalId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Kind{" +
+                "id=" + id +
+                ", externalId=" + externalId +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
+
