@@ -28,13 +28,17 @@ public class DepartmentAdapter extends BaseAdapter {
 
     private void init(List<Department> values) {
         mValues = new ArrayList<>(values);
-        mValues.add(0, new Department());
+        Department department = new Department();
+        department.setId(Long.MIN_VALUE);
+        department.setExternalId(Long.MIN_VALUE);
+        department.setName("choose");
+        department.setCode("");
+        mValues.add(0, department);
     }
 
     @Override
     public int getCount() {
-        //return mValues.size();
-        return 10;
+        return mValues.size();
     }
 
     @Override
@@ -59,10 +63,17 @@ public class DepartmentAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.text.setText("Department");
+        Department department = getItem(position);
+
+        viewHolder.text.setText(department.getCode() + " - " + department.getName());
 
         return convertView;
 
+    }
+
+    public void setValues(List<Department> newValues) {
+        mValues = newValues;
+        notifyDataSetChanged();
     }
 
     private class ViewHolder {

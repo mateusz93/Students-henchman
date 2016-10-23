@@ -10,34 +10,40 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.p.lodz.pl.studentshenchman.database.models.Kind;
+
 /**
  * @author Michal Warcholinski
  */
 public class KindAdapter extends BaseAdapter {
     private static final String TAG = KindAdapter.class.getName();
 
-    Context mContext;
-    List<Object> mValues;
+    private Context mContext;
+    private List<Kind> mValues;
 
-    public KindAdapter(Context context, List<Object> values) {
+    public KindAdapter(Context context, List<Kind> values) {
         mContext = context;
         init(values);
     }
 
-    private void init(List<Object> values) {
+    private void init(List<Kind> values) {
         mValues = new ArrayList<>(values);
-        //mValues.add(0, new Kind());
+        Kind kind = new Kind();
+        kind.setId(Long.MIN_VALUE);
+        kind.setExternalId(Long.MIN_VALUE);
+        kind.setName("choose");
+        mValues.add(0, kind);
     }
 
 
     @Override
     public int getCount() {
-        return 15;
+        return mValues.size();
     }
 
     @Override
-    public Object getItem(int position) {
-        return null;
+    public Kind getItem(int position) {
+        return mValues.get(position);
     }
 
     @Override
@@ -57,9 +63,16 @@ public class KindAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.text.setText("Studia pierwszego stopnia");
+        Kind kind = getItem(position);
+
+        viewHolder.text.setText(kind.getName());
 
         return convertView;
+    }
+
+    public void setValues(List<Kind> newValues) {
+        mValues = newValues;
+        notifyDataSetChanged();
     }
 
     private class ViewHolder {

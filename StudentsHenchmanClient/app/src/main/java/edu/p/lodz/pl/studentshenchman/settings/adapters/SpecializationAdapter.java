@@ -8,6 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import edu.p.lodz.pl.studentshenchman.database.models.Specialization;
 
 /**
  * @author Michal Warcholinski
@@ -16,26 +19,31 @@ public class SpecializationAdapter extends BaseAdapter {
 
 
     private final Context mContext;
-    private ArrayList<Object> mValues;
+    private List<Specialization> mValues;
 
-    public SpecializationAdapter(Context context, ArrayList<Object> values) {
+    public SpecializationAdapter(Context context, List<Specialization> values) {
         mContext = context;
         init(values);
     }
 
-    private void init(ArrayList<Object> values) {
+    private void init(List<Specialization> values) {
         mValues = new ArrayList<>(values);
-        //mValues.add(0,new Specialization);
+        Specialization specialization = new Specialization();
+        specialization.setId(Long.MIN_VALUE);
+        specialization.setExternalId(Long.MIN_VALUE);
+        specialization.setExternalFieldId(Long.MIN_VALUE);
+        specialization.setName("choose");
+        mValues.add(0, specialization);
     }
 
     @Override
     public int getCount() {
-        return 15;
+        return mValues.size();
     }
 
     @Override
-    public Object getItem(int position) {
-        return null;
+    public Specialization getItem(int position) {
+        return mValues.get(position);
     }
 
     @Override
@@ -55,9 +63,16 @@ public class SpecializationAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.text.setText("Specjalizacja");
+        Specialization specialization = getItem(position);
+
+        viewHolder.text.setText(specialization.getName());
 
         return convertView;
+    }
+
+    public void setValues(List<Specialization> newValues) {
+        mValues = newValues;
+        notifyDataSetChanged();
     }
 
     private class ViewHolder {

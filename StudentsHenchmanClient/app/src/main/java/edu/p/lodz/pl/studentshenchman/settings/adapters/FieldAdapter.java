@@ -18,26 +18,31 @@ import edu.p.lodz.pl.studentshenchman.database.models.Field;
 public class FieldAdapter extends BaseAdapter {
     private static final String TAG = FieldAdapter.class.getName();
     private final Context mContext;
-    private ArrayList<Object> mValues;
+    private List<Field> mValues;
 
-    public FieldAdapter(Context context, List<Object> values) {
+    public FieldAdapter(Context context, List<Field> values) {
         mContext = context;
         init(values);
     }
 
-    private void init(List<Object> values) {
+    private void init(List<Field> values) {
         mValues = new ArrayList<>(values);
-        //mValues.add(0, new Field());
+        Field field = new Field();
+        field.setId(Long.MIN_VALUE);
+        field.setExternalId(Long.MIN_VALUE);
+        field.setExternalDepartmentId(Long.MIN_VALUE);
+        field.setName("choose");
+        mValues.add(0, field);
     }
 
     @Override
     public int getCount() {
-        return 15;
+        return mValues.size();
     }
 
     @Override
-    public Object getItem(int position) {
-        return null;
+    public Field getItem(int position) {
+        return mValues.get(position);
     }
 
     @Override
@@ -57,12 +62,17 @@ public class FieldAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.text.setText("Kierunek");
+        Field field = getItem(position);
 
+        viewHolder.text.setText(field.getName());
 
         return convertView;
     }
 
+    public void setValues(List<Field> newValues) {
+        mValues = newValues;
+        notifyDataSetChanged();
+    }
 
     private class ViewHolder {
 

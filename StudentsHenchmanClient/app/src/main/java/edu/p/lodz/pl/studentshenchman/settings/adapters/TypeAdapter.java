@@ -10,34 +10,39 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.p.lodz.pl.studentshenchman.database.models.Type;
+
 /**
  * @author Michal Warcholinski
  */
 public class TypeAdapter extends BaseAdapter {
     private static final String TAG = TypeAdapter.class.getName();
 
-    Context mContext;
-    List<Object> mValues;
+    private Context mContext;
+    private List<Type> mValues;
 
-    public TypeAdapter(Context context, List<Object> values) {
+    public TypeAdapter(Context context, List<Type> values) {
         mContext = context;
         init(values);
     }
 
-    private void init(List<Object> values) {
+    private void init(List<Type> values) {
         mValues = new ArrayList<>(values);
-        //mValues.add(0, new Type());
+        Type type = new Type();
+        type.setId(Long.MIN_VALUE);
+        type.setExternalId(Long.MIN_VALUE);
+        type.setName("choose");
+        mValues.add(0, type);
     }
 
     @Override
     public int getCount() {
-        //return mValues.size();
-        return 15;
+        return mValues.size();
     }
 
     @Override
-    public Object getItem(int position) {
-        return null;
+    public Type getItem(int position) {
+        return mValues.get(position);
     }
 
     @Override
@@ -57,11 +62,18 @@ public class TypeAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.text.setText("Studia dzienne");
+        Type type = mValues.get(position);
+
+        viewHolder.text.setText(type.getName());
 
         return convertView;
     }
 
+
+    public void setValues(List<Type> newValues) {
+        mValues = newValues;
+        notifyDataSetChanged();
+    }
 
     private class ViewHolder {
 
