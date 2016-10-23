@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import edu.p.lodz.pl.studentshenchman.database.models.Field;
@@ -70,8 +71,20 @@ public class FieldAdapter extends BaseAdapter {
     }
 
     public void setValues(List<Field> newValues) {
-        mValues = newValues;
+        init(newValues);
         notifyDataSetChanged();
+    }
+
+    public int getPosForId(long id) {
+        int i = 0;
+        Iterator<Field> iterator = mValues.iterator();
+        while (iterator.hasNext()) {
+            if (iterator.next().getExternalId() == id) {
+                break;
+            }
+            i++;
+        }
+        return i;
     }
 
     private class ViewHolder {

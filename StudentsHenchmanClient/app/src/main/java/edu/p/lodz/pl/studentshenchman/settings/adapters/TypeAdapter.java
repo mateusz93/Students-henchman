@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import edu.p.lodz.pl.studentshenchman.database.models.Type;
@@ -71,8 +72,20 @@ public class TypeAdapter extends BaseAdapter {
 
 
     public void setValues(List<Type> newValues) {
-        mValues = newValues;
+        init(newValues);
         notifyDataSetChanged();
+    }
+
+    public int getPosForId(long id) {
+        int i = 0;
+        Iterator<Type> iterator = mValues.iterator();
+        while (iterator.hasNext()) {
+            if (iterator.next().getExternalId() == id) {
+                break;
+            }
+            i++;
+        }
+        return i;
     }
 
     private class ViewHolder {
