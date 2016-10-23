@@ -1,9 +1,12 @@
 package edu.p.lodz.pl.studentshenchman.settings;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
@@ -13,6 +16,7 @@ import java.util.List;
 import edu.p.lodz.pl.studentshenchman.R;
 import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainActivity;
 import edu.p.lodz.pl.studentshenchman.dashboard.DashboardActivity;
+import edu.p.lodz.pl.studentshenchman.database.DatabaseHelper;
 import edu.p.lodz.pl.studentshenchman.database.models.Department;
 import edu.p.lodz.pl.studentshenchman.database.models.Field;
 import edu.p.lodz.pl.studentshenchman.database.models.Kind;
@@ -38,6 +42,12 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
     private Spinner mTypeSpinner;
     private Spinner mKindSpinner;
 
+    private DepartmentAdapter mDepartmentAdapter;
+    private FieldAdapter mFieldAdapter;
+    private SpecializationAdapter mSpecializationAdapter;
+    private TypeAdapter mTypeAdapter;
+    private KindAdapter mKindAdapter;
+
     private List<Department> mDepartments;
     private List<Field> mFields;
     private List<Specialization> mSpecialization;
@@ -53,6 +63,9 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 
         mController = SettingsController.getInstance(getApplicationContext());
 
+        loadAllRequiredData();
+        initAdapters();
+
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         prepareToolbar();
 
@@ -61,28 +74,150 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
         mSpecializationLinear = (LinearLayout) findViewById(R.id.specialization_content);
 
         mDepartmentSpinner = (Spinner) findViewById(R.id.department_spinner);
-        mDepartmentSpinner.setAdapter(new DepartmentAdapter(getApplicationContext(), new ArrayList<>()));
+        mDepartmentSpinner.setOnItemSelectedListener(new DepartmentOnItemSelectedListener());
+        mDepartmentSpinner.setAdapter(mDepartmentAdapter);
 
         mFieldSpinner = (Spinner) findViewById(R.id.field_spinner);
-        mFieldSpinner.setAdapter(new FieldAdapter(getApplicationContext(), new ArrayList<>()));
-        mFieldLinear.setVisibility(View.VISIBLE);
+        mFieldSpinner.setOnItemSelectedListener(new FieldOnItemSelectedListener());
+        mFieldSpinner.setAdapter(mFieldAdapter);
 
         mSpecializationSpinner = (Spinner) findViewById(R.id.specialization_spinner);
-        mSpecializationSpinner.setAdapter(new SpecializationAdapter(getApplicationContext(), new ArrayList<>()));
-        mSpecializationLinear.setVisibility(View.VISIBLE);
+        mSpecializationSpinner.setOnItemSelectedListener(new SpecializationOnItemSelectedListener());
+        mSpecializationSpinner.setAdapter(mSpecializationAdapter);
 
         mTypeSpinner = (Spinner) findViewById(R.id.type_spinner);
-        mTypeSpinner.setAdapter(new TypeAdapter(getApplicationContext(), new ArrayList<>()));
+        mTypeSpinner.setOnItemSelectedListener(new TypeOnItemSelectedListener());
+        mTypeSpinner.setAdapter(mTypeAdapter);
 
 
         mKindSpinner = (Spinner) findViewById(R.id.kind_spinner);
-        mKindSpinner.setAdapter(new KindAdapter(getApplicationContext(), new ArrayList<>()));
-
+        mKindSpinner.setOnItemSelectedListener(new KindOnItemSelectedListener());
+        mKindSpinner.setAdapter(mKindAdapter);
 
     }
 
-    private void generateView() {
+    private void initAdapters() {
+        mDepartmentAdapter = new DepartmentAdapter(getApplicationContext(), mDepartments);
+        mFieldAdapter = new FieldAdapter(getApplicationContext(), new ArrayList<>());
+        mSpecializationAdapter = new SpecializationAdapter(getApplicationContext(), new ArrayList<>());
+        mTypeAdapter = new TypeAdapter(getApplicationContext(), mTypes);
+        mKindAdapter = new KindAdapter(getApplicationContext(), mKinds);
 
+    }
+
+    private void loadAllRequiredData() {
+        SQLiteDatabase db = DatabaseHelper.getInstance(getApplicationContext()).getReadableDatabase();
+        mDepartments = loadDepartments(db);
+        mFields = loadFields(db, mController.getFieldId());
+        mSpecialization = loadSpecializations(db, mController.getSpecializationId());
+        mTypes = loadTypes(db);
+        mKinds = loadKinds(db);
+    }
+
+    private List<Kind> loadKinds(SQLiteDatabase db) {
+        List<Kind> values = new ArrayList<>();
+
+        Cursor c = db.query(Kind.TABLE_NAME, null, null, null, null, null, null);
+        while (c.moveToNext()) {
+            Kind kind = new Kind();
+            kind.setId(c.getLong(c.getColumnIndexOrThrow(Kind._ID)));
+            kind.setExternalId(c.getLong(c.getColumnIndexOrThrow(Kind.EXTERNAL_KIND_ID)));
+            kind.setName(c.getString(c.getColumnIndexOrThrow(Kind.NAME)));
+            values.add(kind);
+        }
+        c.close();
+
+        return values;
+    }
+
+    private List<Type> loadTypes(SQLiteDatabase db) {
+        List<Type> values = new ArrayList<>();
+
+        Cursor c = db.query(Type.TABLE_NAME, null, null, null, null, null, null);
+        while (c.moveToNext()) {
+            Type type = new Type();
+            type.setId(c.getLong(c.getColumnIndexOrThrow(Type._ID)));
+            type.setExternalId(c.getLong(c.getColumnIndexOrThrow(Type.EXTERNAL_TYPE_ID)));
+            type.setName(c.getString(c.getColumnIndexOrThrow(Type.NAME)));
+            values.add(type);
+        }
+        c.close();
+
+        return values;
+
+    }
+
+    private List<Specialization> loadSpecializations(SQLiteDatabase db, long id) {
+        List<Specialization> values = new ArrayList<>();
+
+        Cursor c = db.query(Specialization.TABLE_NAME, null, Specialization.EXTERNAL_FIELD_ID + "=?", new String[]{id + ""}, null, null, null);
+        while (c.moveToNext()) {
+            Specialization specialization = new Specialization();
+            specialization.setId(c.getLong(c.getColumnIndexOrThrow(Specialization._ID)));
+            specialization.setExternalId(c.getLong(c.getColumnIndexOrThrow(Specialization.EXTERNAL_SPECIALIZATION_ID)));
+            specialization.setExternalFieldId(c.getLong(c.getColumnIndexOrThrow(Specialization.EXTERNAL_FIELD_ID)));
+            specialization.setName(c.getString(c.getColumnIndexOrThrow(Specialization.NAME)));
+            values.add(specialization);
+        }
+        c.close();
+
+        return values;
+    }
+
+    private List<Field> loadFields(SQLiteDatabase db, long id) {
+        List<Field> values = new ArrayList<>();
+
+        Cursor c = db.query(Field.TABLE_NAME, null, Field.EXTERNAL_DEPARTMENT_ID + "=?", new String[]{id + ""}, null, null, null);
+        while (c.moveToNext()) {
+            Field field = new Field();
+            field.setId(c.getLong(c.getColumnIndexOrThrow(Field._ID)));
+            field.setExternalId(c.getLong(c.getColumnIndexOrThrow(Field.EXTERNAL_FIELD_ID)));
+            field.setExternalDepartmentId(c.getLong(c.getColumnIndexOrThrow(Field.EXTERNAL_DEPARTMENT_ID)));
+            field.setName(c.getString(c.getColumnIndexOrThrow(Field.NAME)));
+            values.add(field);
+        }
+        c.close();
+
+        return values;
+    }
+
+    private List<Department> loadDepartments(SQLiteDatabase db) {
+        List<Department> values = new ArrayList<>();
+
+        Cursor c = db.query(Department.TABLE_NAME, null, null, null, null, null, null);
+        while (c.moveToNext()) {
+            Department department = new Department();
+            department.setId(c.getLong(c.getColumnIndexOrThrow(Department._ID)));
+            department.setExternalId(c.getLong(c.getColumnIndexOrThrow(Department.EXTERNAL_DEPARTMENT_ID)));
+            department.setCode(c.getString(c.getColumnIndexOrThrow(Department.CODE)));
+            department.setName(c.getString(c.getColumnIndexOrThrow(Department.NAME)));
+            values.add(department);
+        }
+        c.close();
+
+        return values;
+    }
+
+    private void generateView() {
+        SQLiteDatabase db = DatabaseHelper.getInstance(getApplicationContext()).getReadableDatabase();
+        long selectedDepartmentId = mController.getDepartmentId();
+        if (selectedDepartmentId > 0) {
+            mDepartmentSpinner.setSelection(mDepartmentAdapter.getPosForId(selectedDepartmentId),true);
+            mFieldAdapter.setValues(loadFields(db, selectedDepartmentId));
+            mFieldLinear.setVisibility(View.VISIBLE);
+            mSpecializationLinear.setVisibility(View.GONE);
+        } else {
+            mFieldLinear.setVisibility(View.GONE);
+            mSpecializationLinear.setVisibility(View.GONE);
+        }
+
+        long selectedFieldExternalId = mController.getFieldId();
+        if (selectedFieldExternalId > 0) {
+            mSpecializationAdapter.setValues(loadSpecializations(db, selectedFieldExternalId));
+            mSpecializationLinear.setVisibility(View.VISIBLE);
+        } else {
+            mSpecializationLinear.setVisibility(View.GONE);
+        }
 
     }
 
@@ -103,6 +238,80 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
         Intent previousActivity = new Intent(SettingsActivity.this, DashboardActivity.class);
         finish();
         startActivity(previousActivity);
+    }
+
+    private class DepartmentOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
+
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            mController.setDepartmentId(id);
+            mController.setmSpecializationId(Long.MIN_VALUE);
+            mController.setFieldId(Long.MIN_VALUE);
+            mFieldSpinner.setSelection(0, true);
+            mSpecializationSpinner.setSelection(0, true);
+            generateView();
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    }
+
+    private class FieldOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
+
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            mController.setFieldId(id);
+            mSpecializationSpinner.setSelection(0, true);
+            mController.setmSpecializationId(Long.MIN_VALUE);
+            generateView();
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    }
+
+    private class SpecializationOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
+
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            mController.setmSpecializationId(id);
+            generateView();
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    }
+
+    private class TypeOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
+
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            mController.setTypeId(id);
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    }
+
+    private class KindOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
+
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            mController.setKindId(id);
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
     }
 
 }
