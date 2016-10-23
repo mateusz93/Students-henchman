@@ -16,60 +16,60 @@ import edu.p.lodz.pl.studentshenchman.database.models.Department;
  * @author Michal Warcholinski
  */
 public class DepartmentAdapter extends BaseAdapter {
-	private static final String TAG = DepartmentAdapter.class.getName();
+    private static final String TAG = DepartmentAdapter.class.getName();
 
-	Context mContext;
-	List<Department> mValues;
+    Context mContext;
+    List<Department> mValues;
 
-	public DepartmentAdapter(Context context, List<Department> values) {
-		mContext = context;
-		init(values);
-	}
+    public DepartmentAdapter(Context context, List<Department> values) {
+        mContext = context;
+        init(values);
+    }
 
-	private void init(List<Department> values) {
-		mValues = new ArrayList<>(values);
-		mValues.add(0, new Department());
-	}
+    private void init(List<Department> values) {
+        mValues = new ArrayList<>(values);
+        mValues.add(0, new Department());
+    }
 
-	@Override
-	public int getCount() {
-		//return mValues.size();
-		return 10;
-	}
+    @Override
+    public int getCount() {
+        //return mValues.size();
+        return 10;
+    }
 
-	@Override
-	public Department getItem(int position) {
-		return mValues.get(position);
-	}
+    @Override
+    public Department getItem(int position) {
+        return mValues.get(position);
+    }
 
-	@Override
-	public long getItemId(int position) {
-		return position;
-	}
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
 
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		ViewHolder viewHolder;
-		if (null == convertView) {
-			LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = layoutInflater.inflate(android.R.layout.simple_list_item_single_choice, parent, false);
-			viewHolder = new ViewHolder(convertView);
-			convertView.setTag(viewHolder);
-		} else {
-			viewHolder = (ViewHolder) convertView.getTag();
-		}
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder viewHolder;
+        if (null == convertView) {
+            LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = layoutInflater.inflate(android.R.layout.simple_list_item_single_choice, parent, false);
+            viewHolder = new ViewHolder(convertView);
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
 
-		viewHolder.text.setText("Department");
+        viewHolder.text.setText("Department");
 
-		return convertView;
+        return convertView;
 
-	}
+    }
 
-	private class ViewHolder {
-		public TextView text;
+    private class ViewHolder {
+        public TextView text;
 
-		public ViewHolder(View view) {
-			text = (TextView) view.findViewById(android.R.id.text1);
-		}
-	}
+        public ViewHolder(View view) {
+            text = (TextView) view.findViewById(android.R.id.text1);
+        }
+    }
 }

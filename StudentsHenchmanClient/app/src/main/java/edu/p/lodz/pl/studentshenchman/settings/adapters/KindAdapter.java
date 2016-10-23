@@ -14,59 +14,59 @@ import java.util.List;
  * @author Michal Warcholinski
  */
 public class KindAdapter extends BaseAdapter {
-	private static final String TAG = KindAdapter.class.getName();
+    private static final String TAG = KindAdapter.class.getName();
 
-	Context mContext;
-	List<Object> mValues;
+    Context mContext;
+    List<Object> mValues;
 
-	public KindAdapter(Context context, List<Object> values) {
-		mContext = context;
-		init(values);
-	}
+    public KindAdapter(Context context, List<Object> values) {
+        mContext = context;
+        init(values);
+    }
 
-	private void init(List<Object> values) {
-		mValues = new ArrayList<>(values);
-		//mValues.add(0, new Department());
-	}
+    private void init(List<Object> values) {
+        mValues = new ArrayList<>(values);
+        //mValues.add(0, new Kind());
+    }
 
 
-	@Override
-	public int getCount() {
-		return 15;
-	}
+    @Override
+    public int getCount() {
+        return 15;
+    }
 
-	@Override
-	public Object getItem(int position) {
-		return null;
-	}
+    @Override
+    public Object getItem(int position) {
+        return null;
+    }
 
-	@Override
-	public long getItemId(int position) {
-		return position;
-	}
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
 
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		ViewHolder viewHolder;
-		if (null == convertView) {
-			LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = layoutInflater.inflate(android.R.layout.simple_list_item_single_choice, parent, false);
-			viewHolder = new ViewHolder(convertView);
-			convertView.setTag(viewHolder);
-		} else {
-			viewHolder = (ViewHolder) convertView.getTag();
-		}
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder viewHolder;
+        if (null == convertView) {
+            LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = layoutInflater.inflate(android.R.layout.simple_list_item_single_choice, parent, false);
+            viewHolder = new ViewHolder(convertView);
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
 
-		viewHolder.text.setText("Studia pierwszego stopnia");
+        viewHolder.text.setText("Studia pierwszego stopnia");
 
-		return convertView;
-	}
+        return convertView;
+    }
 
-	private class ViewHolder {
-		public TextView text;
+    private class ViewHolder {
+        public TextView text;
 
-		public ViewHolder(View convertView) {
-			text = (TextView) convertView.findViewById(android.R.id.text1);
-		}
-	}
+        public ViewHolder(View convertView) {
+            text = (TextView) convertView.findViewById(android.R.id.text1);
+        }
+    }
 }
