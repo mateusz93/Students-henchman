@@ -38,8 +38,12 @@
     <string name="settings_kind_label">Rodzaj:</string>
 
     <!--login-->
+    <string name="login_hint_text">Wprowadź login lub email</string>
+
+    <!--buttons-->
     <string name="login_button">Zaloguj</string>
     <string name="clear_button">Wyczyść</string>
-    <string name="login_hint_text">Wprowadź login lub email</string>
+    <string name="cancel_button">Anuluj</string>
+    <string name="save_button">Zapisz</string>
 
 </resources>
