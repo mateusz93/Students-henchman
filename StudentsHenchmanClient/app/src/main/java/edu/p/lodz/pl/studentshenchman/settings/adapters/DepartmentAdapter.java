@@ -66,7 +66,7 @@ public class DepartmentAdapter extends BaseAdapter {
 
         Department department = getItem(position);
 
-        viewHolder.text.setText(department.getCode() + " - " + department.getName());
+        viewHolder.text.setText(department.getCode() + " " + department.getName());
 
         return convertView;
 
