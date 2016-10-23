@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
@@ -41,6 +42,9 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
     private Spinner mSpecializationSpinner;
     private Spinner mTypeSpinner;
     private Spinner mKindSpinner;
+    private Button mSave;
+    private Button mClear;
+    private Button mCancel;
 
     private DepartmentAdapter mDepartmentAdapter;
     private FieldAdapter mFieldAdapter;
@@ -94,6 +98,16 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
         mKindSpinner.setOnItemSelectedListener(new KindOnItemSelectedListener());
         mKindSpinner.setAdapter(mKindAdapter);
 
+        mSave = (Button) findViewById(R.id.save_button);
+        mSave.setOnClickListener(new SaveOnClickListener());
+
+        mCancel = (Button) findViewById(R.id.cancel_button);
+        mCancel.setOnClickListener(new CancelOnClickListener());
+
+        mClear = (Button) findViewById(R.id.clear_button);
+        mClear.setOnClickListener(new ClearOnClickListener());
+
+        generateView();
     }
 
     private void initAdapters() {
@@ -202,21 +216,44 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
         SQLiteDatabase db = DatabaseHelper.getInstance(getApplicationContext()).getReadableDatabase();
         long selectedDepartmentId = mController.getDepartmentId();
         if (selectedDepartmentId > 0) {
-            mDepartmentSpinner.setSelection(mDepartmentAdapter.getPosForId(selectedDepartmentId),true);
+            mDepartmentSpinner.setSelection(mDepartmentAdapter.getPosForId(selectedDepartmentId), true);
             mFieldAdapter.setValues(loadFields(db, selectedDepartmentId));
             mFieldLinear.setVisibility(View.VISIBLE);
-            mSpecializationLinear.setVisibility(View.GONE);
         } else {
+            mDepartmentSpinner.setSelection(0, true);
             mFieldLinear.setVisibility(View.GONE);
             mSpecializationLinear.setVisibility(View.GONE);
         }
 
         long selectedFieldExternalId = mController.getFieldId();
         if (selectedFieldExternalId > 0) {
+            mFieldSpinner.setSelection(mFieldAdapter.getPosForId(selectedFieldExternalId), true);
             mSpecializationAdapter.setValues(loadSpecializations(db, selectedFieldExternalId));
             mSpecializationLinear.setVisibility(View.VISIBLE);
         } else {
+            mFieldSpinner.setSelection(0, true);
             mSpecializationLinear.setVisibility(View.GONE);
+        }
+
+        long selectedSpecializationId = mController.getSpecializationId();
+        if (selectedSpecializationId > 0) {
+            mFieldSpinner.setSelection(mSpecializationAdapter.getPosForId(selectedSpecializationId), true);
+        } else {
+            mSpecializationSpinner.setSelection(0, true);
+        }
+
+        long selectedTypeId = mController.getTypeId();
+        if (selectedTypeId > 0) {
+            mTypeSpinner.setSelection(mTypeAdapter.getPosForId(selectedTypeId), true);
+        } else {
+            mTypeSpinner.setSelection(0, true);
+        }
+
+        long selectedKindId = mController.getKindId();
+        if (selectedKindId > 0) {
+            mKindSpinner.setSelection(mSpecializationAdapter.getPosForId(selectedKindId), true);
+        } else {
+            mKindSpinner.setSelection(0, true);
         }
 
     }
@@ -311,6 +348,33 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
         @Override
         public void onNothingSelected(AdapterView<?> parent) {
 
+        }
+    }
+
+    private class SaveOnClickListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+            mController.save();
+            goToDashBoard();
+        }
+    }
+
+    private class CancelOnClickListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+            mController.load();
+            goToDashBoard();
+        }
+    }
+
+    private class ClearOnClickListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+            mController.setDefault();
+            generateView();
         }
     }
 
