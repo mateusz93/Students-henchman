@@ -48,7 +48,7 @@ public class FieldAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return position;
+        return mValues.get(position).getExternalId();
     }
 
     @Override
@@ -80,11 +80,11 @@ public class FieldAdapter extends BaseAdapter {
         Iterator<Field> iterator = mValues.iterator();
         while (iterator.hasNext()) {
             if (iterator.next().getExternalId() == id) {
-                break;
+               return i;
             }
             i++;
         }
-        return i;
+        return 0;
     }
 
     private class ViewHolder {

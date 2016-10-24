@@ -49,7 +49,7 @@ public class DepartmentAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return position;
+        return mValues.get(position).getExternalId();
     }
 
     @Override
@@ -82,11 +82,11 @@ public class DepartmentAdapter extends BaseAdapter {
         Iterator<Department> iterator = mValues.iterator();
         while (iterator.hasNext()) {
             if (iterator.next().getExternalId() == id) {
-                break;
+                return i;
             }
             i++;
         }
-        return i;
+        return 0;
     }
 
     private class ViewHolder {
