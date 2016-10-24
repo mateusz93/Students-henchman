@@ -1,11 +1,7 @@
 package edu.p.lodz.pl.studentshenchman.workers;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
-
-import edu.p.lodz.pl.studentshenchman.workers.utils.ResponseError;
-import edu.p.lodz.pl.studentshenchman.workers.utils.WorkerResponseCode;
 
 /**
  * Created by Michał on 2016-10-05.
@@ -17,11 +13,6 @@ public class IdleWorker extends AbstractWorker {
 
     public IdleWorker(Context context) {
         mContext = context;
-    }
-
-    @Override
-    public void sendResponse(Intent responseIntent) {
-
     }
 
     @Override

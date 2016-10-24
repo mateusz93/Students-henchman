@@ -1,16 +1,12 @@
 package edu.p.lodz.pl.studentshenchman.workers;
 
 import android.content.Context;
-import android.content.Intent;
 import android.widget.Toast;
 
 import java.util.Date;
 
 import edu.p.lodz.pl.studentshenchman.factories.ServiceFactory;
 import edu.p.lodz.pl.studentshenchman.workers.endpoints.DateEndpoints;
-import edu.p.lodz.pl.studentshenchman.workers.utils.ResponseError;
-import edu.p.lodz.pl.studentshenchman.workers.utils.WorkerResponseCode;
-import retrofit2.adapter.rxjava.HttpException;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -25,11 +21,6 @@ public class DownloadDateWorker extends AbstractWorker<Date> {
 
     public DownloadDateWorker(Context context) {
         mContext = context;
-    }
-
-    @Override
-    public void sendResponse(Intent responseIntent) {
-        // tymczasowy mechanizm przekazywania wiadomosci o zakonczonym workerze oraz ewentualnie jakies dane
     }
 
     @Override
