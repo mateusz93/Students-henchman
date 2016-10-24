@@ -46,4 +46,11 @@
     <string name="cancel_button">Cancel</string>
     <string name="save_button">Save</string>
 
+    <!--drawer-->
+    <string name="drawer_settings_name">Settings</string>
+    <string name="drawer_refresh_timetable_data">Download timetable</string>
+    <string name="drawer_refresh_settings_data">Download settings data</string>
+    <string name="drawer_about_app">About</string>
+    <string name="drawer_logout_name">Logout</string>
+
 </resources>

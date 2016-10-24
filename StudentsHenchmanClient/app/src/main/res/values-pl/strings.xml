@@ -46,4 +46,11 @@
     <string name="cancel_button">Anuluj</string>
     <string name="save_button">Zapisz</string>
 
+    <!--drawer-->
+    <string name="drawer_settings_name">Ustawienia</string>
+    <string name="drawer_refresh_timetable_data">Pobierz plan zajęć</string>
+    <string name="drawer_refresh_settings_data">Pobierz ustawienia</string>
+    <string name="drawer_about_app">O aplikacji</string>
+    <string name="drawer_logout_name">Wyloguj</string>
+
 </resources>
