@@ -1,77 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
+<android.support.v4.widget.DrawerLayout android:id="@+id/drawer_layout"
+                                        xmlns:android="http://schemas.android.com/apk/res/android"
+                                        xmlns:tools="http://schemas.android.com/tools"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:background="@color/bg_color"
+                                        tools:context="edu.p.lodz.pl.studentshenchman.dashboard.DashboardActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="5dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/logo"/>
+
+
+        <!--poczatek widgetu-->
+        <include
+            android:id="@+id/nearest_lesson_item"
+            layout="@layout/subject_item_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/logo"/>
+        <!--koniec widgetu-->
+
+
+        <LinearLayout
+            android:id="@+id/dashboard_icons"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/nearest_lesson_item">
+
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:background="@color/bg_color"
-                tools:context="edu.p.lodz.pl.studentshenchman.dashboard.DashboardActivity">
+                android:layout_weight="1"
+                android:orientation="vertical">
 
+                <!-- position 1 -->
+                <ImageButton
+                    android:id="@+id/timetable_icon"
+                    style="@style/dashboardIcon"
+                    android:src="@drawable/timetable_dashboard_icon"/>
 
-    <ImageView
-        android:id="@+id/logo"
+                <!-- position 3 -->
+                <ImageButton
+                    android:id="@+id/settings_icon"
+                    style="@style/dashboardIcon"
+                    android:src="@drawable/settings_dashboard_icon"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <!-- position 2 -->
+                <ImageButton
+                    android:id="@+id/qrcode_scanner_icon"
+                    style="@style/dashboardIcon"
+                    android:src="@drawable/timetable_dashboard_icon"/>
+
+                <!-- position 4 -->
+                <ImageButton
+                    style="@style/dashboardIcon"
+                    android:src="@drawable/timetable_dashboard_icon"
+                    android:visibility="invisible"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/drawer_list"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="5dp"
-        android:contentDescription="@string/app_name"
-        android:src="@drawable/logo"/>
-
-
-    <!--poczatek widgetu-->
-    <include
-        android:id="@+id/nearest_lesson_item"
-        layout="@layout/subject_item_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/logo"/>
-    <!--koniec widgetu-->
-
-
-    <LinearLayout
-        android:id="@+id/dashboard_icons"
-        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/nearest_lesson_item">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <!-- position 1 -->
-            <ImageButton
-                android:id="@+id/timetable_icon"
-                style="@style/dashboardIcon"
-                android:src="@drawable/timetable_dashboard_icon"/>
-
-            <!-- position 3 -->
-            <ImageButton
-                android:id="@+id/settings_icon"
-                style="@style/dashboardIcon"
-                android:src="@drawable/settings_dashboard_icon"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <!-- position 2 -->
-            <ImageButton
-                android:id="@+id/qrcode_scanner_icon"
-                style="@style/dashboardIcon"
-                android:src="@drawable/timetable_dashboard_icon"/>
-
-            <!-- position 4 -->
-            <ImageButton
-                style="@style/dashboardIcon"
-                android:src="@drawable/timetable_dashboard_icon"
-                android:visibility="invisible"/>
-
-        </LinearLayout>
-    </LinearLayout>
-</RelativeLayout>
+        android:layout_gravity="start"
+        android:background="@color/widget_bg_color"
+        android:choiceMode="singleChoice"
+        android:divider="@color/divider_color"
+        android:dividerHeight="3dp"/>
+</android.support.v4.widget.DrawerLayout>
