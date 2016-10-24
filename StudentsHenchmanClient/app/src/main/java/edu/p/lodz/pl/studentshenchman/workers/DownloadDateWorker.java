@@ -1,6 +1,7 @@
 package edu.p.lodz.pl.studentshenchman.workers;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.widget.Toast;
 
 import java.util.Date;
@@ -18,9 +19,11 @@ public class DownloadDateWorker extends AbstractWorker<Date> {
     private static final String TAG = DownloadDateWorker.class.getName();
 
     private final Context mContext;
+    private final Bundle mBundle;
 
-    public DownloadDateWorker(Context context) {
+    public DownloadDateWorker(Context context, Bundle bundle) {
         mContext = context;
+        mBundle = bundle;
     }
 
     @Override

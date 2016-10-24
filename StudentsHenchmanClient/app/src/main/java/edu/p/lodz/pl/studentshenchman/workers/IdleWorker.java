@@ -1,6 +1,7 @@
 package edu.p.lodz.pl.studentshenchman.workers;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 
 /**
@@ -10,9 +11,11 @@ public class IdleWorker extends AbstractWorker {
     public static final String TAG = IdleWorker.class.getName();
 
     private final Context mContext;
+    private final Bundle mBundle;
 
-    public IdleWorker(Context context) {
+    public IdleWorker(Context context, Bundle bundle) {
         mContext = context;
+        mBundle = bundle;
     }
 
     @Override

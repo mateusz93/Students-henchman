@@ -1,6 +1,7 @@
 package edu.p.lodz.pl.studentshenchman.workers;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -19,9 +20,11 @@ public class DownloadWeatherSimpleWorker extends AbstractWorker<WOEID> {
     private static final String TAG = DownloadWeatherSimpleWorker.class.getName();
 
     private Context mContext;
+    private Bundle mBundle;
 
-    public DownloadWeatherSimpleWorker(Context context) {
+    public DownloadWeatherSimpleWorker(Context context, Bundle bundle) {
         mContext = context;
+        mBundle = bundle;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package edu.p.lodz.pl.studentshenchman.factories;
 
 import android.content.Context;
+import android.os.Bundle;
 
 import edu.p.lodz.pl.studentshenchman.workers.AbstractWorker;
 import edu.p.lodz.pl.studentshenchman.workers.DownloadDateWorker;
@@ -13,14 +14,14 @@ import edu.p.lodz.pl.studentshenchman.workers.utils.WorkerType;
  */
 public class WorkerFactory {
 
-    public static AbstractWorker produce(Context context, WorkerType workerType) {
+    public static AbstractWorker produce(Context context, WorkerType workerType, Bundle bundle) {
         switch (workerType) {
             case DOWNLOAD_DATE:
-                return new DownloadDateWorker(context);
+                return new DownloadDateWorker(context, bundle);
             case DOWNLOAD_WOEID_WEATHER:
-                return new DownloadWeatherSimpleWorker(context);
+                return new DownloadWeatherSimpleWorker(context, bundle);
             default:
-                return new IdleWorker(context);
+                return new IdleWorker(context, bundle);
         }
 
     }
