@@ -106,7 +106,7 @@ public class DashboardActivity extends StudentShenchmanMainActivity {
 
     private List<DrawerItem> getDrawerItemList() {
         List<DrawerItem> drawerItems = new ArrayList<>();
-        drawerItems.add(new DrawerItem(getString(R.string.drawer_settings_name), R.drawable.logo_mini));
+        //drawerItems.add(new DrawerItem(getString(R.string.drawer_settings_name), R.drawable.logo_mini));
         drawerItems.add(new DrawerItem(getString(R.string.drawer_refresh_timetable_data), R.drawable.logo_mini));
         drawerItems.add(new DrawerItem(getString(R.string.drawer_refresh_settings_data), R.drawable.logo_mini));
         drawerItems.add(new DrawerItem(getString(R.string.drawer_about_app), R.drawable.logo_mini));
@@ -258,7 +258,25 @@ public class DashboardActivity extends StudentShenchmanMainActivity {
     private class DrawerOnItemClickListener implements android.widget.AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Toast.makeText(getApplicationContext(), "drawer", Toast.LENGTH_LONG).show();
+            switch (position) {
+                case 0:
+
+                    break;
+                case 1:
+
+                    break;
+                case 2:
+
+                    break;
+                case 3:
+                    finish();
+                    break;
+                /*case 4:
+                    finish();
+                    break;*/
+                default:
+                    break;
+            }
         }
     }
 }
