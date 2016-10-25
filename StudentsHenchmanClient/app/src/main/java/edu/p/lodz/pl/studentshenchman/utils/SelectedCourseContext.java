@@ -76,4 +76,91 @@ public class SelectedCourseContext implements Parcelable {
 		dest.writeDouble(latitude);
 		dest.writeDouble(longitude);
 	}
+
+	public long getCourseId() {
+		return courseId;
+	}
+
+	public void setCourseId(long courseId) {
+		this.courseId = courseId;
+	}
+
+	public long getCourseExternalId() {
+		return courseExternalId;
+	}
+
+	public void setCourseExternalId(long courseExternalId) {
+		this.courseExternalId = courseExternalId;
+	}
+
+	public String getCourseName() {
+		return courseName;
+	}
+
+	public void setCourseName(String courseName) {
+		this.courseName = courseName;
+	}
+
+	public String getCourseType() {
+		return courseType;
+	}
+
+	public void setCourseType(String courseType) {
+		this.courseType = courseType;
+	}
+
+	public String getTeacher() {
+		return teacher;
+	}
+
+	public void setTeacher(String teacher) {
+		this.teacher = teacher;
+	}
+
+	public String getRoomName() {
+		return roomName;
+	}
+
+	public void setRoomName(String roomName) {
+		this.roomName = roomName;
+	}
+
+	public String getBuildName() {
+		return buildName;
+	}
+
+	public void setBuildName(String buildName) {
+		this.buildName = buildName;
+	}
+
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+
+	public double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
+
+	@Override
+	public String toString() {
+		return "SelectedCourseContext{" +
+				"courseId=" + courseId +
+				", courseExternalId=" + courseExternalId +
+				", courseName='" + courseName + '\'' +
+				", courseType='" + courseType + '\'' +
+				", teacher='" + teacher + '\'' +
+				", roomName='" + roomName + '\'' +
+				", buildName='" + buildName + '\'' +
+				", latitude=" + latitude +
+				", longitude=" + longitude +
+				'}';
+	}
 }
