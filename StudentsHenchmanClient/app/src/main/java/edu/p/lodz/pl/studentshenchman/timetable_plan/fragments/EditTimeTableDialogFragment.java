@@ -6,10 +6,11 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import edu.p.lodz.pl.studentshenchman.R;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.adapters.EditTimeTableListAdapter;
@@ -23,8 +24,10 @@ public class EditTimeTableDialogFragment extends DialogFragment {
 	private static final String TITLE = "title";
 	private TextView mTitle;
 	private ListView mList;
+	private LinearLayout mButtonsLinear;
 	private Button mEditButton;
 	private Button mDeleteButton;
+	private LinearLayout mProgressBarContent;
 	private EditTimeTableListAdapter mEditListAdapter;
 
 	public EditTimeTableDialogFragment() {
@@ -52,13 +55,16 @@ public class EditTimeTableDialogFragment extends DialogFragment {
 		super.onViewCreated(view, savedInstanceState);
 
 		mTitle = (TextView) view.findViewById(R.id.title);
+		mButtonsLinear = (LinearLayout) view.findViewById(R.id.buttons);
 		mEditButton = (Button) view.findViewById(R.id.edit_button);
 		mEditButton.setOnClickListener(new EditOnClickListener());
 		mDeleteButton = (Button) view.findViewById(R.id.delete_button);
 		mDeleteButton.setOnClickListener(new DeleteOnClickListener());
+		mProgressBarContent = (LinearLayout) view.findViewById(R.id.progress_bar_content);
 		mList = (ListView) view.findViewById(R.id.list);
 		mEditListAdapter = new EditTimeTableListAdapter(getContext());
 		mList.setAdapter(mEditListAdapter);
+		mList.setOnItemClickListener(new EditItemListOnItemClickListener());
 
 		String title = getArguments().getString(TITLE);
 		mTitle.setText(title);
@@ -68,14 +74,29 @@ public class EditTimeTableDialogFragment extends DialogFragment {
 	private class EditOnClickListener implements View.OnClickListener {
 		@Override
 		public void onClick(View v) {
-			Toast.makeText(getContext(), "edit button", Toast.LENGTH_SHORT).show();
+			mButtonsLinear.setVisibility(View.GONE);
+			mList.setVisibility(View.GONE);
+			mProgressBarContent.setVisibility(View.VISIBLE);
+			//mList.setVisibility(View.VISIBLE);
+			// tutaj trzeba wywolac workera ktory pobierze odpowiednie dane a w callbacku ustawi adapter na liscie z pobranymi danymi
+			// i pokaze odpowiedni widok
 		}
 	}
 
 	private class DeleteOnClickListener implements View.OnClickListener {
 		@Override
 		public void onClick(View v) {
-			Toast.makeText(getContext(), "delete button", Toast.LENGTH_SHORT).show();
+			// trzeba wywaloc np callback albo zaimplementowac jakis interfejs i przekazac id wybranych zajec do usuniecia oraz
+			// ustawic flage zmiany danych na true
+			dismiss();
+		}
+	}
+
+	private class EditItemListOnItemClickListener implements android.widget.AdapterView.OnItemClickListener {
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+			dismiss();
 		}
 	}
 }
