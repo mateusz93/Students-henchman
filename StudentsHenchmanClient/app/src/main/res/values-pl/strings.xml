@@ -45,6 +45,8 @@
     <string name="clear_button">Wyczyść</string>
     <string name="cancel_button">Anuluj</string>
     <string name="save_button">Zapisz</string>
+    <string name="change_course_button">Zamień datę zajęć</string>
+    <string name="delete_button">Usuń</string>
 
     <!--drawer-->
     <string name="drawer_settings_name">Ustawienia</string>
