@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -20,8 +21,11 @@ import android.widget.Toast;
 
 import edu.p.lodz.pl.studentshenchman.R;
 import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainFragment;
+import edu.p.lodz.pl.studentshenchman.constants.Constants;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.activity.SubjectDetailsActivity;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.adapters.SubjectListAdapter;
+import edu.p.lodz.pl.studentshenchman.utils.SelectedCourseContext;
+import edu.p.lodz.pl.studentshenchman.utils.Utils;
 
 /**
  * Created by Michał on 2016-10-12.
@@ -71,10 +75,17 @@ public class DayFragment extends StudentShenchmanMainFragment {
 		mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), mRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
 			@Override
 			public void onItemClick(View view, int position) {
+				SelectedCourseContext courseContext = null;
 				Log.i(TAG, "onItemClick: " + position);
 				Toast.makeText(getContext(), "onclick:" + position, Toast.LENGTH_SHORT).show();
-
+				long courseId = mAdapter.getItemId(position);
+				try {
+					courseContext = Utils.createCourseContext(getContext(), courseId);
+				} catch (Exception e) {
+					Toast.makeText(getContext(), "onclick:" + position, Toast.LENGTH_SHORT).show();
+				}
 				Intent intent = new Intent(getActivity(), SubjectDetailsActivity.class);
+				intent.putExtra(Constants.SELECTED_COURSE_CONTEXT, courseContext);
 				getActivity().startActivity(intent);
 			}
 
@@ -82,6 +93,9 @@ public class DayFragment extends StudentShenchmanMainFragment {
 			public void onLongItemClick(View view, int position) {
 				Toast.makeText(getContext(), "onCLick LONG:" + position, Toast.LENGTH_SHORT).show();
 				Log.i(TAG, "onLongItemClick: " + position);
+				EditTimeTableDialogFragment editTimeTableDialogFragment = EditTimeTableDialogFragment.getInstance("taki sobie tytul");
+				FragmentManager fm = getChildFragmentManager();
+				editTimeTableDialogFragment.show(fm, TAG);
 			}
 		}));
 		mRecyclerView.setHasFixedSize(true);
@@ -102,7 +116,7 @@ public class DayFragment extends StudentShenchmanMainFragment {
 	private SubjectListAdapter.OnItemClickListener onItemClickListener = new SubjectListAdapter.OnItemClickListener() {
 		@Override
 		public void onItemClick(View view, int position) {
-
+			Log.i(TAG, "onItemCLick z adaptera!!!!!");
 		}
 	};
 
