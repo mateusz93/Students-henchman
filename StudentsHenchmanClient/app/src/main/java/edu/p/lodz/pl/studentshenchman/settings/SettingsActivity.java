@@ -1,10 +1,10 @@
 package edu.p.lodz.pl.studentshenchman.settings;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -203,9 +203,19 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 	private void prepareToolbar() {
 		setSupportActionBar(toolbar);
 		toolbar.setTitle(R.string.settings_activity_title);
-		toolbar.setNavigationIcon(android.R.drawable.btn_plus);
 		getSupportActionBar().setDisplayShowHomeEnabled(true);
-		getSupportActionBar().setDisplayUseLogoEnabled(true);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setHomeButtonEnabled(true);
+
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getItemId() == android.R.id.home) {
+			goToDashBoard();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Override
@@ -252,7 +262,7 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 
 		@Override
 		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-			mController.setmSpecializationId(id);
+			mController.setSpecializationId(id);
 		}
 
 		@Override

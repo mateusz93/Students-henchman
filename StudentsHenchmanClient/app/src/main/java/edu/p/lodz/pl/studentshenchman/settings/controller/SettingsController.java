@@ -90,7 +90,7 @@ public class SettingsController {
         return mSpecializationId;
     }
 
-    public SettingsController setmSpecializationId(long specializationId) {
+    public SettingsController setSpecializationId(long specializationId) {
         this.mSpecializationId = specializationId;
         return this;
     }
