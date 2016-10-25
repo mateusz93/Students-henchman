@@ -18,7 +18,7 @@ public class Room implements BaseColumns {
 	public static final String _ID = "_id";
 	public static final String EXTERNAL_ROOM_ID = "external_room_id";
 	public static final String BUILD_ID = "build_id";
-	public static final String NAME = "ename";
+	public static final String NAME = "name";
 	public static final String CODE = "code";
 
 	public static final Map<String, String> projectionColumns;
