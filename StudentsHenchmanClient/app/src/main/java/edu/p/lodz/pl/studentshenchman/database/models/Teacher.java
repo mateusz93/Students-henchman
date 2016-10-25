@@ -1,5 +1,6 @@
 package edu.p.lodz.pl.studentshenchman.database.models;
 
+import android.database.Cursor;
 import android.provider.BaseColumns;
 
 import java.util.HashMap;
@@ -47,4 +48,65 @@ public class Teacher implements BaseColumns {
 			"text",                                 //LAST_NAME
 			"text",                                 //EMAIL
 	};
+
+	public static Teacher fromCursor2Teacher(Cursor cursor) {
+		Teacher teacher = new Teacher();
+
+		if (cursor.moveToFirst()) {
+			teacher.setId(cursor.getLong(cursor.getColumnIndexOrThrow(Teacher._ID)));
+			teacher.setExternalId(cursor.getLong(cursor.getColumnIndexOrThrow(Teacher.EXTERNAL_TEACHER_ID)));
+			teacher.setFirstName(cursor.getString(cursor.getColumnIndexOrThrow(Teacher.FIRST_NAME)));
+			teacher.setLastName(cursor.getString(cursor.getColumnIndexOrThrow(Teacher.LAST_NAME)));
+			teacher.setEmail(cursor.getString(cursor.getColumnIndexOrThrow(Teacher.EMAIL)));
+
+		}
+
+		return teacher;
+	}
+
+	private long id;
+	private long externalId;
+	private String firstName;
+	private String lastName;
+	private String email;
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public long getExternalId() {
+		return externalId;
+	}
+
+	public void setExternalId(long externalId) {
+		this.externalId = externalId;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 }
