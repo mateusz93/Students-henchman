@@ -19,4 +19,7 @@ public abstract class Constants {
 	//public static final String BASE_SERVER_URL = PROTOCOL + "://" + HOST + ":" + PORT + "/mobile";
 	public static final String BASE_SERVER_URL = "https://query.yahooapis.com/";
 
+
+	public static final String SELECTED_COURSE_CONTEXT = "current_selected_course_context";
+
 }
