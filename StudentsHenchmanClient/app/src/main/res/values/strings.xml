@@ -57,5 +57,6 @@
 
     <!--change timetable-->
     <string name="change_timetable_course_duration">Duration</string>
+    <string name="change_timetable_downloading_data">Wait, data downloading..</string>
 
 </resources>
