@@ -55,4 +55,7 @@
     <string name="drawer_about_app">About</string>
     <string name="drawer_logout_name">Logout</string>
 
+    <!--change timetable-->
+    <string name="change_timetable_course_duration">Duration</string>
+
 </resources>
