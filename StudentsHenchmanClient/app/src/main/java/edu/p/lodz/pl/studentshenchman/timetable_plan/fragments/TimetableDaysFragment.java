@@ -25,77 +25,77 @@ import edu.p.lodz.pl.studentshenchman.timetable_plan.adapters.TimeTableDaysAdapt
 
 public class TimetableDaysFragment extends StudentShenchmanMainFragment {
 
-    private static final String TAG = TimetableDaysFragment.class.getName();
+	private static final String TAG = TimetableDaysFragment.class.getName();
 
-    private ViewPager mViewPager;
-    private TabLayout mTabLayout;
-    private TimeTableDaysAdapter mTimeTableDaysAdapter;
-    private TimetableActivity mActivity;
+	private ViewPager mViewPager;
+	private TabLayout mTabLayout;
+	private TimeTableDaysAdapter mTimeTableDaysAdapter;
+	private TimetableActivity mActivity;
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
+	@Nullable
+	@Override
+	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+		super.onCreateView(inflater, container, savedInstanceState);
 
-        View view = inflater.inflate(R.layout.timetable_days_fragment, container, false);
+		View view = inflater.inflate(R.layout.timetable_days_fragment, container, false);
 
-        mActivity = (TimetableActivity) getActivity();
+		mActivity = (TimetableActivity) getActivity();
 
-        mViewPager = (ViewPager) view.findViewById(R.id.container);
-        mTabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
+		mViewPager = (ViewPager) view.findViewById(R.id.container);
+		mTabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
 
-        List<Fragment> fragments = getRequiredFragments();
-        mTimeTableDaysAdapter = new TimeTableDaysAdapter(getContext(), getFragmentManager(), fragments);
-        mViewPager.setAdapter(mTimeTableDaysAdapter);
-        mViewPager.setPageTransformer(false, new CubeInTransformer());
-        setUpActionBar();
+		List<Fragment> fragments = getRequiredFragments();
+		mTimeTableDaysAdapter = new TimeTableDaysAdapter(getContext(), getFragmentManager(), fragments);
+		mViewPager.setAdapter(mTimeTableDaysAdapter);
+		mViewPager.setPageTransformer(false, new CubeInTransformer());
+		setUpActionBar();
 
-        return view;
+		return view;
 
-    }
+	}
 
-    private void setUpActionBar() {
+	private void setUpActionBar() {
 
-        mTabLayout.setTabsFromPagerAdapter(mTimeTableDaysAdapter);
-        mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-        mTabLayout.setupWithViewPager(mViewPager);
-        mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                mViewPager.setCurrentItem(tab.getPosition());
-            }
+		mTabLayout.setTabsFromPagerAdapter(mTimeTableDaysAdapter);
+		mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+		mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+		mTabLayout.setupWithViewPager(mViewPager);
+		mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+			@Override
+			public void onTabSelected(TabLayout.Tab tab) {
+				mViewPager.setCurrentItem(tab.getPosition());
+			}
 
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
+			@Override
+			public void onTabUnselected(TabLayout.Tab tab) {
 
-            }
+			}
 
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
+			@Override
+			public void onTabReselected(TabLayout.Tab tab) {
 
-            }
-        });
+			}
+		});
 
-        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
-    }
+		mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
+	}
 
-    private List<Fragment> getRequiredFragments() {
-        List<Fragment> fragments = new ArrayList<>();
-        fragments.add(DayFragment.getInstance(getString(R.string.monday), 1));
-        fragments.add(DayFragment.getInstance(getString(R.string.tuesday), 2));
-        fragments.add(DayFragment.getInstance(getString(R.string.wednesday), 3));
-        fragments.add(DayFragment.getInstance(getString(R.string.thursday), 4));
-        fragments.add(DayFragment.getInstance(getString(R.string.friday), 5));
-        fragments.add(DayFragment.getInstance(getString(R.string.saturday), 6));
-        fragments.add(DayFragment.getInstance(getString(R.string.sunday), 7));
+	private List<Fragment> getRequiredFragments() {
+		List<Fragment> fragments = new ArrayList<>();
+		fragments.add(DayFragment.getInstance(getString(R.string.monday), 1));
+		fragments.add(DayFragment.getInstance(getString(R.string.tuesday), 2));
+		fragments.add(DayFragment.getInstance(getString(R.string.wednesday), 3));
+		fragments.add(DayFragment.getInstance(getString(R.string.thursday), 4));
+		fragments.add(DayFragment.getInstance(getString(R.string.friday), 5));
+		fragments.add(DayFragment.getInstance(getString(R.string.saturday), 6));
+		fragments.add(DayFragment.getInstance(getString(R.string.sunday), 7));
 
-        return fragments;
-    }
+		return fragments;
+	}
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+	@Override
+	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
 
-    }
+	}
 }

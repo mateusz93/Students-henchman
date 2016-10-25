@@ -18,58 +18,58 @@ import edu.p.lodz.pl.studentshenchman.dashboard.drawer_data.DrawerItem;
  */
 
 public class DrawerListAdapter extends BaseAdapter {
-    private static final String TAG = DrawerListAdapter.class.getName();
-    private final List<DrawerItem> mValues;
+	private static final String TAG = DrawerListAdapter.class.getName();
+	private final List<DrawerItem> mValues;
 
-    Context mContext;
+	Context mContext;
 
-    public DrawerListAdapter(Context context, List<DrawerItem> values) {
-        mContext = context;
-        mValues = values;
-    }
+	public DrawerListAdapter(Context context, List<DrawerItem> values) {
+		mContext = context;
+		mValues = values;
+	}
 
-    @Override
-    public int getCount() {
-        return mValues.size();
-    }
+	@Override
+	public int getCount() {
+		return mValues.size();
+	}
 
-    @Override
-    public DrawerItem getItem(int position) {
-        return mValues.get(position);
-    }
+	@Override
+	public DrawerItem getItem(int position) {
+		return mValues.get(position);
+	}
 
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
+	@Override
+	public long getItemId(int position) {
+		return position;
+	}
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder;
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		ViewHolder viewHolder;
 
-        if (null == convertView) {
-            LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.drawer_item_list, parent, false);
-            viewHolder = new ViewHolder(convertView);
-            convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
-        }
+		if (null == convertView) {
+			LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			convertView = layoutInflater.inflate(R.layout.drawer_item_list, parent, false);
+			viewHolder = new ViewHolder(convertView);
+			convertView.setTag(viewHolder);
+		} else {
+			viewHolder = (ViewHolder) convertView.getTag();
+		}
 
-        viewHolder.icon.setImageResource(getItem(position).getIcon());
-        viewHolder.name.setText(getItem(position).getName());
+		viewHolder.icon.setImageResource(getItem(position).getIcon());
+		viewHolder.name.setText(getItem(position).getName());
 
-        return convertView;
-    }
+		return convertView;
+	}
 
-    private class ViewHolder {
-        public ImageView icon;
-        public TextView name;
+	private class ViewHolder {
+		public ImageView icon;
+		public TextView name;
 
-        public ViewHolder(View view) {
-            icon = (ImageView) view.findViewById(R.id.drawer_item_icon);
-            name = (TextView) view.findViewById(R.id.drawer_item_name);
+		public ViewHolder(View view) {
+			icon = (ImageView) view.findViewById(R.id.drawer_item_icon);
+			name = (TextView) view.findViewById(R.id.drawer_item_name);
 
-        }
-    }
+		}
+	}
 }

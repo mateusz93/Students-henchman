@@ -12,44 +12,44 @@ import edu.p.lodz.pl.studentshenchman.dashboard.DashboardActivity;
 
 public class TimetableActivity extends StudentShenchmanMainActivity {
 
-    private static final String TAG = TimetableActivity.class.getName();
-    private Toolbar toolbar;
+	private static final String TAG = TimetableActivity.class.getName();
+	private Toolbar toolbar;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_timetable);
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_timetable);
 
-        toolbar = (Toolbar) findViewById(R.id.tool_bar);
-        prepareToolbar();
+		toolbar = (Toolbar) findViewById(R.id.tool_bar);
+		prepareToolbar();
 
-    }
+	}
 
-    private void prepareToolbar() {
-        setSupportActionBar(toolbar);
-        toolbar.setTitle(R.string.timetable_activity_title);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-    }
+	private void prepareToolbar() {
+		setSupportActionBar(toolbar);
+		toolbar.setTitle(R.string.timetable_activity_title);
+		getSupportActionBar().setDisplayShowHomeEnabled(true);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setHomeButtonEnabled(true);
+	}
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            goToDashboard();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getItemId() == android.R.id.home) {
+			goToDashboard();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
 
-    @Override
-    public void onBackPressed() {
-        goToDashboard();
-    }
+	@Override
+	public void onBackPressed() {
+		goToDashboard();
+	}
 
-    private void goToDashboard() {
-        Intent previousActivity = new Intent(TimetableActivity.this, DashboardActivity.class);
-        finish();
-        startActivity(previousActivity);
-    }
+	private void goToDashboard() {
+		Intent previousActivity = new Intent(TimetableActivity.this, DashboardActivity.class);
+		finish();
+		startActivity(previousActivity);
+	}
 }

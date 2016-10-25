@@ -17,83 +17,83 @@ import edu.p.lodz.pl.studentshenchman.database.models.Type;
  * @author Michal Warcholinski
  */
 public class TypeAdapter extends BaseAdapter {
-    private static final String TAG = TypeAdapter.class.getName();
+	private static final String TAG = TypeAdapter.class.getName();
 
-    private Context mContext;
-    private List<Type> mValues;
+	private Context mContext;
+	private List<Type> mValues;
 
-    public TypeAdapter(Context context, List<Type> values) {
-        mContext = context;
-        init(values);
-    }
+	public TypeAdapter(Context context, List<Type> values) {
+		mContext = context;
+		init(values);
+	}
 
-    private void init(List<Type> values) {
-        mValues = new ArrayList<>(values);
-        Type type = new Type();
-        type.setId(Long.MIN_VALUE);
-        type.setExternalId(Long.MIN_VALUE);
-        type.setName("choose");
-        mValues.add(0, type);
-    }
+	private void init(List<Type> values) {
+		mValues = new ArrayList<>(values);
+		Type type = new Type();
+		type.setId(Long.MIN_VALUE);
+		type.setExternalId(Long.MIN_VALUE);
+		type.setName("choose");
+		mValues.add(0, type);
+	}
 
-    @Override
-    public int getCount() {
-        return mValues.size();
-    }
+	@Override
+	public int getCount() {
+		return mValues.size();
+	}
 
-    @Override
-    public Type getItem(int position) {
-        return mValues.get(position);
-    }
+	@Override
+	public Type getItem(int position) {
+		return mValues.get(position);
+	}
 
-    @Override
-    public long getItemId(int position) {
-        return mValues.get(position).getExternalId();
-    }
+	@Override
+	public long getItemId(int position) {
+		return mValues.get(position).getExternalId();
+	}
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder;
-        if (null == convertView) {
-            LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(android.R.layout.simple_list_item_single_choice, parent, false);
-            viewHolder = new ViewHolder(convertView);
-            convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
-        }
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		ViewHolder viewHolder;
+		if (null == convertView) {
+			LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			convertView = layoutInflater.inflate(android.R.layout.simple_list_item_single_choice, parent, false);
+			viewHolder = new ViewHolder(convertView);
+			convertView.setTag(viewHolder);
+		} else {
+			viewHolder = (ViewHolder) convertView.getTag();
+		}
 
-        Type type = mValues.get(position);
+		Type type = mValues.get(position);
 
-        viewHolder.text.setText(type.getName());
+		viewHolder.text.setText(type.getName());
 
-        return convertView;
-    }
+		return convertView;
+	}
 
 
-    public void setValues(List<Type> newValues) {
-        init(newValues);
-        notifyDataSetChanged();
-    }
+	public void setValues(List<Type> newValues) {
+		init(newValues);
+		notifyDataSetChanged();
+	}
 
-    public int getPosForId(long id) {
-        int i = 0;
-        Iterator<Type> iterator = mValues.iterator();
-        while (iterator.hasNext()) {
-            if (iterator.next().getExternalId() == id) {
-                return i;
-            }
-            i++;
-        }
-        return 0;
-    }
+	public int getPosForId(long id) {
+		int i = 0;
+		Iterator<Type> iterator = mValues.iterator();
+		while (iterator.hasNext()) {
+			if (iterator.next().getExternalId() == id) {
+				return i;
+			}
+			i++;
+		}
+		return 0;
+	}
 
-    private class ViewHolder {
+	private class ViewHolder {
 
-        public TextView text;
+		public TextView text;
 
-        public ViewHolder(View convertView) {
-            text = (TextView) convertView.findViewById(android.R.id.text1);
-        }
-    }
+		public ViewHolder(View convertView) {
+			text = (TextView) convertView.findViewById(android.R.id.text1);
+		}
+	}
 }

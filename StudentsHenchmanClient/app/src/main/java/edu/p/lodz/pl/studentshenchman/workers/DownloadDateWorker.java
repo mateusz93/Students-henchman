@@ -16,39 +16,39 @@ import rx.schedulers.Schedulers;
  * Created by Michał on 2016-10-08.
  */
 public class DownloadDateWorker extends AbstractWorker<Date> {
-    private static final String TAG = DownloadDateWorker.class.getName();
+	private static final String TAG = DownloadDateWorker.class.getName();
 
-    private final Context mContext;
-    private final Bundle mBundle;
+	private final Context mContext;
+	private final Bundle mBundle;
 
-    public DownloadDateWorker(Context context, Bundle bundle) {
-        mContext = context;
-        mBundle = bundle;
-    }
+	public DownloadDateWorker(Context context, Bundle bundle) {
+		mContext = context;
+		mBundle = bundle;
+	}
 
-    @Override
-    public void run() {
-        DateEndpoints dateEndpoints = ServiceFactory.produceService(DateEndpoints.class, false);
-        Observable<Date> call = dateEndpoints.getDate();
+	@Override
+	public void run() {
+		DateEndpoints dateEndpoints = ServiceFactory.produceService(DateEndpoints.class, false);
+		Observable<Date> call = dateEndpoints.getDate();
 
-        call.subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this);
-    }
+		call.subscribeOn(Schedulers.newThread())
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribe(this);
+	}
 
-    @Override
-    public void onCompleted() {
-        // do nothing
-    }
+	@Override
+	public void onCompleted() {
+		// do nothing
+	}
 
-    @Override
-    public void onError(Throwable e) {
-        onError(mContext, e);
+	@Override
+	public void onError(Throwable e) {
+		onError(mContext, e);
 
-    }
+	}
 
-    @Override
-    public void onNext(Date date) {
-        Toast.makeText(mContext, date.toString(), Toast.LENGTH_LONG).show();
-    }
+	@Override
+	public void onNext(Date date) {
+		Toast.makeText(mContext, date.toString(), Toast.LENGTH_LONG).show();
+	}
 }

@@ -17,38 +17,38 @@ import rx.schedulers.Schedulers;
  */
 
 public class DownloadWeatherSimpleWorker extends AbstractWorker<WOEID> {
-    private static final String TAG = DownloadWeatherSimpleWorker.class.getName();
+	private static final String TAG = DownloadWeatherSimpleWorker.class.getName();
 
-    private Context mContext;
-    private Bundle mBundle;
+	private Context mContext;
+	private Bundle mBundle;
 
-    public DownloadWeatherSimpleWorker(Context context, Bundle bundle) {
-        mContext = context;
-        mBundle = bundle;
-    }
+	public DownloadWeatherSimpleWorker(Context context, Bundle bundle) {
+		mContext = context;
+		mBundle = bundle;
+	}
 
-    @Override
-    public void run() {
-        WeatherEndpoints weatherInterface = ServiceFactory.produceService(WeatherEndpoints.class, false);
-        Observable<WOEID> call = weatherInterface.getWoeid();
-        call.subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this);
-    }
+	@Override
+	public void run() {
+		WeatherEndpoints weatherInterface = ServiceFactory.produceService(WeatherEndpoints.class, false);
+		Observable<WOEID> call = weatherInterface.getWoeid();
+		call.subscribeOn(Schedulers.newThread())
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribe(this);
+	}
 
-    @Override
-    public void onCompleted() {
-        // do nothing
-    }
+	@Override
+	public void onCompleted() {
+		// do nothing
+	}
 
-    @Override
-    public void onError(Throwable e) {
-        onError(mContext, e);
-    }
+	@Override
+	public void onError(Throwable e) {
+		onError(mContext, e);
+	}
 
-    @Override
-    public void onNext(WOEID data) {
-        Log.i(TAG, data.toString());
-        Toast.makeText(mContext, data.toString(), Toast.LENGTH_LONG).show();
-    }
+	@Override
+	public void onNext(WOEID data) {
+		Log.i(TAG, data.toString());
+		Toast.makeText(mContext, data.toString(), Toast.LENGTH_LONG).show();
+	}
 }

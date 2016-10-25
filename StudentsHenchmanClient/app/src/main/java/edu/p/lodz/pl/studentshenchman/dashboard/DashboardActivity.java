@@ -36,247 +36,247 @@ import edu.p.lodz.pl.studentshenchman.settings.SettingsActivity;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.activity.TimetableActivity;
 
 public class DashboardActivity extends StudentShenchmanMainActivity {
-    private static final String TAG = DashboardActivity.class.getName();
-    private static final int MY_PERMISSIONS_REQUEST_CAMERA = 1;
+	private static final String TAG = DashboardActivity.class.getName();
+	private static final int MY_PERMISSIONS_REQUEST_CAMERA = 1;
 
-    private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
-    private TextView mLessonName;
-    private TextView mTeacher;
-    private TextView mBuilding;
-    private TextView mRoom;
-    private TextView mLessonTime;
+	private DrawerLayout mDrawerLayout;
+	private ListView mDrawerList;
+	private TextView mLessonName;
+	private TextView mTeacher;
+	private TextView mBuilding;
+	private TextView mRoom;
+	private TextView mLessonTime;
 
-    private DrawerListAdapter mDrawerAdapter;
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dashboard);
-
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.drawer_list);
-        mLessonName = (TextView) findViewById(R.id.item_lesson_name);
-        mTeacher = (TextView) findViewById(R.id.item_teacher_name);
-        mBuilding = (TextView) findViewById(R.id.item_building_name);
-        mRoom = (TextView) findViewById(R.id.item_room_name);
-        mLessonTime = (TextView) findViewById(R.id.item_lesson_time);
-
-        mDrawerAdapter = new DrawerListAdapter(getApplicationContext(), getDrawerItemList());
-        mDrawerList.setAdapter(mDrawerAdapter);
-        mDrawerList.setOnItemClickListener(new DrawerOnItemClickListener());
-
-        mLessonName.setText("Projektowanie aplikacji internetowych");
-        mTeacher.setText("Dr. inz Rafal Kielbik");
-        mBuilding.setText("CTI");
-        mRoom.setText("303");
-        mLessonTime.setText("8:15 - 10:00");
-
-        DatabaseHelper.getInstance(getApplicationContext());
-
-        Cursor c = DatabaseHelper.getInstance(getApplicationContext()).getReadableDatabase().query(Department.TABLE_NAME, null, null,
-                null, null, null, null);
-        if (c.moveToFirst()) {
-
-        } else {
-            saveTestDataIntoDatabase();
-        }
-        c.close();
+	private DrawerListAdapter mDrawerAdapter;
 
 
-        ImageButton buttonTimetable = (ImageButton) findViewById(R.id.timetable_icon);
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_dashboard);
 
-        buttonTimetable.setOnClickListener((view) ->
-                goToTimetable()
-        );
+		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+		mDrawerList = (ListView) findViewById(R.id.drawer_list);
+		mLessonName = (TextView) findViewById(R.id.item_lesson_name);
+		mTeacher = (TextView) findViewById(R.id.item_teacher_name);
+		mBuilding = (TextView) findViewById(R.id.item_building_name);
+		mRoom = (TextView) findViewById(R.id.item_room_name);
+		mLessonTime = (TextView) findViewById(R.id.item_lesson_time);
 
-        ImageButton settingsButton = (ImageButton) findViewById(R.id.settings_icon);
+		mDrawerAdapter = new DrawerListAdapter(getApplicationContext(), getDrawerItemList());
+		mDrawerList.setAdapter(mDrawerAdapter);
+		mDrawerList.setOnItemClickListener(new DrawerOnItemClickListener());
 
-        settingsButton.setOnClickListener((view) ->
-                goToSettings()
-        );
+		mLessonName.setText("Projektowanie aplikacji internetowych");
+		mTeacher.setText("Dr. inz Rafal Kielbik");
+		mBuilding.setText("CTI");
+		mRoom.setText("303");
+		mLessonTime.setText("8:15 - 10:00");
 
-        ImageButton scanQRCode = (ImageButton) findViewById(R.id.qrcode_scanner_icon);
+		DatabaseHelper.getInstance(getApplicationContext());
 
-        scanQRCode.setOnClickListener((view) ->
-                goToScanQRCode()
-        );
-    }
+		Cursor c = DatabaseHelper.getInstance(getApplicationContext()).getReadableDatabase().query(Department.TABLE_NAME, null, null,
+				null, null, null, null);
+		if (c.moveToFirst()) {
 
-    private List<DrawerItem> getDrawerItemList() {
-        List<DrawerItem> drawerItems = new ArrayList<>();
-        //drawerItems.add(new DrawerItem(getString(R.string.drawer_settings_name), R.drawable.logo_mini));
-        drawerItems.add(new DrawerItem(getString(R.string.drawer_refresh_timetable_data), R.drawable.logo_mini));
-        drawerItems.add(new DrawerItem(getString(R.string.drawer_refresh_settings_data), R.drawable.logo_mini));
-        drawerItems.add(new DrawerItem(getString(R.string.drawer_about_app), R.drawable.logo_mini));
-        drawerItems.add(new DrawerItem(getString(R.string.drawer_logout_name), R.drawable.logo_mini));
-        return drawerItems;
-
-    }
-
-    private void saveTestDataIntoDatabase() {
-        SQLiteDatabase db = DatabaseHelper.getInstance(getApplicationContext()).getWritableDatabase();
-
-        ContentValues cv = new ContentValues();
-        cv.put(Department.EXTERNAL_DEPARTMENT_ID, 1);
-        cv.put(Department.CODE, "kod elektryczny");
-        cv.put(Department.NAME, "Elektryczny");
-        db.insert(Department.TABLE_NAME, null, cv);
-
-        cv = new ContentValues();
-        cv.put(Department.EXTERNAL_DEPARTMENT_ID, 2);
-        cv.put(Department.CODE, "kod mechaniczny");
-        cv.put(Department.NAME, "Mechaniczny");
-        db.insert(Department.TABLE_NAME, null, cv);
-
-        // **************************************************
-
-        cv = new ContentValues();
-        cv.put(Field.EXTERNAL_FIELD_ID, 1);
-        cv.put(Field.EXTERNAL_DEPARTMENT_ID, 1);
-        cv.put(Field.NAME, "Informatyka");
-        db.insert(Field.TABLE_NAME, null, cv);
-
-        cv = new ContentValues();
-        cv.put(Field.EXTERNAL_FIELD_ID, 2);
-        cv.put(Field.EXTERNAL_DEPARTMENT_ID, 1);
-        cv.put(Field.NAME, "Robotyka");
-        db.insert(Field.TABLE_NAME, null, cv);
-
-        cv = new ContentValues();
-        cv.put(Field.EXTERNAL_FIELD_ID, 3);
-        cv.put(Field.EXTERNAL_DEPARTMENT_ID, 2);
-        cv.put(Field.NAME, "Transport");
-        db.insert(Field.TABLE_NAME, null, cv);
-
-        cv = new ContentValues();
-        cv.put(Field.EXTERNAL_FIELD_ID, 4);
-        cv.put(Field.EXTERNAL_DEPARTMENT_ID, 2);
-        cv.put(Field.NAME, "Telekomunikacja");
-        db.insert(Field.TABLE_NAME, null, cv);
-
-        // **************************************************
+		} else {
+			saveTestDataIntoDatabase();
+		}
+		c.close();
 
 
-        cv = new ContentValues();
-        cv.put(Specialization.EXTERNAL_SPECIALIZATION_ID, 1);
-        cv.put(Specialization.EXTERNAL_FIELD_ID, 1);
-        cv.put(Specialization.NAME, "Specjalizacja 1");
-        db.insert(Specialization.TABLE_NAME, null, cv);
+		ImageButton buttonTimetable = (ImageButton) findViewById(R.id.timetable_icon);
 
-        cv = new ContentValues();
-        cv.put(Specialization.EXTERNAL_SPECIALIZATION_ID, 2);
-        cv.put(Specialization.EXTERNAL_FIELD_ID, 2);
-        cv.put(Specialization.NAME, "Specjalizacja 2");
-        db.insert(Specialization.TABLE_NAME, null, cv);
+		buttonTimetable.setOnClickListener((view) ->
+				goToTimetable()
+		);
 
-        cv = new ContentValues();
-        cv.put(Specialization.EXTERNAL_SPECIALIZATION_ID, 3);
-        cv.put(Specialization.EXTERNAL_FIELD_ID, 3);
-        cv.put(Specialization.NAME, "Specjalziacja 3");
-        db.insert(Specialization.TABLE_NAME, null, cv);
+		ImageButton settingsButton = (ImageButton) findViewById(R.id.settings_icon);
 
-        cv = new ContentValues();
-        cv.put(Specialization.EXTERNAL_SPECIALIZATION_ID, 4);
-        cv.put(Specialization.EXTERNAL_FIELD_ID, 4);
-        cv.put(Specialization.NAME, "Specjalizacja 4");
-        db.insert(Specialization.TABLE_NAME, null, cv);
+		settingsButton.setOnClickListener((view) ->
+				goToSettings()
+		);
 
-        // **************************************************
+		ImageButton scanQRCode = (ImageButton) findViewById(R.id.qrcode_scanner_icon);
 
+		scanQRCode.setOnClickListener((view) ->
+				goToScanQRCode()
+		);
+	}
 
-        cv = new ContentValues();
-        cv.put(Kind.EXTERNAL_KIND_ID, 1);
-        cv.put(Kind.NAME, "Studia 1 stopnia");
-        db.insert(Kind.TABLE_NAME, null, cv);
+	private List<DrawerItem> getDrawerItemList() {
+		List<DrawerItem> drawerItems = new ArrayList<>();
+		//drawerItems.add(new DrawerItem(getString(R.string.drawer_settings_name), R.drawable.logo_mini));
+		drawerItems.add(new DrawerItem(getString(R.string.drawer_refresh_timetable_data), R.drawable.logo_mini));
+		drawerItems.add(new DrawerItem(getString(R.string.drawer_refresh_settings_data), R.drawable.logo_mini));
+		drawerItems.add(new DrawerItem(getString(R.string.drawer_about_app), R.drawable.logo_mini));
+		drawerItems.add(new DrawerItem(getString(R.string.drawer_logout_name), R.drawable.logo_mini));
+		return drawerItems;
 
-        cv = new ContentValues();
-        cv.put(Kind.EXTERNAL_KIND_ID, 2);
-        cv.put(Kind.NAME, "Studia 2 stopnia");
-        db.insert(Kind.TABLE_NAME, null, cv);
+	}
 
-        // **************************************************
+	private void saveTestDataIntoDatabase() {
+		SQLiteDatabase db = DatabaseHelper.getInstance(getApplicationContext()).getWritableDatabase();
 
+		ContentValues cv = new ContentValues();
+		cv.put(Department.EXTERNAL_DEPARTMENT_ID, 1);
+		cv.put(Department.CODE, "kod elektryczny");
+		cv.put(Department.NAME, "Elektryczny");
+		db.insert(Department.TABLE_NAME, null, cv);
 
-        cv = new ContentValues();
-        cv.put(Type.EXTERNAL_TYPE_ID, 1);
-        cv.put(Type.NAME, "Studia zaoczne");
-        db.insert(Type.TABLE_NAME, null, cv);
+		cv = new ContentValues();
+		cv.put(Department.EXTERNAL_DEPARTMENT_ID, 2);
+		cv.put(Department.CODE, "kod mechaniczny");
+		cv.put(Department.NAME, "Mechaniczny");
+		db.insert(Department.TABLE_NAME, null, cv);
 
-        cv = new ContentValues();
-        cv.put(Type.EXTERNAL_TYPE_ID, 2);
-        cv.put(Type.NAME, "Studia dzienne");
-        db.insert(Type.TABLE_NAME, null, cv);
+		// **************************************************
 
-        // **************************************************
-    }
+		cv = new ContentValues();
+		cv.put(Field.EXTERNAL_FIELD_ID, 1);
+		cv.put(Field.EXTERNAL_DEPARTMENT_ID, 1);
+		cv.put(Field.NAME, "Informatyka");
+		db.insert(Field.TABLE_NAME, null, cv);
 
-    private void goToTimetable() {
-        Intent intent = new Intent(DashboardActivity.this, TimetableActivity.class);
-        finish();
-        startActivity(intent);
-    }
+		cv = new ContentValues();
+		cv.put(Field.EXTERNAL_FIELD_ID, 2);
+		cv.put(Field.EXTERNAL_DEPARTMENT_ID, 1);
+		cv.put(Field.NAME, "Robotyka");
+		db.insert(Field.TABLE_NAME, null, cv);
 
-    private void goToSettings() {
-        Intent intent = new Intent(DashboardActivity.this, SettingsActivity.class);
-        finish();
-        startActivity(intent);
-    }
+		cv = new ContentValues();
+		cv.put(Field.EXTERNAL_FIELD_ID, 3);
+		cv.put(Field.EXTERNAL_DEPARTMENT_ID, 2);
+		cv.put(Field.NAME, "Transport");
+		db.insert(Field.TABLE_NAME, null, cv);
 
-    private void goToScanQRCode() {
-        if (ContextCompat.checkSelfPermission(DashboardActivity.this,
-                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(DashboardActivity.this,
-                    new String[]{Manifest.permission.CAMERA},
-                    MY_PERMISSIONS_REQUEST_CAMERA);
-        } else {
-            Intent intent = new Intent(DashboardActivity.this, SimpleScanner.class);
-            finish();
-            startActivity(intent);
-        }
-    }
+		cv = new ContentValues();
+		cv.put(Field.EXTERNAL_FIELD_ID, 4);
+		cv.put(Field.EXTERNAL_DEPARTMENT_ID, 2);
+		cv.put(Field.NAME, "Telekomunikacja");
+		db.insert(Field.TABLE_NAME, null, cv);
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String permissions[], @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_CAMERA: {
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Intent intent = new Intent(DashboardActivity.this, SimpleScanner.class);
-                    finish();
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(this, "Brak uprawnień do aparatu!", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }
-    }
+		// **************************************************
 
 
-    private class DrawerOnItemClickListener implements android.widget.AdapterView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            switch (position) {
-                case 0:
+		cv = new ContentValues();
+		cv.put(Specialization.EXTERNAL_SPECIALIZATION_ID, 1);
+		cv.put(Specialization.EXTERNAL_FIELD_ID, 1);
+		cv.put(Specialization.NAME, "Specjalizacja 1");
+		db.insert(Specialization.TABLE_NAME, null, cv);
 
-                    break;
-                case 1:
+		cv = new ContentValues();
+		cv.put(Specialization.EXTERNAL_SPECIALIZATION_ID, 2);
+		cv.put(Specialization.EXTERNAL_FIELD_ID, 2);
+		cv.put(Specialization.NAME, "Specjalizacja 2");
+		db.insert(Specialization.TABLE_NAME, null, cv);
 
-                    break;
-                case 2:
+		cv = new ContentValues();
+		cv.put(Specialization.EXTERNAL_SPECIALIZATION_ID, 3);
+		cv.put(Specialization.EXTERNAL_FIELD_ID, 3);
+		cv.put(Specialization.NAME, "Specjalziacja 3");
+		db.insert(Specialization.TABLE_NAME, null, cv);
 
-                    break;
-                case 3:
-                    finish();
-                    break;
-                /*case 4:
+		cv = new ContentValues();
+		cv.put(Specialization.EXTERNAL_SPECIALIZATION_ID, 4);
+		cv.put(Specialization.EXTERNAL_FIELD_ID, 4);
+		cv.put(Specialization.NAME, "Specjalizacja 4");
+		db.insert(Specialization.TABLE_NAME, null, cv);
+
+		// **************************************************
+
+
+		cv = new ContentValues();
+		cv.put(Kind.EXTERNAL_KIND_ID, 1);
+		cv.put(Kind.NAME, "Studia 1 stopnia");
+		db.insert(Kind.TABLE_NAME, null, cv);
+
+		cv = new ContentValues();
+		cv.put(Kind.EXTERNAL_KIND_ID, 2);
+		cv.put(Kind.NAME, "Studia 2 stopnia");
+		db.insert(Kind.TABLE_NAME, null, cv);
+
+		// **************************************************
+
+
+		cv = new ContentValues();
+		cv.put(Type.EXTERNAL_TYPE_ID, 1);
+		cv.put(Type.NAME, "Studia zaoczne");
+		db.insert(Type.TABLE_NAME, null, cv);
+
+		cv = new ContentValues();
+		cv.put(Type.EXTERNAL_TYPE_ID, 2);
+		cv.put(Type.NAME, "Studia dzienne");
+		db.insert(Type.TABLE_NAME, null, cv);
+
+		// **************************************************
+	}
+
+	private void goToTimetable() {
+		Intent intent = new Intent(DashboardActivity.this, TimetableActivity.class);
+		finish();
+		startActivity(intent);
+	}
+
+	private void goToSettings() {
+		Intent intent = new Intent(DashboardActivity.this, SettingsActivity.class);
+		finish();
+		startActivity(intent);
+	}
+
+	private void goToScanQRCode() {
+		if (ContextCompat.checkSelfPermission(DashboardActivity.this,
+				Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+			ActivityCompat.requestPermissions(DashboardActivity.this,
+					new String[]{Manifest.permission.CAMERA},
+					MY_PERMISSIONS_REQUEST_CAMERA);
+		} else {
+			Intent intent = new Intent(DashboardActivity.this, SimpleScanner.class);
+			finish();
+			startActivity(intent);
+		}
+	}
+
+	@Override
+	public void onRequestPermissionsResult(int requestCode,
+	                                       @NonNull String permissions[], @NonNull int[] grantResults) {
+		switch (requestCode) {
+			case MY_PERMISSIONS_REQUEST_CAMERA: {
+				if (grantResults.length > 0
+						&& grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+					Intent intent = new Intent(DashboardActivity.this, SimpleScanner.class);
+					finish();
+					startActivity(intent);
+				} else {
+					Toast.makeText(this, "Brak uprawnień do aparatu!", Toast.LENGTH_SHORT).show();
+				}
+			}
+		}
+	}
+
+
+	private class DrawerOnItemClickListener implements android.widget.AdapterView.OnItemClickListener {
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			switch (position) {
+				case 0:
+
+					break;
+				case 1:
+
+					break;
+				case 2:
+
+					break;
+				case 3:
+					finish();
+					break;
+	            /*case 4:
                     finish();
                     break;*/
-                default:
-                    break;
-            }
-        }
-    }
+				default:
+					break;
+			}
+		}
+	}
 }

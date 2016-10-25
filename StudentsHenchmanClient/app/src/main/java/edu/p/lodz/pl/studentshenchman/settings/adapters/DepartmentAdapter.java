@@ -56,9 +56,9 @@ public class DepartmentAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
         if (null == convertView) {
-            LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(android.R.layout.simple_list_item_single_choice, parent, false);
-            viewHolder = new ViewHolder(convertView);
+	        LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	        convertView = layoutInflater.inflate(android.R.layout.simple_list_item_single_choice, parent, false);
+	        viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();

@@ -19,80 +19,80 @@ import edu.p.lodz.pl.studentshenchman.database.models.Specialization;
 public class SpecializationAdapter extends BaseAdapter {
 
 
-    private final Context mContext;
-    private List<Specialization> mValues;
+	private final Context mContext;
+	private List<Specialization> mValues;
 
-    public SpecializationAdapter(Context context, List<Specialization> values) {
-        mContext = context;
-        init(values);
-    }
+	public SpecializationAdapter(Context context, List<Specialization> values) {
+		mContext = context;
+		init(values);
+	}
 
-    private void init(List<Specialization> values) {
-        mValues = new ArrayList<>(values);
-        Specialization specialization = new Specialization();
-        specialization.setId(Long.MIN_VALUE);
-        specialization.setExternalId(Long.MIN_VALUE);
-        specialization.setExternalFieldId(Long.MIN_VALUE);
-        specialization.setName("choose");
-        mValues.add(0, specialization);
-    }
+	private void init(List<Specialization> values) {
+		mValues = new ArrayList<>(values);
+		Specialization specialization = new Specialization();
+		specialization.setId(Long.MIN_VALUE);
+		specialization.setExternalId(Long.MIN_VALUE);
+		specialization.setExternalFieldId(Long.MIN_VALUE);
+		specialization.setName("choose");
+		mValues.add(0, specialization);
+	}
 
-    @Override
-    public int getCount() {
-        return mValues.size();
-    }
+	@Override
+	public int getCount() {
+		return mValues.size();
+	}
 
-    @Override
-    public Specialization getItem(int position) {
-        return mValues.get(position);
-    }
+	@Override
+	public Specialization getItem(int position) {
+		return mValues.get(position);
+	}
 
-    @Override
-    public long getItemId(int position) {
-        return mValues.get(position).getExternalId();
-    }
+	@Override
+	public long getItemId(int position) {
+		return mValues.get(position).getExternalId();
+	}
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder;
-        if (null == convertView) {
-            LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(android.R.layout.simple_list_item_single_choice, parent, false);
-            viewHolder = new ViewHolder(convertView);
-            convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
-        }
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		ViewHolder viewHolder;
+		if (null == convertView) {
+			LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			convertView = layoutInflater.inflate(android.R.layout.simple_list_item_single_choice, parent, false);
+			viewHolder = new ViewHolder(convertView);
+			convertView.setTag(viewHolder);
+		} else {
+			viewHolder = (ViewHolder) convertView.getTag();
+		}
 
-        Specialization specialization = getItem(position);
+		Specialization specialization = getItem(position);
 
-        viewHolder.text.setText(specialization.getName());
+		viewHolder.text.setText(specialization.getName());
 
-        return convertView;
-    }
+		return convertView;
+	}
 
-    public void setValues(List<Specialization> newValues) {
-        init(newValues);
-        notifyDataSetChanged();
-    }
+	public void setValues(List<Specialization> newValues) {
+		init(newValues);
+		notifyDataSetChanged();
+	}
 
-    public int getPosForId(long id) {
-        int i = 0;
-        Iterator<Specialization> iterator = mValues.iterator();
-        while (iterator.hasNext()) {
-            if (iterator.next().getExternalId() == id) {
-                return i;
-            }
-            i++;
-        }
-        return 0;
-    }
+	public int getPosForId(long id) {
+		int i = 0;
+		Iterator<Specialization> iterator = mValues.iterator();
+		while (iterator.hasNext()) {
+			if (iterator.next().getExternalId() == id) {
+				return i;
+			}
+			i++;
+		}
+		return 0;
+	}
 
-    private class ViewHolder {
-        public TextView text;
+	private class ViewHolder {
+		public TextView text;
 
-        public ViewHolder(View convertView) {
-            text = (TextView) convertView.findViewById(android.R.id.text1);
-        }
-    }
+		public ViewHolder(View convertView) {
+			text = (TextView) convertView.findViewById(android.R.id.text1);
+		}
+	}
 }

@@ -25,73 +25,73 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class ServiceFactory {
 
-    public static <T> T produceService(final Class<T> clazz, final boolean retryIfFailure) {
-        final Retrofit.Builder builder = new Retrofit.Builder()
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create(getGson()))
-                .client(getHttpClient(retryIfFailure))
-                .baseUrl(Constants.BASE_SERVER_URL);
+	public static <T> T produceService(final Class<T> clazz, final boolean retryIfFailure) {
+		final Retrofit.Builder builder = new Retrofit.Builder()
+				.addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+				.addConverterFactory(GsonConverterFactory.create(getGson()))
+				.client(getHttpClient(retryIfFailure))
+				.baseUrl(Constants.BASE_SERVER_URL);
 
 
-        T service = builder.build().create(clazz);
+		T service = builder.build().create(clazz);
 
-        return service;
-    }
+		return service;
+	}
 
-    private static Gson getGson() {
-        Gson gson = new GsonBuilder()
-                .setDateFormat(Constants.DATE_FORMAT)
-                .registerTypeAdapterFactory(new ItemTypeAdapterFactory())
-                .create();
+	private static Gson getGson() {
+		Gson gson = new GsonBuilder()
+				.setDateFormat(Constants.DATE_FORMAT)
+				.registerTypeAdapterFactory(new ItemTypeAdapterFactory())
+				.create();
 
-        return gson;
-    }
+		return gson;
+	}
 
-    private static OkHttpClient getHttpClient(final boolean retryIfFailure) {
+	private static OkHttpClient getHttpClient(final boolean retryIfFailure) {
 
-        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
-        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
+		HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+		httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
 
-        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+		OkHttpClient.Builder builder = new OkHttpClient.Builder();
 
-        builder.connectTimeout(Constants.CONNECTION_TIMEOUT, TimeUnit.SECONDS)
-                .readTimeout(Constants.READ_TIMEOUT, TimeUnit.SECONDS)
-                .writeTimeout(Constants.WRITE_TIMEOUT, TimeUnit.SECONDS)
-                .retryOnConnectionFailure(retryIfFailure)
-                .addInterceptor(httpLoggingInterceptor);
+		builder.connectTimeout(Constants.CONNECTION_TIMEOUT, TimeUnit.SECONDS)
+				.readTimeout(Constants.READ_TIMEOUT, TimeUnit.SECONDS)
+				.writeTimeout(Constants.WRITE_TIMEOUT, TimeUnit.SECONDS)
+				.retryOnConnectionFailure(retryIfFailure)
+				.addInterceptor(httpLoggingInterceptor);
 
-        return builder.build();
-    }
+		return builder.build();
+	}
 
-    private static class ItemTypeAdapterFactory implements TypeAdapterFactory {
+	private static class ItemTypeAdapterFactory implements TypeAdapterFactory {
 
-        @Override
-        public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-            final TypeAdapter<T> delegate = gson.getDelegateAdapter(this, type);
-            final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
+		@Override
+		public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
+			final TypeAdapter<T> delegate = gson.getDelegateAdapter(this, type);
+			final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
 
-            return new TypeAdapter<T>() {
+			return new TypeAdapter<T>() {
 
-                public void write(JsonWriter out, T value) throws IOException {
-                    delegate.write(out, value);
-                }
+				public void write(JsonWriter out, T value) throws IOException {
+					delegate.write(out, value);
+				}
 
-                public T read(JsonReader in) throws IOException {
+				public T read(JsonReader in) throws IOException {
 
-                    JsonElement jsonElement = elementAdapter.read(in);
-                    if (jsonElement.isJsonObject()) {
-                        JsonObject jsonObject = jsonElement.getAsJsonObject();
-                        if (jsonObject.has("data") && (jsonObject.get("data").isJsonObject() || jsonObject.get("data").isJsonArray())) {
-                            jsonElement = jsonObject.get("data");
-                        }
-                    }
+					JsonElement jsonElement = elementAdapter.read(in);
+					if (jsonElement.isJsonObject()) {
+						JsonObject jsonObject = jsonElement.getAsJsonObject();
+						if (jsonObject.has("data") && (jsonObject.get("data").isJsonObject() || jsonObject.get("data").isJsonArray())) {
+							jsonElement = jsonObject.get("data");
+						}
+					}
 
-                    return delegate.fromJsonTree(jsonElement);
-                }
-            }.nullSafe();
-        }
+					return delegate.fromJsonTree(jsonElement);
+				}
+			}.nullSafe();
+		}
 
 
-    }
-    //TODO zaimplementowac dynamiczne uzupelnianie headerow jezeli jest to mozliwe
+	}
+	//TODO zaimplementowac dynamiczne uzupelnianie headerow jezeli jest to mozliwe
 }

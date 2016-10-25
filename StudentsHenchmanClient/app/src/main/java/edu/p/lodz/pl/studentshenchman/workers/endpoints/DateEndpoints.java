@@ -10,7 +10,7 @@ import rx.Observable;
  */
 public interface DateEndpoints {
 
-    @GET("date")
-    Observable<Date> getDate();
+	@GET("date")
+	Observable<Date> getDate();
 
 }

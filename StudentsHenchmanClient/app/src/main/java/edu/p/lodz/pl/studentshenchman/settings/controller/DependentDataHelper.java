@@ -54,7 +54,7 @@ public class DependentDataHelper {
 	public List<Specialization> loadSpecializations(SQLiteDatabase db, long id) {
 		List<Specialization> values = new ArrayList<>();
 
-		Cursor c = db.query(Specialization.TABLE_NAME, null, Specialization.EXTERNAL_FIELD_ID + "=?", new String[] { id + "" }, null, null, null);
+		Cursor c = db.query(Specialization.TABLE_NAME, null, Specialization.EXTERNAL_FIELD_ID + "=?", new String[]{id + ""}, null, null, null);
 		while (c.moveToNext()) {
 			Specialization specialization = new Specialization();
 			specialization.setId(c.getLong(c.getColumnIndexOrThrow(Specialization._ID)));
@@ -71,7 +71,7 @@ public class DependentDataHelper {
 	public List<Field> loadFields(SQLiteDatabase db, long id) {
 		List<Field> values = new ArrayList<>();
 
-		Cursor c = db.query(Field.TABLE_NAME, null, Field.EXTERNAL_DEPARTMENT_ID + "=?", new String[] { id + "" }, null, null, null);
+		Cursor c = db.query(Field.TABLE_NAME, null, Field.EXTERNAL_DEPARTMENT_ID + "=?", new String[]{id + ""}, null, null, null);
 		while (c.moveToNext()) {
 			Field field = new Field();
 			field.setId(c.getLong(c.getColumnIndexOrThrow(Field._ID)));

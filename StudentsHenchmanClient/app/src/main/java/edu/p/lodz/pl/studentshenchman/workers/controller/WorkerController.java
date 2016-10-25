@@ -14,9 +14,9 @@ import static edu.p.lodz.pl.studentshenchman.workers.AbstractWorker.WORKER_TYPE;
  */
 
 public class WorkerController {
-    public static void startWorker(Context context, Bundle bundle) {
-        WorkerType workerType = WorkerType.valueOf(bundle.getString(WORKER_TYPE));
-        AbstractWorker abstractWorker = WorkerFactory.produce(context, workerType, bundle);
-        abstractWorker.runService();
-    }
+	public static void startWorker(Context context, Bundle bundle) {
+		WorkerType workerType = WorkerType.valueOf(bundle.getString(WORKER_TYPE));
+		AbstractWorker abstractWorker = WorkerFactory.produce(context, workerType, bundle);
+		abstractWorker.runService();
+	}
 }

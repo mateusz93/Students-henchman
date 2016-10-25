@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
 
 		mLoginButton = (Button) findViewById(R.id.login_button);
 		mLoginButton.setOnClickListener((view) ->
-						goToDashboard()
+				goToDashboard()
 		);
 
 		mClearButton = (Button) findViewById(R.id.clear_button);

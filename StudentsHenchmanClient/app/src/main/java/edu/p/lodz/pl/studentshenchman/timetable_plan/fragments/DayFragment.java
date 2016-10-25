@@ -29,172 +29,172 @@ import edu.p.lodz.pl.studentshenchman.timetable_plan.adapters.SubjectListAdapter
 
 public class DayFragment extends StudentShenchmanMainFragment {
 
-    private static final String TAG = DayFragment.class.getName();
+	private static final String TAG = DayFragment.class.getName();
 
 
-    public static final String TAB_NAME = "tab_name";
-    public static final String TAB_NUMBER = "tab_number";
+	public static final String TAB_NAME = "tab_name";
+	public static final String TAB_NUMBER = "tab_number";
 
-    private RecyclerView mRecyclerView;
-    private StaggeredGridLayoutManager mStaggeredLayoutManager;
-    private SubjectListAdapter mAdapter;
-
-
-    public static DayFragment getInstance(String tabName, int tabNumber) {
-        DayFragment day = new DayFragment();
-
-        Bundle bundle = new Bundle();
-        bundle.putString(TAB_NAME, tabName);
-        bundle.putInt(TAB_NUMBER, tabNumber);
-        day.setArguments(bundle);
-
-        return day;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-
-        View view = inflater.inflate(R.layout.day_fragment, container, false);
-
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.list);
-        mStaggeredLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(mStaggeredLayoutManager);
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext()));
-        mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), mRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                Log.i(TAG, "onItemClick: " + position);
-                Toast.makeText(getContext(), "onclick:" + position, Toast.LENGTH_SHORT).show();
-
-                Intent intent = new Intent(getActivity(), SubjectDetailsActivity.class);
-                getActivity().startActivity(intent);
-            }
-
-            @Override
-            public void onLongItemClick(View view, int position) {
-                Toast.makeText(getContext(), "onCLick LONG:" + position, Toast.LENGTH_SHORT).show();
-                Log.i(TAG, "onLongItemClick: " + position);
-            }
-        }));
-        mRecyclerView.setHasFixedSize(true);
-        mAdapter = new SubjectListAdapter(getContext());
-        mRecyclerView.setAdapter(mAdapter);
-
-        mAdapter.setOnItemClickListener(onItemClickListener);
-        return view;
-
-    }
+	private RecyclerView mRecyclerView;
+	private StaggeredGridLayoutManager mStaggeredLayoutManager;
+	private SubjectListAdapter mAdapter;
 
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+	public static DayFragment getInstance(String tabName, int tabNumber) {
+		DayFragment day = new DayFragment();
 
-    }
+		Bundle bundle = new Bundle();
+		bundle.putString(TAB_NAME, tabName);
+		bundle.putInt(TAB_NUMBER, tabNumber);
+		day.setArguments(bundle);
 
-    private SubjectListAdapter.OnItemClickListener onItemClickListener = new SubjectListAdapter.OnItemClickListener() {
-        @Override
-        public void onItemClick(View view, int position) {
+		return day;
+	}
 
-        }
-    };
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setHasOptionsMenu(true);
+	}
 
-    private static class DividerItemDecoration extends RecyclerView.ItemDecoration {
+	@Nullable
+	@Override
+	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+		super.onCreateView(inflater, container, savedInstanceState);
 
-        private static final int[] ATTRS = new int[]{android.R.attr.listDivider};
+		View view = inflater.inflate(R.layout.day_fragment, container, false);
 
-        private Drawable mDivider;
+		mRecyclerView = (RecyclerView) view.findViewById(R.id.list);
+		mStaggeredLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
+		mRecyclerView.setLayoutManager(mStaggeredLayoutManager);
+		mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext()));
+		mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), mRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+			@Override
+			public void onItemClick(View view, int position) {
+				Log.i(TAG, "onItemClick: " + position);
+				Toast.makeText(getContext(), "onclick:" + position, Toast.LENGTH_SHORT).show();
 
-        /**
-         * Default divider will be used
-         */
-        public DividerItemDecoration(Context context) {
-            final TypedArray styledAttributes = context.obtainStyledAttributes(ATTRS);
-            mDivider = styledAttributes.getDrawable(0);
-            styledAttributes.recycle();
-        }
+				Intent intent = new Intent(getActivity(), SubjectDetailsActivity.class);
+				getActivity().startActivity(intent);
+			}
 
-        /**
-         * Custom divider will be used
-         */
-        public DividerItemDecoration(Context context, int resId) {
-            mDivider = ContextCompat.getDrawable(context, resId);
-        }
+			@Override
+			public void onLongItemClick(View view, int position) {
+				Toast.makeText(getContext(), "onCLick LONG:" + position, Toast.LENGTH_SHORT).show();
+				Log.i(TAG, "onLongItemClick: " + position);
+			}
+		}));
+		mRecyclerView.setHasFixedSize(true);
+		mAdapter = new SubjectListAdapter(getContext());
+		mRecyclerView.setAdapter(mAdapter);
 
-        @Override
-        public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
-            int left = parent.getPaddingLeft();
-            int right = parent.getWidth() - parent.getPaddingRight();
+		mAdapter.setOnItemClickListener(onItemClickListener);
+		return view;
 
-            int childCount = parent.getChildCount();
-            for (int i = 0; i < childCount; i++) {
-                View child = parent.getChildAt(i);
-
-                RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
-
-                int top = child.getBottom() + params.bottomMargin;
-                int bottom = top + mDivider.getIntrinsicHeight();
-
-                mDivider.setBounds(left, top, right, bottom);
-                mDivider.draw(c);
-            }
-        }
-    }
-
-    private static class RecyclerItemClickListener implements RecyclerView.OnItemTouchListener {
-
-        private OnItemClickListener mListener;
-
-        public interface OnItemClickListener {
-            void onItemClick(View view, int position);
+	}
 
 
-            void onLongItemClick(View view, int position);
-        }
+	@Override
+	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
-        GestureDetector mGestureDetector;
+	}
 
-        public RecyclerItemClickListener(Context context, final RecyclerView recyclerView, OnItemClickListener listener) {
-            mListener = listener;
-            mGestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
-                @Override
-                public boolean onSingleTapUp(MotionEvent e) {
-                    return true;
-                }
+	private SubjectListAdapter.OnItemClickListener onItemClickListener = new SubjectListAdapter.OnItemClickListener() {
+		@Override
+		public void onItemClick(View view, int position) {
 
-                @Override
-                public void onLongPress(MotionEvent e) {
-                    View child = recyclerView.findChildViewUnder(e.getX(), e.getY());
-                    if (child != null && mListener != null) {
-                        mListener.onLongItemClick(child, recyclerView.getChildAdapterPosition(child));
-                    }
-                }
-            });
-        }
+		}
+	};
 
-        @Override
-        public boolean onInterceptTouchEvent(RecyclerView view, MotionEvent e) {
-            View childView = view.findChildViewUnder(e.getX(), e.getY());
-            if (childView != null && mListener != null && mGestureDetector.onTouchEvent(e)) {
-                mListener.onItemClick(childView, view.getChildAdapterPosition(childView));
-                return true;
-            }
-            return false;
-        }
+	private static class DividerItemDecoration extends RecyclerView.ItemDecoration {
 
-        @Override
-        public void onTouchEvent(RecyclerView view, MotionEvent motionEvent) {
-        }
+		private static final int[] ATTRS = new int[]{android.R.attr.listDivider};
 
-        @Override
-        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-        }
-    }
+		private Drawable mDivider;
+
+		/**
+		 * Default divider will be used
+		 */
+		public DividerItemDecoration(Context context) {
+			final TypedArray styledAttributes = context.obtainStyledAttributes(ATTRS);
+			mDivider = styledAttributes.getDrawable(0);
+			styledAttributes.recycle();
+		}
+
+		/**
+		 * Custom divider will be used
+		 */
+		public DividerItemDecoration(Context context, int resId) {
+			mDivider = ContextCompat.getDrawable(context, resId);
+		}
+
+		@Override
+		public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
+			int left = parent.getPaddingLeft();
+			int right = parent.getWidth() - parent.getPaddingRight();
+
+			int childCount = parent.getChildCount();
+			for (int i = 0; i < childCount; i++) {
+				View child = parent.getChildAt(i);
+
+				RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
+
+				int top = child.getBottom() + params.bottomMargin;
+				int bottom = top + mDivider.getIntrinsicHeight();
+
+				mDivider.setBounds(left, top, right, bottom);
+				mDivider.draw(c);
+			}
+		}
+	}
+
+	private static class RecyclerItemClickListener implements RecyclerView.OnItemTouchListener {
+
+		private OnItemClickListener mListener;
+
+		public interface OnItemClickListener {
+			void onItemClick(View view, int position);
+
+
+			void onLongItemClick(View view, int position);
+		}
+
+		GestureDetector mGestureDetector;
+
+		public RecyclerItemClickListener(Context context, final RecyclerView recyclerView, OnItemClickListener listener) {
+			mListener = listener;
+			mGestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+				@Override
+				public boolean onSingleTapUp(MotionEvent e) {
+					return true;
+				}
+
+				@Override
+				public void onLongPress(MotionEvent e) {
+					View child = recyclerView.findChildViewUnder(e.getX(), e.getY());
+					if (child != null && mListener != null) {
+						mListener.onLongItemClick(child, recyclerView.getChildAdapterPosition(child));
+					}
+				}
+			});
+		}
+
+		@Override
+		public boolean onInterceptTouchEvent(RecyclerView view, MotionEvent e) {
+			View childView = view.findChildViewUnder(e.getX(), e.getY());
+			if (childView != null && mListener != null && mGestureDetector.onTouchEvent(e)) {
+				mListener.onItemClick(childView, view.getChildAdapterPosition(childView));
+				return true;
+			}
+			return false;
+		}
+
+		@Override
+		public void onTouchEvent(RecyclerView view, MotionEvent motionEvent) {
+		}
+
+		@Override
+		public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+		}
+	}
 }

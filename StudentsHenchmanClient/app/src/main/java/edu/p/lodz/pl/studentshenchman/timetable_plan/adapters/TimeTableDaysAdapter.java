@@ -15,27 +15,27 @@ import edu.p.lodz.pl.studentshenchman.timetable_plan.fragments.DayFragment;
 
 public class TimeTableDaysAdapter extends FragmentPagerAdapter {
 
-    private Context mContext;
-    private List<Fragment> mFragments;
+	private Context mContext;
+	private List<Fragment> mFragments;
 
-    public TimeTableDaysAdapter(Context context, FragmentManager fm, List<Fragment> fragments) {
-        super(fm);
-        mContext = context;
-        mFragments = fragments;
-    }
+	public TimeTableDaysAdapter(Context context, FragmentManager fm, List<Fragment> fragments) {
+		super(fm);
+		mContext = context;
+		mFragments = fragments;
+	}
 
-    @Override
-    public Fragment getItem(int position) {
-        return mFragments.get(position);
-    }
+	@Override
+	public Fragment getItem(int position) {
+		return mFragments.get(position);
+	}
 
-    @Override
-    public int getCount() {
-        return mFragments.size();
-    }
+	@Override
+	public int getCount() {
+		return mFragments.size();
+	}
 
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return mFragments.get(position).getArguments().getString(DayFragment.TAB_NAME);
-    }
+	@Override
+	public CharSequence getPageTitle(int position) {
+		return mFragments.get(position).getArguments().getString(DayFragment.TAB_NAME);
+	}
 }

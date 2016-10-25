@@ -16,45 +16,45 @@ import edu.p.lodz.pl.studentshenchman.R;
  */
 
 public class SubjectListAdapter extends RecyclerView.Adapter<SubjectListAdapter.ViewHolder> /*implements CursorAdapter*/ {
-    private static final String TAG = SubjectListAdapter.class.getName();
+	private static final String TAG = SubjectListAdapter.class.getName();
 
-    private Context mContext;
-    private LayoutInflater mInflater;
-    private OnItemClickListener mItemClickListener;
+	private Context mContext;
+	private LayoutInflater mInflater;
+	private OnItemClickListener mItemClickListener;
 
-    public SubjectListAdapter(Context context) {
-        this.mContext = context;
-        this.mInflater = LayoutInflater.from(mContext);
-    }
+	public SubjectListAdapter(Context context) {
+		this.mContext = context;
+		this.mInflater = LayoutInflater.from(mContext);
+	}
 
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.subject_item_list, parent, false);
-        return new ViewHolder(view);
-    }
+	@Override
+	public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.subject_item_list, parent, false);
+		return new ViewHolder(view);
+	}
 
-    @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.lessonHeaderTitle.setText("WYKLAD");
-        holder.lessonName.setText("Analiza Matematyczna");
-        holder.lessonTime.setText("8:15 - 9:45");
-        holder.lessonBuilding.setText("CTI");
-        holder.lessonRoom.setText("301");
-        holder.lessonTeacher.setText("Dr. inz. Rafal Kielbik");
-        holder.navigateLesson.setVisibility(View.GONE);
+	@Override
+	public void onBindViewHolder(ViewHolder holder, int position) {
+		holder.lessonHeaderTitle.setText("WYKLAD");
+		holder.lessonName.setText("Analiza Matematyczna");
+		holder.lessonTime.setText("8:15 - 9:45");
+		holder.lessonBuilding.setText("CTI");
+		holder.lessonRoom.setText("301");
+		holder.lessonTeacher.setText("Dr. inz. Rafal Kielbik");
+		holder.navigateLesson.setVisibility(View.GONE);
 
-    }
+	}
 
-    @Override
-    public int getItemCount() {
-        return 5;
-    }
+	@Override
+	public int getItemCount() {
+		return 5;
+	}
 
 
-    @Override
-    public long getItemId(int position) {
-        return 3;
-    }
+	@Override
+	public long getItemId(int position) {
+		return 3;
+	}
 
    /* @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -94,42 +94,42 @@ public class SubjectListAdapter extends RecyclerView.Adapter<SubjectListAdapter.
 
     }*/
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public RelativeLayout lessonMainHolder;
-        public TextView lessonHeaderTitle;
-        public TextView lessonName;
-        public TextView lessonTime;
-        public TextView lessonBuilding;
-        public TextView lessonRoom;
-        public TextView lessonTeacher;
-        public ImageView navigateLesson;
+	public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+		public RelativeLayout lessonMainHolder;
+		public TextView lessonHeaderTitle;
+		public TextView lessonName;
+		public TextView lessonTime;
+		public TextView lessonBuilding;
+		public TextView lessonRoom;
+		public TextView lessonTeacher;
+		public ImageView navigateLesson;
 
 
-        public ViewHolder(View itemView) {
-            super(itemView);
-            lessonMainHolder = (RelativeLayout) itemView.findViewById(R.id.lesson_main_holder);
-            lessonHeaderTitle=(TextView) itemView.findViewById(R.id.item_lesson_header_title);
-            lessonName = (TextView) itemView.findViewById(R.id.item_lesson_name);
-            lessonTime = (TextView) itemView.findViewById(R.id.item_lesson_time);
-            lessonBuilding = (TextView) itemView.findViewById(R.id.item_building_name);
-            lessonTeacher = (TextView) itemView.findViewById(R.id.item_teacher_name);
-            lessonRoom = (TextView) itemView.findViewById(R.id.item_room_name);
-            navigateLesson = (ImageView) itemView.findViewById(R.id.navigate_item_icon);
-            lessonMainHolder.setOnClickListener(this);
-        }
+		public ViewHolder(View itemView) {
+			super(itemView);
+			lessonMainHolder = (RelativeLayout) itemView.findViewById(R.id.lesson_main_holder);
+			lessonHeaderTitle = (TextView) itemView.findViewById(R.id.item_lesson_header_title);
+			lessonName = (TextView) itemView.findViewById(R.id.item_lesson_name);
+			lessonTime = (TextView) itemView.findViewById(R.id.item_lesson_time);
+			lessonBuilding = (TextView) itemView.findViewById(R.id.item_building_name);
+			lessonTeacher = (TextView) itemView.findViewById(R.id.item_teacher_name);
+			lessonRoom = (TextView) itemView.findViewById(R.id.item_room_name);
+			navigateLesson = (ImageView) itemView.findViewById(R.id.navigate_item_icon);
+			lessonMainHolder.setOnClickListener(this);
+		}
 
-        @Override
-        public void onClick(View v) {
-            mItemClickListener.onItemClick(v, getPosition());
-        }
-    }
+		@Override
+		public void onClick(View v) {
+			mItemClickListener.onItemClick(v, getPosition());
+		}
+	}
 
-    public interface OnItemClickListener {
-        void onItemClick(View view, int position);
-    }
+	public interface OnItemClickListener {
+		void onItemClick(View view, int position);
+	}
 
-    public void setOnItemClickListener(final OnItemClickListener mItemClickListener) {
-        this.mItemClickListener = mItemClickListener;
-    }
+	public void setOnItemClickListener(final OnItemClickListener mItemClickListener) {
+		this.mItemClickListener = mItemClickListener;
+	}
 
 }
