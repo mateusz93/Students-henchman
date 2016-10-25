@@ -4,13 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import edu.p.lodz.pl.studentshenchman.R;
 import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainActivity;
 import edu.p.lodz.pl.studentshenchman.dashboard.DashboardActivity;
+import edu.p.lodz.pl.studentshenchman.timetable_plan.fragments.EditTimeTableDialogFragment;
 
 
-public class TimetableActivity extends StudentShenchmanMainActivity {
+public class TimetableActivity extends StudentShenchmanMainActivity implements EditTimeTableDialogFragment.EditedCoursesDialogInterface {
 
 	private static final String TAG = TimetableActivity.class.getName();
 	private Toolbar toolbar;
@@ -51,5 +53,15 @@ public class TimetableActivity extends StudentShenchmanMainActivity {
 		Intent previousActivity = new Intent(TimetableActivity.this, DashboardActivity.class);
 		finish();
 		startActivity(previousActivity);
+	}
+
+	@Override
+	public void courseToSwapSelected(long id) {
+		Toast.makeText(getApplicationContext(), "swap callback:" + id, Toast.LENGTH_SHORT).show();
+	}
+
+	@Override
+	public void courseToDeleteSelected(long id) {
+		Toast.makeText(getApplicationContext(), "delete callback:" + id, Toast.LENGTH_SHORT).show();
 	}
 }
