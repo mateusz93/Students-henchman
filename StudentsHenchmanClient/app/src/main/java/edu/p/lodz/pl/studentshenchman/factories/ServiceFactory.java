@@ -64,6 +64,8 @@ public class ServiceFactory {
 
 				Request request = original.newBuilder()
 						.header("Accept", "application/json")
+						.addHeader("Content-Type", "application/json")
+						.addHeader("Authorization", "Basic bW9iaWxlOm1vYmlsZQ==")
 						.method(original.method(), original.body())
 						.build();
 
