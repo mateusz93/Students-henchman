@@ -14,7 +14,10 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import edu.p.lodz.pl.studentshenchman.constants.Constants;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -53,6 +56,20 @@ public class ServiceFactory {
 		httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
 
 		OkHttpClient.Builder builder = new OkHttpClient.Builder();
+
+		builder.addInterceptor(new Interceptor() {
+			@Override
+			public Response intercept(Interceptor.Chain chain) throws IOException {
+				Request original = chain.request();
+
+				Request request = original.newBuilder()
+						.header("Accept", "application/json")
+						.method(original.method(), original.body())
+						.build();
+
+				return chain.proceed(request);
+			}
+		});
 
 		builder.connectTimeout(Constants.CONNECTION_TIMEOUT, TimeUnit.SECONDS)
 				.readTimeout(Constants.READ_TIMEOUT, TimeUnit.SECONDS)
