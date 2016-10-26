@@ -30,6 +30,7 @@ import edu.p.lodz.pl.studentshenchman.settings.adapters.SpecializationAdapter;
 import edu.p.lodz.pl.studentshenchman.settings.adapters.TypeAdapter;
 import edu.p.lodz.pl.studentshenchman.settings.controller.DependentDataHelper;
 import edu.p.lodz.pl.studentshenchman.settings.controller.SettingsController;
+import edu.p.lodz.pl.studentshenchman.workers.DownloadWeatherSimpleWorker;
 
 public class SettingsActivity extends StudentShenchmanMainActivity {
 	private static final String TAG = SettingsActivity.class.getName();
@@ -73,7 +74,8 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 
 		mController = SettingsController.getInstance(getApplicationContext());
 		dependentDataHelper = new DependentDataHelper();
-
+		DownloadWeatherSimpleWorker worker = new DownloadWeatherSimpleWorker(getApplicationContext(), new Bundle());
+		worker.run();
 		loadAllRequiredData();
 		initAdapters();
 
@@ -162,18 +164,18 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 			case DEPARTMENTS:
 				cachedValue = mController.getDepartmentId();
 				if (cachedValue > 0)
-					mDepartmentSpinner.setSelection(mDepartmentAdapter.getPosForId(cachedValue));
+					mDepartmentSpinner.setSelection(mDepartmentAdapter.getPosForId(cachedValue), false);
 				else
-					mDepartmentSpinner.setSelection(0);
+					mDepartmentSpinner.setSelection(0, false);
 				break;
 
 			case FIELDS:
 				cachedValue = mController.getFieldId();
 				mFieldAdapter.setValues(dependentDataHelper.loadFields(db, parentValueId));
 				if (cachedValue > 0)
-					mFieldSpinner.setSelection(mFieldAdapter.getPosForId(cachedValue));
+					mFieldSpinner.setSelection(mFieldAdapter.getPosForId(cachedValue), false);
 				else
-					mFieldSpinner.setSelection(0);
+					mFieldSpinner.setSelection(0, false);
 
 				if (parentValueId > 0)
 					mFieldLinear.setVisibility(View.VISIBLE);
@@ -185,9 +187,9 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 				cachedValue = mController.getSpecializationId();
 				mSpecializationAdapter.setValues(dependentDataHelper.loadSpecializations(db, parentValueId));
 				if (cachedValue > 0)
-					mSpecializationSpinner.setSelection(mSpecializationAdapter.getPosForId(cachedValue));
+					mSpecializationSpinner.setSelection(mSpecializationAdapter.getPosForId(cachedValue), false);
 				else
-					mSpecializationSpinner.setSelection(0);
+					mSpecializationSpinner.setSelection(0, false);
 
 				if (parentValueId > 0)
 					mSpecializationLinear.setVisibility(View.VISIBLE);
