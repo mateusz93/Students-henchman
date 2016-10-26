@@ -34,6 +34,7 @@ import edu.p.lodz.pl.studentshenchman.database.models.Type;
 import edu.p.lodz.pl.studentshenchman.qr_scanner.SimpleScanner;
 import edu.p.lodz.pl.studentshenchman.settings.SettingsActivity;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.activity.TimetableActivity;
+import edu.p.lodz.pl.studentshenchman.workers.DownloadSettingsWorker;
 
 public class DashboardActivity extends StudentShenchmanMainActivity {
 	private static final String TAG = DashboardActivity.class.getName();
@@ -102,6 +103,12 @@ public class DashboardActivity extends StudentShenchmanMainActivity {
 		scanQRCode.setOnClickListener((view) ->
 				goToScanQRCode()
 		);
+
+		ImageButton testButton = (ImageButton) findViewById(R.id.test_button);
+		testButton.setOnClickListener((view) -> {
+			DownloadSettingsWorker worker = new DownloadSettingsWorker(getApplicationContext(), new Bundle());
+			worker.run();
+		});
 	}
 
 	private List<DrawerItem> getDrawerItemList() {
@@ -271,8 +278,8 @@ public class DashboardActivity extends StudentShenchmanMainActivity {
 				case 3:
 					finish();
 					break;
-	            /*case 4:
-                    finish();
+				/*case 4:
+	                finish();
                     break;*/
 				default:
 					break;

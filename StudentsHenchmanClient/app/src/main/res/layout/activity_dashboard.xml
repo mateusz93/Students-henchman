@@ -72,9 +72,10 @@
 
                 <!-- position 4 -->
                 <ImageButton
+                    android:id="@+id/test_button"
                     style="@style/dashboardIcon"
                     android:src="@drawable/timetable_dashboard_icon"
-                    android:visibility="invisible"/>
+                    android:visibility="visible"/>
 
             </LinearLayout>
         </LinearLayout>
