@@ -7,7 +7,8 @@ public abstract class Constants {
 
 	public static final String DATE_FORMAT = "yyyy\'-\'MM\'-\'dd\'T\'HH\':\'mm\':\'ss";
 
-
+	/*Michal W local host*/
+	//public static final String HOST = "192.168.42.182";
 	public static final String PROTOCOL = "http";
 	public static final String HOST = "localhost";
 	public static final int PORT = 8080;
