@@ -65,7 +65,7 @@ public class ServiceFactory {
 				Request request = original.newBuilder()
 						.header("Accept", "application/json")
 						.addHeader("Content-Type", "application/json")
-						.addHeader("Authorization", "Basic bW9iaWxlOm1vYmlsZQ==")
+						.addHeader("Authorization", "Basic bW9iaWxlOm1vYmlsZQ==") //dodana autoryzacja basic dla konta testowego mobile:mobile
 						.method(original.method(), original.body())
 						.build();
 
