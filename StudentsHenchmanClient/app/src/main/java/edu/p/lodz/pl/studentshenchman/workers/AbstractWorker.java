@@ -1,7 +1,7 @@
 package edu.p.lodz.pl.studentshenchman.workers;
 
 import android.content.Context;
-import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -21,7 +21,7 @@ public abstract class AbstractWorker<T> implements Observer<T> {
 	public static final String WORKER_TYPE = "WORKER_TYPE";
 	public static final String RESPONSE_CODE = "RESPONSE_CODE";
 
-	public void sendResponse(Intent responseIntent) {
+	public void notifyTaskFinished(Bundle bundle) {
 
 	}
 
@@ -31,7 +31,7 @@ public abstract class AbstractWorker<T> implements Observer<T> {
 	public void onError(Context context, Throwable throwable) {
 		if (throwable instanceof HttpException) {
 			HttpException httpException = (HttpException) throwable;
-			Toast.makeText(context, httpException.code() + " - " + httpException.response().message(), Toast.LENGTH_LONG).show();
+			Toast.makeText(context, httpException.code() + " - " + httpException.message(), Toast.LENGTH_LONG).show();
 		} else if (throwable instanceof SocketTimeoutException) {
 			Toast.makeText(context, "Socket Timeout Exception", Toast.LENGTH_LONG).show();
 		} else if (throwable instanceof IOException) {
