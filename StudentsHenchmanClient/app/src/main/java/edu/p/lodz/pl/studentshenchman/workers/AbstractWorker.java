@@ -27,6 +27,10 @@ public abstract class AbstractWorker<T> implements Observer<T> {
 
 	public abstract void run();
 
+	public void runService() {
+		run();
+	}
+
 	// tymczasowa obsluga bledow, trzeba zwracac bardziej czytelne bledy
 	public void onError(Context context, Throwable throwable) {
 		if (throwable instanceof HttpException) {
