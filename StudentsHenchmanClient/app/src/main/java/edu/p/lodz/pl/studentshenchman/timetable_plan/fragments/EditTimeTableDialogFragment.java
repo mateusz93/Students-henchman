@@ -30,6 +30,7 @@ public class EditTimeTableDialogFragment extends DialogFragment {
 	private LinearLayout mButtonsLinear;
 	private Button mEditButton;
 	private Button mDeleteButton;
+	private Button mCancelButton;
 	private LinearLayout mProgressBarContent;
 	private EditTimeTableListAdapter mEditListAdapter;
 	private EditedCoursesDialogInterface callback;
@@ -79,6 +80,8 @@ public class EditTimeTableDialogFragment extends DialogFragment {
 		mEditButton.setOnClickListener(new EditOnClickListener());
 		mDeleteButton = (Button) view.findViewById(R.id.delete_button);
 		mDeleteButton.setOnClickListener(new DeleteOnClickListener());
+		mCancelButton = (Button) view.findViewById(R.id.cancel_button);
+		mCancelButton.setOnClickListener(new CancelOnClickListener());
 		mProgressBarContent = (LinearLayout) view.findViewById(R.id.progress_bar_content);
 		mList = (ListView) view.findViewById(R.id.list);
 		mEditListAdapter = new EditTimeTableListAdapter(getContext());
@@ -150,4 +153,10 @@ public class EditTimeTableDialogFragment extends DialogFragment {
 		void courseToDeleteSelected(long id);
 	}
 
+	private class CancelOnClickListener implements View.OnClickListener {
+		@Override
+		public void onClick(View v) {
+			dismiss();
+		}
+	}
 }
