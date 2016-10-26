@@ -8,6 +8,7 @@ import edu.p.lodz.pl.studentshenchman.workers.DownloadDateWorker;
 import edu.p.lodz.pl.studentshenchman.workers.DownloadWeatherSimpleWorker;
 import edu.p.lodz.pl.studentshenchman.workers.IdleWorker;
 import edu.p.lodz.pl.studentshenchman.workers.utils.WorkerType;
+import edu.p.lodz.pl.studentshenchman.workers.DownloadSettingsWorker;
 
 /**
  * Created by Michał on 2016-10-05.
@@ -20,6 +21,8 @@ public class WorkerFactory {
 				return new DownloadDateWorker(context, bundle);
 			case DOWNLOAD_WOEID_WEATHER:
 				return new DownloadWeatherSimpleWorker(context, bundle);
+			case DOWNLOAD_SETTINGS:
+				return new DownloadSettingsWorker(context, bundle);
 			default:
 				return new IdleWorker(context, bundle);
 		}
