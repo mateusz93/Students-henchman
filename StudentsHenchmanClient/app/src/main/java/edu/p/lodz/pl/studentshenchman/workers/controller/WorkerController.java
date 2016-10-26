@@ -17,6 +17,6 @@ public class WorkerController {
 	public static void startWorker(Context context, Bundle bundle) {
 		WorkerType workerType = WorkerType.valueOf(bundle.getString(WORKER_TYPE));
 		AbstractWorker abstractWorker = WorkerFactory.produce(context, workerType, bundle);
-		abstractWorker.runService();
+		abstractWorker.run();
 	}
 }

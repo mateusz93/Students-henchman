@@ -53,7 +53,7 @@ public class ServiceFactory {
 	private static OkHttpClient getHttpClient(final boolean retryIfFailure) {
 
 		HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
-		httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
+		httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
 		OkHttpClient.Builder builder = new OkHttpClient.Builder();
 
