@@ -3,6 +3,7 @@ package edu.p.lodz.pl.studentshenchman.timetable_plan.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -15,11 +16,12 @@ import edu.p.lodz.pl.studentshenchman.timetable_plan.fragments.DayFragment;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.fragments.EditTimeTableDialogFragment;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.fragments.SubjectDetailsEmptyFragment;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.fragments.SubjectDetailsFragment;
+import edu.p.lodz.pl.studentshenchman.timetable_plan.interfaces.CourseDialogFragmentInterface;
 import edu.p.lodz.pl.studentshenchman.utils.SelectedCourseContext;
 
 
 public class TimetableActivity extends StudentShenchmanMainActivity implements EditTimeTableDialogFragment.EditedCoursesOptionsInterface,
-		DayFragment.SelectedCourseInterface {
+		DayFragment.SelectedCourseInterface, CourseDialogFragmentInterface {
 
 	private static final String TAG = TimetableActivity.class.getName();
 	private static final String DUAL_PANE = "dual_pane";
@@ -58,7 +60,13 @@ public class TimetableActivity extends StudentShenchmanMainActivity implements E
 	}
 
 	@Override
+	protected void onResume() {
+		super.onResume();
+	}
+
+	@Override
 	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
 		outState.putBoolean(DUAL_PANE, mDualPane);
 	}
 
@@ -84,12 +92,12 @@ public class TimetableActivity extends StudentShenchmanMainActivity implements E
 
 	@Override
 	public void courseToEditSelected(long id) {
-		Toast.makeText(getApplicationContext(), "swap callback:" + id, Toast.LENGTH_SHORT).show();
+		Toast.makeText(getApplicationContext(), "no cos dziala", Toast.LENGTH_SHORT).show();
 	}
 
 	@Override
 	public void courseToDeleteSelected(long id) {
-		Toast.makeText(getApplicationContext(), "delete callback:" + id, Toast.LENGTH_SHORT).show();
+		Toast.makeText(getApplicationContext(), "no cos dziala", Toast.LENGTH_SHORT).show();
 	}
 
 	@Override
@@ -113,5 +121,12 @@ public class TimetableActivity extends StudentShenchmanMainActivity implements E
 				startActivity(intent);
 			}
 		}
+	}
+
+	@Override
+	public void showEditOptionsDialogFragment(SelectedCourseContext courseContext) {
+		EditTimeTableDialogFragment editTimeTableDialogFragment = EditTimeTableDialogFragment.getInstance("taki sobie tytul ale juz z activity");
+		FragmentManager fm = getSupportFragmentManager();
+		editTimeTableDialogFragment.show(fm, TAG);
 	}
 }

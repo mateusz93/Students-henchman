@@ -76,6 +76,7 @@ public class EditTimeTableDialogFragment extends DialogFragment {
 		@Override
 		public void onClick(View v) {
 			callback.courseToEditSelected(5);
+			dismiss();
 			//mList.setVisibility(View.VISIBLE);
 			// tutaj trzeba wywolac workera ktory pobierze odpowiednie dane a w callbacku ustawi adapter na liscie z pobranymi danymi
 			// i pokaze odpowiedni widok

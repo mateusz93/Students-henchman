@@ -6,7 +6,6 @@ import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -22,6 +21,7 @@ import edu.p.lodz.pl.studentshenchman.R;
 import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainFragment;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.activity.TimetableActivity;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.adapters.SubjectListAdapter;
+import edu.p.lodz.pl.studentshenchman.timetable_plan.interfaces.CourseDialogFragmentInterface;
 import edu.p.lodz.pl.studentshenchman.utils.SelectedCourseContext;
 import edu.p.lodz.pl.studentshenchman.utils.Utils;
 
@@ -42,7 +42,7 @@ public class DayFragment extends StudentShenchmanMainFragment {
 	private SubjectListAdapter mAdapter;
 
 	private SelectedCourseInterface mSelectedCourseInterface;
-
+	private CourseDialogFragmentInterface mDialogFragmentInterface;
 
 	public static DayFragment getInstance(String tabName, int tabNumber) {
 		DayFragment day = new DayFragment();
@@ -61,6 +61,7 @@ public class DayFragment extends StudentShenchmanMainFragment {
 		setHasOptionsMenu(true);
 
 		mSelectedCourseInterface = (TimetableActivity) getActivity();
+		mDialogFragmentInterface = (TimetableActivity) getActivity();
 	}
 
 	@Nullable
@@ -96,11 +97,7 @@ public class DayFragment extends StudentShenchmanMainFragment {
 
 			@Override
 			public void onLongItemClick(View view, int position) {
-				Toast.makeText(getContext(), "onCLick LONG:" + position, Toast.LENGTH_SHORT).show();
-				Log.i(TAG, "onLongItemClick: " + position);
-				EditTimeTableDialogFragment editTimeTableDialogFragment = EditTimeTableDialogFragment.getInstance("taki sobie tytul");
-				FragmentManager fm = getChildFragmentManager();
-				editTimeTableDialogFragment.show(fm, TAG);
+				mDialogFragmentInterface.showEditOptionsDialogFragment(new SelectedCourseContext());
 			}
 		}));
 		mRecyclerView.setHasFixedSize(true);
