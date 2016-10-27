@@ -1,7 +1,6 @@
 package edu.p.lodz.pl.studentshenchman.timetable_plan.fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
@@ -21,8 +20,7 @@ import android.widget.Toast;
 
 import edu.p.lodz.pl.studentshenchman.R;
 import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainFragment;
-import edu.p.lodz.pl.studentshenchman.constants.Constants;
-import edu.p.lodz.pl.studentshenchman.timetable_plan.activity.SubjectDetailsActivity;
+import edu.p.lodz.pl.studentshenchman.timetable_plan.activity.TimetableActivity;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.adapters.SubjectListAdapter;
 import edu.p.lodz.pl.studentshenchman.utils.SelectedCourseContext;
 import edu.p.lodz.pl.studentshenchman.utils.Utils;
@@ -43,6 +41,8 @@ public class DayFragment extends StudentShenchmanMainFragment {
 	private StaggeredGridLayoutManager mStaggeredLayoutManager;
 	private SubjectListAdapter mAdapter;
 
+	private SelectedCourseInterface mSelectedCourseInterface;
+
 
 	public static DayFragment getInstance(String tabName, int tabNumber) {
 		DayFragment day = new DayFragment();
@@ -59,6 +59,8 @@ public class DayFragment extends StudentShenchmanMainFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
+
+		mSelectedCourseInterface = (TimetableActivity) getActivity();
 	}
 
 	@Nullable
@@ -77,16 +79,19 @@ public class DayFragment extends StudentShenchmanMainFragment {
 			public void onItemClick(View view, int position) {
 				SelectedCourseContext courseContext = null;
 				Log.i(TAG, "onItemClick: " + position);
-				Toast.makeText(getContext(), "onclick:" + position, Toast.LENGTH_SHORT).show();
+				Toast.makeText(getContext(), "onclick: tworzenie contextu" + position, Toast.LENGTH_SHORT).show();
 				long courseId = mAdapter.getItemId(position);
 				try {
 					courseContext = Utils.createCourseContext(getContext(), courseId);
 				} catch (Exception e) {
-					Toast.makeText(getContext(), "onclick:" + position, Toast.LENGTH_SHORT).show();
+					Log.e(TAG, e.toString());
 				}
-				Intent intent = new Intent(getActivity(), SubjectDetailsActivity.class);
-				intent.putExtra(Constants.SELECTED_COURSE_CONTEXT, courseContext);
-				getActivity().startActivity(intent);
+				/*Intent intent = new Intent(getActivity(), SubjectDetailsActivity.class);
+				Bundle bundle = new Bundle();
+				bundle.putParcelable(Constants.SELECTED_COURSE_CONTEXT, courseContext);
+				intent.putExtras(bundle);
+				getActivity().startActivity(intent);*/
+				mSelectedCourseInterface.selectedCourse(new SelectedCourseContext());
 			}
 
 			@Override
@@ -122,7 +127,7 @@ public class DayFragment extends StudentShenchmanMainFragment {
 
 	private static class DividerItemDecoration extends RecyclerView.ItemDecoration {
 
-		private static final int[] ATTRS = new int[]{android.R.attr.listDivider};
+		private static final int[] ATTRS = new int[] { android.R.attr.listDivider };
 
 		private Drawable mDivider;
 
@@ -210,5 +215,9 @@ public class DayFragment extends StudentShenchmanMainFragment {
 		@Override
 		public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
 		}
+	}
+
+	public interface SelectedCourseInterface {
+		void selectedCourse(SelectedCourseContext selectedCourseContext);
 	}
 }
