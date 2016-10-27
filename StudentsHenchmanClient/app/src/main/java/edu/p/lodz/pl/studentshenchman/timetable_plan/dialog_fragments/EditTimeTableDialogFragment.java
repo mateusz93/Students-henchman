@@ -1,4 +1,4 @@
-package edu.p.lodz.pl.studentshenchman.timetable_plan.fragments;
+package edu.p.lodz.pl.studentshenchman.timetable_plan.dialog_fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
