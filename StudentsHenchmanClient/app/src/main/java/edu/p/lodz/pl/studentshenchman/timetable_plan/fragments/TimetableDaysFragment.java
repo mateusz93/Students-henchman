@@ -41,7 +41,7 @@ public class TimetableDaysFragment extends StudentShenchmanMainFragment {
 
 		mActivity = (TimetableActivity) getActivity();
 
-		mViewPager = (ViewPager) view.findViewById(R.id.container);
+		mViewPager = (ViewPager) view.findViewById(R.id.viewpager_container);
 		mTabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
 
 		List<Fragment> fragments = getRequiredFragments();
