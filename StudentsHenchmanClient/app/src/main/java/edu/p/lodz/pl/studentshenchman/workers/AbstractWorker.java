@@ -19,7 +19,7 @@ public abstract class AbstractWorker<T> implements Observer<T> {
 	private static final String TAG = AbstractWorker.class.getName();
 
 	public static final String WORKER_TYPE = "WORKER_TYPE";
-	public static final String RESPONSE_CODE = "RESPONSE_CODE";
+	public static final String RESPONSE_STATUS = "RESPONSE_STATUS";
 
 	public void notifyTaskFinished(Bundle bundle) {
 

@@ -13,7 +13,7 @@ import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainActivity;
 import edu.p.lodz.pl.studentshenchman.constants.Constants;
 import edu.p.lodz.pl.studentshenchman.dashboard.DashboardActivity;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.fragments.DayFragment;
-import edu.p.lodz.pl.studentshenchman.timetable_plan.fragments.EditTimeTableDialogFragment;
+import edu.p.lodz.pl.studentshenchman.timetable_plan.dialog_fragments.EditTimeTableDialogFragment;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.fragments.SubjectDetailsEmptyFragment;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.fragments.SubjectDetailsFragment;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.interfaces.CourseDialogFragmentInterface;
