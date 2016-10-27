@@ -15,6 +15,11 @@ import edu.p.lodz.pl.studentshenchman.database.models.Teacher;
  */
 public class Utils {
 
+	public enum UserCallType {
+		ACCEPT, DECLINE
+	}
+
+
 	public static SelectedCourseContext createCourseContext(Context context, long courseId) {
 		SQLiteDatabase db = DatabaseHelper.getInstance(context).getReadableDatabase();
 		SelectedCourseContext selectedCourseContext = new SelectedCourseContext();
@@ -45,6 +50,4 @@ public class Utils {
 
 		return selectedCourseContext;
 	}
-
-
 }
