@@ -75,7 +75,7 @@ public class EditTimeTableDialogFragment extends DialogFragment {
 	private class EditOnClickListener implements View.OnClickListener {
 		@Override
 		public void onClick(View v) {
-			callback.courseToEditSelected(5);
+			callback.editSelectedCourse();
 			dismiss();
 			//mList.setVisibility(View.VISIBLE);
 			// tutaj trzeba wywolac workera ktory pobierze odpowiednie dane a w callbacku ustawi adapter na liscie z pobranymi danymi
@@ -88,7 +88,7 @@ public class EditTimeTableDialogFragment extends DialogFragment {
 		public void onClick(View v) {
 			// trzeba wywaloc np callback albo zaimplementowac jakis interfejs i przekazac id wybranych zajec do usuniecia oraz
 			// ustawic flage zmiany danych na true
-			callback.courseToDeleteSelected(5);
+			callback.deleteSelectedCourse();
 			dismiss();
 		}
 	}
@@ -101,9 +101,9 @@ public class EditTimeTableDialogFragment extends DialogFragment {
 	}
 
 	public interface EditedCoursesOptionsInterface {
-		void courseToEditSelected(long id);
+		void editSelectedCourse();
 
-		void courseToDeleteSelected(long id);
+		void deleteSelectedCourse();
 	}
 
 

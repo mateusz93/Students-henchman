@@ -6,7 +6,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import edu.p.lodz.pl.studentshenchman.R;
 import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainActivity;
@@ -29,12 +30,15 @@ public class TimetableActivity extends StudentShenchmanMainActivity implements E
 	private static final String LAST_SELECTED_COURSE = ":last_selected_course";
 	private static final String ARE_LOCAL_CHANGES = ":are_local_changes";
 	private static final String CONTEXT_TO_EDIT = ":context_to_edit";
-
+	private static final String COURSES_TO_DELETE = ":courses_to_delete";
+	private static final String COURSES_TO_ADD = ":courses_to_add";
 
 	private Toolbar toolbar;
 
 	private SelectedCourseContext mSelectedCourseContext;
 	private SelectedCourseContext mCourseContextToEdit;
+	private ArrayList<SelectedCourseContext> mCoursesToDelete = new ArrayList<>();
+	private ArrayList<SelectedCourseContext> mCoursesToAdd = new ArrayList<>();
 	private boolean mDualPane = false;
 	private boolean mAreLocalChanges = false;
 
@@ -53,6 +57,8 @@ public class TimetableActivity extends StudentShenchmanMainActivity implements E
 		if (null != savedInstanceState) {
 			mCourseContextToEdit = savedInstanceState.getParcelable(CONTEXT_TO_EDIT);
 			mAreLocalChanges = savedInstanceState.getBoolean(ARE_LOCAL_CHANGES, false);
+			mCoursesToDelete = savedInstanceState.getParcelableArrayList(COURSES_TO_DELETE);
+			mCoursesToAdd = savedInstanceState.getParcelableArrayList(COURSES_TO_ADD);
 		}
 
 		if (null != (findViewById(R.id.timetable_details_container))) {
@@ -78,6 +84,10 @@ public class TimetableActivity extends StudentShenchmanMainActivity implements E
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		outState.putBoolean(DUAL_PANE, mDualPane);
+		outState.putParcelable(CONTEXT_TO_EDIT, mCourseContextToEdit);
+		outState.putBoolean(ARE_LOCAL_CHANGES, mAreLocalChanges);
+		outState.putParcelableArrayList(COURSES_TO_DELETE, mCoursesToDelete);
+		outState.putParcelableArrayList(COURSES_TO_ADD, mCoursesToAdd);
 	}
 
 	@Override
@@ -91,7 +101,11 @@ public class TimetableActivity extends StudentShenchmanMainActivity implements E
 
 	@Override
 	public void onBackPressed() {
-		goToDashboard();
+		if (!mAreLocalChanges)
+			goToDashboard();
+		else {
+
+		}
 	}
 
 	private void goToDashboard() {
@@ -101,13 +115,13 @@ public class TimetableActivity extends StudentShenchmanMainActivity implements E
 	}
 
 	@Override
-	public void courseToEditSelected(long id) {
-		Toast.makeText(getApplicationContext(), "no cos dziala", Toast.LENGTH_SHORT).show();
+	public void editSelectedCourse() {
+		buildDialogByType(DialogType.CHOOSE);
 	}
 
 	@Override
-	public void courseToDeleteSelected(long id) {
-		Toast.makeText(getApplicationContext(), "no cos dziala", Toast.LENGTH_SHORT).show();
+	public void deleteSelectedCourse() {
+		mAreLocalChanges = true;
 	}
 
 	@Override
@@ -135,18 +149,19 @@ public class TimetableActivity extends StudentShenchmanMainActivity implements E
 
 	@Override
 	public void showEditOptionsDialogFragment(SelectedCourseContext courseContext) {
-		buildDialogByType(DialogType.EDIT, courseContext);
+		mCourseContextToEdit = courseContext;
+		buildDialogByType(DialogType.EDIT);
 	}
 
-	private void buildDialogByType(DialogType dialogType, SelectedCourseContext courseContext) {
+	private void buildDialogByType(DialogType dialogType) {
 		FragmentManager fm = getSupportFragmentManager();
 		switch (dialogType) {
 			case EDIT:
-				EditTimeTableDialogFragment editTimeTableDialogFragment = EditTimeTableDialogFragment.getInstance("taki sobie tytul ale juz z activity");
+				EditTimeTableDialogFragment editTimeTableDialogFragment = EditTimeTableDialogFragment.getInstance("TITLE");
 				editTimeTableDialogFragment.show(fm, TAG);
 				break;
 			case CHOOSE:
-				ChooseCourseDialogFragment chooseCourseDialogFragment = ChooseCourseDialogFragment.getInstance("taki sobie tytul ale juz z activity");
+				ChooseCourseDialogFragment chooseCourseDialogFragment = ChooseCourseDialogFragment.getInstance("TITLE");
 				chooseCourseDialogFragment.show(fm, TAG);
 				break;
 			default:
