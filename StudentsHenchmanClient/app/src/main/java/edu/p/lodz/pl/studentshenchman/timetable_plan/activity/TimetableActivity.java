@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -15,15 +16,17 @@ import edu.p.lodz.pl.studentshenchman.constants.Constants;
 import edu.p.lodz.pl.studentshenchman.dashboard.DashboardActivity;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.dialog_fragments.ChooseCourseDialogFragment;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.dialog_fragments.EditTimeTableDialogFragment;
+import edu.p.lodz.pl.studentshenchman.timetable_plan.dialog_fragments.LocalChangesDialogFragment;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.fragments.DayFragment;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.fragments.SubjectDetailsEmptyFragment;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.fragments.SubjectDetailsFragment;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.interfaces.CourseDialogFragmentInterface;
 import edu.p.lodz.pl.studentshenchman.utils.SelectedCourseContext;
+import edu.p.lodz.pl.studentshenchman.utils.Utils;
 
 
 public class TimetableActivity extends StudentShenchmanMainActivity implements EditTimeTableDialogFragment.EditedCoursesOptionsInterface,
-		DayFragment.SelectedCourseInterface, CourseDialogFragmentInterface {
+		DayFragment.SelectedCourseInterface, CourseDialogFragmentInterface, ChooseCourseDialogFragment.SelectedCourseToSwap, LocalChangesDialogFragment.UserCallInterface {
 
 	private static final String TAG = TimetableActivity.class.getName();
 	private static final String DUAL_PANE = ":dual_pane";
@@ -42,8 +45,9 @@ public class TimetableActivity extends StudentShenchmanMainActivity implements E
 	private boolean mDualPane = false;
 	private boolean mAreLocalChanges = false;
 
+
 	enum DialogType {
-		EDIT, CHOOSE
+		EDIT, CHOOSE, LOCAL_CHANGES
 	}
 
 	@Override
@@ -93,7 +97,12 @@ public class TimetableActivity extends StudentShenchmanMainActivity implements E
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == android.R.id.home) {
-			goToDashboard();
+			if (!mAreLocalChanges) {
+				goToDashboard();
+			} else {
+				buildDialogByType(DialogType.LOCAL_CHANGES);
+			}
+
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -104,7 +113,7 @@ public class TimetableActivity extends StudentShenchmanMainActivity implements E
 		if (!mAreLocalChanges)
 			goToDashboard();
 		else {
-
+			buildDialogByType(DialogType.LOCAL_CHANGES);
 		}
 	}
 
@@ -153,6 +162,27 @@ public class TimetableActivity extends StudentShenchmanMainActivity implements E
 		buildDialogByType(DialogType.EDIT);
 	}
 
+	@Override
+	public void courseSelectedFromListToSwap(long id) {
+		Toast.makeText(getApplicationContext(), "wybrany przedmiot o id:" + id, Toast.LENGTH_SHORT).show();
+		mAreLocalChanges = true;
+	}
+
+
+	@Override
+	public void notifyUserCall(Utils.UserCallType userCallType) {
+		switch (userCallType) {
+			case ACCEPT:
+				goToDashboard();
+				break;
+			case DECLINE:
+				goToDashboard();
+				break;
+			default:
+				break;
+		}
+	}
+
 	private void buildDialogByType(DialogType dialogType) {
 		FragmentManager fm = getSupportFragmentManager();
 		switch (dialogType) {
@@ -163,6 +193,10 @@ public class TimetableActivity extends StudentShenchmanMainActivity implements E
 			case CHOOSE:
 				ChooseCourseDialogFragment chooseCourseDialogFragment = ChooseCourseDialogFragment.getInstance("TITLE");
 				chooseCourseDialogFragment.show(fm, TAG);
+				break;
+			case LOCAL_CHANGES:
+				LocalChangesDialogFragment localChangesDialogFragment = LocalChangesDialogFragment.getInstance("Changes", "Can you save local chnges");
+				localChangesDialogFragment.show(fm, TAG);
 				break;
 			default:
 				break;
