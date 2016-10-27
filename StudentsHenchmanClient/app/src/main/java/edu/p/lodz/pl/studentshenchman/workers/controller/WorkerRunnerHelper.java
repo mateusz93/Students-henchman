@@ -13,7 +13,7 @@ import static edu.p.lodz.pl.studentshenchman.workers.AbstractWorker.WORKER_TYPE;
  * Created by Michał on 2016-10-24.
  */
 
-public class WorkerController {
+public class WorkerRunnerHelper {
 	public static void startWorker(Context context, Bundle bundle) {
 		WorkerType workerType = WorkerType.valueOf(bundle.getString(WORKER_TYPE));
 		AbstractWorker abstractWorker = WorkerFactory.produce(context, workerType, bundle);

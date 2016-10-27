@@ -29,7 +29,7 @@ import edu.p.lodz.pl.studentshenchman.settings.adapters.KindAdapter;
 import edu.p.lodz.pl.studentshenchman.settings.adapters.SpecializationAdapter;
 import edu.p.lodz.pl.studentshenchman.settings.adapters.TypeAdapter;
 import edu.p.lodz.pl.studentshenchman.settings.controller.DependentDataHelper;
-import edu.p.lodz.pl.studentshenchman.settings.controller.SettingsController;
+import edu.p.lodz.pl.studentshenchman.settings.controller.SettingsDataStoreHelper;
 import edu.p.lodz.pl.studentshenchman.workers.DownloadWeatherSimpleWorker;
 
 public class SettingsActivity extends StudentShenchmanMainActivity {
@@ -60,7 +60,7 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 	private List<Type> mTypes;
 	private List<Kind> mKinds;
 
-	private SettingsController mController;
+	private SettingsDataStoreHelper mSettingsDataHelper;
 	private DependentDataHelper dependentDataHelper;
 
 	public enum SpinnerType {
@@ -72,7 +72,7 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_settings);
 
-		mController = SettingsController.getInstance(getApplicationContext());
+		mSettingsDataHelper = new SettingsDataStoreHelper(getApplicationContext());
 		dependentDataHelper = new DependentDataHelper();
 		DownloadWeatherSimpleWorker worker = new DownloadWeatherSimpleWorker(getApplicationContext(), new Bundle());
 		worker.run();
@@ -131,8 +131,8 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 	private void loadAllRequiredData() {
 		SQLiteDatabase db = DatabaseHelper.getInstance(getApplicationContext()).getReadableDatabase();
 		mDepartments = dependentDataHelper.loadDepartments(db);
-		mFields = dependentDataHelper.loadFields(db, mController.getFieldId());
-		mSpecialization = dependentDataHelper.loadSpecializations(db, mController.getSpecializationId());
+		mFields = dependentDataHelper.loadFields(db, mSettingsDataHelper.getFieldId());
+		mSpecialization = dependentDataHelper.loadSpecializations(db, mSettingsDataHelper.getSpecializationId());
 		mTypes = dependentDataHelper.loadTypes(db);
 		mKinds = dependentDataHelper.loadKinds(db);
 	}
@@ -140,14 +140,14 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 	private void generateView() {
 		updateDependentSpinner(SpinnerType.DEPARTMENTS, 0);
 
-		long selectedTypeId = mController.getTypeId();
+		long selectedTypeId = mSettingsDataHelper.getTypeId();
 		if (selectedTypeId > 0) {
 			mTypeSpinner.setSelection(mTypeAdapter.getPosForId(selectedTypeId), true);
 		} else {
 			mTypeSpinner.setSelection(0, true);
 		}
 
-		long selectedKindId = mController.getKindId();
+		long selectedKindId = mSettingsDataHelper.getKindId();
 		if (selectedKindId > 0) {
 			mKindSpinner.setSelection(mKindAdapter.getPosForId(selectedKindId), true);
 		} else {
@@ -162,7 +162,7 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 		long cachedValue;
 		switch (spinnerType) {
 			case DEPARTMENTS:
-				cachedValue = mController.getDepartmentId();
+				cachedValue = mSettingsDataHelper.getDepartmentId();
 				if (cachedValue > 0)
 					mDepartmentSpinner.setSelection(mDepartmentAdapter.getPosForId(cachedValue), false);
 				else
@@ -170,7 +170,7 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 				break;
 
 			case FIELDS:
-				cachedValue = mController.getFieldId();
+				cachedValue = mSettingsDataHelper.getFieldId();
 				mFieldAdapter.setValues(dependentDataHelper.loadFields(db, parentValueId));
 				if (cachedValue > 0)
 					mFieldSpinner.setSelection(mFieldAdapter.getPosForId(cachedValue), false);
@@ -184,7 +184,7 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 				break;
 
 			case SPECIALIZATIONS:
-				cachedValue = mController.getSpecializationId();
+				cachedValue = mSettingsDataHelper.getSpecializationId();
 				mSpecializationAdapter.setValues(dependentDataHelper.loadSpecializations(db, parentValueId));
 				if (cachedValue > 0)
 					mSpecializationSpinner.setSelection(mSpecializationAdapter.getPosForId(cachedValue), false);
@@ -235,7 +235,7 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 
 		@Override
 		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-			mController.setDepartmentId(id);
+			mSettingsDataHelper.setDepartmentId(id);
 			updateDependentSpinner(SpinnerType.FIELDS, id);
 		}
 
@@ -250,7 +250,7 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 
 		@Override
 		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-			mController.setFieldId(id);
+			mSettingsDataHelper.setFieldId(id);
 			updateDependentSpinner(SpinnerType.SPECIALIZATIONS, id);
 		}
 
@@ -264,7 +264,7 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 
 		@Override
 		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-			mController.setSpecializationId(id);
+			mSettingsDataHelper.setSpecializationId(id);
 		}
 
 		@Override
@@ -277,7 +277,7 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 
 		@Override
 		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-			mController.setTypeId(id);
+			mSettingsDataHelper.setTypeId(id);
 		}
 
 		@Override
@@ -290,7 +290,7 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 
 		@Override
 		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-			mController.setKindId(id);
+			mSettingsDataHelper.setKindId(id);
 		}
 
 		@Override
@@ -303,7 +303,7 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 
 		@Override
 		public void onClick(View v) {
-			mController.save();
+			mSettingsDataHelper.save();
 			goToDashBoard();
 		}
 	}
@@ -312,7 +312,7 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 
 		@Override
 		public void onClick(View v) {
-			mController.load();
+			mSettingsDataHelper.load();
 			goToDashBoard();
 		}
 	}
@@ -321,7 +321,7 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 
 		@Override
 		public void onClick(View v) {
-			mController.setDefault();
+			mSettingsDataHelper.setDefault();
 			generateView();
 		}
 	}

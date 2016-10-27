@@ -6,10 +6,9 @@ import android.content.SharedPreferences;
 /**
  * @author Michal Warcholinski
  */
-public class SettingsController {
-	private static final String TAG = SettingsController.class.getName();
+public class SettingsDataStoreHelper {
+	private static final String TAG = SettingsDataStoreHelper.class.getName();
 
-	private static SettingsController mInstance;
 	private SharedPreferences mSharedPreferences;
 	private long mDepartmentId;
 	private long mFieldId;
@@ -21,14 +20,7 @@ public class SettingsController {
 		DEPARTMENT, FIELD, SPECIALIZATION, TYPE, KIND
 	}
 
-	public static SettingsController getInstance(Context context) {
-		if (null == mInstance)
-			mInstance = new SettingsController(context);
-
-		return mInstance;
-	}
-
-	private SettingsController(Context context) {
+	public SettingsDataStoreHelper(Context context) {
 		mSharedPreferences = context.getSharedPreferences(TAG, Context.MODE_PRIVATE);
 		load();
 	}
@@ -63,7 +55,7 @@ public class SettingsController {
 		return mKindId;
 	}
 
-	public SettingsController setKindId(long kindId) {
+	public SettingsDataStoreHelper setKindId(long kindId) {
 		this.mKindId = kindId;
 		return this;
 	}
@@ -72,7 +64,7 @@ public class SettingsController {
 		return mDepartmentId;
 	}
 
-	public SettingsController setDepartmentId(long departmentId) {
+	public SettingsDataStoreHelper setDepartmentId(long departmentId) {
 		this.mDepartmentId = departmentId;
 		return this;
 	}
@@ -81,7 +73,7 @@ public class SettingsController {
 		return mFieldId;
 	}
 
-	public SettingsController setFieldId(long fieldId) {
+	public SettingsDataStoreHelper setFieldId(long fieldId) {
 		this.mFieldId = fieldId;
 		return this;
 	}
@@ -90,7 +82,7 @@ public class SettingsController {
 		return mSpecializationId;
 	}
 
-	public SettingsController setSpecializationId(long specializationId) {
+	public SettingsDataStoreHelper setSpecializationId(long specializationId) {
 		this.mSpecializationId = specializationId;
 		return this;
 	}
@@ -99,7 +91,7 @@ public class SettingsController {
 		return mTypeId;
 	}
 
-	public SettingsController setTypeId(long typeId) {
+	public SettingsDataStoreHelper setTypeId(long typeId) {
 		this.mTypeId = typeId;
 		return this;
 	}
