@@ -10,11 +10,11 @@
         android:id="@+id/tool_bar"
         layout="@layout/tool_bar"/>
 
-    <fragment
-        android:id="@+id/subject_details_fragment"
-        android:name="edu.p.lodz.pl.studentshenchman.timetable_plan.fragments.SubjectDetailsFragment"
+    <FrameLayout
+        android:id="@+id/subjectdetails_details_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/tool_bar"/>
+        android:layout_below="@+id/tool_bar">
+    </FrameLayout>
 
 </RelativeLayout>

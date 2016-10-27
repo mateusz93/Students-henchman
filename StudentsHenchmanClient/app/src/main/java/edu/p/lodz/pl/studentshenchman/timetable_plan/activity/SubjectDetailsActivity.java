@@ -7,6 +7,7 @@ import android.view.MenuItem;
 
 import edu.p.lodz.pl.studentshenchman.R;
 import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainActivity;
+import edu.p.lodz.pl.studentshenchman.timetable_plan.fragments.SubjectDetailsFragment;
 
 /**
  * Created by Michał on 2016-10-13.
@@ -25,6 +26,11 @@ public class SubjectDetailsActivity extends StudentShenchmanMainActivity {
 		toolbar = (Toolbar) findViewById(R.id.tool_bar);
 		prepareToolbar();
 
+		Bundle bundle = getIntent().getExtras();
+		SubjectDetailsFragment detailsFragment = new SubjectDetailsFragment();
+		detailsFragment.setArguments(bundle);
+
+		getSupportFragmentManager().beginTransaction().replace(R.id.subjectdetails_details_container, detailsFragment).commit();
 
 	}
 
