@@ -1,4 +1,4 @@
-package edu.p.lodz.pl.studentshenchman.settings.controller;
+package edu.p.lodz.pl.studentshenchman.settings.datastore;
 
 import android.content.Context;
 import android.content.SharedPreferences;

@@ -28,8 +28,8 @@ import edu.p.lodz.pl.studentshenchman.settings.adapters.FieldAdapter;
 import edu.p.lodz.pl.studentshenchman.settings.adapters.KindAdapter;
 import edu.p.lodz.pl.studentshenchman.settings.adapters.SpecializationAdapter;
 import edu.p.lodz.pl.studentshenchman.settings.adapters.TypeAdapter;
-import edu.p.lodz.pl.studentshenchman.settings.controller.DependentDataHelper;
-import edu.p.lodz.pl.studentshenchman.settings.controller.SettingsDataStoreHelper;
+import edu.p.lodz.pl.studentshenchman.settings.datastore.DependentDataHelper;
+import edu.p.lodz.pl.studentshenchman.settings.datastore.SettingsDataStoreHelper;
 import edu.p.lodz.pl.studentshenchman.workers.DownloadWeatherSimpleWorker;
 
 public class SettingsActivity extends StudentShenchmanMainActivity {

@@ -1,4 +1,4 @@
-package edu.p.lodz.pl.studentshenchman.workers.controller;
+package edu.p.lodz.pl.studentshenchman.workers.helpers;
 
 import android.content.Context;
 import android.os.Bundle;

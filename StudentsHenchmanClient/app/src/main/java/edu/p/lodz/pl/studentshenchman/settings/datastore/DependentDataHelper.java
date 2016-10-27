@@ -1,4 +1,4 @@
-package edu.p.lodz.pl.studentshenchman.settings.controller;
+package edu.p.lodz.pl.studentshenchman.settings.datastore;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
