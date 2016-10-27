@@ -3,6 +3,8 @@ package edu.p.lodz.pl.studentshenchman.login.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -27,11 +29,13 @@ public class LoginActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_login);
 
 		mLogin = (EditText) findViewById(R.id.login);
+		mLogin.addTextChangedListener(new LoginWatcher());
 		mPassword = (EditText) findViewById(R.id.password);
+		mPassword.addTextChangedListener(new PasswordWatcher());
 
 		mLoginButton = (Button) findViewById(R.id.login_button);
 		mLoginButton.setOnClickListener((view) ->
-				goToDashboard()
+						goToDashboard()
 		);
 
 		mClearButton = (Button) findViewById(R.id.clear_button);
@@ -39,11 +43,49 @@ public class LoginActivity extends AppCompatActivity {
 			mLogin.setText("");
 			mPassword.setText("");
 		});
+
+
 	}
 
 	private void goToDashboard() {
 		Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
 		finish();
 		startActivity(intent);
+	}
+
+	private class LoginWatcher implements TextWatcher {
+		@Override
+		public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+		}
+
+		@Override
+		public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+		}
+
+		@Override
+		public void afterTextChanged(Editable s) {
+			if (mLogin.getText().toString().trim().length() < 6)
+				mLogin.setError(getString(R.string.login_at_least_six_sign));
+		}
+	}
+
+	private class PasswordWatcher implements TextWatcher {
+		@Override
+		public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+		}
+
+		@Override
+		public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+		}
+
+		@Override
+		public void afterTextChanged(Editable s) {
+			if (mPassword.getText().toString().trim().isEmpty())
+				mPassword.setError(getString(R.string.password_required));
+		}
 	}
 }

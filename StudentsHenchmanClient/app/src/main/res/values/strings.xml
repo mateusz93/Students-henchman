@@ -39,6 +39,8 @@
 
     <!--login-->
     <string name="login_hint_text">Enter login or email</string>
+    <string name="login_at_least_six_sign">At least 6 sign</string>
+    <string name="password_required">Password is required</string>
 
     <!--buttons-->
     <string name="login_button">Login</string>
