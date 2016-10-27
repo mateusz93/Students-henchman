@@ -74,8 +74,7 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 
 		mSettingsDataHelper = new SettingsDataStoreHelper(getApplicationContext());
 		dependentDataHelper = new DependentDataHelper();
-		DownloadWeatherSimpleWorker worker = new DownloadWeatherSimpleWorker(getApplicationContext(), new Bundle());
-		worker.run();
+
 		loadAllRequiredData();
 		initAdapters();
 
