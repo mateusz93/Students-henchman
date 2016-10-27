@@ -18,7 +18,7 @@ import edu.p.lodz.pl.studentshenchman.timetable_plan.fragments.SubjectDetailsFra
 import edu.p.lodz.pl.studentshenchman.utils.SelectedCourseContext;
 
 
-public class TimetableActivity extends StudentShenchmanMainActivity implements EditTimeTableDialogFragment.EditedCoursesDialogInterface,
+public class TimetableActivity extends StudentShenchmanMainActivity implements EditTimeTableDialogFragment.EditedCoursesOptionsInterface,
 		DayFragment.SelectedCourseInterface {
 
 	private static final String TAG = TimetableActivity.class.getName();
@@ -83,7 +83,7 @@ public class TimetableActivity extends StudentShenchmanMainActivity implements E
 	}
 
 	@Override
-	public void courseToSwapSelected(long id) {
+	public void courseToEditSelected(long id) {
 		Toast.makeText(getApplicationContext(), "swap callback:" + id, Toast.LENGTH_SHORT).show();
 	}
 
