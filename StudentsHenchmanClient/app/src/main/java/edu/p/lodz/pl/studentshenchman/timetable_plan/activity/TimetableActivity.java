@@ -12,8 +12,9 @@ import edu.p.lodz.pl.studentshenchman.R;
 import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainActivity;
 import edu.p.lodz.pl.studentshenchman.constants.Constants;
 import edu.p.lodz.pl.studentshenchman.dashboard.DashboardActivity;
-import edu.p.lodz.pl.studentshenchman.timetable_plan.fragments.DayFragment;
+import edu.p.lodz.pl.studentshenchman.timetable_plan.dialog_fragments.ChooseCourseDialogFragment;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.dialog_fragments.EditTimeTableDialogFragment;
+import edu.p.lodz.pl.studentshenchman.timetable_plan.fragments.DayFragment;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.fragments.SubjectDetailsEmptyFragment;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.fragments.SubjectDetailsFragment;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.interfaces.CourseDialogFragmentInterface;
@@ -24,13 +25,22 @@ public class TimetableActivity extends StudentShenchmanMainActivity implements E
 		DayFragment.SelectedCourseInterface, CourseDialogFragmentInterface {
 
 	private static final String TAG = TimetableActivity.class.getName();
-	private static final String DUAL_PANE = "dual_pane";
-	private static final String LAST_SELECTED_COURSE = "last_selected_course";
+	private static final String DUAL_PANE = ":dual_pane";
+	private static final String LAST_SELECTED_COURSE = ":last_selected_course";
+	private static final String ARE_LOCAL_CHANGES = ":are_local_changes";
+	private static final String CONTEXT_TO_EDIT = ":context_to_edit";
+
 
 	private Toolbar toolbar;
 
 	private SelectedCourseContext mSelectedCourseContext;
+	private SelectedCourseContext mCourseContextToEdit;
 	private boolean mDualPane = false;
+	private boolean mAreLocalChanges = false;
+
+	enum DialogType {
+		EDIT, CHOOSE
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +49,11 @@ public class TimetableActivity extends StudentShenchmanMainActivity implements E
 
 		toolbar = (Toolbar) findViewById(R.id.tool_bar);
 		prepareToolbar();
+
+		if (null != savedInstanceState) {
+			mCourseContextToEdit = savedInstanceState.getParcelable(CONTEXT_TO_EDIT);
+			mAreLocalChanges = savedInstanceState.getBoolean(ARE_LOCAL_CHANGES, false);
+		}
 
 		if (null != (findViewById(R.id.timetable_details_container))) {
 			mDualPane = true;
@@ -57,11 +72,6 @@ public class TimetableActivity extends StudentShenchmanMainActivity implements E
 		getSupportActionBar().setDisplayShowHomeEnabled(true);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setHomeButtonEnabled(true);
-	}
-
-	@Override
-	protected void onResume() {
-		super.onResume();
 	}
 
 	@Override
@@ -125,8 +135,22 @@ public class TimetableActivity extends StudentShenchmanMainActivity implements E
 
 	@Override
 	public void showEditOptionsDialogFragment(SelectedCourseContext courseContext) {
-		EditTimeTableDialogFragment editTimeTableDialogFragment = EditTimeTableDialogFragment.getInstance("taki sobie tytul ale juz z activity");
+		buildDialogByType(DialogType.EDIT, courseContext);
+	}
+
+	private void buildDialogByType(DialogType dialogType, SelectedCourseContext courseContext) {
 		FragmentManager fm = getSupportFragmentManager();
-		editTimeTableDialogFragment.show(fm, TAG);
+		switch (dialogType) {
+			case EDIT:
+				EditTimeTableDialogFragment editTimeTableDialogFragment = EditTimeTableDialogFragment.getInstance("taki sobie tytul ale juz z activity");
+				editTimeTableDialogFragment.show(fm, TAG);
+				break;
+			case CHOOSE:
+				ChooseCourseDialogFragment chooseCourseDialogFragment = ChooseCourseDialogFragment.getInstance("taki sobie tytul ale juz z activity");
+				chooseCourseDialogFragment.show(fm, TAG);
+				break;
+			default:
+				break;
+		}
 	}
 }
