@@ -35,8 +35,12 @@ public class LoginActivity extends AppCompatActivity {
 
 		mLoginButton = (Button) findViewById(R.id.login_button);
 		mLoginButton.setOnClickListener((view) ->
-						goToDashboard()
-		);
+		{
+			if (mLogin.getText().toString().equals("mobile@") && mPassword.getText().toString().equals("mobile")) {
+				goToDashboard();
+			}
+
+		});
 
 		mClearButton = (Button) findViewById(R.id.clear_button);
 		mClearButton.setOnClickListener((view) -> {
@@ -68,6 +72,8 @@ public class LoginActivity extends AppCompatActivity {
 		public void afterTextChanged(Editable s) {
 			if (mLogin.getText().toString().trim().length() < 6)
 				mLogin.setError(getString(R.string.login_at_least_six_sign));
+			else if (!mLogin.getText().toString().trim().contains("@"))
+				mLogin.setError("Niepoprawny format loginu");
 		}
 	}
 
@@ -86,6 +92,8 @@ public class LoginActivity extends AppCompatActivity {
 		public void afterTextChanged(Editable s) {
 			if (mPassword.getText().toString().trim().isEmpty())
 				mPassword.setError(getString(R.string.password_required));
+			else if (mPassword.getText().toString().trim().length() < 6)
+				mPassword.setError(getString(R.string.login_at_least_six_sign));
 		}
 	}
 }
