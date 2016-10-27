@@ -6,11 +6,14 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import edu.p.lodz.pl.studentshenchman.R;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.activity.TimetableActivity;
+import edu.p.lodz.pl.studentshenchman.timetable_plan.adapters.EditTimeTableListAdapter;
 
 /**
  * Created by Michał on 2016-10-27.
@@ -24,6 +27,9 @@ public class ChooseCourseDialogFragment extends DialogFragment {
 	private TextView mTitle;
 	private Button mOkButton;
 	private Button mCancelButton;
+	private ListView mList;
+
+	private EditTimeTableListAdapter mAdapter;
 
 	public static ChooseCourseDialogFragment getInstance(String title) {
 		ChooseCourseDialogFragment dialogFragment = new ChooseCourseDialogFragment();
@@ -60,13 +66,13 @@ public class ChooseCourseDialogFragment extends DialogFragment {
 		mCancelButton = (Button) view.findViewById(R.id.cancel_button);
 		mCancelButton.setOnClickListener(new CancelOnClickListener());
 
+		mList = (ListView) view.findViewById(R.id.list);
+		mList.setOnItemClickListener(new ListOnItemClickListener());
+		mAdapter = new EditTimeTableListAdapter(getContext());
+		mList.setAdapter(mAdapter);
+
 		String title = getArguments().getString(TITLE);
 		mTitle.setText(title);
-	}
-
-	public interface SelectedCourseToSwap {
-
-		void courseSelectedFromListToSwap(long id);
 	}
 
 	private class OkOnClickListener implements View.OnClickListener {
@@ -81,5 +87,18 @@ public class ChooseCourseDialogFragment extends DialogFragment {
 		public void onClick(View v) {
 			dismiss();
 		}
+	}
+
+	private class ListOnItemClickListener implements android.widget.AdapterView.OnItemClickListener {
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			callback.courseSelectedFromListToSwap(id);
+			dismiss();
+		}
+	}
+
+	public interface SelectedCourseToSwap {
+
+		void courseSelectedFromListToSwap(long id);
 	}
 }
