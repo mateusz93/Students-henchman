@@ -61,4 +61,7 @@
     <string name="change_timetable_course_duration">Duration</string>
     <string name="change_timetable_downloading_data">Wait, data downloading..</string>
 
+    <!--course details-->
+    <string name="subject_details_empty_text">Select course to see details</string>
+
 </resources>

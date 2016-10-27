@@ -39,8 +39,8 @@
 
     <!--login-->
     <string name="login_hint_text">Wprowadź login lub email</string>
-    <string name="login_at_least_six_sign">At least 6 sign</string>
-    <string name="password_required">Password is required</string>
+    <string name="login_at_least_six_sign">Co najmniej 6 znaków</string>
+    <string name="password_required">Hasło jest wymagane</string>
 
     <!--buttons-->
     <string name="login_button">Zaloguj</string>
@@ -60,5 +60,8 @@
     <!--change timetable-->
     <string name="change_timetable_course_duration">Godzina:</string>
     <string name="change_timetable_downloading_data">Czekaj, pobieranie danych..</string>
+
+    <!--course details-->
+    <string name="subject_details_empty_text">Wybierz zajęcia aby zobaczyć szczegóły</string>
 
 </resources>
