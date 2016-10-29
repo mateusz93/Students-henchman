@@ -10,7 +10,7 @@ public abstract class Constants {
 	/*Michal W local host*/
 	//public static final String HOST = "192.168.42.182";
 	public static final String PROTOCOL = "http";
-	public static final String HOST = "localhost";
+	public static final String HOST = "86.105.52.211";
 	public static final int PORT = 8080;
 
 	public static final int READ_TIMEOUT = 30;
