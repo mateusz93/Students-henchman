@@ -36,10 +36,10 @@ public class LoginActivity extends AppCompatActivity {
 		mLoginButton = (Button) findViewById(R.id.login_button);
 		mLoginButton.setOnClickListener((view) ->
 		{
-			if (mLogin.getText().toString().equals("mobile@") && mPassword.getText().toString().equals("mobile")) {
-				goToDashboard();
-			}
-
+//			if (mLogin.getText().toString().equals("mobile@") && mPassword.getText().toString().equals("mobile")) {
+//				goToDashboard();
+//			}
+			goToDashboard();
 		});
 
 		mClearButton = (Button) findViewById(R.id.clear_button);
