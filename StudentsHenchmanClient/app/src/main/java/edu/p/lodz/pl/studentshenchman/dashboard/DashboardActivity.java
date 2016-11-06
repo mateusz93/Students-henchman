@@ -128,13 +128,13 @@ public class DashboardActivity extends StudentShenchmanMainActivity {
 		ContentValues cv = new ContentValues();
 		cv.put(Department.EXTERNAL_DEPARTMENT_ID, 1);
 		cv.put(Department.CODE, "kod elektryczny");
-		cv.put(Department.NAME, "Elektryczny");
+		cv.put(Department.NAME, "Wydzial Elektryczny");
 		db.insert(Department.TABLE_NAME, null, cv);
 
 		cv = new ContentValues();
 		cv.put(Department.EXTERNAL_DEPARTMENT_ID, 2);
 		cv.put(Department.CODE, "kod mechaniczny");
-		cv.put(Department.NAME, "Mechaniczny");
+		cv.put(Department.NAME, "Wydzial Mechaniczny");
 		db.insert(Department.TABLE_NAME, null, cv);
 
 		// **************************************************
