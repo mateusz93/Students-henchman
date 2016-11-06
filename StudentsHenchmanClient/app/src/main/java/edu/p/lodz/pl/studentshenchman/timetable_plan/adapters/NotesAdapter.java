@@ -1,6 +1,7 @@
 package edu.p.lodz.pl.studentshenchman.timetable_plan.adapters;
 
 import android.content.Context;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +32,7 @@ public class NotesAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		return 15;
+		return 2;
 	}
 
 	@Override
@@ -55,8 +56,9 @@ public class NotesAdapter extends BaseAdapter {
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
-		viewHolder.noteContent.setText("Notatka do przedmiotu");
-		viewHolder.addedDate.setText(new Date().toString());
+
+		viewHolder.noteContent.setText("Tresc notatki");
+		viewHolder.addedDate.setText(DateFormat.getDateFormat(mContext).format(new Date()));
 		viewHolder.deleteNote.setOnClickListener(new DelNoteOnClickListener(mContext));
 
 		return convertView;
