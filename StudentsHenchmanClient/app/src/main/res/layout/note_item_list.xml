@@ -12,8 +12,9 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:orientation="vertical">
+            android:layout_weight="0.4"
+            android:orientation="vertical"
+            android:padding="3sp">
 
             <TextView
                 style="@style/lesson_item_value_label"
@@ -32,8 +33,9 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.3"
-            android:orientation="vertical">
+            android:layout_weight="0.5"
+            android:orientation="vertical"
+            android:padding="3sp">
 
             <TextView
                 style="@style/lesson_item_value_label"
@@ -51,14 +53,14 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.2">
+            android:layout_weight="0.1">
 
             <ImageButton
                 android:id="@+id/delete_note"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/time_icon"/>
+                android:src="@android:drawable/ic_delete"/>
 
         </LinearLayout>
     </LinearLayout>
