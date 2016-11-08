@@ -1,3 +1,6 @@
+#use henchman; #kazdy musi sobie usatwic swoja nazwe schematu
+SET foreign_key_checks = 0;
+
 # ten widok budowany jest z tabel na razie jest tak aby byl poniewaz brakuje danych i na ten sprint raczej nie bedziemy go uzywac
 #przed zbudowaniem widoku nalezy wykonac skrypt z inserty_z_csv aby tabela plan_mapping miala wartosci
 create view v AS 
@@ -45,3 +48,5 @@ from v;
 #  `GROUP_NAME` varchar(255)
 #) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 #**************************************************
+
+SET foreign_key_checks = 1;

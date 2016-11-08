@@ -1,4 +1,4 @@
-#use henchman; kazdy musi sobie usatwic swoja nazwe schematu
+#use henchman; #kazdy musi sobie usatwic swoja nazwe schematu
 SET foreign_key_checks = 0;
 
 drop table if exists PLAN_MAPPING;
@@ -53,8 +53,8 @@ CREATE TABLE `FIELD` (
   `NAME` varchar(255) NOT NULL,
   `DEPARTMENT_ID` bigint(20) NOT NULL,
   PRIMARY KEY (`ID`),
-  KEY `FK_hh72378lgxdmb49mp701pg1n0` (`DEPARTMENT_ID`),
-  CONSTRAINT `FK_hh72378lgxdmb49mp701pg1n0` FOREIGN KEY (`DEPARTMENT_ID`) REFERENCES `department` (`ID`)
+  KEY `FK_hh72378lgxdmb49m0` (`DEPARTMENT_ID`),
+  CONSTRAINT `FK_hh72378lgxdmb49m0` FOREIGN KEY (`DEPARTMENT_ID`) REFERENCES `department` (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
 
 
@@ -67,8 +67,8 @@ CREATE TABLE `DEAN_GROUP` (
   `FIELD_ID` bigint(20) NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `UK_jvw32tgk6buimr8i3jncvcyke` (`ABBREVIATION`),
-  KEY `FK_k7qkhohiuplxrgtqd10fblr6r` (`FIELD_ID`),
-  CONSTRAINT `FK_k7qkhohiuplxrgtqd10fblr6r` FOREIGN KEY (`FIELD_ID`) REFERENCES `field` (`ID`)
+  KEY `FK_k7qkhohiuplxrgtqd10fblr` (`FIELD_ID`),
+  CONSTRAINT `FK_k7qkhohiuplxrgtqd10fblr` FOREIGN KEY (`FIELD_ID`) REFERENCES `field` (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=200 DEFAULT CHARSET=utf8;
 
 
@@ -79,7 +79,7 @@ CREATE TABLE `BUILD` (
   `LATITUDE` double DEFAULT NULL,
   `LONGITUDE` double DEFAULT NULL,
   PRIMARY KEY (`ID`),
-  UNIQUE KEY `UK_ec9eug3irmodmalsunrtutg9m` (`CODE`)
+  UNIQUE KEY `UK_ec9eug3irmodmalsunrtutg9` (`CODE`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -90,7 +90,7 @@ CREATE TABLE `DATE` (
   `DAY_OF_WEEK` varchar(255) NOT NULL,
   `WEEK_NO` int(11) NOT NULL,
   PRIMARY KEY (`ID`),
-  UNIQUE KEY `UK_ao4pxo3mp65jj1t0wgo4557bj` (`DATE`)
+  UNIQUE KEY `UK_ao4pxo3mp65jj1t0wgo4557b` (`DATE`)
 ) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8;
 
 
@@ -107,8 +107,8 @@ CREATE TABLE `SPECIALIZATION` (
   `NAME` varchar(255) DEFAULT NULL,
   `FIELD_ID` bigint(20) NOT NULL,
   PRIMARY KEY (`ID`),
-  KEY `FK_4r7widpmh2cdh7pvw2f854ms1` (`FIELD_ID`),
-  CONSTRAINT `FK_4r7widpmh2cdh7pvw2f854ms1` FOREIGN KEY (`FIELD_ID`) REFERENCES `field` (`ID`)
+  KEY `FK_4r7widpmh2cdh7pvw2f854ms` (`FIELD_ID`),
+  CONSTRAINT `FK_4r7widpmh2cdh7pvw2f854ms` FOREIGN KEY (`FIELD_ID`) REFERENCES `field` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -116,7 +116,7 @@ CREATE TABLE `COURSE_TYPE` (
   `ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `TYPE` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`),
-  UNIQUE KEY `UK_s097ub0jnw9mfncm858k6vnb4` (`TYPE`)
+  UNIQUE KEY `UK_s097ub0jnw9mfncm858k6vnb` (`TYPE`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -125,7 +125,7 @@ CREATE TABLE `SUBJECT` (
   `CODE` varchar(255) NOT NULL,
   `NAME` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`),
-  UNIQUE KEY `UK_de8h7o6ncpxchba7jjvagsvva` (`CODE`)
+  UNIQUE KEY `UK_de8h7o6ncpxchba7jjvagsvv` (`CODE`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -133,9 +133,9 @@ CREATE TABLE `FIELD_SUBJECT` (
   `SUBJECT_ID` bigint(20) NOT NULL,
   `FIELD_ID` bigint(20) NOT NULL,
   PRIMARY KEY (`FIELD_ID`,`SUBJECT_ID`),
-  KEY `FK_rnwuk7rhowi9p8n02iulqfn4s` (`SUBJECT_ID`),
-  CONSTRAINT `FK_96pus40qrhrggje8r98wnrv76` FOREIGN KEY (`FIELD_ID`) REFERENCES `field` (`ID`),
-  CONSTRAINT `FK_rnwuk7rhowi9p8n02iulqfn4s` FOREIGN KEY (`SUBJECT_ID`) REFERENCES `subject` (`ID`)
+  KEY `FK_rnwuk7rhowi9p8n02iulqfn4` (`SUBJECT_ID`),
+  CONSTRAINT `FK_96pus40qrhrggje8r98wnrv7` FOREIGN KEY (`FIELD_ID`) REFERENCES `field` (`ID`),
+  CONSTRAINT `FK_rnwuk7rhowi9p8n02iulqfn4` FOREIGN KEY (`SUBJECT_ID`) REFERENCES `subject` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -144,15 +144,8 @@ CREATE TABLE `TEACHER` (
   `EMAIL` varchar(255),
   `NAME` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`),
-  UNIQUE KEY `UK_al3ku1wrpfx7sc1py7vn99doi` (`EMAIL`),
-  UNIQUE KEY `UK_sj49cde2ewvr2t1vb0x1uro3m` (`NAME`)
+  UNIQUE KEY `UK_al3ku1wrpfx7sc1py7vn99do` (`EMAIL`),
+  UNIQUE KEY `UK_sj49cde2ewvr2t1vb0x1uro3` (`NAME`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
-
 SET foreign_key_checks = 1;
-
-
-
-
-

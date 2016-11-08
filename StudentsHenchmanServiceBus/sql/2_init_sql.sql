@@ -1,3 +1,5 @@
+#use henchman; #kazdy musi sobie usatwic swoja nazwe schematu
+SET foreign_key_checks = 0;
 
 #***************************************************************************WYDZIALY*************************************************************************** 
 INSERT INTO DEPARTMENT(NAME) VALUES ("Wydzial Elektrotechniki, Elektroniki, Informatyki i Automatyki");
@@ -450,3 +452,5 @@ INSERT INTO DATE(CYCLE,DATE,DAY_OF_WEEK,WEEK_NO) VALUES(2,"2016-12-16","FRIDAY",
 INSERT INTO DATE(CYCLE,DATE,DAY_OF_WEEK,WEEK_NO) VALUES(1,"2016-01-03","FRIDAY",13);
 INSERT INTO DATE(CYCLE,DATE,DAY_OF_WEEK,WEEK_NO) VALUES(2,"2016-01-13","FRIDAY",14);
 INSERT INTO DATE(CYCLE,DATE,DAY_OF_WEEK,WEEK_NO) VALUES(1,"2016-01-20","FRIDAY",15);
+
+SET foreign_key_checks = 1;
