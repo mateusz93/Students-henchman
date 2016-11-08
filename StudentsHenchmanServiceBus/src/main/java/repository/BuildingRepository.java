@@ -1,12 +1,12 @@
 package repository;
 
-import model.Building;
+import model.Build;
 
 /**
  * @Author Mateusz Wieczorek on 10/8/16.
  */
-public interface BuildingRepository extends CrudRepository<Building, Long> {
+public interface BuildingRepository extends CrudRepository<Build, Long> {
 
-    Building findByName(String name);
-    Building findById(Long id);
+    Build findByCode(String code);
+    Build findById(Long id);
 }

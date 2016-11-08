@@ -25,25 +25,10 @@ public class TeacherServiceImpl implements TeacherService {
     private TeacherRepository teacherRepository;
 
     @Override
-    public TeacherRS prepareResultForGetTeacherByLastName(HttpServletResponse httpResponse, String lastName) {
-        log.info("PathParameter: lastName=" + lastName);
+    public TeacherRS prepareResultForGetTeacherByName(HttpServletResponse httpResponse, String name) {
+        log.info("PathParameter: name=" + name);
         TeacherRS result = new TeacherRS();
-        List<Teacher> teachers = teacherRepository.findByLastName(lastName);
-        if (CollectionUtils.isEmpty(teachers)) {
-            httpResponse.setStatus(HttpStatus.NOT_FOUND.value());
-        } else {
-            result.getTeachers().addAll(teachers);
-            httpResponse.setStatus(HttpStatus.FOUND.value());
-        }
-        log.info("ResponseBody: " + result.toString());
-        return result;
-    }
-
-    @Override
-    public TeacherRS prepareResultForGetTeacherByFirstName(HttpServletResponse httpResponse, String firstName) {
-        log.info("PathParameter: firstName=" + firstName);
-        TeacherRS result = new TeacherRS();
-        List<Teacher> teachers = teacherRepository.findByFirstName(firstName);
+        List<Teacher> teachers = teacherRepository.findByName(name);
         if (CollectionUtils.isEmpty(teachers)) {
             httpResponse.setStatus(HttpStatus.NOT_FOUND.value());
         } else {

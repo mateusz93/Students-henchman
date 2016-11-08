@@ -1,7 +1,7 @@
 package service;
 
 import cdm.DeansGroupRS;
-import model.DeansGroup;
+import model.DeanGroup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class DeansGroupServiceImpl implements DeansGroupService {
     public DeansGroupRS prepareResultForGetDeansGroupByName(HttpServletResponse httpResponse, String name) {
         log.info("PathParameter: Name=" + name);
         DeansGroupRS result = new DeansGroupRS();
-        DeansGroup deansGroup = repository.findByName(name);
+        DeanGroup deansGroup = repository.findByName(name);
         if (deansGroup != null) {
             result.getDeansGroups().add(deansGroup);
             httpResponse.setStatus(HttpStatus.FOUND.value());
@@ -43,7 +43,7 @@ public class DeansGroupServiceImpl implements DeansGroupService {
     public DeansGroupRS prepareResultForGetDeansGroupById(HttpServletResponse httpResponse, String id) {
         log.info("PathParameter: id=" + id);
         DeansGroupRS result = new DeansGroupRS();
-        DeansGroup deansGroup = repository.findById(Long.valueOf(id));
+        DeanGroup deansGroup = repository.findById(Long.valueOf(id));
         if (deansGroup != null) {
             result.getDeansGroups().add(deansGroup);
             httpResponse.setStatus(HttpStatus.FOUND.value());
@@ -57,7 +57,7 @@ public class DeansGroupServiceImpl implements DeansGroupService {
     @Override
     public DeansGroupRS prepareResultForGetDeansGroups(HttpServletResponse httpResponse) {
         DeansGroupRS result = new DeansGroupRS();
-        List<DeansGroup> deansGroups = (List<DeansGroup>) repository.findAll();
+        List<DeanGroup> deansGroups = (List<DeanGroup>) repository.findAll();
         if (CollectionUtils.isEmpty(deansGroups)) {
             httpResponse.setStatus(HttpStatus.NOT_FOUND.value());
         } else {

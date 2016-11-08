@@ -5,11 +5,8 @@ http://localhost:8080/mobile/departments	    Method.GET -  zwraca DepartmentsRS
 http://localhost:8080/mobile/departments?name={name}	    Method.GET - zwraca DepartmentsRS
 http://localhost:8080/mobile/departments?id={id}	    Method.GET - zwraca DepartmentsRS
 http://localhost:8080/mobile/buildings	    Method.GET - zwraca BuildingsRS
-http://localhost:8080/mobile/buildings?name={name}    Method.GET - zwraca BuildingsRS
+http://localhost:8080/mobile/buildings?code={code}    Method.GET - zwraca BuildingsRS
 http://localhost:8080/mobile/buildings?id={id}   Method.GET - zwraca BuildingsRS
-http://localhost:8080/mobile/users?id={id}    Method.GET - zwraca User
-http://localhost:8080/mobile/users?email={email}    Method.GET - zwraca User
-http://localhost:8080/mobile/users/new   Method.POST - przyjmuje CreateUserRQ,  zwraca CreateUserRS
 http://localhost:8080/mobile/specializations	    Method.GET - zwraca SpecializationsRS
 http://localhost:8080/mobile/specializations?name={name}    Method.GET - zwraca SpecializationsRS
 http://localhost:8080/mobile/specializations?id={id}   Method.GET - zwraca SpecializationsRS
@@ -40,8 +37,4 @@ http://localhost:8080/mobile/rooms   Method.GET - zwraca RoomRS
 http://localhost:8080/mobile/rooms?id={id}   Method.GET - zwraca RoomRS
 http://localhost:8080/mobile/rooms?name={name}   Method.GET - zwraca RoomRS
 http://localhost:8080/mobile/rooms?code={code}   Method.GET - zwraca RoomRS
-http://localhost:8080/mobile/subjectsBlocks   Method.GET - zwraca SubjectsBlockRS
-http://localhost:8080/mobile/subjectsBlocks?id={id}   Method.GET - zwraca SubjectsBlockRS
-http://localhost:8080/mobile/subjectsBlocks?name={name}   Method.GET - zwraca SubjectsBlockRS
-http://localhost:8080/mobile/subjectsBlocks?fieldId={fieldId}   Method.GET - zwraca SubjectsBlockRS
 http://localhost:8080/mobile/settings   Method.GET - zwraca SettingsRS

@@ -30,16 +30,13 @@ public class TeacherController {
     private TeacherService teacherService;
 
     @RequestMapping(method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
-    public TeacherRS getTeacher(@RequestParam(value="lastName", required=false) String lastName,
-                                @RequestParam(value="firstName", required=false) String firstName,
+    public TeacherRS getTeacher(@RequestParam(value="name", required=false) String name,
                                 @RequestParam(value="email", required=false) String email,
                                 @RequestParam(value="id", required=false) String id,
                                 HttpServletResponse httpResponse) {
         log.info("getTeacher core invoked.");
-        if (StringUtils.isNotEmpty(lastName)) {
-            return teacherService.prepareResultForGetTeacherByLastName(httpResponse, lastName);
-        } else if (StringUtils.isNotEmpty(firstName)) {
-            return teacherService.prepareResultForGetTeacherByFirstName(httpResponse, firstName);
+        if (StringUtils.isNotEmpty(name)) {
+            return teacherService.prepareResultForGetTeacherByName(httpResponse, name);
         } else if (StringUtils.isNotEmpty(id)) {
             return teacherService.prepareResultForGetTeacherById(httpResponse, id);
         } else if (StringUtils.isNotEmpty(email)) {

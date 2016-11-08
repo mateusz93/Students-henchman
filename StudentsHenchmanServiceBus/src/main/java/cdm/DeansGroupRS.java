@@ -1,6 +1,6 @@
 package cdm;
 
-import model.DeansGroup;
+import model.DeanGroup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,13 +10,13 @@ import java.util.List;
  */
 public class DeansGroupRS {
 
-    private List<DeansGroup> deansGroups = new ArrayList<>();
+    private List<DeanGroup> deansGroups = new ArrayList<>();
 
-    public List<DeansGroup> getDeansGroups() {
+    public List<DeanGroup> getDeansGroups() {
         return deansGroups;
     }
 
-    public void setDeansGroups(List<DeansGroup> deansGroups) {
+    public void setDeansGroups(List<DeanGroup> deansGroups) {
         this.deansGroups = deansGroups;
     }
 

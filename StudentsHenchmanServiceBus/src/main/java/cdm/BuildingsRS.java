@@ -1,6 +1,6 @@
 package cdm;
 
-import model.Building;
+import model.Build;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,13 +10,13 @@ import java.util.List;
  */
 public class BuildingsRS {
 
-    private List<Building> buildings = new ArrayList<>();
+    private List<Build> buildings = new ArrayList<>();
 
-    public List<Building> getBuildings() {
+    public List<Build> getBuildings() {
         return buildings;
     }
 
-    public void setBuildings(List<Building> buildings) {
+    public void setBuildings(List<Build> buildings) {
         this.buildings = buildings;
     }
 

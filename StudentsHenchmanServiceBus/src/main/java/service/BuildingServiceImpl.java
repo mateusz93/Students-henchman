@@ -1,7 +1,7 @@
 package service;
 
 import cdm.BuildingsRS;
-import model.Building;
+import model.Build;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class BuildingServiceImpl implements BuildingService {
     public BuildingsRS prepareResultForGetBuildingByName(HttpServletResponse httpResponse, String name) {
         log.info("PathParameter: Name=" + name);
         BuildingsRS result = new BuildingsRS();
-        Building building = repository.findByName(name);
+        Build building = repository.findByCode(name);
         if (building != null) {
             result.getBuildings().add(building);
             httpResponse.setStatus(HttpStatus.FOUND.value());
@@ -43,7 +43,7 @@ public class BuildingServiceImpl implements BuildingService {
     public BuildingsRS prepareResultForGetBuildingById(HttpServletResponse httpResponse, String id) {
         log.info("PathParameter: id=" + id);
         BuildingsRS result = new BuildingsRS();
-        Building building = repository.findById(Long.valueOf(id));
+        Build building = repository.findById(Long.valueOf(id));
         if (building != null) {
             result.getBuildings().add(building);
             httpResponse.setStatus(HttpStatus.FOUND.value());
@@ -57,7 +57,7 @@ public class BuildingServiceImpl implements BuildingService {
     @Override
     public BuildingsRS prepareResultForGetBuildings(HttpServletResponse httpResponse) {
         BuildingsRS result = new BuildingsRS();
-        List<Building> buildings = (List<Building>) repository.findAll();
+        List<Build> buildings = (List<Build>) repository.findAll();
         if (CollectionUtils.isEmpty(buildings)) {
             httpResponse.setStatus(HttpStatus.NOT_FOUND.value());
         } else {

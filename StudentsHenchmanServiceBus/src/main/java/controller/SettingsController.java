@@ -29,13 +29,7 @@ public class SettingsController {
     private DepartmentRepository departmentRepository;
 
     @Autowired
-    private SubjectRepository subjectRepository;
-
-    @Autowired
-    private SpecializationRepository specializationRepository;
-
-    @Autowired
-    private SubjectsBlockRepository subjectsBlockRepository;
+    private DeansGroupRepository deansGroupRepository;
 
     @RequestMapping(method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
     public SettingsRS getSettingsData(HttpServletResponse httpResponse) {
@@ -43,9 +37,7 @@ public class SettingsController {
         SettingsRS result = new SettingsRS();
         result.getDepartments().addAll((Collection<? extends Department>) departmentRepository.findAll());
         result.getFields().addAll((Collection<? extends Field>) fieldRepository.findAll());
-        result.getSubjectsBlocks().addAll((Collection<? extends SubjectsBlock>) subjectsBlockRepository.findAll());
-        result.getSpecializations().addAll((Collection<? extends Specialization>) specializationRepository.findAll());
-        result.getSubjects().addAll((Collection<? extends Subject>) subjectRepository.findAll());
+        result.getDeanGroups().addAll((Collection<? extends DeanGroup>) deansGroupRepository.findAll());
         log.info("getSettingsData finished. Send response.");
         return result;
     }

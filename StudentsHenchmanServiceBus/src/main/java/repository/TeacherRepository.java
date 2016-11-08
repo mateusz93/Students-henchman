@@ -10,8 +10,7 @@ import java.util.List;
 public interface TeacherRepository extends CrudRepository<Teacher, Long> {
 
     Teacher findById(Long id);
-    List<Teacher> findByFirstName(String firstName);
-    List<Teacher> findByLastName(String lastName);
+    List<Teacher> findByName(String name);
     Teacher findByEmail(String email);
 
 }

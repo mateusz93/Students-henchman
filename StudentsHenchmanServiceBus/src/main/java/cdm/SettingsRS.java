@@ -10,35 +10,9 @@ import java.util.List;
  */
 public class SettingsRS {
 
-    private List<Subject> subjects = new ArrayList<>();
-    private List<SubjectsBlock> subjectsBlocks = new ArrayList<>();
-    private List<Specialization> specializations = new ArrayList<>();
     private List<Field> fields = new ArrayList<>();
     private List<Department> departments = new ArrayList<>();
-
-    public List<Subject> getSubjects() {
-        return subjects;
-    }
-
-    public void setSubjects(List<Subject> subjects) {
-        this.subjects = subjects;
-    }
-
-    public List<SubjectsBlock> getSubjectsBlocks() {
-        return subjectsBlocks;
-    }
-
-    public void setSubjectsBlocks(List<SubjectsBlock> subjectsBlocks) {
-        this.subjectsBlocks = subjectsBlocks;
-    }
-
-    public List<Specialization> getSpecializations() {
-        return specializations;
-    }
-
-    public void setSpecializations(List<Specialization> specializations) {
-        this.specializations = specializations;
-    }
+    private List<DeanGroup> deanGroups = new ArrayList<>();
 
     public List<Field> getFields() {
         return fields;
@@ -54,5 +28,13 @@ public class SettingsRS {
 
     public void setDepartments(List<Department> departments) {
         this.departments = departments;
+    }
+
+    public List<DeanGroup> getDeanGroups() {
+        return deanGroups;
+    }
+
+    public void setDeanGroups(List<DeanGroup> deanGroups) {
+        this.deanGroups = deanGroups;
     }
 }

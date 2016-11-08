@@ -30,12 +30,12 @@ public class BuildingController {
     private BuildingService buildingService;
 
     @RequestMapping(method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
-    public BuildingsRS getBuidings(@RequestParam(value="name", required=false) String name,
+    public BuildingsRS getBuidings(@RequestParam(value="code", required=false) String code,
                                    @RequestParam(value="id", required=false) String id,
                                    HttpServletResponse httpResponse) {
         log.info("getBuidings core invoked");
-        if (StringUtils.isNotEmpty(name)) {
-            return buildingService.prepareResultForGetBuildingByName(httpResponse, name);
+        if (StringUtils.isNotEmpty(code)) {
+            return buildingService.prepareResultForGetBuildingByName(httpResponse, code);
         } else if (StringUtils.isNotEmpty(id)) {
             return buildingService.prepareResultForGetBuildingById(httpResponse, id);
         }

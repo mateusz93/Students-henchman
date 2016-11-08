@@ -9,8 +9,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public interface TeacherService {
 
-    TeacherRS prepareResultForGetTeacherByLastName(HttpServletResponse httpResponse, String lastName);
-    TeacherRS prepareResultForGetTeacherByFirstName(HttpServletResponse httpResponse, String firstName);
+    TeacherRS prepareResultForGetTeacherByName(HttpServletResponse httpResponse, String name);
     TeacherRS prepareResultForGetTeacherById(HttpServletResponse httpResponse, String id);
     TeacherRS prepareResultForGetTeachers(HttpServletResponse httpResponse);
     TeacherRS prepareResultForGetTeacherByEmail(HttpServletResponse httpResponse, String email);
