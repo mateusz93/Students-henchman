@@ -93,7 +93,6 @@ public class DependentDataHelper {
 			Department department = new Department();
 			department.setId(c.getLong(c.getColumnIndexOrThrow(Department._ID)));
 			department.setExternalId(c.getLong(c.getColumnIndexOrThrow(Department.EXTERNAL_DEPARTMENT_ID)));
-			department.setCode(c.getString(c.getColumnIndexOrThrow(Department.CODE)));
 			department.setName(c.getString(c.getColumnIndexOrThrow(Department.NAME)));
 			values.add(department);
 		}

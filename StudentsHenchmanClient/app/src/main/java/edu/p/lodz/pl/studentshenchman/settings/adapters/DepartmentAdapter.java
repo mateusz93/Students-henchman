@@ -33,7 +33,6 @@ public class DepartmentAdapter extends BaseAdapter {
         department.setId(Long.MIN_VALUE);
         department.setExternalId(Long.MIN_VALUE);
         department.setName("choose");
-        department.setCode("");
         mValues.add(0, department);
     }
 
@@ -66,7 +65,7 @@ public class DepartmentAdapter extends BaseAdapter {
 
         Department department = getItem(position);
 
-        viewHolder.text.setText(department.getCode() + " " + department.getName());
+        viewHolder.text.setText(department.getName());
 
         return convertView;
 
