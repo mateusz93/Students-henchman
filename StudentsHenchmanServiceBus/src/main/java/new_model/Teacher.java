@@ -10,8 +10,7 @@ import javax.persistence.*;
 public class Teacher {
 
     private long id;
-    private String firstName;
-    private String lastName;
+    private String name;
     private String email;
     //private Set<Course> courses;
 
@@ -26,23 +25,15 @@ public class Teacher {
         this.id = id;
     }
 
-    @Column(name = "FIRST_NAME", nullable = false)
-    public String getFirstName() {
-        return firstName;
+    @Column(name = "NAME", nullable = false)
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    @Column(name = "LAST_NAME", nullable = false)
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 
     @Column(name = "EMAIL", unique = true, nullable = false)
     public String getEmail() {
