@@ -18,7 +18,7 @@ public class Course {
     //private Room room;
     //private Teacher teacher;
     private String teacherName;
-    //private SubjectType subjectType;
+    //private CourseType subjectType;
     //private Date date;
     private String weeks;
     //private Subject subject;
@@ -107,11 +107,11 @@ public class Course {
          */
    /* @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "SUBJECT_TYPE_ID", nullable = false)
-    public SubjectType getSubjectType() {
+    public CourseType getSubjectType() {
         return subjectType;
     }
 
-    public void setSubjectType(SubjectType subjectType) {
+    public void setSubjectType(CourseType subjectType) {
         this.subjectType = subjectType;
     }*/
 

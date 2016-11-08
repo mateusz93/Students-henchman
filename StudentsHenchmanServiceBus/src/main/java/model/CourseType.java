@@ -7,13 +7,13 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "SUBJECT_TYPE")
-public class SubjectType {
+public class CourseType {
 
     private long id;
     private String type;
     //private Set<Course> courseSet;
 
-    public SubjectType() {
+    public CourseType() {
     }
 
     @Id
