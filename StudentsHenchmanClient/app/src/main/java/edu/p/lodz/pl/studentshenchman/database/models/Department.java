@@ -18,7 +18,6 @@ public class Department implements BaseColumns {
 	public static final String _ID = "_id";
 	public static final String EXTERNAL_DEPARTMENT_ID = "external_department_id";
 	public static final String NAME = "name";
-	public static final String CODE = "code";
 
 	public static final Map<String, String> projectionColumns;
 
@@ -30,23 +29,19 @@ public class Department implements BaseColumns {
 				EXTERNAL_DEPARTMENT_ID);
 		projectionColumns.put(NAME,
 				NAME);
-		projectionColumns.put(CODE,
-				CODE);
 	}
 
-	public static final String[] COLUMN_NAMES = {_ID, EXTERNAL_DEPARTMENT_ID, NAME, CODE};
+	public static final String[] COLUMN_NAMES = {_ID, EXTERNAL_DEPARTMENT_ID, NAME};
 
 
 	public static final String[] COLUMN_TYPES = {
 			"integer primary key autoincrement",    //DEPARTMENT_ID
 			"integer",                              //EXTERNAL_DEPARTMENT_ID
-			"text",                                 //NAME
-			"text",                                 //CODE
+			"text"                                  //NAME
 	};
 
 	private long id;
 	private long externalId;
-	private String code;
 	private String name;
 
 	public Department() {
@@ -68,14 +63,6 @@ public class Department implements BaseColumns {
 		this.externalId = externalId;
 	}
 
-	public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -85,11 +72,31 @@ public class Department implements BaseColumns {
 	}
 
 	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Department that = (Department) o;
+
+		if (id != that.id) return false;
+		if (externalId != that.externalId) return false;
+		return name != null ? name.equals(that.name) : that.name == null;
+
+	}
+
+	@Override
+	public int hashCode() {
+		int result = (int) (id ^ (id >>> 32));
+		result = 31 * result + (int) (externalId ^ (externalId >>> 32));
+		result = 31 * result + (name != null ? name.hashCode() : 0);
+		return result;
+	}
+
+	@Override
 	public String toString() {
 		return "Department{" +
 				"id=" + id +
 				", externalId=" + externalId +
-				", code='" + code + '\'' +
 				", name='" + name + '\'' +
 				'}';
 	}
