@@ -1,9 +1,12 @@
 package edu.p.lodz.pl.studentshenchman.workers;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.widget.Toast;
+
+import java.util.List;
 
 import cdm.SettingsRS;
 import edu.p.lodz.pl.studentshenchman.database.DatabaseHelper;
@@ -53,19 +56,40 @@ public class DownloadSettingsWorker extends AbstractWorker<SettingsRS> {
 
 	@Override
 	public void onNext(SettingsRS settingsRS) {
-		deleteOldSettings();
-		saveSettingsIntoDB(settingsRS);
+		SQLiteDatabase db = DatabaseHelper.getInstance(mContext).getWritableDatabase();
+		deleteOldSettings(db);
+		saveDepartmentsIntoDB(db, settingsRS.getDepartments());
+		saveFieldsIntoDB(db, settingsRS.getFields());
+		saveDeanGroupsIntoDB(db, settingsRS.getDeanGroups());
 	}
 
-	private void deleteOldSettings() {
-		SQLiteDatabase db = DatabaseHelper.getInstance(mContext).getWritableDatabase();
+	private void saveDeanGroupsIntoDB(SQLiteDatabase db, List<model.DeanGroup> deanGroups) {
+		for (model.DeanGroup deanGroup : deanGroups) {
+			insertDataIntoDB(db, DeanGroup.TABLE_NAME, DeanGroup.fromDto2CV(deanGroup));
+		}
+	}
+
+
+	private void saveFieldsIntoDB(SQLiteDatabase db, List<model.Field> fields) {
+		for (model.Field field : fields) {
+			insertDataIntoDB(db, Field.TABLE_NAME, Field.fromDto2CV(field));
+		}
+	}
+
+	private void saveDepartmentsIntoDB(SQLiteDatabase db, List<model.Department> departments) {
+		for (model.Department department : departments) {
+			insertDataIntoDB(db, Department.TABLE_NAME, Department.fromDto2CV(department));
+		}
+	}
+
+
+	private void insertDataIntoDB(SQLiteDatabase db, String tableName, ContentValues contentValues) {
+		db.insert(tableName, null, contentValues);
+	}
+
+	private void deleteOldSettings(SQLiteDatabase db) {
 		db.delete(DeanGroup.TABLE_NAME, null, null);
 		db.delete(Field.TABLE_NAME, null, null);
 		db.delete(Department.TABLE_NAME, null, null);
-	}
-
-	private void saveSettingsIntoDB(SettingsRS settingsRS) {
-		SQLiteDatabase db = DatabaseHelper.getInstance(mContext).getWritableDatabase();
-
 	}
 }
