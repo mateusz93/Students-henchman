@@ -8,6 +8,7 @@ import android.util.Log;
 import java.util.HashMap;
 import java.util.Map;
 
+import edu.p.lodz.pl.studentshenchman.database.models.DeanGroup;
 import edu.p.lodz.pl.studentshenchman.database.models.Department;
 import edu.p.lodz.pl.studentshenchman.database.models.Field;
 import edu.p.lodz.pl.studentshenchman.database.models.Kind;
@@ -28,7 +29,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private static DatabaseHelper databaseHelper;
 
 	private static final String DATABASE_NAME = "StudentShenchman";
-	private static final int DATABASE_VERSION = 4;
+	private static final int DATABASE_VERSION = 5;
 
 	private static final String DROP_TABLE = "drop table if exists ";
 	private static final String CREATE_TABLE = "create table ";
@@ -46,6 +47,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			put(Specialization.TABLE_NAME, createTableQuery(Specialization.TABLE_NAME, Specialization.COLUMN_NAMES, Specialization.COLUMN_TYPES));
 			put(Type.TABLE_NAME, createTableQuery(Type.TABLE_NAME, Type.COLUMN_NAMES, Type.COLUMN_TYPES));
 			put(Kind.TABLE_NAME, createTableQuery(Kind.TABLE_NAME, Kind.COLUMN_NAMES, Kind.COLUMN_TYPES));
+			put(DeanGroup.TABLE_NAME, createTableQuery(DeanGroup.TABLE_NAME, DeanGroup.COLUMN_NAMES, DeanGroup.COLUMN_TYPES));
 		}
 	};
 
@@ -53,7 +55,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		if (!isSameSize(columnNames, columnTypes)) {
 			Log.e(TAG, "ColumnNames and ColumnTypes must have the same size. Table:  " + tableName + ", " +
 					columnNames.length + " columnTypes length: " + columnTypes.length);
-			return " ";
+			throw new IllegalArgumentException("Mismatch values and types during table: " + tableName + " creating");
 		}
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < columnNames.length; i++) {
