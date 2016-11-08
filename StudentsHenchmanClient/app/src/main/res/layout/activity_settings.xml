@@ -97,6 +97,28 @@
                     style="@style/horizontal_divider"/>
             </LinearLayout>
 
+            <!--semestr-->
+            <LinearLayout
+                android:id="@+id/term_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/term_label"
+                    style="@style/lesson_item_value_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_term_label"/>
+
+                <Spinner
+                    android:id="@+id/term_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <View
+                    style="@style/horizontal_divider"/>
+            </LinearLayout>
 
             <!--typ studiów-->
             <LinearLayout
