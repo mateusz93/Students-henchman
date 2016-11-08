@@ -1,3 +1,6 @@
+#use henchman;
+SET foreign_key_checks = 0;
+
 CREATE TABLE `plan_maping` (
   `Ref` varchar(100) DEFAULT NULL,
   `Day` varchar(100) DEFAULT NULL,
