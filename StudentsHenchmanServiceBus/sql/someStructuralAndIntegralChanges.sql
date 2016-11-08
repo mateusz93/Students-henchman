@@ -35,21 +35,22 @@ DELIMITER ;
 CALL insertuj();
 
 DELIMITER $$
+
 DROP PROCEDURE IF EXISTS swapuj$$
 CREATE PROCEDURE swapuj()
 BEGIN
 	DECLARE all_records INTEGER DEFAULT 0;
     DECLARE weeksfield varchar(255) DEFAULT "";
-    DECLARE weeksid bigint(20);
+    DECLARE weeksid int(11);
     DECLARE firstpart varchar(255) DEFAULT "";
-    DECLARE firstnumber INTEGER;
+    DECLARE firstnumber int(11);
     DECLARE secondpart varchar(255) DEFAULT "";
-    DECLARE secondnumber INTEGER;
+    DECLARE secondnumber int(11);
     DECLARE helperpart varchar(255) DEFAULT "";
     DECLARE weeks_cursor CURSOR FOR SELECT id FROM TestDB.plan_maping where INSTR(Weeks,'-')>0;
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET all_records=1;
-    UPDATE plan_maping set Weeks = CONCAT(CONCAT(SUBSTR(Weeks,1,INSTR(Weeks,'10')-1),'A'),SUBSTR(Weeks,INSTR(Weeks,'10')+2)) where INSTR(Weeks,'10')>0;
-    UPDATE plan_maping set Weeks = CONCAT(CONCAT(SUBSTR(Weeks,1,INSTR(Weeks,'11')-1),'B'),SUBSTR(Weeks,INSTR(Weeks,'11')+2)) where INSTR(Weeks,'11')>0;
+	UPDATE plan_maping set Weeks = CONCAT(CONCAT(SUBSTR(Weeks,1,INSTR(Weeks,'10')-1),'A'),SUBSTR(Weeks,INSTR(Weeks,'10')+2)) where INSTR(Weeks,'10')>0;
+	UPDATE plan_maping set Weeks = CONCAT(CONCAT(SUBSTR(Weeks,1,INSTR(Weeks,'11')-1),'B'),SUBSTR(Weeks,INSTR(Weeks,'11')+2)) where INSTR(Weeks,'11')>0;
     UPDATE plan_maping set Weeks = CONCAT(CONCAT(SUBSTR(Weeks,1,INSTR(Weeks,'12')-1),'C'),SUBSTR(Weeks,INSTR(Weeks,'12')+2)) where INSTR(Weeks,'12')>0;
     UPDATE plan_maping set Weeks = CONCAT(CONCAT(SUBSTR(Weeks,1,INSTR(Weeks,'13')-1),'D'),SUBSTR(Weeks,INSTR(Weeks,'13')+2)) where INSTR(Weeks,'13')>0;
     UPDATE plan_maping set Weeks = CONCAT(CONCAT(SUBSTR(Weeks,1,INSTR(Weeks,'14')-1),'E'),SUBSTR(Weeks,INSTR(Weeks,'14')+2)) where INSTR(Weeks,'14')>0;
@@ -60,7 +61,7 @@ BEGIN
     IF all_records = 1 THEN
     LEAVE get_record;
     END IF;
-    select weeksfield = Weeks from plan_maping where id = weeksid;
+    SET weeksfield = (select Weeks COLLATE utf8_polish_ci from plan_maping where id = weeksid);
     change_text : LOOP
     IF INSTR(weeksfield, '-')>0 THEN
 		BEGIN
@@ -71,6 +72,7 @@ BEGIN
         ELSEIF firstpart = 'D' THEN SET firstnumber = 13;
         ELSEIF firstpart = 'E' THEN SET firstnumber = 14;
         ELSEIF firstpart = 'F' THEN SET firstnumber = 15;
+        ELSE SET firstnumber = CAST(firstpart AS UNSIGNED);
         END IF;
         SET secondpart = SUBSTR(weeksfield,INSTR(weeksfield, '-')+1,1);
         IF secondpart = 'A' THEN SET secondnumber = 10;
@@ -79,20 +81,27 @@ BEGIN
         ELSEIF secondpart = 'D' THEN SET secondnumber = 13;
         ELSEIF secondpart = 'E' THEN SET secondnumber = 14;
         ELSEIF secondpart = 'F' THEN SET secondnumber = 15;
+        ELSE SET secondnumber = CAST(secondpart AS UNSIGNED);
         END IF;
         SET helperpart='';
         WHILE(firstnumber<secondnumber) DO
-            SET helperpart=helperpart+firstnumber+',';
-            SET firstnumber = firstnumber+1;
+            SET helperpart=CONCAT(CONCAT(helperpart,firstnumber),',');
+            SET firstnumber = firstnumber + 1;
         END WHILE;
-        SET helperpart=helperpart+secondnumber;
-        SET weeksfield = CONCAT(CONCAT(SUBSTR(weeksfield,1,INSTR(weeksfield,'-'-2)),helperpart),SUBSTR(weeksfield,INSTR(weeksfield,'-'+2)));
-        END;
-    ELSE UPDATE plan_mapping set Weeks=weeksfield where id=weeksid; LEAVE change_text;
+        SET helperpart=CONCAT(helperpart,secondnumber);
+        SET weeksfield = CONCAT(CONCAT(SUBSTR(weeksfield,1,INSTR(weeksfield,'-')-2),helperpart),SUBSTR(weeksfield,INSTR(weeksfield,'-')+2));
+		END;
+    ELSE UPDATE plan_maping set Weeks=weeksfield where id=weeksid; LEAVE change_text;
 	END IF;
     END LOOP change_text;
     END LOOP get_record;
     CLOSE weeks_cursor;
+    UPDATE plan_maping set Weeks = CONCAT(CONCAT(SUBSTR(Weeks,1,INSTR(Weeks,'A')-1),'10'),SUBSTR(Weeks,INSTR(Weeks,'A')+1)) where INSTR(Weeks,'A')>0;
+	UPDATE plan_maping set Weeks = CONCAT(CONCAT(SUBSTR(Weeks,1,INSTR(Weeks,'B')-1),'11'),SUBSTR(Weeks,INSTR(Weeks,'B')+1)) where INSTR(Weeks,'B')>0;
+    UPDATE plan_maping set Weeks = CONCAT(CONCAT(SUBSTR(Weeks,1,INSTR(Weeks,'C')-1),'12'),SUBSTR(Weeks,INSTR(Weeks,'C')+1)) where INSTR(Weeks,'C')>0;
+    UPDATE plan_maping set Weeks = CONCAT(CONCAT(SUBSTR(Weeks,1,INSTR(Weeks,'D')-1),'13'),SUBSTR(Weeks,INSTR(Weeks,'D')+1)) where INSTR(Weeks,'D')>0;
+    UPDATE plan_maping set Weeks = CONCAT(CONCAT(SUBSTR(Weeks,1,INSTR(Weeks,'E')-1),'14'),SUBSTR(Weeks,INSTR(Weeks,'E')+1)) where INSTR(Weeks,'E')>0;
+    UPDATE plan_maping set Weeks = CONCAT(CONCAT(SUBSTR(Weeks,1,INSTR(Weeks,'F')-1),'15'),SUBSTR(Weeks,INSTR(Weeks,'F')+1)) where INSTR(Weeks,'F')>0;
 END $$
 DELIMITER ;
 CALL swapuj();
