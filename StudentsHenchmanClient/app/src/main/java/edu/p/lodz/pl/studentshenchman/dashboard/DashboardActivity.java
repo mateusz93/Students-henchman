@@ -18,6 +18,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gitonway.lee.niftymodaldialogeffects.lib.Effectstype;
+import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -106,9 +109,24 @@ public class DashboardActivity extends StudentShenchmanMainActivity {
 
 		ImageButton testButton = (ImageButton) findViewById(R.id.test_button);
 		testButton.setOnClickListener((view) -> {
-			DownloadSettingsWorker worker = new DownloadSettingsWorker(getApplicationContext(), new Bundle());
-			worker.run();
+//			DownloadSettingsWorker worker = new DownloadSettingsWorker(getApplicationContext(), new Bundle());
+//			worker.run();
+
+			NiftyDialogBuilder.getInstance(this)
+					.withTitle("Animated Fall Dialog Title")
+					.withMessage("Add your dialog message here. Animated dialog description place.")
+					.withDialogColor("#1c90ec")
+					.withButton1Text("OK")
+					.withButton2Text("Cancel")
+					.withDuration(700)
+					.withEffect(Effectstype.Fall)
+					.show();
 		});
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
 	}
 
 	private List<DrawerItem> getDrawerItemList() {
@@ -279,7 +297,7 @@ public class DashboardActivity extends StudentShenchmanMainActivity {
 					finish();
 					break;
 				/*case 4:
-	                finish();
+			        finish();
                     break;*/
 				default:
 					break;

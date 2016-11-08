@@ -54,7 +54,13 @@ public class SubjectDetailsFragment extends StudentShenchmanMainFragment {
 		mAddSubjectNoteFAB = (FloatingActionButton) view.findViewById(R.id.add_note_fab);
 		mAddSubjectNoteFAB.setOnClickListener(new AddNoteOnClickListener());
 
-		mHeaderTitle.setText("WYKLAD");
+		mSubjectName.setText("Projektowanie aplikacji internetowych");
+		mLector.setText("dr inz. Rafal Kielbik");
+		mLocationBuild.setText("CTI");
+		mLocationRoom.setText("302");
+		mTime.setText("10:15 - 12:00");
+
+		mHeaderTitle.setText("CWICZENIA");
 
 		return view;
 	}
