@@ -2,6 +2,7 @@ package edu.p.lodz.pl.studentshenchman.workers.helpers;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import edu.p.lodz.pl.studentshenchman.factories.WorkerFactory;
 import edu.p.lodz.pl.studentshenchman.workers.AbstractWorker;
@@ -17,6 +18,10 @@ public class WorkerRunnerHelper {
 	public static void startWorker(Context context, Bundle bundle) {
 		WorkerType workerType = WorkerType.valueOf(bundle.getString(WORKER_NAME));
 		AbstractWorker abstractWorker = WorkerFactory.produce(context, workerType, bundle);
-		abstractWorker.run();
+		try {
+			abstractWorker.run();
+		} catch (Exception e) {
+			Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+		}
 	}
 }
