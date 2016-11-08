@@ -59,7 +59,7 @@ public class DeanGroup {
         return degree;
     }
 
-    public void setDegree(int degree) {
+    public void setDegree(long degree) {
         this.degree = degree;
     }
 
