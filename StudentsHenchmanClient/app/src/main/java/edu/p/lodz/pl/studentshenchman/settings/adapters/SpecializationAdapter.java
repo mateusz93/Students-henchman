@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import edu.p.lodz.pl.studentshenchman.R;
 import edu.p.lodz.pl.studentshenchman.database.models.Specialization;
 
 /**
@@ -33,7 +34,7 @@ public class SpecializationAdapter extends BaseAdapter {
 		specialization.setId(Long.MIN_VALUE);
 		specialization.setExternalId(Long.MIN_VALUE);
 		specialization.setExternalFieldId(Long.MIN_VALUE);
-		specialization.setName("choose");
+		specialization.setName(mContext.getString(R.string.spinner_option_choose));
 		mValues.add(0, specialization);
 	}
 

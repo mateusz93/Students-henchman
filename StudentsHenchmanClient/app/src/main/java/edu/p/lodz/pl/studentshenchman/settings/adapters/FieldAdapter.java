@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import edu.p.lodz.pl.studentshenchman.R;
 import edu.p.lodz.pl.studentshenchman.database.models.Field;
 
 /**
@@ -32,7 +33,7 @@ public class FieldAdapter extends BaseAdapter {
 		field.setId(Long.MIN_VALUE);
 		field.setExternalId(Long.MIN_VALUE);
 		field.setExternalDepartmentId(Long.MIN_VALUE);
-		field.setName("choose");
+		field.setName(mContext.getString(R.string.spinner_option_choose));
 		mValues.add(0, field);
 	}
 

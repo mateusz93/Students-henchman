@@ -34,6 +34,7 @@
     <string name="settings_department_label">Wydział:</string>
     <string name="settings_field_label">Kierunek:</string>
     <string name="settings_specialization_label">Specjalizacja:</string>
+    <string name="settings_term_label">Semestr:</string>
     <string name="settings_type_label">Typ:</string>
     <string name="settings_kind_label">Rodzaj:</string>
 
@@ -64,5 +65,8 @@
 
     <!--course details-->
     <string name="subject_details_empty_text">Wybierz zajęcia aby zobaczyć szczegóły</string>
+
+    <!--commons-->
+    <string name="spinner_option_choose">Wybierz:</string>
 
 </resources>

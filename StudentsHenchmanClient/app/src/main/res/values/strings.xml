@@ -34,6 +34,7 @@
     <string name="settings_department_label">Department:</string>
     <string name="settings_field_label">Field:</string>
     <string name="settings_specialization_label">Specialization:</string>
+    <string name="settings_term_label">Term:</string>
     <string name="settings_type_label">Type:</string>
     <string name="settings_kind_label">Kind:</string>
 
@@ -64,5 +65,8 @@
 
     <!--course details-->
     <string name="subject_details_empty_text">Select course to see details</string>
+
+    <!--commons-->
+    <string name="spinner_option_choose">Choose:</string>
 
 </resources>

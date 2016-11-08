@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import edu.p.lodz.pl.studentshenchman.R;
 import edu.p.lodz.pl.studentshenchman.database.models.Kind;
 
 /**
@@ -32,7 +33,7 @@ public class KindAdapter extends BaseAdapter {
 		Kind kind = new Kind();
 		kind.setId(Long.MIN_VALUE);
 		kind.setExternalId(Long.MIN_VALUE);
-		kind.setName("choose");
+		kind.setName(mContext.getString(R.string.spinner_option_choose));
 		mValues.add(0, kind);
 	}
 

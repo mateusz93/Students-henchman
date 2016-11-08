@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import edu.p.lodz.pl.studentshenchman.R;
 import edu.p.lodz.pl.studentshenchman.database.models.Type;
 
 /**
@@ -32,7 +33,7 @@ public class TypeAdapter extends BaseAdapter {
 		Type type = new Type();
 		type.setId(Long.MIN_VALUE);
 		type.setExternalId(Long.MIN_VALUE);
-		type.setName("choose");
+		type.setName(mContext.getString(R.string.spinner_option_choose));
 		mValues.add(0, type);
 	}
 
