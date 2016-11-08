@@ -7,7 +7,7 @@ import edu.p.lodz.pl.studentshenchman.factories.WorkerFactory;
 import edu.p.lodz.pl.studentshenchman.workers.AbstractWorker;
 import edu.p.lodz.pl.studentshenchman.workers.utils.WorkerType;
 
-import static edu.p.lodz.pl.studentshenchman.workers.AbstractWorker.WORKER_TYPE;
+import static edu.p.lodz.pl.studentshenchman.workers.AbstractWorker.WORKER_NAME;
 
 /**
  * Created by Michał on 2016-10-24.
@@ -15,7 +15,7 @@ import static edu.p.lodz.pl.studentshenchman.workers.AbstractWorker.WORKER_TYPE;
 
 public class WorkerRunnerHelper {
 	public static void startWorker(Context context, Bundle bundle) {
-		WorkerType workerType = WorkerType.valueOf(bundle.getString(WORKER_TYPE));
+		WorkerType workerType = WorkerType.valueOf(bundle.getString(WORKER_NAME));
 		AbstractWorker abstractWorker = WorkerFactory.produce(context, workerType, bundle);
 		abstractWorker.run();
 	}

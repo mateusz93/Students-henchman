@@ -18,7 +18,7 @@ public abstract class AbstractWorker<T> implements Observer<T> {
 
 	private static final String TAG = AbstractWorker.class.getName();
 
-	public static final String WORKER_TYPE = "WORKER_TYPE";
+	public static final String WORKER_NAME = "WORKER_NAME";
 	public static final String RESPONSE_STATUS = "RESPONSE_STATUS";
 
 	public void notifyTaskFinished(Bundle bundle) {
@@ -33,11 +33,11 @@ public abstract class AbstractWorker<T> implements Observer<T> {
 			HttpException httpException = (HttpException) throwable;
 			Toast.makeText(context, httpException.code() + " - " + httpException.message(), Toast.LENGTH_LONG).show();
 		} else if (throwable instanceof SocketTimeoutException) {
-			Toast.makeText(context, "Socket Timeout Exception", Toast.LENGTH_LONG).show();
+			Toast.makeText(context, "Socket Timeout Exception: " + throwable.getMessage(), Toast.LENGTH_LONG).show();
 		} else if (throwable instanceof IOException) {
-			Toast.makeText(context, "Network conversion error", Toast.LENGTH_LONG).show();
+			Toast.makeText(context, "Network conversion error: " + throwable.getMessage(), Toast.LENGTH_LONG).show();
 		} else {
-			Toast.makeText(context, "Error", Toast.LENGTH_LONG).show();
+			Toast.makeText(context, "Error: " + throwable.getMessage(), Toast.LENGTH_LONG).show();
 		}
 		Log.i(TAG, throwable.toString());
 
