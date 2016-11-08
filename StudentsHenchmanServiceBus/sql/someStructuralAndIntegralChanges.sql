@@ -1,11 +1,7 @@
-ALTER TABLE teacher drop FIRST_NAME;
-ALTER TABLE teacher drop LAST_NAME;
-ALTER TABLE teacher drop EMAIL;
 ALTER TABLE teacher add NAME varchar(255);
 INSERT INTO teacher (NAME)
   SELECT DISTINCT plan_maping.Surname
   FROM plan_maping WHERE Surname is not null and Surname not in('Surname','');
-ALTER TABLE teacher add EMAIL varchar(255);
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertuj$$

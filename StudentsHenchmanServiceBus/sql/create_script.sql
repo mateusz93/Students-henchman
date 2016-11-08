@@ -141,7 +141,7 @@ CREATE TABLE `field_subject` (
 
 CREATE TABLE `teacher` (
   `ID` bigint(20) NOT NULL AUTO_INCREMENT,
-  `EMAIL` varchar(255) NOT NULL,
+  `EMAIL` varchar(255),
   `NAME` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `UK_al3ku1wrpfx7sc1py7vn99doi` (`EMAIL`),
