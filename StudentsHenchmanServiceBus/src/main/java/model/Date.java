@@ -8,14 +8,14 @@ import javax.persistence.*;
 @Entity
 @Table(name = "DATE")
 public class Date {
+
     private long id;
     private String dayOfWeek;
     private java.sql.Date date;
-    private int weekNo;
-    private int cycle;
+    private long weekNo;
+    private long cycle;
 
-    public Date() {
-    }
+    public Date() {}
 
     public Date(String dayOfWeek, java.sql.Date date, int weekNo, int cycle) {
         this.dayOfWeek = dayOfWeek;
@@ -55,20 +55,20 @@ public class Date {
     }
 
     @Column(name = "WEEK_NO", nullable = false)
-    public int getWeekNo() {
+    public long getWeekNo() {
         return weekNo;
     }
 
-    public void setWeekNo(int weekNo) {
+    public void setWeekNo(long weekNo) {
         this.weekNo = weekNo;
     }
 
     @Column(name = "CYCLE", nullable = false)
-    public int getCycle() {
+    public long getCycle() {
         return cycle;
     }
 
-    public void setCycle(int cycle) {
+    public void setCycle(long cycle) {
         this.cycle = cycle;
     }
 }

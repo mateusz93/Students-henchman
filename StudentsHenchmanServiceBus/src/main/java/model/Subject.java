@@ -15,11 +15,7 @@ public class Subject {
     private long id;
     private String name;
     private String code;
-    //private Set<Course> courses;
     private Set<FieldSubjectRelation> fieldSubjectRelations;
-
-    public Subject() {
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -50,15 +46,6 @@ public class Subject {
         this.code = code;
     }
 
-    /*@OneToMany(mappedBy = "subject", fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
-    public Set<Course> getCourses() {
-        return courses;
-    }
-
-    public void setCourses(Set<Course> courses) {
-        this.courses = courses;
-    }
-*/
     @JsonIgnore
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.subject")
     public Set<FieldSubjectRelation> getFieldSubjectRelations() {
@@ -68,6 +55,5 @@ public class Subject {
     public void setFieldSubjectRelations(Set<FieldSubjectRelation> fieldSubjectRelations) {
         this.fieldSubjectRelations = fieldSubjectRelations;
     }
-
 
 }

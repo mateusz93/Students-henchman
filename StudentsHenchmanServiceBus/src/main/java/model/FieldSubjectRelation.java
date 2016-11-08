@@ -45,5 +45,4 @@ public class FieldSubjectRelation {
         this.getPk().setSubject(subject);
     }
 
-
 }

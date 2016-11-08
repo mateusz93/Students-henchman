@@ -6,15 +6,11 @@ import javax.persistence.*;
  * Created by Michał on 2016-10-18.
  */
 @Entity
-@Table(name = "SUBJECT_TYPE")
+@Table(name = "COURSE_TYPE")
 public class CourseType {
 
     private long id;
     private String type;
-    //private Set<Course> courseSet;
-
-    public CourseType() {
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -36,12 +32,4 @@ public class CourseType {
         this.type = type;
     }
 
-    /*@OneToMany(mappedBy = "subjectType", fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
-    public Set<Course> getCourseSet() {
-        return courseSet;
-    }
-
-    public void setCourseSet(Set<Course> courseSet) {
-        this.courseSet = courseSet;
-    }*/
 }

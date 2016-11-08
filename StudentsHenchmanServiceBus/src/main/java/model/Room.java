@@ -8,11 +8,10 @@ import javax.persistence.*;
 @Entity
 @Table(name = "ROOM")
 public class Room {
+
     private long id;
-    //    private Build build;
     private String code;
     private String name;
-   // private Set<Course> courses;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -43,12 +42,4 @@ public class Room {
         this.name = name;
     }
 
-    /*@OneToMany(mappedBy = "room", fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
-    public Set<Course> getCourses() {
-        return courses;
-    }
-
-    public void setCourses(Set<Course> courses) {
-        this.courses = courses;
-    }*/
 }

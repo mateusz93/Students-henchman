@@ -19,9 +19,6 @@ public class Field {
     private Set<Specialization> specializations;
     private Set<DeanGroup> deanGroups;
 
-    public Field() {
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")

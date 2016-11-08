@@ -1,5 +1,8 @@
-#use henchman; #kazdy musi sobie usatwic swoja nazwe schematu
+use henchman; #kazdy musi sobie usatwic swoja nazwe schematu
 SET foreign_key_checks = 0;
+
+drop view if exists v;
+drop table if exists COURSE;
 
 # ten widok budowany jest z tabel na razie jest tak aby byl poniewaz brakuje danych i na ten sprint raczej nie bedziemy go uzywac
 #przed zbudowaniem widoku nalezy wykonac skrypt z inserty_z_csv aby tabela plan_mapping miala wartosci

@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "BUILD")
 public class Build {
+
     private long id;
     private String code;
     private String desc;

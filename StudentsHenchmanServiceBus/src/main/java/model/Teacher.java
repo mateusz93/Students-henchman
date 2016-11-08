@@ -12,7 +12,6 @@ public class Teacher {
     private long id;
     private String name;
     private String email;
-    //private Set<Course> courses;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -44,12 +43,4 @@ public class Teacher {
         this.email = email;
     }
 
-   /* @OneToMany(mappedBy = "teacher", fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
-    public Set<Course> getCourses() {
-        return courses;
-    }
-
-    public void setCourses(Set<Course> courses) {
-        this.courses = courses;
-    }*/
 }

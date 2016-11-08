@@ -10,41 +10,33 @@ import java.sql.Time;
 @Table(name = "COURSE")
 public class Course {
 
-    private long id;
-    private long externalId;
+    private int id;
+    private String externalId;
     private String name;
-    //private DeanGroup deanGroup;
     private String weekDay;
-    //private Room room;
-    //private Teacher teacher;
     private String teacherName;
-    //private CourseType subjectType;
-    //private Date date;
     private String weeks;
-    //private Subject subject;
-    private Time time;
-    //private Time endTime;
+    private String time;
     private String abbreviation;
     private String groupName;
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID", unique = true, nullable = false)
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
     @Column(name = "EXTERNAL_ID", nullable = false)
-    public long getExternalId() {
+    public String getExternalId() {
         return externalId;
     }
 
-    public void setExternalId(long externalId) {
+    public void setExternalId(String externalId) {
         this.externalId = externalId;
     }
 
@@ -56,16 +48,6 @@ public class Course {
     public void setName(String name) {
         this.name = name;
     }
-
-   /* @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "DEAN_GROUP_ID", nullable = false)
-    public DeanGroup getDeanGroup() {
-        return deanGroup;
-    }
-
-    public void setDeanGroup(DeanGroup deanGroup) {
-        this.deanGroup = deanGroup;
-    }*/
 
     @Column(name = "DAY")
     public String getWeekDay() {
@@ -85,46 +67,6 @@ public class Course {
         this.teacherName = teacherName;
     }
 
-    /* @ManyToOne(fetch = FetchType.EAGER)
-             @JoinColumn(name = "ROOM_ID", nullable = false)
-             public Room getRoom() {
-                 return room;
-             }
-
-             public void setRoom(Room room) {
-                 this.room = room;
-             }
-
-             @ManyToOne(fetch = FetchType.EAGER)
-             @JoinColumn(name = "TEACHER_ID", nullable = false)
-             public Teacher getTeacher() {
-                 return teacher;
-             }
-
-             public void setTeacher(Teacher teacher) {
-                 this.teacher = teacher;
-             }
-         */
-   /* @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "SUBJECT_TYPE_ID", nullable = false)
-    public CourseType getSubjectType() {
-        return subjectType;
-    }
-
-    public void setSubjectType(CourseType subjectType) {
-        this.subjectType = subjectType;
-    }*/
-
-    /*@ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "DATE_ID", nullable = false)
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }*/
-
     @Column(name = "WEEKS", nullable = false)
     public String getWeeks() {
         return weeks;
@@ -134,34 +76,14 @@ public class Course {
         this.weeks = weeks;
     }
 
-    /*@ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "SUBJECT_ID", nullable = false)
-    public Subject getSubject() {
-        return subject;
-    }
-
-    public void setSubject(Subject subject) {
-        this.subject = subject;
-    }*/
-
     @Column(name = "TIME", nullable = false)
-    public Time getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(Time time) {
+    public void setTime(String time) {
         this.time = time;
     }
-
-  /*  @Column(name = "END_TIME", nullable = false)
-    public Time getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(Time endTime) {
-        this.endTime = endTime;
-    }
-*/
 
     @Column(name = "ABBREVIATION")
     public String getAbbreviation() {

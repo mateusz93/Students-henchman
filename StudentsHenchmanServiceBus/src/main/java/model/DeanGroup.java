@@ -8,14 +8,13 @@ import javax.persistence.*;
 @Entity
 @Table(name = "DEAN_GROUP")
 public class DeanGroup {
+
     private long id;
     private String name;
     private String abbreviation;
-    private int term;
-    private int degree;
+    private long term;
+    private long degree;
     private Field field;
-    //private Set<Course> courses;
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -47,16 +46,16 @@ public class DeanGroup {
     }
 
     @Column(name = "TERM", nullable = false)
-    public int getTerm() {
+    public long getTerm() {
         return term;
     }
 
-    public void setTerm(int term) {
+    public void setTerm(long term) {
         this.term = term;
     }
 
     @Column(name = "DEGREE", nullable = false)
-    public int getDegree() {
+    public long getDegree() {
         return degree;
     }
 
@@ -64,14 +63,6 @@ public class DeanGroup {
         this.degree = degree;
     }
 
-    /* @OneToMany(mappedBy = "deanGroup", fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
-     public Set<Course> getCourses() {
-         return courses;
-     }
-
-     public void setCourses(Set<Course> courses) {
-         this.courses = courses;
-     }*/
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "FIELD_ID", nullable = false)
     public Field getField() {

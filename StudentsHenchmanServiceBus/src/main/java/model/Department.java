@@ -16,10 +16,6 @@ public class Department {
     private String name;
     private Set<Field> fields;
 
-    public Department() {
-
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
