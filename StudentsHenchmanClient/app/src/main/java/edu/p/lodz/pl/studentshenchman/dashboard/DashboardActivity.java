@@ -30,14 +30,16 @@ import edu.p.lodz.pl.studentshenchman.dashboard.adapters.DrawerListAdapter;
 import edu.p.lodz.pl.studentshenchman.dashboard.drawer_data.DrawerItem;
 import edu.p.lodz.pl.studentshenchman.database.DatabaseHelper;
 import edu.p.lodz.pl.studentshenchman.database.models.Department;
-import edu.p.lodz.pl.studentshenchman.database.models.Field;
 import edu.p.lodz.pl.studentshenchman.database.models.Kind;
-import edu.p.lodz.pl.studentshenchman.database.models.Specialization;
 import edu.p.lodz.pl.studentshenchman.database.models.Type;
 import edu.p.lodz.pl.studentshenchman.qr_scanner.SimpleScanner;
 import edu.p.lodz.pl.studentshenchman.settings.SettingsActivity;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.activity.TimetableActivity;
-import edu.p.lodz.pl.studentshenchman.workers.DownloadSettingsWorker;
+import edu.p.lodz.pl.studentshenchman.utils.AllOptionsToSelect;
+import edu.p.lodz.pl.studentshenchman.workers.helpers.WorkerRunnerHelper;
+import edu.p.lodz.pl.studentshenchman.workers.utils.WorkerType;
+
+import static edu.p.lodz.pl.studentshenchman.workers.AbstractWorker.WORKER_NAME;
 
 public class DashboardActivity extends StudentShenchmanMainActivity {
 	private static final String TAG = DashboardActivity.class.getName();
@@ -143,7 +145,7 @@ public class DashboardActivity extends StudentShenchmanMainActivity {
 	private void saveTestDataIntoDatabase() {
 		SQLiteDatabase db = DatabaseHelper.getInstance(getApplicationContext()).getWritableDatabase();
 
-		ContentValues cv = new ContentValues();
+		/*ContentValues cv = new ContentValues();
 		cv.put(Department.EXTERNAL_DEPARTMENT_ID, 1);
 		cv.put(Department.NAME, "Wydzial Elektryczny");
 		db.insert(Department.TABLE_NAME, null, cv);
@@ -206,10 +208,9 @@ public class DashboardActivity extends StudentShenchmanMainActivity {
 		cv.put(Specialization.NAME, "Specjalizacja 4");
 		db.insert(Specialization.TABLE_NAME, null, cv);
 
-		// **************************************************
+		// ***************************************************/
 
-
-		cv = new ContentValues();
+		ContentValues cv = new ContentValues();
 		cv.put(Kind.EXTERNAL_KIND_ID, 1);
 		cv.put(Kind.NAME, "Studia 1 stopnia");
 		db.insert(Kind.TABLE_NAME, null, cv);
@@ -282,20 +283,22 @@ public class DashboardActivity extends StudentShenchmanMainActivity {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			switch (position) {
-				case 0:
+				case AllOptionsToSelect.DOWNLOAD_PLAN:
 
 					break;
-				case 1:
+				case AllOptionsToSelect.DOWNLOAD_SETTINGS:
+					Bundle bundle = new Bundle();
+					bundle.putString(WORKER_NAME, WorkerType.DOWNLOAD_SETTINGS.name());
+					WorkerRunnerHelper.startWorker(getApplicationContext(), bundle);
+					break;
+				case AllOptionsToSelect.APP_INFO:
 
 					break;
-				case 2:
-
-					break;
-				case 3:
+				case AllOptionsToSelect.LOGOUT:
 					finish();
 					break;
 				/*case 4:
-			        finish();
+				    finish();
                     break;*/
 				default:
 					break;

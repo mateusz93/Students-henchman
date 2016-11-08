@@ -46,7 +46,7 @@ public class DownloadSettingsWorker extends AbstractWorker<SettingsRS> {
 
 	@Override
 	public void onCompleted() {
-		Toast.makeText(mContext, "Completed Task", Toast.LENGTH_SHORT).show();
+		Toast.makeText(mContext, "Settings downloaded successfully", Toast.LENGTH_SHORT).show();
 	}
 
 	@Override
