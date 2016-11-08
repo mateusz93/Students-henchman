@@ -1,21 +1,21 @@
 #use henchman; kazdy musi sobie usatwic swoja nazwe schematu
 SET foreign_key_checks = 0;
 
-drop table if exists plan_maping;
-drop table if exists department;
-drop table if exists field;
-drop table if exists dean_group;
-drop table if exists build;
-drop table if exists date;
-drop table if exists room;
-drop table if exists specialization;
-drop table if exists subject_type;
-drop table if exists subject;
-drop table if exists field_subject
-drop table if exists teacher
+drop table if exists PLAN_MAPPING;
+drop table if exists DEPARTMENT;
+drop table if exists FIELD;
+drop table if exists DEAN_GROUP;
+drop table if exists BUILD;
+drop table if exists DATE;
+drop table if exists ROOM;
+drop table if exists SPECIALIZATION;
+drop table if exists COURSE_TYPE;
+drop table if exists SUBJECT;
+drop table if exists FIELD_SUBJECT;
+drop table if exists TEACHER;
 
 
-CREATE TABLE `plan_maping` (
+CREATE TABLE `PLAN_MAPPING` (
   `Ref` varchar(100) DEFAULT NULL,
   `Day` varchar(100) DEFAULT NULL,
   `Time` varchar(100) DEFAULT NULL,
@@ -41,14 +41,14 @@ CREATE TABLE `plan_maping` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2469 DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `department` (
+CREATE TABLE `DEPARTMENT` (
   `ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `NAME` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `field` (
+CREATE TABLE `FIELD` (
   `ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `NAME` varchar(255) NOT NULL,
   `DEPARTMENT_ID` bigint(20) NOT NULL,
@@ -58,7 +58,7 @@ CREATE TABLE `field` (
 ) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `dean_group` (
+CREATE TABLE `DEAN_GROUP` (
   `ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `ABBREVIATION` varchar(255) NOT NULL,
   `DEGREE` int(11) NOT NULL,
@@ -72,7 +72,7 @@ CREATE TABLE `dean_group` (
 ) ENGINE=InnoDB AUTO_INCREMENT=200 DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `build` (
+CREATE TABLE `BUILD` (
   `ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `CODE` varchar(255) DEFAULT NULL,
   `DESCRIPTION` varchar(255) DEFAULT NULL,
@@ -83,7 +83,7 @@ CREATE TABLE `build` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `date` (
+CREATE TABLE `DATE` (
   `ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `CYCLE` int(11) NOT NULL,
   `DATE` date NOT NULL,
@@ -94,7 +94,7 @@ CREATE TABLE `date` (
 ) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `room` (
+CREATE TABLE `ROOM` (
   `ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `CODE` varchar(255) NOT NULL,
   `NAME` varchar(255) NOT NULL,
@@ -102,7 +102,7 @@ CREATE TABLE `room` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `specialization` (
+CREATE TABLE `SPECIALIZATION` (
   `ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `NAME` varchar(255) DEFAULT NULL,
   `FIELD_ID` bigint(20) NOT NULL,
@@ -112,7 +112,7 @@ CREATE TABLE `specialization` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `subject_type` (
+CREATE TABLE `COURSE_TYPE` (
   `ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `TYPE` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`),
@@ -120,7 +120,7 @@ CREATE TABLE `subject_type` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `subject` (
+CREATE TABLE `SUBJECT` (
   `ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `CODE` varchar(255) NOT NULL,
   `NAME` varchar(255) NOT NULL,
@@ -129,7 +129,7 @@ CREATE TABLE `subject` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `field_subject` (
+CREATE TABLE `FIELD_SUBJECT` (
   `SUBJECT_ID` bigint(20) NOT NULL,
   `FIELD_ID` bigint(20) NOT NULL,
   PRIMARY KEY (`FIELD_ID`,`SUBJECT_ID`),
@@ -139,7 +139,7 @@ CREATE TABLE `field_subject` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `teacher` (
+CREATE TABLE `TEACHER` (
   `ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `EMAIL` varchar(255),
   `NAME` varchar(255) NOT NULL,
@@ -148,57 +148,6 @@ CREATE TABLE `teacher` (
   UNIQUE KEY `UK_sj49cde2ewvr2t1vb0x1uro3m` (`NAME`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
-
-
-# ten widok budowany jest z tabel na razie jest tak aby byl poniewaz brakuje danych i na ten sprint raczej nie bedziemy go uzywac
-#przed zbudowaniem widoku nalezy wykonac skrypt z inserty_z_csv aby tabela plan_mapping miala wartosci
-#create view v AS 
-#(
-#select `p`.`id` AS `id`,
-#`p`.`Ref` AS `Ref`,
-#`p`.`Day` AS `Day`,
-#`p`.`Time` AS `Time`,
-#`p`.`Weeks` AS `Weeks`,
-#`p`.`EventCat` AS `EventCat`,
-#`p`.`Surname` AS `Surname`,
-#`p`.`Module` AS `Module`,
-#`g`.`ABBREVIATION` AS `abbreviation`,
-#`g`.`NAME` AS `group_name`
-#from (`plan_maping` `p` join `dean_group` `g` 
-#on(((`g`.`ABBREVIATION` = `p`.`Group`) or (`g`.`ABBREVIATION` = `p`.`Student`)))));
-
-
-# ta tabela budowana z widoku na razie jest tak aby byla poniewaz brakuje danych i na ten sprint raczej jej nie bedziemy uzywac
-#CREATE table course as 
-#select 
-#id as ID,
-#Ref as EXTERNAL_ID,
-#Day as DAY,
-#Time as TIME,
-#Weeks as WEEKS,
-#Module as NAME,
-#Surname as TEACHER_NAME,
-#abbreviation as ABBREVIATION,
-#group_name as GROUP_NAME
-#from v;
-
-
-
-#**************************************************
-#create tabeli course jakby ktos bardzo potrzebowal ale domyslnie jest wykomentowany ;)
-#CREATE TABLE `course` (
-#  `ID` bigint(20) NOT NULL AUTO_INCREMENT,
-#  `EXTERNAL_ID` varchar(100),
-#  `DAY` varchar(100),
-#  `TIME` varchar(100),
-#  `WEEKS` varchar(100),
-#  `NAME` varchar(100),
-#  `TEACHER_NAME` varchar(100),
-#  `ABBREVIATION` varchar(255),
-#  `GROUP_NAME` varchar(255)
-#) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-#**************************************************
 
 
 SET foreign_key_checks = 1;

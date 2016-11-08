@@ -16,64 +16,64 @@ INSERT INTO DEPARTMENT(NAME) VALUES ("Kolegium Towaroznawstwa");
 
 
 #***************************************************************************KIERUNKI*************************************************************************** 
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Architektura", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Budownictwa, Architektury i Inzynierii Srodowiska"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Automatyka i robotyka", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Mechaniczny"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Automatyka i robotyka", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Elektrotechniki, Elektroniki, Informatyki i Automatyki"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Biogospodarka", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Biotechnologii i Nauk o Zywnosci"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Biotechnologia", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Biotechnologii i Nauk o Zywnosci"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Biotechnologia srodowiska", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Biotechnologii i Nauk o Zywnosci"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Budownictwo", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Budownictwa, Architektury i Inzynierii Srodowiska"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Chemia", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Chemiczny"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Chemia budowlana", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Chemiczny"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Chemia i inzynieria materialow specjalnego przeznaczenia", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Chemiczny"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Edukacja techniczno-informatyczna", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Technologii Materialowych i Wzornictwa Tekstyliow"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Elektronika i telekomunikacja", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Elektrotechniki, Elektroniki, Informatyki i Automatyki"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Elektrotechnika", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Elektrotechniki, Elektroniki, Informatyki i Automatyki"))
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Architektura", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Budownictwa, Architektury i Inzynierii Srodowiska"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Automatyka i robotyka", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Mechaniczny"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Automatyka i robotyka", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Elektrotechniki, Elektroniki, Informatyki i Automatyki"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Biogospodarka", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Biotechnologii i Nauk o Zywnosci"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Biotechnologia", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Biotechnologii i Nauk o Zywnosci"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Biotechnologia srodowiska", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Biotechnologii i Nauk o Zywnosci"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Budownictwo", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Budownictwa, Architektury i Inzynierii Srodowiska"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Chemia", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Chemiczny"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Chemia budowlana", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Chemiczny"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Chemia i inzynieria materialow specjalnego przeznaczenia", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Chemiczny"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Edukacja techniczno-informatyczna", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Technologii Materialowych i Wzornictwa Tekstyliow"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Elektronika i telekomunikacja", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Elektrotechniki, Elektroniki, Informatyki i Automatyki"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Elektrotechnika", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Elektrotechniki, Elektroniki, Informatyki i Automatyki"));
 #*************************************************************************** 
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Energetyka", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Elektrotechniki, Elektroniki, Informatyki i Automatyki")) #kierunek miedzywydzialowy WYJATEK
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Energetyka", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Elektrotechniki, Elektroniki, Informatyki i Automatyki")); #kierunek miedzywydzialowy WYJATEK
 #*************************************************************************** 
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Europeistyka", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Organizacji i Zarzadzania"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Fizyka techniczna", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Fizyki Technicznej, Informatyki i Matematyki Stosowanej"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Gospodarka przestrzenna", (SELECT ID FROM DEPARTMENT WHERE NAME = "Kolegium Gospodarki Przestrzennej"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Gospodarka przestrzenna", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Budownictwa, Architektury i Inzynierii Srodowiska"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Informatyka", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Elektrotechniki, Elektroniki, Informatyki i Automatyki"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Informatyka", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Fizyki Technicznej, Informatyki i Matematyki Stosowanej"))
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Europeistyka", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Organizacji i Zarzadzania"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Fizyka techniczna", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Fizyki Technicznej, Informatyki i Matematyki Stosowanej"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Gospodarka przestrzenna", (SELECT ID FROM DEPARTMENT WHERE NAME = "Kolegium Gospodarki Przestrzennej"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Gospodarka przestrzenna", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Budownictwa, Architektury i Inzynierii Srodowiska"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Informatyka", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Elektrotechniki, Elektroniki, Informatyki i Automatyki"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Informatyka", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Fizyki Technicznej, Informatyki i Matematyki Stosowanej"));
 #*************************************************************************** 
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Inzynieria bezpieczenstwa pracy", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Elektrotechniki, Elektroniki, Informatyki i Automatyki")) #kierunek miedzywydzialowy WYJATEK
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Inzynieria bezpieczenstwa pracy", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Elektrotechniki, Elektroniki, Informatyki i Automatyki")); #kierunek miedzywydzialowy WYJATEK
 #*************************************************************************** 
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Inzynieria biochemiczna", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Inzynierii Procesowej i Ochrony Srodowiska"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Inzynieria biomedyczna", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Elektrotechniki, Elektroniki, Informatyki i Automatyki"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Inzynieria kosmiczna", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Mechaniczny"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Inzynieria materialowa", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Mechaniczny"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Inzynieria materialowa", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Chemiczny"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Inzynieria materialowa", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Technologii Materialowych i Wzornictwa Tekstyliow"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Inzynieria procesowa", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Inzynierii Procesowej i Ochrony Srodowiska"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Inzynieria produkcji", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Mechaniczny"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Inzynieria zarzadzania", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Organizacji i Zarzadzania"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Inzynieria srodowiska", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Inzynierii Procesowej i Ochrony Srodowiska"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Inzynieria srodowiska", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Budownictwa, Architektury i Inzynierii Srodowiska"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Logistyka", (SELECT ID FROM DEPARTMENT WHERE NAME = "Kolegium Logistyki"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Matematyka", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Fizyki Technicznej, Informatyki i Matematyki Stosowanej"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Mechanika i budowa maszyn", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Mechaniczny"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Mechatronika", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Mechaniczny"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Mechatronika", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Elektrotechniki, Elektroniki, Informatyki i Automatyki"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Nanotechnologia", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Chemiczny"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Ochrona srodowiska", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Chemiczny"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Ochrona srodowiska", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Biotechnologii i Nauk o Zywnosci"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Papiernictwo i poligrafia", (SELECT ID FROM DEPARTMENT WHERE NAME = "Instytut Papiernictwa i Poligrafii"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Systemy sterowania inteligentnymi budynkami", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Elektrotechniki, Elektroniki, Informatyki i Automatyki"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Technologia chemiczna", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Chemiczny"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Technologia kosmetykow", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Biotechnologii i Nauk o Zywnosci"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Technologia zywnosci i zywienie czlowieka", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Biotechnologii i Nauk o Zywnosci"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Towaroznawstwo", (SELECT ID FROM DEPARTMENT WHERE NAME = "Kolegium Towaroznawstwa"))
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Inzynieria biochemiczna", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Inzynierii Procesowej i Ochrony Srodowiska"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Inzynieria biomedyczna", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Elektrotechniki, Elektroniki, Informatyki i Automatyki"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Inzynieria kosmiczna", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Mechaniczny"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Inzynieria materialowa", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Mechaniczny"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Inzynieria materialowa", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Chemiczny"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Inzynieria materialowa", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Technologii Materialowych i Wzornictwa Tekstyliow"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Inzynieria procesowa", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Inzynierii Procesowej i Ochrony Srodowiska"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Inzynieria produkcji", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Mechaniczny"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Inzynieria zarzadzania", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Organizacji i Zarzadzania"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Inzynieria srodowiska", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Inzynierii Procesowej i Ochrony Srodowiska"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Inzynieria srodowiska", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Budownictwa, Architektury i Inzynierii Srodowiska"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Logistyka", (SELECT ID FROM DEPARTMENT WHERE NAME = "Kolegium Logistyki"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Matematyka", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Fizyki Technicznej, Informatyki i Matematyki Stosowanej"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Mechanika i budowa maszyn", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Mechaniczny"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Mechatronika", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Mechaniczny"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Mechatronika", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Elektrotechniki, Elektroniki, Informatyki i Automatyki"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Nanotechnologia", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Chemiczny"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Ochrona srodowiska", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Chemiczny"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Ochrona srodowiska", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Biotechnologii i Nauk o Zywnosci"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Papiernictwo i poligrafia", (SELECT ID FROM DEPARTMENT WHERE NAME = "Instytut Papiernictwa i Poligrafii"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Systemy sterowania inteligentnymi budynkami", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Elektrotechniki, Elektroniki, Informatyki i Automatyki"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Technologia chemiczna", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Chemiczny"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Technologia kosmetykow", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Biotechnologii i Nauk o Zywnosci"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Technologia zywnosci i zywienie czlowieka", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Biotechnologii i Nauk o Zywnosci"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Towaroznawstwo", (SELECT ID FROM DEPARTMENT WHERE NAME = "Kolegium Towaroznawstwa"));
 #*************************************************************************** 
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Transport", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Elektrotechniki, Elektroniki, Informatyki i Automatyki"))
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Transport", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Elektrotechniki, Elektroniki, Informatyki i Automatyki"));
 #*************************************************************************** 
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Wzornictwo", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Technologii Materialowych i Wzornictwa Tekstyliow"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Wlokiennictwo", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Technologii Materialowych i Wzornictwa Tekstyliow"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Wlokiennictwo i przemysl mody", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Technologii Materialowych i Wzornictwa Tekstyliow"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Zarzadzanie", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Organizacji i Zarzadzania"))
-INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Zarzadzanie i inzynieria produkcji", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Organizacji i Zarzadzania"))
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Wzornictwo", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Technologii Materialowych i Wzornictwa Tekstyliow"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Wlokiennictwo", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Technologii Materialowych i Wzornictwa Tekstyliow"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Wlokiennictwo i przemysl mody", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Technologii Materialowych i Wzornictwa Tekstyliow"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Zarzadzanie", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Organizacji i Zarzadzania"));
+INSERT INTO	FIELD(NAME,DEPARTMENT_ID) VALUES("Zarzadzanie i inzynieria produkcji", (SELECT ID FROM DEPARTMENT WHERE NAME = "Wydzial Organizacji i Zarzadzania"));
 
 
 
