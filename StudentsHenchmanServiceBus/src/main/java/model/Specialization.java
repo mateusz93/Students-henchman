@@ -1,37 +1,21 @@
 package model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Set;
 
 /**
- * @Author Mateusz Wieczorek on 10/6/16.
+ * Created by Michał on 2016-10-28.
  */
 @Entity
-@Table(name = "SPECJALIZACJE")
-public class Specialization implements Serializable {
+@Table(name = "SPECIALIZATION")
+public class Specialization {
+
+    private long id;
+    private String name;
+    private Field field;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-
-    @Column(name = "nazwa_specjalizacji")
-    private String name;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_kierunku")
-    private Field field;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "specialization", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<Subject> subjects;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "specialization", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<User> users;
-
+    @Column(name = "ID")
     public long getId() {
         return id;
     }
@@ -39,7 +23,7 @@ public class Specialization implements Serializable {
     public void setId(long id) {
         this.id = id;
     }
-
+    @Column(name = "NAME")
     public String getName() {
         return name;
     }
@@ -48,51 +32,13 @@ public class Specialization implements Serializable {
         this.name = name;
     }
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "FIELD_ID", nullable = false)
     public Field getField() {
         return field;
     }
 
     public void setField(Field field) {
         this.field = field;
-    }
-
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
-
-    public Set<Subject> getSubjects() {
-        return subjects;
-    }
-
-    public void setSubjects(Set<Subject> subjects) {
-        this.subjects = subjects;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Specialization that = (Specialization) o;
-
-        if (id != that.id) return false;
-        if (!name.equals(that.name)) return false;
-        if (!field.equals(that.field)) return false;
-        if (!subjects.equals(that.subjects)) return false;
-        return users.equals(that.users);
-
-    }
-
-    @Override
-    public String toString() {
-        return "Specialization{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", field=" + field +
-                '}';
     }
 }

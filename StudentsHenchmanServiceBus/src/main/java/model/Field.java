@@ -6,39 +6,25 @@ import javax.persistence.*;
 import java.util.Set;
 
 /**
- * @Author Mateusz Wieczorek on 10/10/16.
+ * Created by Michał on 2016-10-18.
  */
 @Entity
-@Table(name = "KIERUNKI")
+@Table(name = "FIELD")
 public class Field {
+
+    private long id;
+    private String name;
+    private Department department;
+    private Set<FieldSubjectRelation> fieldSubjectRelations;
+    private Set<Specialization> specializations;
+    private Set<DeanGroup> deanGroups;
+
+    public Field() {
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-
-    @Column(name = "nazwa_kierunku")
-    private String name;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_wydzialu")
-    private Department department;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "field", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<Specialization> specializations;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "field", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<SubjectsBlock> subjectsBlocks;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "field", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<User> users;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "field", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<Subject> subjects;
-
+    @Column(name = "ID")
     public long getId() {
         return id;
     }
@@ -47,6 +33,7 @@ public class Field {
         this.id = id;
     }
 
+    @Column(name = "NAME", nullable = false)
     public String getName() {
         return name;
     }
@@ -55,6 +42,8 @@ public class Field {
         this.name = name;
     }
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "DEPARTMENT_ID", nullable = false)
     public Department getDepartment() {
         return department;
     }
@@ -63,6 +52,18 @@ public class Field {
         this.department = department;
     }
 
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.field", cascade = CascadeType.ALL)
+    public Set<FieldSubjectRelation> getFieldSubjectRelations() {
+        return fieldSubjectRelations;
+    }
+
+    public void setFieldSubjectRelations(Set<FieldSubjectRelation> fieldSubjectRelations) {
+        this.fieldSubjectRelations = fieldSubjectRelations;
+    }
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "field", cascade = CascadeType.ALL)
     public Set<Specialization> getSpecializations() {
         return specializations;
     }
@@ -71,53 +72,13 @@ public class Field {
         this.specializations = specializations;
     }
 
-    public Set<SubjectsBlock> getSubjectsBlocks() {
-        return subjectsBlocks;
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "field", cascade = CascadeType.ALL)
+    public Set<DeanGroup> getDeanGroups() {
+        return deanGroups;
     }
 
-    public void setSubjectsBlocks(Set<SubjectsBlock> subjectsBlocks) {
-        this.subjectsBlocks = subjectsBlocks;
-    }
-
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
-
-    public Set<Subject> getSubjects() {
-        return subjects;
-    }
-
-    public void setSubjects(Set<Subject> subjects) {
-        this.subjects = subjects;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Field field = (Field) o;
-
-        if (id != field.id) return false;
-        if (!name.equals(field.name)) return false;
-        if (!department.equals(field.department)) return false;
-        if (!specializations.equals(field.specializations)) return false;
-        if (!subjectsBlocks.equals(field.subjectsBlocks)) return false;
-        if (!users.equals(field.users)) return false;
-        return subjects.equals(field.subjects);
-
-    }
-
-    @Override
-    public String toString() {
-        return "Field{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", department=" + department +
-                '}';
+    public void setDeanGroups(Set<DeanGroup> deanGroups) {
+        this.deanGroups = deanGroups;
     }
 }

@@ -1,4 +1,4 @@
-package new_model;
+package model;
 
 import javax.persistence.*;
 

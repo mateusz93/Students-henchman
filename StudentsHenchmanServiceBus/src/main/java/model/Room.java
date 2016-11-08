@@ -1,29 +1,22 @@
 package model;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 /**
- * @Author Mateusz Wieczorek on 10/6/16.
+ * Created by Michał on 2016-10-30.
  */
 @Entity
-@Table(name = "SALE")
-public class Room implements Serializable {
+@Table(name = "ROOM")
+public class Room {
+    private long id;
+    //    private Build build;
+    private String code;
+    private String name;
+   // private Set<Course> courses;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-
-    @Column(name = "nazwa_sali")
-    private String name;
-
-    @Column(name = "kod")
-    private String code;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_budynku")
-    private Building building;
-
+    @Column(name = "ID", unique = true, nullable = false)
     public long getId() {
         return id;
     }
@@ -32,22 +25,7 @@ public class Room implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Building getBuilding() {
-        return building;
-    }
-
-    public void setBuilding(Building building) {
-        this.building = building;
-    }
-
+    @Column(name = "CODE", nullable = false)
     public String getCode() {
         return code;
     }
@@ -56,27 +34,21 @@ public class Room implements Serializable {
         this.code = code;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Room room = (Room) o;
-
-        if (id != room.id) return false;
-        if (!name.equals(room.name)) return false;
-        if (!code.equals(room.code)) return false;
-        return building.equals(room.building);
-
+    @Column(name = "NAME", nullable = false)
+    public String getName() {
+        return name;
     }
 
-    @Override
-    public String toString() {
-        return "Room{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", code='" + code + '\'' +
-                ", building=" + building +
-                '}';
+    public void setName(String name) {
+        this.name = name;
     }
+
+    /*@OneToMany(mappedBy = "room", fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    public Set<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(Set<Course> courses) {
+        this.courses = courses;
+    }*/
 }

@@ -1,36 +1,29 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.Set;
 
 /**
- * @Author Mateusz Wieczorek on 10/11/16.
+ * Created by Michał on 2016-10-18.
  */
 @Entity
-@Table(name = "PRZEDMIOTY")
+@Table(name = "SUBJECT")
 public class Subject {
+
+    private long id;
+    private String name;
+    private String code;
+    //private Set<Course> courses;
+    private Set<FieldSubjectRelation> fieldSubjectRelations;
+
+    public Subject() {
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-
-    @Column(name = "nazwa")
-    private String name;
-
-    @Column(name = "kod")
-    private String code;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_kierunku")
-    private Field field;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_specjalizacji")
-    private Specialization specialization;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_bloku_obieralnego")
-    private SubjectsBlock subjectsBlock;
-
+    @Column(name = "ID")
     public long getId() {
         return id;
     }
@@ -39,6 +32,7 @@ public class Subject {
         this.id = id;
     }
 
+    @Column(name = "NAME", nullable = false)
     public String getName() {
         return name;
     }
@@ -47,6 +41,7 @@ public class Subject {
         this.name = name;
     }
 
+    @Column(name = "CODE", unique = true, nullable = false)
     public String getCode() {
         return code;
     }
@@ -55,55 +50,24 @@ public class Subject {
         this.code = code;
     }
 
-    public Field getField() {
-        return field;
+    /*@OneToMany(mappedBy = "subject", fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    public Set<Course> getCourses() {
+        return courses;
     }
 
-    public void setField(Field field) {
-        this.field = field;
+    public void setCourses(Set<Course> courses) {
+        this.courses = courses;
+    }
+*/
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.subject")
+    public Set<FieldSubjectRelation> getFieldSubjectRelations() {
+        return fieldSubjectRelations;
     }
 
-    public Specialization getSpecialization() {
-        return specialization;
+    public void setFieldSubjectRelations(Set<FieldSubjectRelation> fieldSubjectRelations) {
+        this.fieldSubjectRelations = fieldSubjectRelations;
     }
 
-    public void setSpecialization(Specialization specialization) {
-        this.specialization = specialization;
-    }
 
-    public SubjectsBlock getSubjectsBlock() {
-        return subjectsBlock;
-    }
-
-    public void setSubjectsBlock(SubjectsBlock subjectsBlock) {
-        this.subjectsBlock = subjectsBlock;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Subject subject = (Subject) o;
-
-        if (id != subject.id) return false;
-        if (!name.equals(subject.name)) return false;
-        if (!code.equals(subject.code)) return false;
-        if (!field.equals(subject.field)) return false;
-        if (!specialization.equals(subject.specialization)) return false;
-        return subjectsBlock.equals(subject.subjectsBlock);
-
-    }
-
-    @Override
-    public String toString() {
-        return "Subject{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", code='" + code + '\'' +
-                ", field=" + field +
-                ", specialization=" + specialization +
-                ", subjectsBlock=" + subjectsBlock +
-                '}';
-    }
 }

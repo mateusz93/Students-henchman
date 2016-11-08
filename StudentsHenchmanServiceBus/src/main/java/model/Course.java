@@ -1,52 +1,36 @@
 package model;
 
 import javax.persistence.*;
-import java.io.Serializable;
+import java.sql.Time;
 
 /**
- * @Author Mateusz Wieczorek on 10/6/16.
+ * Created by Michał on 2016-10-18.
  */
 @Entity
-@Table(name = "ZAJECIA")
-public class Course implements Serializable {
+@Table(name = "COURSE")
+public class Course {
+
+    private long id;
+    private long externalId;
+    private String name;
+    //private DeanGroup deanGroup;
+    private String weekDay;
+    //private Room room;
+    //private Teacher teacher;
+    private String teacherName;
+    //private SubjectType subjectType;
+    //private Date date;
+    private String weeks;
+    //private Subject subject;
+    private Time time;
+    //private Time endTime;
+    private String abbreviation;
+    private String groupName;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-
-    @Column(name = "nazwa_przedmiotu")
-    private String name;
-
-    @Column(name = "ilosc_zajec")
-    private long quantity;
-
-    @Column(name = "cykl")
-    private long cycle;
-
-    @Column(name = "pierwszy_tydzien_zajec")
-    private long firstSubjectWeek;
-
-    @Column(name = "dzien_tygodnia")
-    private long weekDay;
-
-    @Column(name = "godzina_rozpoczecia")
-    private long startTime;
-
-    @Column(name = "godzina_zakonczenia")
-    private long finishTime;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_prowadzacego")
-    private Teacher teacher;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_sali")
-    private Room room;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_typu_zajec")
-    private CourseType courseType;
-
+    @Column(name = "ID", unique = true, nullable = false)
     public long getId() {
         return id;
     }
@@ -55,14 +39,16 @@ public class Course implements Serializable {
         this.id = id;
     }
 
-    public Room getRoom() {
-        return room;
+    @Column(name = "EXTERNAL_ID", nullable = false)
+    public long getExternalId() {
+        return externalId;
     }
 
-    public void setRoom(Room room) {
-        this.room = room;
+    public void setExternalId(long externalId) {
+        this.externalId = externalId;
     }
 
+    @Column(name = "NAME", nullable = false)
     public String getName() {
         return name;
     }
@@ -71,105 +57,127 @@ public class Course implements Serializable {
         this.name = name;
     }
 
-    public long getQuantity() {
-        return quantity;
+   /* @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "DEAN_GROUP_ID", nullable = false)
+    public DeanGroup getDeanGroup() {
+        return deanGroup;
     }
 
-    public void setQuantity(long quantity) {
-        this.quantity = quantity;
-    }
+    public void setDeanGroup(DeanGroup deanGroup) {
+        this.deanGroup = deanGroup;
+    }*/
 
-    public long getCycle() {
-        return cycle;
-    }
-
-    public void setCycle(long cycle) {
-        this.cycle = cycle;
-    }
-
-    public long getFirstSubjectWeek() {
-        return firstSubjectWeek;
-    }
-
-    public void setFirstSubjectWeek(long firstSubjectWeek) {
-        this.firstSubjectWeek = firstSubjectWeek;
-    }
-
-    public long getWeekDay() {
+    @Column(name = "DAY")
+    public String getWeekDay() {
         return weekDay;
     }
 
-    public void setWeekDay(int weekDay) {
+    public void setWeekDay(String weekDay) {
         this.weekDay = weekDay;
     }
 
-    public long getStartTime() {
-        return startTime;
+    @Column(name = "TEACHER_NAME")
+    public String getTeacherName() {
+        return teacherName;
     }
 
-    public void setStartTime(long startTime) {
-        this.startTime = startTime;
+    public void setTeacherName(String teacherName) {
+        this.teacherName = teacherName;
     }
 
-    public long getFinishTime() {
-        return finishTime;
+    /* @ManyToOne(fetch = FetchType.EAGER)
+             @JoinColumn(name = "ROOM_ID", nullable = false)
+             public Room getRoom() {
+                 return room;
+             }
+
+             public void setRoom(Room room) {
+                 this.room = room;
+             }
+
+             @ManyToOne(fetch = FetchType.EAGER)
+             @JoinColumn(name = "TEACHER_ID", nullable = false)
+             public Teacher getTeacher() {
+                 return teacher;
+             }
+
+             public void setTeacher(Teacher teacher) {
+                 this.teacher = teacher;
+             }
+         */
+   /* @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "SUBJECT_TYPE_ID", nullable = false)
+    public SubjectType getSubjectType() {
+        return subjectType;
     }
 
-    public void setFinishTime(long finishTime) {
-        this.finishTime = finishTime;
+    public void setSubjectType(SubjectType subjectType) {
+        this.subjectType = subjectType;
+    }*/
+
+    /*@ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "DATE_ID", nullable = false)
+    public Date getDate() {
+        return date;
     }
 
-    public CourseType getCourseType() {
-        return courseType;
+    public void setDate(Date date) {
+        this.date = date;
+    }*/
+
+    @Column(name = "WEEKS", nullable = false)
+    public String getWeeks() {
+        return weeks;
     }
 
-    public void setCourseType(CourseType courseType) {
-        this.courseType = courseType;
+    public void setWeeks(String weeks) {
+        this.weeks = weeks;
     }
 
-    public Teacher getTeacher() {
-        return teacher;
+    /*@ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "SUBJECT_ID", nullable = false)
+    public Subject getSubject() {
+        return subject;
     }
 
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
+    public void setSubject(Subject subject) {
+        this.subject = subject;
+    }*/
+
+    @Column(name = "TIME", nullable = false)
+    public Time getTime() {
+        return time;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Course course = (Course) o;
-
-        if (id != course.id) return false;
-        if (quantity != course.quantity) return false;
-        if (cycle != course.cycle) return false;
-        if (firstSubjectWeek != course.firstSubjectWeek) return false;
-        if (weekDay != course.weekDay) return false;
-        if (startTime != course.startTime) return false;
-        if (finishTime != course.finishTime) return false;
-        if (!name.equals(course.name)) return false;
-        if (!teacher.equals(course.teacher)) return false;
-        if (!room.equals(course.room)) return false;
-        return courseType.equals(course.courseType);
-
+    public void setTime(Time time) {
+        this.time = time;
     }
 
-    @Override
-    public String toString() {
-        return "Course{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", quantity=" + quantity +
-                ", cycle=" + cycle +
-                ", firstSubjectWeek=" + firstSubjectWeek +
-                ", weekDay=" + weekDay +
-                ", startTime=" + startTime +
-                ", finishTime=" + finishTime +
-                ", teacher=" + teacher +
-                ", room=" + room +
-                ", courseType=" + courseType +
-                '}';
+  /*  @Column(name = "END_TIME", nullable = false)
+    public Time getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Time endTime) {
+        this.endTime = endTime;
+    }
+*/
+
+    @Column(name = "ABBREVIATION")
+    public String getAbbreviation() {
+        return abbreviation;
+    }
+
+    public void setAbbreviation(String abbreviation) {
+        this.abbreviation = abbreviation;
+    }
+
+    @Column(name = "GROUP_NAME")
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
     }
 }

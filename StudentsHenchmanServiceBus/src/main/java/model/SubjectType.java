@@ -1,7 +1,6 @@
-package new_model;
+package model;
 
 import javax.persistence.*;
-import java.util.Set;
 
 /**
  * Created by Michał on 2016-10-18.

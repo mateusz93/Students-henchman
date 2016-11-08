@@ -1,7 +1,6 @@
-package new_model;
+package model;
 
 import javax.persistence.*;
-import java.util.Set;
 
 /**
  * Created by Michał on 2016-10-30.
@@ -14,6 +13,7 @@ public class DeanGroup {
     private String abbreviation;
     private int term;
     private int degree;
+    private Field field;
     //private Set<Course> courses;
 
 
@@ -64,12 +64,21 @@ public class DeanGroup {
         this.degree = degree;
     }
 
-   /* @OneToMany(mappedBy = "deanGroup", fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
-    public Set<Course> getCourses() {
-        return courses;
+    /* @OneToMany(mappedBy = "deanGroup", fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+     public Set<Course> getCourses() {
+         return courses;
+     }
+
+     public void setCourses(Set<Course> courses) {
+         this.courses = courses;
+     }*/
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "FIELD_ID", nullable = false)
+    public Field getField() {
+        return field;
     }
 
-    public void setCourses(Set<Course> courses) {
-        this.courses = courses;
-    }*/
+    public void setField(Field field) {
+        this.field = field;
+    }
 }
