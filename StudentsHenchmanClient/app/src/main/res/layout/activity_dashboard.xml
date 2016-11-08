@@ -68,7 +68,7 @@
                 <ImageButton
                     android:id="@+id/qrcode_scanner_icon"
                     style="@style/dashboardIcon"
-                    android:src="@drawable/timetable_dashboard_icon"/>
+                    android:src="@drawable/qr_code_dashboard_icon"/>
 
                 <!-- position 4 -->
                 <ImageButton
