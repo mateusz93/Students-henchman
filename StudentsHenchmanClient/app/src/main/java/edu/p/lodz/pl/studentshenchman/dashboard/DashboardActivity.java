@@ -133,7 +133,7 @@ public class DashboardActivity extends StudentShenchmanMainActivity {
 		List<DrawerItem> drawerItems = new ArrayList<>();
 		//drawerItems.add(new DrawerItem(getString(R.string.drawer_settings_name), R.drawable.logo_mini));
 		drawerItems.add(new DrawerItem(getString(R.string.drawer_refresh_timetable_data), R.drawable.download_plan_icon));
-		drawerItems.add(new DrawerItem(getString(R.string.drawer_refresh_settings_data), R.drawable.settings_icon));
+		drawerItems.add(new DrawerItem(getString(R.string.drawer_refresh_settings_data), R.drawable.download_plan_icon));
 		drawerItems.add(new DrawerItem(getString(R.string.drawer_about_app), R.drawable.about_app_icon));
 		drawerItems.add(new DrawerItem(getString(R.string.drawer_logout_name), R.drawable.logout_icon));
 		return drawerItems;

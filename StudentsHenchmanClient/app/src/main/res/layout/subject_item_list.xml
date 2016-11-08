@@ -49,12 +49,13 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:src="@drawable/time_icon"/>
+            android:src="@drawable/navigate_icon"/>
 
         <View
             android:id="@+id/divider"
             style="@style/horizontal_divider"
             android:layout_below="@+id/header_widget"
+            android:layout_toLeftOf="@+id/navigate_item_icon"
             />
 
         <TextView
