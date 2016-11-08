@@ -1,5 +1,6 @@
 package edu.p.lodz.pl.studentshenchman.database.models;
 
+import android.content.ContentValues;
 import android.provider.BaseColumns;
 
 import java.util.HashMap;
@@ -57,6 +58,18 @@ public class DeanGroup implements BaseColumns {
 			"integer"                               // DEGREE
 	};
 
+
+	public static ContentValues fromDto2CV(model.DeanGroup deanGroupDto) {
+		ContentValues cv = new ContentValues();
+		cv.put(EXTERNAL_DEAN_GROUP_ID, deanGroupDto.getId());
+		cv.put(EXTERNAL_FIELD_ID, deanGroupDto.getField().getId());
+		cv.put(NAME, deanGroupDto.getName());
+		cv.put(ABBREVIATION, deanGroupDto.getAbbreviation());
+		cv.put(TERM, deanGroupDto.getTerm());
+		cv.put(DEGREE, deanGroupDto.getDegree());
+
+		return cv;
+	}
 
 	private long id;
 	private long externalGroupId;

@@ -1,5 +1,6 @@
 package edu.p.lodz.pl.studentshenchman.database.models;
 
+import android.content.ContentValues;
 import android.provider.BaseColumns;
 
 import java.util.HashMap;
@@ -39,6 +40,15 @@ public class Department implements BaseColumns {
 			"integer",                              //EXTERNAL_DEPARTMENT_ID
 			"text"                                  //NAME
 	};
+
+	public static ContentValues fromDto2CV(model.Department departmentDto) {
+		ContentValues cv = new ContentValues();
+		cv.put(EXTERNAL_DEPARTMENT_ID, departmentDto.getId());
+		cv.put(NAME, departmentDto.getName());
+
+		return cv;
+	}
+
 
 	private long id;
 	private long externalId;
@@ -100,4 +110,6 @@ public class Department implements BaseColumns {
 				", name='" + name + '\'' +
 				'}';
 	}
+
+
 }
