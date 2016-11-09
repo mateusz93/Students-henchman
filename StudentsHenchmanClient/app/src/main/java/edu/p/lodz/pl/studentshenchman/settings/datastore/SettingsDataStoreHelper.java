@@ -3,6 +3,9 @@ package edu.p.lodz.pl.studentshenchman.settings.datastore;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Michal Warcholinski
  */
@@ -115,6 +118,16 @@ public class SettingsDataStoreHelper {
 		else
 			mGroups = mGroups + ";" + groupId;
 		return this;
+	}
+
+	public List<Long> parseGroupsToList() {
+		List<Long> groupIds = new ArrayList<>();
+
+		for (String id : mGroups.split(";")) {
+			groupIds.add(Long.valueOf(id));
+		}
+
+		return groupIds;
 	}
 
 	@Override
