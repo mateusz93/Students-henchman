@@ -44,7 +44,7 @@ public class GroupsAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		return mValues.size();
+		return 5;
 	}
 
 	@Override
@@ -65,7 +65,7 @@ public class GroupsAdapter extends BaseAdapter {
 			LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = layoutInflater.inflate(android.R.layout.simple_list_item_multiple_choice, parent, false);
 			viewHolder = new ViewHolder(convertView);
-			convertView.setTag(convertView);
+			convertView.setTag(viewHolder);
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}

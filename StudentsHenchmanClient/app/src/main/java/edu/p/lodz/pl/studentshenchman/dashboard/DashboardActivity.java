@@ -81,7 +81,7 @@ public class DashboardActivity extends StudentShenchmanMainActivity {
 
 		DatabaseHelper.getInstance(getApplicationContext());
 
-		Cursor c = DatabaseHelper.getInstance(getApplicationContext()).getReadableDatabase().query(Department.TABLE_NAME, null, null,
+		Cursor c = DatabaseHelper.getInstance(getApplicationContext()).getReadableDatabase().query(Type.TABLE_NAME, null, null,
 				null, null, null, null);
 		if (c.moveToFirst()) {
 

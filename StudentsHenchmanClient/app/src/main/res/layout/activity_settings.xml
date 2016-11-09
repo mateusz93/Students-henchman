@@ -160,7 +160,7 @@
                     android:id="@+id/dean_groups_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:choiceMode="multipleChoiceModal"/>
+                    android:choiceMode="multipleChoice"/>
 
                 <View
                     style="@style/horizontal_divider"/>

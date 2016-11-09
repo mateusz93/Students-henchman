@@ -99,6 +99,9 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 		mKindSpinner.setOnItemSelectedListener(new KindOnItemSelectedListener());
 		mKindSpinner.setAdapter(mKindAdapter);
 
+		mGroupsList = (ListView) findViewById(R.id.dean_groups_list);
+		mGroupsList.setAdapter(mGroupsAdapter);
+
 		mSave = (Button) findViewById(R.id.save_button);
 		mSave.setOnClickListener(new SaveOnClickListener());
 
@@ -122,7 +125,7 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 	private void loadAllRequiredData() {
 		SQLiteDatabase db = DatabaseHelper.getInstance(getApplicationContext()).getReadableDatabase();
 		mDepartments = mDependentDataHelper.loadDepartments(db);
-		mFields = mDependentDataHelper.loadFields(db, mSettingsDataHelper.getFieldId());
+		mFields = mDependentDataHelper.loadFields(db, mSettingsDataHelper.getDepartmentId());
 		mTypes = mDependentDataHelper.loadTypes(db);
 		mKinds = mDependentDataHelper.loadKinds(db);
 		mGroups = mDependentDataHelper.loadGroups(db, mSettingsDataHelper.getFieldId(), 1, mSettingsDataHelper.getTerm());
@@ -173,8 +176,9 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 				else
 					mFieldLinear.setVisibility(View.GONE);
 				break;
-			case DEAN_GROUPS:
 
+			case DEAN_GROUPS:
+				mGroupsAdapter.setValues(mDependentDataHelper.loadGroups(db, mSettingsDataHelper.getFieldId(), 1, 7));
 				break;
 			default:
 				break;
@@ -231,6 +235,7 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 		@Override
 		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 			mSettingsDataHelper.setFieldId(id);
+			updateDependentSpinner(SpinnerType.DEAN_GROUPS, 0);
 		}
 
 		@Override
