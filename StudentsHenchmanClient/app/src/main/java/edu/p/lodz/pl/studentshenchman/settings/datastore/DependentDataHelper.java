@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.p.lodz.pl.studentshenchman.database.models.DeanGroup;
 import edu.p.lodz.pl.studentshenchman.database.models.Department;
 import edu.p.lodz.pl.studentshenchman.database.models.Field;
 import edu.p.lodz.pl.studentshenchman.database.models.Kind;
@@ -77,6 +78,20 @@ public class DependentDataHelper {
 			department.setExternalId(c.getLong(c.getColumnIndexOrThrow(Department.EXTERNAL_DEPARTMENT_ID)));
 			department.setName(c.getString(c.getColumnIndexOrThrow(Department.NAME)));
 			values.add(department);
+		}
+		c.close();
+
+		return values;
+	}
+
+	public List<DeanGroup> loadGroups(SQLiteDatabase db, long fieldId, int degree, long term) {
+		List<DeanGroup> values = new ArrayList<>();
+		String selection = DeanGroup.EXTERNAL_FIELD_ID + "=? and " + DeanGroup.DEGREE + "=? and " + DeanGroup.TERM + "=?";
+		String[] selectionArgs = new String[]{fieldId + "", degree + "", term + ""};
+		Cursor c = db.query(DeanGroup.TABLE_NAME, null, selection, selectionArgs, null, null, null);
+		while (c.moveToNext()) {
+			DeanGroup deanGroup = new DeanGroup(c);
+			values.add(deanGroup);
 		}
 		c.close();
 
