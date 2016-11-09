@@ -1,6 +1,7 @@
 package edu.p.lodz.pl.studentshenchman.database.models;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.provider.BaseColumns;
 
 import java.util.HashMap;
@@ -80,6 +81,16 @@ public class DeanGroup implements BaseColumns {
 	private long degree;
 
 	public DeanGroup() {
+	}
+
+	public DeanGroup(Cursor c) {
+		id = c.getLong(c.getColumnIndexOrThrow(DeanGroup._ID));
+		externalGroupId = c.getLong(c.getColumnIndexOrThrow(DeanGroup.EXTERNAL_DEAN_GROUP_ID));
+		externalFieldId = c.getLong(c.getColumnIndexOrThrow(DeanGroup.EXTERNAL_FIELD_ID));
+		name = c.getString(c.getColumnIndexOrThrow(DeanGroup.NAME));
+		abbreviation = c.getString(c.getColumnIndexOrThrow(DeanGroup.ABBREVIATION));
+		term = c.getLong(c.getColumnIndexOrThrow(DeanGroup.TERM));
+		degree = c.getLong(c.getColumnIndexOrThrow(DeanGroup.DEGREE));
 	}
 
 	public long getId() {
