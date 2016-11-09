@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -18,12 +19,14 @@ import edu.p.lodz.pl.studentshenchman.R;
 import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainActivity;
 import edu.p.lodz.pl.studentshenchman.dashboard.DashboardActivity;
 import edu.p.lodz.pl.studentshenchman.database.DatabaseHelper;
+import edu.p.lodz.pl.studentshenchman.database.models.DeanGroup;
 import edu.p.lodz.pl.studentshenchman.database.models.Department;
 import edu.p.lodz.pl.studentshenchman.database.models.Field;
 import edu.p.lodz.pl.studentshenchman.database.models.Kind;
 import edu.p.lodz.pl.studentshenchman.database.models.Type;
 import edu.p.lodz.pl.studentshenchman.settings.adapters.DepartmentAdapter;
 import edu.p.lodz.pl.studentshenchman.settings.adapters.FieldAdapter;
+import edu.p.lodz.pl.studentshenchman.settings.adapters.GroupsAdapter;
 import edu.p.lodz.pl.studentshenchman.settings.adapters.KindAdapter;
 import edu.p.lodz.pl.studentshenchman.settings.adapters.TypeAdapter;
 import edu.p.lodz.pl.studentshenchman.settings.datastore.DependentDataHelper;
@@ -39,6 +42,7 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 	private Spinner mFieldSpinner;
 	private Spinner mTypeSpinner;
 	private Spinner mKindSpinner;
+	private ListView mGroupsList;
 	private Button mSave;
 	private Button mClear;
 	private Button mCancel;
@@ -47,17 +51,19 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 	private FieldAdapter mFieldAdapter;
 	private TypeAdapter mTypeAdapter;
 	private KindAdapter mKindAdapter;
+	private GroupsAdapter mGroupsAdapter;
 
 	private List<Department> mDepartments;
 	private List<Field> mFields;
 	private List<Type> mTypes;
 	private List<Kind> mKinds;
+	private List<DeanGroup> mGroups;
 
 	private SettingsDataStoreHelper mSettingsDataHelper;
 	private DependentDataHelper mDependentDataHelper;
 
 	public enum SpinnerType {
-		DEPARTMENTS, FIELDS, SPECIALIZATIONS
+		DEPARTMENTS, FIELDS, SPECIALIZATIONS, DEAN_GROUPS
 	}
 
 	@Override
@@ -110,7 +116,7 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 		mFieldAdapter = new FieldAdapter(getApplicationContext(), new ArrayList<>());
 		mTypeAdapter = new TypeAdapter(getApplicationContext(), mTypes);
 		mKindAdapter = new KindAdapter(getApplicationContext(), mKinds);
-
+		mGroupsAdapter = new GroupsAdapter(getApplicationContext(), mGroups);
 	}
 
 	private void loadAllRequiredData() {
@@ -119,6 +125,7 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 		mFields = mDependentDataHelper.loadFields(db, mSettingsDataHelper.getFieldId());
 		mTypes = mDependentDataHelper.loadTypes(db);
 		mKinds = mDependentDataHelper.loadKinds(db);
+		mGroups = mDependentDataHelper.loadGroups(db, mSettingsDataHelper.getFieldId(), 1, mSettingsDataHelper.getTerm());
 	}
 
 	private void generateView() {
@@ -165,6 +172,9 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 					mFieldLinear.setVisibility(View.VISIBLE);
 				else
 					mFieldLinear.setVisibility(View.GONE);
+				break;
+			case DEAN_GROUPS:
+
 				break;
 			default:
 				break;
