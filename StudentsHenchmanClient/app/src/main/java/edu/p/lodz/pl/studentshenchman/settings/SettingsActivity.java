@@ -25,7 +25,6 @@ import edu.p.lodz.pl.studentshenchman.database.models.Type;
 import edu.p.lodz.pl.studentshenchman.settings.adapters.DepartmentAdapter;
 import edu.p.lodz.pl.studentshenchman.settings.adapters.FieldAdapter;
 import edu.p.lodz.pl.studentshenchman.settings.adapters.KindAdapter;
-import edu.p.lodz.pl.studentshenchman.settings.adapters.SpecializationAdapter;
 import edu.p.lodz.pl.studentshenchman.settings.adapters.TypeAdapter;
 import edu.p.lodz.pl.studentshenchman.settings.datastore.DependentDataHelper;
 import edu.p.lodz.pl.studentshenchman.settings.datastore.SettingsDataStoreHelper;
