@@ -15,9 +15,10 @@ public class SettingsDataStoreHelper {
 	private long mTypeId;
 	private long mKindId;
 	private long mTerm;
+	private String mGroups;
 
 	enum PREFERENCES_KEYS {
-		DEPARTMENT, FIELD, TYPE, KIND, TERM
+		DEPARTMENT, FIELD, TYPE, KIND, TERM, GROUPS
 	}
 
 	public SettingsDataStoreHelper(Context context) {
@@ -32,6 +33,7 @@ public class SettingsDataStoreHelper {
 				.putLong(PREFERENCES_KEYS.TYPE.name(), mTypeId)
 				.putLong(PREFERENCES_KEYS.KIND.name(), mKindId)
 				.putLong(PREFERENCES_KEYS.TERM.name(), mTerm)
+				.putString(PREFERENCES_KEYS.GROUPS.name(), mGroups)
 				.apply();
 	}
 
@@ -41,6 +43,7 @@ public class SettingsDataStoreHelper {
 		mTypeId = mSharedPreferences.getLong(PREFERENCES_KEYS.TYPE.name(), Long.MIN_VALUE);
 		mKindId = mSharedPreferences.getLong(PREFERENCES_KEYS.KIND.name(), Long.MIN_VALUE);
 		mTerm = mSharedPreferences.getLong(PREFERENCES_KEYS.TERM.name(), Long.MIN_VALUE);
+		mGroups = mSharedPreferences.getString(PREFERENCES_KEYS.GROUPS.name(), "");
 	}
 
 	public void setDefault() {
@@ -49,6 +52,7 @@ public class SettingsDataStoreHelper {
 		mTypeId = Long.MIN_VALUE;
 		mKindId = Long.MIN_VALUE;
 		mTerm = Long.MIN_VALUE;
+		mGroups = "";
 	}
 
 	public long getKindId() {
@@ -91,8 +95,26 @@ public class SettingsDataStoreHelper {
 		return mTerm;
 	}
 
-	public void setTerm(long term) {
+	public SettingsDataStoreHelper setTerm(long term) {
 		this.mTerm = term;
+		return this;
+	}
+
+	public String getGroups() {
+		return mGroups;
+	}
+
+	public SettingsDataStoreHelper setGroups(String groups) {
+		this.mGroups = groups;
+		return this;
+	}
+
+	public SettingsDataStoreHelper addGroupId(long groupId) {
+		if (mGroups.isEmpty())
+			mGroups += groupId;
+		else
+			mGroups = mGroups + ";" + groupId;
+		return this;
 	}
 
 	@Override
@@ -104,6 +126,7 @@ public class SettingsDataStoreHelper {
 				", mTypeId=" + mTypeId +
 				", mKindId=" + mKindId +
 				", mTerm=" + mTerm +
+				", mGroups='" + mGroups + '\'' +
 				'}';
 	}
 }
