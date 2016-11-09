@@ -9,7 +9,6 @@ import java.util.List;
 import edu.p.lodz.pl.studentshenchman.database.models.Department;
 import edu.p.lodz.pl.studentshenchman.database.models.Field;
 import edu.p.lodz.pl.studentshenchman.database.models.Kind;
-import edu.p.lodz.pl.studentshenchman.database.models.Specialization;
 import edu.p.lodz.pl.studentshenchman.database.models.Type;
 
 /**
@@ -49,23 +48,6 @@ public class DependentDataHelper {
 
 		return values;
 
-	}
-
-	public List<Specialization> loadSpecializations(SQLiteDatabase db, long id) {
-		List<Specialization> values = new ArrayList<>();
-
-		Cursor c = db.query(Specialization.TABLE_NAME, null, Specialization.EXTERNAL_FIELD_ID + "=?", new String[]{id + ""}, null, null, null);
-		while (c.moveToNext()) {
-			Specialization specialization = new Specialization();
-			specialization.setId(c.getLong(c.getColumnIndexOrThrow(Specialization._ID)));
-			specialization.setExternalId(c.getLong(c.getColumnIndexOrThrow(Specialization.EXTERNAL_SPECIALIZATION_ID)));
-			specialization.setExternalFieldId(c.getLong(c.getColumnIndexOrThrow(Specialization.EXTERNAL_FIELD_ID)));
-			specialization.setName(c.getString(c.getColumnIndexOrThrow(Specialization.NAME)));
-			values.add(specialization);
-		}
-		c.close();
-
-		return values;
 	}
 
 	public List<Field> loadFields(SQLiteDatabase db, long id) {

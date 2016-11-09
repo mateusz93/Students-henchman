@@ -21,7 +21,6 @@ import edu.p.lodz.pl.studentshenchman.database.DatabaseHelper;
 import edu.p.lodz.pl.studentshenchman.database.models.Department;
 import edu.p.lodz.pl.studentshenchman.database.models.Field;
 import edu.p.lodz.pl.studentshenchman.database.models.Kind;
-import edu.p.lodz.pl.studentshenchman.database.models.Specialization;
 import edu.p.lodz.pl.studentshenchman.database.models.Type;
 import edu.p.lodz.pl.studentshenchman.settings.adapters.DepartmentAdapter;
 import edu.p.lodz.pl.studentshenchman.settings.adapters.FieldAdapter;
@@ -30,7 +29,6 @@ import edu.p.lodz.pl.studentshenchman.settings.adapters.SpecializationAdapter;
 import edu.p.lodz.pl.studentshenchman.settings.adapters.TypeAdapter;
 import edu.p.lodz.pl.studentshenchman.settings.datastore.DependentDataHelper;
 import edu.p.lodz.pl.studentshenchman.settings.datastore.SettingsDataStoreHelper;
-import edu.p.lodz.pl.studentshenchman.workers.DownloadWeatherSimpleWorker;
 
 public class SettingsActivity extends StudentShenchmanMainActivity {
 	private static final String TAG = SettingsActivity.class.getName();
@@ -38,10 +36,8 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 	private Toolbar toolbar;
 	private LinearLayout mDepartmentLinear;
 	private LinearLayout mFieldLinear;
-	private LinearLayout mSpecializationLinear;
 	private Spinner mDepartmentSpinner;
 	private Spinner mFieldSpinner;
-	private Spinner mSpecializationSpinner;
 	private Spinner mTypeSpinner;
 	private Spinner mKindSpinner;
 	private Button mSave;
@@ -50,18 +46,16 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 
 	private DepartmentAdapter mDepartmentAdapter;
 	private FieldAdapter mFieldAdapter;
-	private SpecializationAdapter mSpecializationAdapter;
 	private TypeAdapter mTypeAdapter;
 	private KindAdapter mKindAdapter;
 
 	private List<Department> mDepartments;
 	private List<Field> mFields;
-	private List<Specialization> mSpecialization;
 	private List<Type> mTypes;
 	private List<Kind> mKinds;
 
 	private SettingsDataStoreHelper mSettingsDataHelper;
-	private DependentDataHelper dependentDataHelper;
+	private DependentDataHelper mDependentDataHelper;
 
 	public enum SpinnerType {
 		DEPARTMENTS, FIELDS, SPECIALIZATIONS
@@ -73,7 +67,7 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 		setContentView(R.layout.activity_settings);
 
 		mSettingsDataHelper = new SettingsDataStoreHelper(getApplicationContext());
-		dependentDataHelper = new DependentDataHelper();
+		mDependentDataHelper = new DependentDataHelper();
 
 		loadAllRequiredData();
 		initAdapters();
@@ -83,7 +77,6 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 
 		mDepartmentLinear = (LinearLayout) findViewById(R.id.department_content);
 		mFieldLinear = (LinearLayout) findViewById(R.id.field_content);
-		mSpecializationLinear = (LinearLayout) findViewById(R.id.specialization_content);
 
 		mDepartmentSpinner = (Spinner) findViewById(R.id.department_spinner);
 		mDepartmentSpinner.setOnItemSelectedListener(new DepartmentOnItemSelectedListener());
@@ -93,14 +86,9 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 		mFieldSpinner.setOnItemSelectedListener(new FieldOnItemSelectedListener());
 		mFieldSpinner.setAdapter(mFieldAdapter);
 
-		mSpecializationSpinner = (Spinner) findViewById(R.id.specialization_spinner);
-		mSpecializationSpinner.setOnItemSelectedListener(new SpecializationOnItemSelectedListener());
-		mSpecializationSpinner.setAdapter(mSpecializationAdapter);
-
 		mTypeSpinner = (Spinner) findViewById(R.id.type_spinner);
 		mTypeSpinner.setOnItemSelectedListener(new TypeOnItemSelectedListener());
 		mTypeSpinner.setAdapter(mTypeAdapter);
-
 
 		mKindSpinner = (Spinner) findViewById(R.id.kind_spinner);
 		mKindSpinner.setOnItemSelectedListener(new KindOnItemSelectedListener());
@@ -121,7 +109,6 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 	private void initAdapters() {
 		mDepartmentAdapter = new DepartmentAdapter(getApplicationContext(), mDepartments);
 		mFieldAdapter = new FieldAdapter(getApplicationContext(), new ArrayList<>());
-		mSpecializationAdapter = new SpecializationAdapter(getApplicationContext(), new ArrayList<>());
 		mTypeAdapter = new TypeAdapter(getApplicationContext(), mTypes);
 		mKindAdapter = new KindAdapter(getApplicationContext(), mKinds);
 
@@ -129,11 +116,10 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 
 	private void loadAllRequiredData() {
 		SQLiteDatabase db = DatabaseHelper.getInstance(getApplicationContext()).getReadableDatabase();
-		mDepartments = dependentDataHelper.loadDepartments(db);
-		mFields = dependentDataHelper.loadFields(db, mSettingsDataHelper.getFieldId());
-		mSpecialization = dependentDataHelper.loadSpecializations(db, mSettingsDataHelper.getSpecializationId());
-		mTypes = dependentDataHelper.loadTypes(db);
-		mKinds = dependentDataHelper.loadKinds(db);
+		mDepartments = mDependentDataHelper.loadDepartments(db);
+		mFields = mDependentDataHelper.loadFields(db, mSettingsDataHelper.getFieldId());
+		mTypes = mDependentDataHelper.loadTypes(db);
+		mKinds = mDependentDataHelper.loadKinds(db);
 	}
 
 	private void generateView() {
@@ -170,7 +156,7 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 
 			case FIELDS:
 				cachedValue = mSettingsDataHelper.getFieldId();
-				mFieldAdapter.setValues(dependentDataHelper.loadFields(db, parentValueId));
+				mFieldAdapter.setValues(mDependentDataHelper.loadFields(db, parentValueId));
 				if (cachedValue > 0)
 					mFieldSpinner.setSelection(mFieldAdapter.getPosForId(cachedValue), false);
 				else
@@ -180,20 +166,6 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 					mFieldLinear.setVisibility(View.VISIBLE);
 				else
 					mFieldLinear.setVisibility(View.GONE);
-				break;
-
-			case SPECIALIZATIONS:
-				cachedValue = mSettingsDataHelper.getSpecializationId();
-				mSpecializationAdapter.setValues(dependentDataHelper.loadSpecializations(db, parentValueId));
-				if (cachedValue > 0)
-					mSpecializationSpinner.setSelection(mSpecializationAdapter.getPosForId(cachedValue), false);
-				else
-					mSpecializationSpinner.setSelection(0, false);
-
-				if (parentValueId > 0)
-					mSpecializationLinear.setVisibility(View.VISIBLE);
-				else
-					mSpecializationLinear.setVisibility(View.GONE);
 				break;
 			default:
 				break;
@@ -250,20 +222,6 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 		@Override
 		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 			mSettingsDataHelper.setFieldId(id);
-			updateDependentSpinner(SpinnerType.SPECIALIZATIONS, id);
-		}
-
-		@Override
-		public void onNothingSelected(AdapterView<?> parent) {
-
-		}
-	}
-
-	private class SpecializationOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
-
-		@Override
-		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-			mSettingsDataHelper.setSpecializationId(id);
 		}
 
 		@Override

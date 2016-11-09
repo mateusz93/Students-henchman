@@ -12,7 +12,6 @@ public class SettingsDataStoreHelper {
 	private SharedPreferences mSharedPreferences;
 	private long mDepartmentId;
 	private long mFieldId;
-	private long mSpecializationId;
 	private long mTypeId;
 	private long mKindId;
 
@@ -29,7 +28,6 @@ public class SettingsDataStoreHelper {
 		mSharedPreferences.edit()
 				.putLong(PREFERENCES_KEYS.DEPARTMENT.name(), mDepartmentId)
 				.putLong(PREFERENCES_KEYS.FIELD.name(), mFieldId)
-				.putLong(PREFERENCES_KEYS.SPECIALIZATION.name(), mSpecializationId)
 				.putLong(PREFERENCES_KEYS.TYPE.name(), mTypeId)
 				.putLong(PREFERENCES_KEYS.KIND.name(), mKindId)
 				.apply();
@@ -38,7 +36,6 @@ public class SettingsDataStoreHelper {
 	public void load() {
 		mDepartmentId = mSharedPreferences.getLong(PREFERENCES_KEYS.DEPARTMENT.name(), Long.MIN_VALUE);
 		mFieldId = mSharedPreferences.getLong(PREFERENCES_KEYS.FIELD.name(), Long.MIN_VALUE);
-		mSpecializationId = mSharedPreferences.getLong(PREFERENCES_KEYS.SPECIALIZATION.name(), Long.MIN_VALUE);
 		mTypeId = mSharedPreferences.getLong(PREFERENCES_KEYS.TYPE.name(), Long.MIN_VALUE);
 		mKindId = mSharedPreferences.getLong(PREFERENCES_KEYS.KIND.name(), Long.MIN_VALUE);
 	}
@@ -46,7 +43,6 @@ public class SettingsDataStoreHelper {
 	public void setDefault() {
 		mDepartmentId = Long.MIN_VALUE;
 		mFieldId = Long.MIN_VALUE;
-		mSpecializationId = Long.MIN_VALUE;
 		mTypeId = Long.MIN_VALUE;
 		mKindId = Long.MIN_VALUE;
 	}
@@ -78,15 +74,6 @@ public class SettingsDataStoreHelper {
 		return this;
 	}
 
-	public long getSpecializationId() {
-		return mSpecializationId;
-	}
-
-	public SettingsDataStoreHelper setSpecializationId(long specializationId) {
-		this.mSpecializationId = specializationId;
-		return this;
-	}
-
 	public long getTypeId() {
 		return mTypeId;
 	}
@@ -101,7 +88,6 @@ public class SettingsDataStoreHelper {
 		return "SettingsController{" +
 				"mKind=" + mKindId +
 				", mType=" + mTypeId +
-				", mSpecialization=" + mSpecializationId +
 				", mField=" + mFieldId +
 				", mDepartment=" + mDepartmentId +
 				'}';

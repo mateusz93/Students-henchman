@@ -72,31 +72,6 @@
                     style="@style/horizontal_divider"/>
             </LinearLayout>
 
-
-            <!--specjalizacja-->
-            <LinearLayout
-                android:id="@+id/specialization_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-                <TextView
-                    android:id="@+id/specialization_label"
-                    style="@style/lesson_item_value_label"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/settings_specialization_label"/>
-
-                <Spinner
-                    android:id="@+id/specialization_spinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-                <View
-                    style="@style/horizontal_divider"/>
-            </LinearLayout>
-
             <!--semestr-->
             <LinearLayout
                 android:id="@+id/term_content"
@@ -166,6 +141,7 @@
             <View
                 style="@style/horizontal_divider"/>
 
+            <!--przyciski-->
             <LinearLayout
                 android:id="@+id/buttons"
                 android:layout_width="match_parent"
