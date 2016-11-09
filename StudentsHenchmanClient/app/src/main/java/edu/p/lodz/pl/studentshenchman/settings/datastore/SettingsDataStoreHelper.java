@@ -14,9 +14,10 @@ public class SettingsDataStoreHelper {
 	private long mFieldId;
 	private long mTypeId;
 	private long mKindId;
+	private long mTerm;
 
 	enum PREFERENCES_KEYS {
-		DEPARTMENT, FIELD, SPECIALIZATION, TYPE, KIND
+		DEPARTMENT, FIELD, TYPE, KIND, TERM
 	}
 
 	public SettingsDataStoreHelper(Context context) {
@@ -30,6 +31,7 @@ public class SettingsDataStoreHelper {
 				.putLong(PREFERENCES_KEYS.FIELD.name(), mFieldId)
 				.putLong(PREFERENCES_KEYS.TYPE.name(), mTypeId)
 				.putLong(PREFERENCES_KEYS.KIND.name(), mKindId)
+				.putLong(PREFERENCES_KEYS.TERM.name(), mTerm)
 				.apply();
 	}
 
@@ -38,6 +40,7 @@ public class SettingsDataStoreHelper {
 		mFieldId = mSharedPreferences.getLong(PREFERENCES_KEYS.FIELD.name(), Long.MIN_VALUE);
 		mTypeId = mSharedPreferences.getLong(PREFERENCES_KEYS.TYPE.name(), Long.MIN_VALUE);
 		mKindId = mSharedPreferences.getLong(PREFERENCES_KEYS.KIND.name(), Long.MIN_VALUE);
+		mTerm = mSharedPreferences.getLong(PREFERENCES_KEYS.TERM.name(), Long.MIN_VALUE);
 	}
 
 	public void setDefault() {
@@ -45,6 +48,7 @@ public class SettingsDataStoreHelper {
 		mFieldId = Long.MIN_VALUE;
 		mTypeId = Long.MIN_VALUE;
 		mKindId = Long.MIN_VALUE;
+		mTerm = Long.MIN_VALUE;
 	}
 
 	public long getKindId() {
@@ -83,13 +87,23 @@ public class SettingsDataStoreHelper {
 		return this;
 	}
 
+	public long getTerm() {
+		return mTerm;
+	}
+
+	public void setTerm(long term) {
+		this.mTerm = term;
+	}
+
 	@Override
 	public String toString() {
-		return "SettingsController{" +
-				"mKind=" + mKindId +
-				", mType=" + mTypeId +
-				", mField=" + mFieldId +
-				", mDepartment=" + mDepartmentId +
+		return "SettingsDataStoreHelper{" +
+				"mSharedPreferences=" + mSharedPreferences +
+				", mDepartmentId=" + mDepartmentId +
+				", mFieldId=" + mFieldId +
+				", mTypeId=" + mTypeId +
+				", mKindId=" + mKindId +
+				", mTerm=" + mTerm +
 				'}';
 	}
 }
