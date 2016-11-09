@@ -36,7 +36,8 @@
     <string name="settings_specialization_label">Specialization:</string>
     <string name="settings_term_label">Term:</string>
     <string name="settings_type_label">Type:</string>
-    <string name="settings_kind_label">Kind:</string>
+    <string name="settings_kind_label">Degree:</string>
+    <string name="settings_groups_label">Groups:</string>
 
     <!--login-->
     <string name="login_hint_text">Enter login or email</string>

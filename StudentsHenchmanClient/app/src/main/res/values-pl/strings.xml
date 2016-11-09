@@ -37,6 +37,7 @@
     <string name="settings_term_label">Semestr:</string>
     <string name="settings_type_label">Typ:</string>
     <string name="settings_kind_label">Rodzaj:</string>
+    <string name="settings_groups_label">Grupy:</string>
 
     <!--login-->
     <string name="login_hint_text">Wprowadź login lub email</string>
