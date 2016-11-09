@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import edu.p.lodz.pl.studentshenchman.R;
@@ -73,6 +74,23 @@ public class GroupsAdapter extends BaseAdapter {
 		viewHolder.textView.setText(deanGroup.getAbbreviation() + " " + deanGroup.getName());
 
 		return convertView;
+	}
+
+	public void setValues(List<DeanGroup> newValues) {
+		init(newValues);
+		notifyDataSetChanged();
+	}
+
+	public int getPosForId(long id) {
+		int i = 0;
+		Iterator<DeanGroup> iterator = mValues.iterator();
+		while (iterator.hasNext()) {
+			if (iterator.next().getExternalGroupId() == id) {
+				return i;
+			}
+			i++;
+		}
+		return 0;
 	}
 
 	private class ViewHolder {
