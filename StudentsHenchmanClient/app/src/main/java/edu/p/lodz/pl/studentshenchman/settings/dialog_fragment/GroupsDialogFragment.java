@@ -106,7 +106,7 @@ public class GroupsDialogFragment extends DialogFragment {
 		List<DeanGroup> values;
 		SQLiteDatabase db = DatabaseHelper.getInstance(getContext()).getReadableDatabase();
 		DependentDataHelper dependentDataHelper = new DependentDataHelper();
-		values = dependentDataHelper.loadGroups(db, args.getLong(FIELD), args.getInt(DEGREE), args.getLong(TERM));
+		values = dependentDataHelper.loadGroups(db, args.getLong(FIELD), args.getLong(DEGREE), args.getLong(TERM));
 		return values;
 	}
 
