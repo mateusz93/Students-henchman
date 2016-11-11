@@ -19,13 +19,11 @@ import edu.p.lodz.pl.studentshenchman.R;
 import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainActivity;
 import edu.p.lodz.pl.studentshenchman.dashboard.DashboardActivity;
 import edu.p.lodz.pl.studentshenchman.database.DatabaseHelper;
-import edu.p.lodz.pl.studentshenchman.database.models.DeanGroup;
 import edu.p.lodz.pl.studentshenchman.database.models.Department;
 import edu.p.lodz.pl.studentshenchman.database.models.Field;
 import edu.p.lodz.pl.studentshenchman.settings.adapters.DegreeAdapter;
 import edu.p.lodz.pl.studentshenchman.settings.adapters.DepartmentAdapter;
 import edu.p.lodz.pl.studentshenchman.settings.adapters.FieldAdapter;
-import edu.p.lodz.pl.studentshenchman.settings.adapters.GroupsAdapter;
 import edu.p.lodz.pl.studentshenchman.settings.adapters.TermAdapter;
 import edu.p.lodz.pl.studentshenchman.settings.adapters.TypeAdapter;
 import edu.p.lodz.pl.studentshenchman.settings.datastore.DependentDataHelper;
@@ -53,12 +51,10 @@ public class SettingsActivity extends StudentShenchmanMainActivity implements Gr
 	private FieldAdapter mFieldAdapter;
 	private TypeAdapter mTypeAdapter;
 	private DegreeAdapter mKindAdapter;
-	private GroupsAdapter mGroupsAdapter;
 	private TermAdapter mTermAdapter;
 
 	private List<Department> mDepartments;
 	private List<Field> mFields;
-	private List<DeanGroup> mGroups;
 
 	private SettingsDataStoreHelper mSettingsDataHelper;
 	private DependentDataHelper mDependentDataHelper;
@@ -98,7 +94,7 @@ public class SettingsActivity extends StudentShenchmanMainActivity implements Gr
 		mTypeSpinner.setAdapter(mTypeAdapter);
 
 		mKindSpinner = (Spinner) findViewById(R.id.kind_spinner);
-		mKindSpinner.setOnItemSelectedListener(new KindOnItemSelectedListener());
+		mKindSpinner.setOnItemSelectedListener(new DegreeOnItemSelectedListener());
 		mKindSpinner.setAdapter(mKindAdapter);
 
 		mTermSpinner = (Spinner) findViewById(R.id.term_spinner);
@@ -133,7 +129,6 @@ public class SettingsActivity extends StudentShenchmanMainActivity implements Gr
 		mFieldAdapter = new FieldAdapter(getApplicationContext(), mFields);
 		mTypeAdapter = new TypeAdapter(getApplicationContext());
 		mKindAdapter = new DegreeAdapter(getApplicationContext());
-		mGroupsAdapter = new GroupsAdapter(getApplicationContext(), mGroups);
 		mTermAdapter = new TermAdapter(getApplicationContext());
 	}
 
@@ -143,7 +138,6 @@ public class SettingsActivity extends StudentShenchmanMainActivity implements Gr
 		SQLiteDatabase db = DatabaseHelper.getInstance(getApplicationContext()).getReadableDatabase();
 		mDepartments = mDependentDataHelper.loadDepartments(db);
 		mFields = mDependentDataHelper.loadFields(db, mSettingsDataHelper.getDepartmentId());
-		mGroups = mDependentDataHelper.loadGroups(db, mSettingsDataHelper.getFieldId(), 1, mSettingsDataHelper.getTermValue());
 	}
 
 	private void generateView() {
@@ -212,7 +206,8 @@ public class SettingsActivity extends StudentShenchmanMainActivity implements Gr
 
 	private boolean requiredDataFilled() {
 		if (mSettingsDataHelper.getDepartmentId() > 0 && mSettingsDataHelper.getFieldId() > 0 &&
-				mSettingsDataHelper.getTermValue() > 0 && !mSettingsDataHelper.getGroups().isEmpty())
+				mSettingsDataHelper.getTermValue() > 0 && mSettingsDataHelper.getDegreeValue() > 0 &&
+				mSettingsDataHelper.getTypeValue() > 0)
 			return true;
 
 		return false;
@@ -292,7 +287,7 @@ public class SettingsActivity extends StudentShenchmanMainActivity implements Gr
 		}
 	}
 
-	private class KindOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
+	private class DegreeOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
 
 		@Override
 		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
