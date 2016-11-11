@@ -2,6 +2,7 @@ package edu.p.lodz.pl.studentshenchman.settings.datastore;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -117,17 +118,40 @@ public class SettingsDataStoreHelper {
 			mGroups += groupId;
 		else
 			mGroups = mGroups + ";" + groupId;
+
+		Log.i(TAG, "Dodana grupa o id: " + groupId);
 		return this;
 	}
 
-	public List<Long> parseGroupsToList() {
+	public SettingsDataStoreHelper removeGroupId(long groupId) {
+		if (!mGroups.isEmpty()) {
+			Log.i(TAG, "Usunieta grupa o id: " + groupId);
+			getGroupsAsList(mGroups).remove(groupId);
+			saveListIdsAsString(getGroupsAsList(mGroups));
+		}
+		return this;
+	}
+
+	public List<Long> getGroupsAsList(String groups) {
 		List<Long> groupIds = new ArrayList<>();
 
-		for (String id : mGroups.split(";")) {
-			groupIds.add(Long.valueOf(id));
+		for (String id : groups.split(";")) {
+			if (!id.isEmpty())
+				groupIds.add(Long.valueOf(id));
 		}
 
 		return groupIds;
+	}
+
+	private void saveListIdsAsString(List<Long> ids) {
+		String groups = "";
+		for (Long id : ids) {
+			if (groups.isEmpty())
+				groups += id;
+			else
+				groups = groups + ";" + id;
+		}
+		setGroups(groups);
 	}
 
 	@Override
