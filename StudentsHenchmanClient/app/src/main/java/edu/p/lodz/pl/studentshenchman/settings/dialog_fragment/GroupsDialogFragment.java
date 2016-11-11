@@ -113,7 +113,7 @@ public class GroupsDialogFragment extends DialogFragment {
 	private class OkOnClickListener implements View.OnClickListener {
 		@Override
 		public void onClick(View v) {
-			Log.i(TAG, "WYBRANE GRUPY W DIALOGU " + mSettingsHelper.getGroups() + " ilosc grup: " + mList.getCheckedItemCount());
+			Log.i(TAG, "Wybrane grupy w dialog fragmencie: " + mSettingsHelper.getGroups() + " ilosc wybranych grup: " + mList.getCheckedItemCount());
 			mChosenGroupsCallback.chosenDeanGroups(mSettingsHelper.getGroups());
 			dismiss();
 		}

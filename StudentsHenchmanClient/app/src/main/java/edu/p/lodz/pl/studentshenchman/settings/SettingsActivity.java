@@ -140,7 +140,7 @@ public class SettingsActivity extends StudentShenchmanMainActivity implements Gr
 	}
 
 	private void loadAllRequiredData() {
-		Log.i(TAG, "Dane z zapisane w pamieci: Wydzial= " + mSettingsDataHelper.getDepartmentId() + " kierunek=" + mSettingsDataHelper.getFieldId() +
+		Log.i(TAG, "Dane z zapisane w pamieci (ID): Wydzial= " + mSettingsDataHelper.getDepartmentId() + " kierunek=" + mSettingsDataHelper.getFieldId() +
 				" semestr=" + mSettingsDataHelper.getTerm() + " typ=" + mSettingsDataHelper.getTypeId() + " grupy=" + mSettingsDataHelper.getGroups());
 		SQLiteDatabase db = DatabaseHelper.getInstance(getApplicationContext()).getReadableDatabase();
 		mDepartments = mDependentDataHelper.loadDepartments(db);
