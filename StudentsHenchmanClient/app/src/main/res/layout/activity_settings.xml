@@ -147,7 +147,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/dean_groups_label"
@@ -156,11 +156,11 @@
                     android:layout_height="wrap_content"
                     android:text="@string/settings_groups_label"/>
 
-                <ListView
-                    android:id="@+id/dean_groups_list"
+                <Button
+                    android:id="@+id/set_groups"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:choiceMode="multipleChoice"/>
+                    android:text="@string/settings_select_groups_button"/>
 
                 <View
                     style="@style/horizontal_divider"/>
@@ -195,7 +195,6 @@
             </LinearLayout>
 
         </LinearLayout>
-
     </RelativeLayout>
 
 </ScrollView>

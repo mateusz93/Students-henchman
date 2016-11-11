@@ -38,6 +38,7 @@
     <string name="settings_type_label">Type:</string>
     <string name="settings_kind_label">Degree:</string>
     <string name="settings_groups_label">Groups:</string>
+    <string name="settings_select_groups_button">Select your groups</string>
 
     <!--login-->
     <string name="login_hint_text">Enter login or email</string>

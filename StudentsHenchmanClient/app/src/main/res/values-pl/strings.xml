@@ -38,6 +38,7 @@
     <string name="settings_type_label">Typ:</string>
     <string name="settings_kind_label">Rodzaj:</string>
     <string name="settings_groups_label">Grupy:</string>
+    <string name="settings_select_groups_button">Wybierz swoje grupy</string>
 
     <!--login-->
     <string name="login_hint_text">Wprowadź login lub email</string>
