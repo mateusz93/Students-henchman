@@ -2,6 +2,7 @@ package edu.p.lodz.pl.studentshenchman.workers.helpers;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import edu.p.lodz.pl.studentshenchman.factories.WorkerFactory;
@@ -15,9 +16,12 @@ import static edu.p.lodz.pl.studentshenchman.workers.AbstractWorker.WORKER_NAME;
  */
 
 public class WorkerRunnerHelper {
+	private static final String TAG = WorkerRunnerHelper.class.getName();
+
 	public static void startWorker(Context context, Bundle bundle) {
 		WorkerType workerType = WorkerType.valueOf(bundle.getString(WORKER_NAME));
 		AbstractWorker abstractWorker = WorkerFactory.produce(context, workerType, bundle);
+		Log.i(TAG, "Uruchamianie nowego workera typu: " + workerType.name() + " klasy: " + abstractWorker.getClass().getName());
 		try {
 			abstractWorker.run();
 		} catch (Exception e) {
