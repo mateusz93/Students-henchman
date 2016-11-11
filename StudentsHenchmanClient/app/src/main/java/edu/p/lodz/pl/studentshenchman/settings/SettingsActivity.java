@@ -132,9 +132,9 @@ public class SettingsActivity extends StudentShenchmanMainActivity implements Gr
 
 	private void initAdapters() {
 		mDepartmentAdapter = new DepartmentAdapter(getApplicationContext(), mDepartments);
-		mFieldAdapter = new FieldAdapter(getApplicationContext(), new ArrayList<>());
-		mTypeAdapter = new TypeAdapter(getApplicationContext(), mTypes);
-		mKindAdapter = new KindAdapter(getApplicationContext(), mKinds);
+		mFieldAdapter = new FieldAdapter(getApplicationContext(), mFields);
+		mTypeAdapter = new TypeAdapter(getApplicationContext());
+		mKindAdapter = new DegreeAdapter(getApplicationContext());
 		mGroupsAdapter = new GroupsAdapter(getApplicationContext(), mGroups);
 		mTermAdapter = new TermAdapter(getApplicationContext());
 	}
@@ -145,8 +145,6 @@ public class SettingsActivity extends StudentShenchmanMainActivity implements Gr
 		SQLiteDatabase db = DatabaseHelper.getInstance(getApplicationContext()).getReadableDatabase();
 		mDepartments = mDependentDataHelper.loadDepartments(db);
 		mFields = mDependentDataHelper.loadFields(db, mSettingsDataHelper.getDepartmentId());
-		mTypes = mDependentDataHelper.loadTypes(db);
-		mKinds = mDependentDataHelper.loadKinds(db);
 		mGroups = mDependentDataHelper.loadGroups(db, mSettingsDataHelper.getFieldId(), 1, mSettingsDataHelper.getTerm());
 	}
 

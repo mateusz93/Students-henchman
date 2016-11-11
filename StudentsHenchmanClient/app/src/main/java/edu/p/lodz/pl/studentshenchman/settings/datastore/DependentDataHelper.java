@@ -9,47 +9,12 @@ import java.util.List;
 import edu.p.lodz.pl.studentshenchman.database.models.DeanGroup;
 import edu.p.lodz.pl.studentshenchman.database.models.Department;
 import edu.p.lodz.pl.studentshenchman.database.models.Field;
-import edu.p.lodz.pl.studentshenchman.database.models.Kind;
-import edu.p.lodz.pl.studentshenchman.database.models.Type;
 
 /**
  * @author Michal Warcholinski
  */
 public class DependentDataHelper {
 	private static final String TAG = DependentDataHelper.class.getName();
-
-	public List<Kind> loadKinds(SQLiteDatabase db) {
-		List<Kind> values = new ArrayList<>();
-
-		Cursor c = db.query(Kind.TABLE_NAME, null, null, null, null, null, null);
-		while (c.moveToNext()) {
-			Kind kind = new Kind();
-			kind.setId(c.getLong(c.getColumnIndexOrThrow(Kind._ID)));
-			kind.setExternalId(c.getLong(c.getColumnIndexOrThrow(Kind.EXTERNAL_KIND_ID)));
-			kind.setName(c.getString(c.getColumnIndexOrThrow(Kind.NAME)));
-			values.add(kind);
-		}
-		c.close();
-
-		return values;
-	}
-
-	public List<Type> loadTypes(SQLiteDatabase db) {
-		List<Type> values = new ArrayList<>();
-
-		Cursor c = db.query(Type.TABLE_NAME, null, null, null, null, null, null);
-		while (c.moveToNext()) {
-			Type type = new Type();
-			type.setId(c.getLong(c.getColumnIndexOrThrow(Type._ID)));
-			type.setExternalId(c.getLong(c.getColumnIndexOrThrow(Type.EXTERNAL_TYPE_ID)));
-			type.setName(c.getString(c.getColumnIndexOrThrow(Type.NAME)));
-			values.add(type);
-		}
-		c.close();
-
-		return values;
-
-	}
 
 	public List<Field> loadFields(SQLiteDatabase db, long id) {
 		List<Field> values = new ArrayList<>();

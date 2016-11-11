@@ -12,7 +12,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import edu.p.lodz.pl.studentshenchman.R;
-import edu.p.lodz.pl.studentshenchman.database.models.Type;
+import edu.p.lodz.pl.studentshenchman.settings.classes.Type;
 
 /**
  * @author Michal Warcholinski
@@ -23,13 +23,13 @@ public class TypeAdapter extends BaseAdapter {
 	private Context mContext;
 	private List<Type> mValues;
 
-	public TypeAdapter(Context context, List<Type> values) {
+	public TypeAdapter(Context context) {
 		mContext = context;
-		init(values);
+		init();
 	}
 
-	private void init(List<Type> values) {
-		mValues = new ArrayList<>(values);
+	private void init() {
+		mValues = new ArrayList<>();
 		Type type = new Type();
 		type.setId(Long.MIN_VALUE);
 		type.setExternalId(Long.MIN_VALUE);

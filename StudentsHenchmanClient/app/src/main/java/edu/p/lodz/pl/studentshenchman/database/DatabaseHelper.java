@@ -11,11 +11,9 @@ import java.util.Map;
 import edu.p.lodz.pl.studentshenchman.database.models.DeanGroup;
 import edu.p.lodz.pl.studentshenchman.database.models.Department;
 import edu.p.lodz.pl.studentshenchman.database.models.Field;
-import edu.p.lodz.pl.studentshenchman.database.models.Kind;
 import edu.p.lodz.pl.studentshenchman.database.models.Room;
 import edu.p.lodz.pl.studentshenchman.database.models.Specialization;
 import edu.p.lodz.pl.studentshenchman.database.models.Teacher;
-import edu.p.lodz.pl.studentshenchman.database.models.Type;
 import edu.p.lodz.pl.studentshenchman.database.models.User;
 
 
@@ -29,7 +27,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private static DatabaseHelper databaseHelper;
 
 	private static final String DATABASE_NAME = "StudentShenchman";
-	private static final int DATABASE_VERSION = 5;
+	private static final int DATABASE_VERSION = 6;
 
 	private static final String DROP_TABLE = "drop table if exists ";
 	private static final String CREATE_TABLE = "create table ";
@@ -45,8 +43,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			put(Department.TABLE_NAME, createTableQuery(Department.TABLE_NAME, Department.COLUMN_NAMES, Department.COLUMN_TYPES));
 			put(Field.TABLE_NAME, createTableQuery(Field.TABLE_NAME, Field.COLUMN_NAMES, Field.COLUMN_TYPES));
 			put(Specialization.TABLE_NAME, createTableQuery(Specialization.TABLE_NAME, Specialization.COLUMN_NAMES, Specialization.COLUMN_TYPES));
-			put(Type.TABLE_NAME, createTableQuery(Type.TABLE_NAME, Type.COLUMN_NAMES, Type.COLUMN_TYPES));
-			put(Kind.TABLE_NAME, createTableQuery(Kind.TABLE_NAME, Kind.COLUMN_NAMES, Kind.COLUMN_TYPES));
 			put(DeanGroup.TABLE_NAME, createTableQuery(DeanGroup.TABLE_NAME, DeanGroup.COLUMN_NAMES, DeanGroup.COLUMN_TYPES));
 		}
 	};

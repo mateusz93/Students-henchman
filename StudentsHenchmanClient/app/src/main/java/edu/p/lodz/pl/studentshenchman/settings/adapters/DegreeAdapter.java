@@ -12,24 +12,24 @@ import java.util.Iterator;
 import java.util.List;
 
 import edu.p.lodz.pl.studentshenchman.R;
-import edu.p.lodz.pl.studentshenchman.database.models.Kind;
+import edu.p.lodz.pl.studentshenchman.settings.classes.Degree;
 
 /**
  * @author Michal Warcholinski
  */
-public class KindAdapter extends BaseAdapter {
-	private static final String TAG = KindAdapter.class.getName();
+public class DegreeAdapter extends BaseAdapter {
+	private static final String TAG = DegreeAdapter.class.getName();
 
 	private Context mContext;
-	private List<Kind> mValues;
+	private List<Degree> mValues;
 
-	public KindAdapter(Context context, List<Kind> values) {
+	public DegreeAdapter(Context context) {
 		mContext = context;
-		init(values);
+		init();
 	}
 
-	private void init(List<Kind> values) {
-		mValues = new ArrayList<>(values);
+	private void init() {
+		mValues = new ArrayList<>();
 		Kind kind = new Kind();
 		kind.setId(Long.MIN_VALUE);
 		kind.setExternalId(Long.MIN_VALUE);

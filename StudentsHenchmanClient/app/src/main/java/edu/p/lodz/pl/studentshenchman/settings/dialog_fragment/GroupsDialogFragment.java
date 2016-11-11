@@ -43,11 +43,11 @@ public class GroupsDialogFragment extends DialogFragment {
 
 	private GroupsAdapter mGroupsAdapter;
 
-	public static GroupsDialogFragment getInstance(long fieldId, int term, int degree, String deanGroups) {
+	public static GroupsDialogFragment getInstance(long fieldId, long term, int degree, String deanGroups) {
 		GroupsDialogFragment dialogFragment = new GroupsDialogFragment();
 		Bundle bundle = new Bundle();
 		bundle.putLong(FIELD, fieldId);
-		bundle.putInt(TERM, term);
+		bundle.putLong(TERM, term);
 		bundle.putInt(DEGREE, degree);
 		bundle.putString(SELECTED_DEAN_GROUPS, deanGroups);
 		dialogFragment.setArguments(bundle);
@@ -106,7 +106,7 @@ public class GroupsDialogFragment extends DialogFragment {
 		List<DeanGroup> values;
 		SQLiteDatabase db = DatabaseHelper.getInstance(getContext()).getReadableDatabase();
 		DependentDataHelper dependentDataHelper = new DependentDataHelper();
-		values = dependentDataHelper.loadGroups(db, args.getLong(FIELD), args.getInt(DEGREE), args.getInt(TERM));
+		values = dependentDataHelper.loadGroups(db, args.getLong(FIELD), args.getInt(DEGREE), args.getLong(TERM));
 		return values;
 	}
 

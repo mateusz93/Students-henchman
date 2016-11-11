@@ -1,11 +1,8 @@
 package edu.p.lodz.pl.studentshenchman.dashboard;
 
 import android.Manifest;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -29,9 +26,6 @@ import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainActivity;
 import edu.p.lodz.pl.studentshenchman.dashboard.adapters.DrawerListAdapter;
 import edu.p.lodz.pl.studentshenchman.dashboard.drawer_data.DrawerItem;
 import edu.p.lodz.pl.studentshenchman.database.DatabaseHelper;
-import edu.p.lodz.pl.studentshenchman.database.models.Department;
-import edu.p.lodz.pl.studentshenchman.database.models.Kind;
-import edu.p.lodz.pl.studentshenchman.database.models.Type;
 import edu.p.lodz.pl.studentshenchman.qr_scanner.SimpleScanner;
 import edu.p.lodz.pl.studentshenchman.settings.SettingsActivity;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.activity.TimetableActivity;
@@ -80,16 +74,6 @@ public class DashboardActivity extends StudentShenchmanMainActivity {
 		mLessonTime.setText("8:15 - 10:00");
 
 		DatabaseHelper.getInstance(getApplicationContext());
-
-		Cursor c = DatabaseHelper.getInstance(getApplicationContext()).getReadableDatabase().query(Type.TABLE_NAME, null, null,
-				null, null, null, null);
-		if (c.moveToFirst()) {
-
-		} else {
-			saveTestDataIntoDatabase();
-		}
-		c.close();
-
 
 		ImageButton buttonTimetable = (ImageButton) findViewById(R.id.timetable_icon);
 
@@ -140,100 +124,6 @@ public class DashboardActivity extends StudentShenchmanMainActivity {
 		drawerItems.add(new DrawerItem(getString(R.string.drawer_logout_name), R.drawable.logout_icon));
 		return drawerItems;
 
-	}
-
-	private void saveTestDataIntoDatabase() {
-		SQLiteDatabase db = DatabaseHelper.getInstance(getApplicationContext()).getWritableDatabase();
-
-		/*ContentValues cv = new ContentValues();
-		cv.put(Department.EXTERNAL_DEPARTMENT_ID, 1);
-		cv.put(Department.NAME, "Wydzial Elektryczny");
-		db.insert(Department.TABLE_NAME, null, cv);
-
-		cv = new ContentValues();
-		cv.put(Department.EXTERNAL_DEPARTMENT_ID, 2);
-		cv.put(Department.NAME, "Wydzial Mechaniczny");
-		db.insert(Department.TABLE_NAME, null, cv);
-
-		// **************************************************
-
-		cv = new ContentValues();
-		cv.put(Field.EXTERNAL_FIELD_ID, 1);
-		cv.put(Field.EXTERNAL_DEPARTMENT_ID, 1);
-		cv.put(Field.NAME, "Informatyka");
-		db.insert(Field.TABLE_NAME, null, cv);
-
-		cv = new ContentValues();
-		cv.put(Field.EXTERNAL_FIELD_ID, 2);
-		cv.put(Field.EXTERNAL_DEPARTMENT_ID, 1);
-		cv.put(Field.NAME, "Robotyka");
-		db.insert(Field.TABLE_NAME, null, cv);
-
-		cv = new ContentValues();
-		cv.put(Field.EXTERNAL_FIELD_ID, 3);
-		cv.put(Field.EXTERNAL_DEPARTMENT_ID, 2);
-		cv.put(Field.NAME, "Transport");
-		db.insert(Field.TABLE_NAME, null, cv);
-
-		cv = new ContentValues();
-		cv.put(Field.EXTERNAL_FIELD_ID, 4);
-		cv.put(Field.EXTERNAL_DEPARTMENT_ID, 2);
-		cv.put(Field.NAME, "Telekomunikacja");
-		db.insert(Field.TABLE_NAME, null, cv);
-
-		// **************************************************
-
-
-		cv = new ContentValues();
-		cv.put(Specialization.EXTERNAL_SPECIALIZATION_ID, 1);
-		cv.put(Specialization.EXTERNAL_FIELD_ID, 1);
-		cv.put(Specialization.NAME, "Specjalizacja 1");
-		db.insert(Specialization.TABLE_NAME, null, cv);
-
-		cv = new ContentValues();
-		cv.put(Specialization.EXTERNAL_SPECIALIZATION_ID, 2);
-		cv.put(Specialization.EXTERNAL_FIELD_ID, 2);
-		cv.put(Specialization.NAME, "Specjalizacja 2");
-		db.insert(Specialization.TABLE_NAME, null, cv);
-
-		cv = new ContentValues();
-		cv.put(Specialization.EXTERNAL_SPECIALIZATION_ID, 3);
-		cv.put(Specialization.EXTERNAL_FIELD_ID, 3);
-		cv.put(Specialization.NAME, "Specjalziacja 3");
-		db.insert(Specialization.TABLE_NAME, null, cv);
-
-		cv = new ContentValues();
-		cv.put(Specialization.EXTERNAL_SPECIALIZATION_ID, 4);
-		cv.put(Specialization.EXTERNAL_FIELD_ID, 4);
-		cv.put(Specialization.NAME, "Specjalizacja 4");
-		db.insert(Specialization.TABLE_NAME, null, cv);
-
-		// ***************************************************/
-
-		ContentValues cv = new ContentValues();
-		cv.put(Kind.EXTERNAL_KIND_ID, 1);
-		cv.put(Kind.NAME, "Studia 1 stopnia");
-		db.insert(Kind.TABLE_NAME, null, cv);
-
-		cv = new ContentValues();
-		cv.put(Kind.EXTERNAL_KIND_ID, 2);
-		cv.put(Kind.NAME, "Studia 2 stopnia");
-		db.insert(Kind.TABLE_NAME, null, cv);
-
-		// **************************************************
-
-
-		cv = new ContentValues();
-		cv.put(Type.EXTERNAL_TYPE_ID, 1);
-		cv.put(Type.NAME, "Studia zaoczne");
-		db.insert(Type.TABLE_NAME, null, cv);
-
-		cv = new ContentValues();
-		cv.put(Type.EXTERNAL_TYPE_ID, 2);
-		cv.put(Type.NAME, "Studia dzienne");
-		db.insert(Type.TABLE_NAME, null, cv);
-
-		// **************************************************
 	}
 
 	private void goToTimetable() {
