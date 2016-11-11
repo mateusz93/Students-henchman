@@ -3,13 +3,14 @@ package edu.p.lodz.pl.studentshenchman.settings;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -31,18 +32,19 @@ import edu.p.lodz.pl.studentshenchman.settings.adapters.KindAdapter;
 import edu.p.lodz.pl.studentshenchman.settings.adapters.TypeAdapter;
 import edu.p.lodz.pl.studentshenchman.settings.datastore.DependentDataHelper;
 import edu.p.lodz.pl.studentshenchman.settings.datastore.SettingsDataStoreHelper;
+import edu.p.lodz.pl.studentshenchman.settings.dialog_fragment.GroupsDialogFragment;
 
-public class SettingsActivity extends StudentShenchmanMainActivity {
+public class SettingsActivity extends StudentShenchmanMainActivity implements GroupsDialogFragment.ChosenDeanGroupsInterface {
 	private static final String TAG = SettingsActivity.class.getName();
 
 	private Toolbar toolbar;
-	private LinearLayout mDepartmentLinear;
 	private LinearLayout mFieldLinear;
 	private Spinner mDepartmentSpinner;
 	private Spinner mFieldSpinner;
 	private Spinner mTypeSpinner;
 	private Spinner mKindSpinner;
-	private ListView mGroupsList;
+
+	private Button mGroupsButton;
 	private Button mSave;
 	private Button mClear;
 	private Button mCancel;
@@ -80,7 +82,6 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 		toolbar = (Toolbar) findViewById(R.id.tool_bar);
 		prepareToolbar();
 
-		mDepartmentLinear = (LinearLayout) findViewById(R.id.department_content);
 		mFieldLinear = (LinearLayout) findViewById(R.id.field_content);
 
 		mDepartmentSpinner = (Spinner) findViewById(R.id.department_spinner);
@@ -99,8 +100,13 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 		mKindSpinner.setOnItemSelectedListener(new KindOnItemSelectedListener());
 		mKindSpinner.setAdapter(mKindAdapter);
 
-		mGroupsList = (ListView) findViewById(R.id.dean_groups_list);
-		mGroupsList.setAdapter(mGroupsAdapter);
+		mGroupsButton = (Button) findViewById(R.id.set_groups);
+		mGroupsButton.setOnClickListener((v) -> {
+			GroupsDialogFragment dialogFragment = GroupsDialogFragment.getInstance(mSettingsDataHelper.getFieldId(), 7, 1, mSettingsDataHelper.getGroups());
+			FragmentManager fm = getSupportFragmentManager();
+			dialogFragment.show(fm, TAG);
+
+		});
 
 		mSave = (Button) findViewById(R.id.save_button);
 		mSave.setOnClickListener(new SaveOnClickListener());
@@ -123,6 +129,8 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 	}
 
 	private void loadAllRequiredData() {
+		Log.i(TAG, "Dane z zapisane w pamieci: Wydzial= " + mSettingsDataHelper.getDepartmentId() + " kierunek=" + mSettingsDataHelper.getFieldId() +
+				" semestr=" + mSettingsDataHelper.getTerm() + " typ=" + mSettingsDataHelper.getTypeId() + " grupy=" + mSettingsDataHelper.getGroups());
 		SQLiteDatabase db = DatabaseHelper.getInstance(getApplicationContext()).getReadableDatabase();
 		mDepartments = mDependentDataHelper.loadDepartments(db);
 		mFields = mDependentDataHelper.loadFields(db, mSettingsDataHelper.getDepartmentId());
@@ -178,7 +186,7 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 				break;
 
 			case DEAN_GROUPS:
-				mGroupsAdapter.setValues(mDependentDataHelper.loadGroups(db, mSettingsDataHelper.getFieldId(), 1, 7));
+
 				break;
 			default:
 				break;
@@ -297,4 +305,9 @@ public class SettingsActivity extends StudentShenchmanMainActivity {
 		}
 	}
 
+	@Override
+	public void chosenDeanGroups(String groupsIds) {
+		Log.i(TAG, "Otrzymane id'ki grup z callbacka z dialog fragmentu: " + groupsIds);
+		mSettingsDataHelper.setGroups(groupsIds);
+	}
 }
