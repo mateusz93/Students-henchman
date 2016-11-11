@@ -128,8 +128,9 @@ public class SettingsDataStoreHelper {
 	public SettingsDataStoreHelper removeGroupId(long groupId) {
 		if (!mGroups.isEmpty()) {
 			Log.i(TAG, "Usunieta grupa o id: " + groupId);
-			getGroupsAsList(mGroups).remove(groupId);
-			saveListIdsAsString(getGroupsAsList(mGroups));
+			List<Long> ids = getGroupsAsList(mGroups);
+			ids.remove(groupId);
+			saveListIdsAsString(ids);
 		}
 		return this;
 	}
