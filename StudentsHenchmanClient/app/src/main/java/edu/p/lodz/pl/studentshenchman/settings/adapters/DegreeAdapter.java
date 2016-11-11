@@ -33,7 +33,7 @@ public class DegreeAdapter extends BaseAdapter {
 		mValues.add(new Degree(mContext.getString(R.string.spinner_option_choose), 0L));
 		mValues.add(new Degree(mContext.getString(R.string.settings_degree_spinner_value_label, 1), 1L));
 		mValues.add(new Degree(mContext.getString(R.string.settings_degree_spinner_value_label, 2), 2L));
-		mValues.add(new Degree(mContext.getString(R.string.settings_degree_spinner_value_label, 2), 2L));
+		mValues.add(new Degree(mContext.getString(R.string.settings_degree_spinner_value_label, 2), 3L));
 	}
 
 
