@@ -190,15 +190,17 @@ public class SettingsActivity extends StudentShenchmanMainActivity implements Gr
 				else
 					mFieldLinear.setVisibility(View.GONE);
 				break;
-
-			case DEAN_GROUPS:
-
-				break;
 			default:
 				break;
 		}
+	}
+
+	private void updateDeanGroupsView() {
+
+		mGroupsLinear.setVisibility(View.VISIBLE);
 
 	}
+
 
 	private void prepareToolbar() {
 		setSupportActionBar(toolbar);
@@ -235,6 +237,7 @@ public class SettingsActivity extends StudentShenchmanMainActivity implements Gr
 		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 			mSettingsDataHelper.setDepartmentId(id);
 			updateDependentSpinner(SpinnerType.FIELDS, id);
+			updateDeanGroupsView();
 		}
 
 		@Override
@@ -249,7 +252,7 @@ public class SettingsActivity extends StudentShenchmanMainActivity implements Gr
 		@Override
 		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 			mSettingsDataHelper.setFieldId(id);
-			updateDependentSpinner(SpinnerType.DEAN_GROUPS, 0);
+			updateDeanGroupsView();
 		}
 
 		@Override
@@ -263,6 +266,7 @@ public class SettingsActivity extends StudentShenchmanMainActivity implements Gr
 		@Override
 		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 			mSettingsDataHelper.setTypeId(id);
+			updateDeanGroupsView();
 		}
 
 		@Override
@@ -276,6 +280,7 @@ public class SettingsActivity extends StudentShenchmanMainActivity implements Gr
 		@Override
 		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 			mSettingsDataHelper.setKindId(id);
+			updateDeanGroupsView();
 		}
 
 		@Override
