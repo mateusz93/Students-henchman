@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import edu.p.lodz.pl.studentshenchman.R;
 import edu.p.lodz.pl.studentshenchman.database.models.DeanGroup;
 
 /**
@@ -19,8 +18,8 @@ import edu.p.lodz.pl.studentshenchman.database.models.DeanGroup;
  */
 
 public class GroupsAdapter extends BaseAdapter {
-
 	private static final String TAG = GroupsAdapter.class.getName();
+
 	private final Context mContext;
 	private List<DeanGroup> mValues;
 
@@ -31,20 +30,11 @@ public class GroupsAdapter extends BaseAdapter {
 
 	private void init(List<DeanGroup> values) {
 		mValues = new ArrayList<>(values);
-		DeanGroup deanGroup = new DeanGroup();
-		deanGroup.setId(Long.MIN_VALUE);
-		deanGroup.setExternalGroupId(Long.MIN_VALUE);
-		deanGroup.setExternalFieldId(Long.MIN_VALUE);
-		deanGroup.setTerm(0);
-		deanGroup.setDegree(0);
-		deanGroup.setName(mContext.getString(R.string.spinner_option_choose));
-		deanGroup.setAbbreviation("");
-		mValues.add(0, deanGroup);
 	}
 
 	@Override
 	public int getCount() {
-		return 5;
+		return mValues.size();
 	}
 
 	@Override
@@ -63,7 +53,7 @@ public class GroupsAdapter extends BaseAdapter {
 
 		if (null == convertView) {
 			LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = layoutInflater.inflate(android.R.layout.simple_list_item_multiple_choice, parent, false);
+			convertView = layoutInflater.inflate(android.R.layout.simple_list_item_activated_1, parent, false);
 			viewHolder = new ViewHolder(convertView);
 			convertView.setTag(viewHolder);
 		} else {
@@ -71,7 +61,7 @@ public class GroupsAdapter extends BaseAdapter {
 		}
 
 		DeanGroup deanGroup = getItem(position);
-		viewHolder.textView.setText(deanGroup.getAbbreviation() + " " + deanGroup.getName());
+		viewHolder.textView.setText(deanGroup.getAbbreviation() + " - " + deanGroup.getName());
 
 		return convertView;
 	}
