@@ -49,7 +49,7 @@ public class DependentDataHelper {
 		return values;
 	}
 
-	public List<DeanGroup> loadGroups(SQLiteDatabase db, long fieldId, int degree, long term) {
+	public List<DeanGroup> loadGroups(SQLiteDatabase db, long fieldId, long degree, long term) {
 		List<DeanGroup> values = new ArrayList<>();
 		String selection = DeanGroup.EXTERNAL_FIELD_ID + "=? and " + DeanGroup.DEGREE + "=? and " + DeanGroup.TERM + "=?";
 		String[] selectionArgs = new String[]{fieldId + "", degree + "", term + ""};

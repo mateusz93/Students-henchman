@@ -16,9 +16,9 @@ public class SettingsDataStoreHelper {
 	private SharedPreferences mSharedPreferences;
 	private long mDepartmentId;
 	private long mFieldId;
-	private long mTypeId;
-	private long mKindId;
-	private long mTerm;
+	private long mTypeValue;
+	private long mDegreeValue;
+	private long mTermValue;
 	private String mGroups;
 
 	private enum PREFERENCES_KEYS {
@@ -34,9 +34,9 @@ public class SettingsDataStoreHelper {
 		mSharedPreferences.edit()
 				.putLong(PREFERENCES_KEYS.DEPARTMENT.name(), mDepartmentId)
 				.putLong(PREFERENCES_KEYS.FIELD.name(), mFieldId)
-				.putLong(PREFERENCES_KEYS.TYPE.name(), mTypeId)
-				.putLong(PREFERENCES_KEYS.KIND.name(), mKindId)
-				.putLong(PREFERENCES_KEYS.TERM.name(), mTerm)
+				.putLong(PREFERENCES_KEYS.TYPE.name(), mTypeValue)
+				.putLong(PREFERENCES_KEYS.KIND.name(), mDegreeValue)
+				.putLong(PREFERENCES_KEYS.TERM.name(), mTermValue)
 				.putString(PREFERENCES_KEYS.GROUPS.name(), mGroups)
 				.apply();
 	}
@@ -44,27 +44,29 @@ public class SettingsDataStoreHelper {
 	public void load() {
 		mDepartmentId = mSharedPreferences.getLong(PREFERENCES_KEYS.DEPARTMENT.name(), Long.MIN_VALUE);
 		mFieldId = mSharedPreferences.getLong(PREFERENCES_KEYS.FIELD.name(), Long.MIN_VALUE);
-		mTypeId = mSharedPreferences.getLong(PREFERENCES_KEYS.TYPE.name(), Long.MIN_VALUE);
-		mKindId = mSharedPreferences.getLong(PREFERENCES_KEYS.KIND.name(), Long.MIN_VALUE);
-		mTerm = mSharedPreferences.getLong(PREFERENCES_KEYS.TERM.name(), Long.MIN_VALUE);
+		mTypeValue = mSharedPreferences.getLong(PREFERENCES_KEYS.TYPE.name(), Long.MIN_VALUE);
+		mDegreeValue = mSharedPreferences.getLong(PREFERENCES_KEYS.KIND.name(), Long.MIN_VALUE);
+		mTermValue = mSharedPreferences.getLong(PREFERENCES_KEYS.TERM.name(), Long.MIN_VALUE);
 		mGroups = mSharedPreferences.getString(PREFERENCES_KEYS.GROUPS.name(), "");
 	}
 
-	public void setDefault() {
+	public SettingsDataStoreHelper setDefault() {
 		mDepartmentId = Long.MIN_VALUE;
 		mFieldId = Long.MIN_VALUE;
-		mTypeId = Long.MIN_VALUE;
-		mKindId = Long.MIN_VALUE;
-		mTerm = Long.MIN_VALUE;
+		mTypeValue = Long.MIN_VALUE;
+		mDegreeValue = Long.MIN_VALUE;
+		mTermValue = Long.MIN_VALUE;
 		mGroups = "";
+
+		return this;
 	}
 
-	public long getKindId() {
-		return mKindId;
+	public long getDegreeValue() {
+		return mDegreeValue;
 	}
 
-	public SettingsDataStoreHelper setKindId(long kindId) {
-		this.mKindId = kindId;
+	public SettingsDataStoreHelper setDegreeValue(long degreeValue) {
+		this.mDegreeValue = degreeValue;
 		return this;
 	}
 
@@ -86,21 +88,21 @@ public class SettingsDataStoreHelper {
 		return this;
 	}
 
-	public long getTypeId() {
-		return mTypeId;
+	public long getTypeValue() {
+		return mTypeValue;
 	}
 
-	public SettingsDataStoreHelper setTypeId(long typeId) {
-		this.mTypeId = typeId;
+	public SettingsDataStoreHelper setTypeValue(long typeValue) {
+		this.mTypeValue = typeValue;
 		return this;
 	}
 
-	public long getTerm() {
-		return mTerm;
+	public long getTermValue() {
+		return mTermValue;
 	}
 
-	public SettingsDataStoreHelper setTerm(long term) {
-		this.mTerm = term;
+	public SettingsDataStoreHelper setTermValue(long termValue) {
+		this.mTermValue = termValue;
 		return this;
 	}
 
@@ -154,14 +156,14 @@ public class SettingsDataStoreHelper {
 		setGroups(groups);
 	}
 
-	public boolean areCurentAndSavedOptionsSame() {
+	public boolean areCurrentAndSavedOptionsSame() {
 		if (mDepartmentId != mSharedPreferences.getLong(PREFERENCES_KEYS.DEPARTMENT.name(), Long.MIN_VALUE))
 			return false;
 		if (mFieldId != mSharedPreferences.getLong(PREFERENCES_KEYS.FIELD.name(), Long.MIN_VALUE))
 			return false;
-		if (mTerm != mSharedPreferences.getLong(PREFERENCES_KEYS.TERM.name(), Long.MIN_VALUE))
+		if (mTermValue != mSharedPreferences.getLong(PREFERENCES_KEYS.TERM.name(), Long.MIN_VALUE))
 			return false;
-		if (mKindId != mSharedPreferences.getLong(PREFERENCES_KEYS.KIND.name(), Long.MIN_VALUE))
+		if (mDegreeValue != mSharedPreferences.getLong(PREFERENCES_KEYS.KIND.name(), Long.MIN_VALUE))
 			return false;
 
 		return true;
@@ -173,9 +175,9 @@ public class SettingsDataStoreHelper {
 				"mSharedPreferences=" + mSharedPreferences +
 				", mDepartmentId=" + mDepartmentId +
 				", mFieldId=" + mFieldId +
-				", mTypeId=" + mTypeId +
-				", mKindId=" + mKindId +
-				", mTerm=" + mTerm +
+				", mTypeValue=" + mTypeValue +
+				", mDegreeValue=" + mDegreeValue +
+				", mTermValue=" + mTermValue +
 				", mGroups='" + mGroups + '\'' +
 				'}';
 	}

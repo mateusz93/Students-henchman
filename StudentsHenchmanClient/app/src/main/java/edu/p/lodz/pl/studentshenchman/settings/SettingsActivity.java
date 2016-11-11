@@ -107,10 +107,10 @@ public class SettingsActivity extends StudentShenchmanMainActivity implements Gr
 
 		mGroupsButton = (Button) findViewById(R.id.set_groups);
 		mGroupsButton.setOnClickListener((v) -> {
-			if (!mSettingsDataHelper.areCurentAndSavedOptionsSame())
+			if (!mSettingsDataHelper.areCurrentAndSavedOptionsSame())
 				mSettingsDataHelper.setGroups("");
 			GroupsDialogFragment dialogFragment = GroupsDialogFragment.getInstance(mSettingsDataHelper.getFieldId(),
-					mSettingsDataHelper.getTerm(), 1, mSettingsDataHelper.getGroups());
+					mSettingsDataHelper.getTermValue(), mSettingsDataHelper.getDegreeValue(), mSettingsDataHelper.getGroups());
 			FragmentManager fm = getSupportFragmentManager();
 			dialogFragment.show(fm, TAG);
 
@@ -139,31 +139,31 @@ public class SettingsActivity extends StudentShenchmanMainActivity implements Gr
 
 	private void loadAllRequiredData() {
 		Log.i(TAG, "Dane z zapisane w pamieci (ID): Wydzial= " + mSettingsDataHelper.getDepartmentId() + " kierunek=" + mSettingsDataHelper.getFieldId() +
-				" semestr=" + mSettingsDataHelper.getTerm() + " typ=" + mSettingsDataHelper.getTypeId() + " grupy=" + mSettingsDataHelper.getGroups());
+				" semestr=" + mSettingsDataHelper.getTermValue() + " typ=" + mSettingsDataHelper.getTypeValue() + " grupy=" + mSettingsDataHelper.getGroups());
 		SQLiteDatabase db = DatabaseHelper.getInstance(getApplicationContext()).getReadableDatabase();
 		mDepartments = mDependentDataHelper.loadDepartments(db);
 		mFields = mDependentDataHelper.loadFields(db, mSettingsDataHelper.getDepartmentId());
-		mGroups = mDependentDataHelper.loadGroups(db, mSettingsDataHelper.getFieldId(), 1, mSettingsDataHelper.getTerm());
+		mGroups = mDependentDataHelper.loadGroups(db, mSettingsDataHelper.getFieldId(), 1, mSettingsDataHelper.getTermValue());
 	}
 
 	private void generateView() {
 		updateDependentSpinner(SpinnerType.DEPARTMENTS, 0);
 
-		long selectedTypeId = mSettingsDataHelper.getTypeId();
+		long selectedTypeId = mSettingsDataHelper.getTypeValue();
 		if (selectedTypeId > 0) {
 			mTypeSpinner.setSelection(mTypeAdapter.getPosForId(selectedTypeId), true);
 		} else {
 			mTypeSpinner.setSelection(0, true);
 		}
 
-		long selectedKindId = mSettingsDataHelper.getKindId();
+		long selectedKindId = mSettingsDataHelper.getDegreeValue();
 		if (selectedKindId > 0) {
 			mKindSpinner.setSelection(mKindAdapter.getPosForId(selectedKindId), true);
 		} else {
 			mKindSpinner.setSelection(0, true);
 		}
 
-		long selectedTermValue = mSettingsDataHelper.getTerm();
+		long selectedTermValue = mSettingsDataHelper.getTermValue();
 		if (selectedTermValue > 0) {
 			mTermSpinner.setSelection(mTermAdapter.getPosForValue(selectedTermValue), true);
 		} else {
@@ -212,7 +212,7 @@ public class SettingsActivity extends StudentShenchmanMainActivity implements Gr
 
 	private boolean requiredDataFilled() {
 		if (mSettingsDataHelper.getDepartmentId() > 0 && mSettingsDataHelper.getFieldId() > 0 &&
-				mSettingsDataHelper.getTerm() > 0 && !mSettingsDataHelper.getGroups().isEmpty())
+				mSettingsDataHelper.getTermValue() > 0 && !mSettingsDataHelper.getGroups().isEmpty())
 			return true;
 
 		return false;
@@ -282,7 +282,7 @@ public class SettingsActivity extends StudentShenchmanMainActivity implements Gr
 
 		@Override
 		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-			mSettingsDataHelper.setTypeId(id);
+			mSettingsDataHelper.setTypeValue(id);
 			updateDeanGroupsView();
 		}
 
@@ -296,7 +296,7 @@ public class SettingsActivity extends StudentShenchmanMainActivity implements Gr
 
 		@Override
 		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-			mSettingsDataHelper.setKindId(id);
+			mSettingsDataHelper.setDegreeValue(id);
 			updateDeanGroupsView();
 		}
 
@@ -309,7 +309,7 @@ public class SettingsActivity extends StudentShenchmanMainActivity implements Gr
 	private class TermOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
 		@Override
 		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-			mSettingsDataHelper.setTerm(id);
+			mSettingsDataHelper.setTermValue(id);
 			updateDeanGroupsView();
 		}
 

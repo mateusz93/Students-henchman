@@ -43,12 +43,12 @@ public class GroupsDialogFragment extends DialogFragment {
 
 	private GroupsAdapter mGroupsAdapter;
 
-	public static GroupsDialogFragment getInstance(long fieldId, long term, int degree, String deanGroups) {
+	public static GroupsDialogFragment getInstance(long fieldId, long term, long degree, String deanGroups) {
 		GroupsDialogFragment dialogFragment = new GroupsDialogFragment();
 		Bundle bundle = new Bundle();
 		bundle.putLong(FIELD, fieldId);
 		bundle.putLong(TERM, term);
-		bundle.putInt(DEGREE, degree);
+		bundle.putLong(DEGREE, degree);
 		bundle.putString(SELECTED_DEAN_GROUPS, deanGroups);
 		dialogFragment.setArguments(bundle);
 
