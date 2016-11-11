@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.List;
@@ -39,7 +40,7 @@ public class DownloadSettingsWorker extends AbstractWorker<SettingsRS> {
 	public void run() {
 		SettingsDataStoreHelper settingsDataStoreHelper = new SettingsDataStoreHelper(mContext);
 		settingsDataStoreHelper.setDefault().save();
-
+		Log.i(TAG, "Domyslne ustawienia uzytkownika");
 		SettingsEndpoints settingsEndpoints = ServiceFactory.produceService(SettingsEndpoints.class, false);
 		Observable<SettingsRS> call = settingsEndpoints.getSettings();
 
