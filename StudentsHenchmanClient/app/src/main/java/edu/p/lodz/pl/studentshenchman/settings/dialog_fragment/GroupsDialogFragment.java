@@ -12,6 +12,9 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.nineoldandroids.animation.AnimatorSet;
+import com.nineoldandroids.animation.ObjectAnimator;
+
 import java.util.List;
 
 import edu.p.lodz.pl.studentshenchman.R;
@@ -62,6 +65,22 @@ public class GroupsDialogFragment extends DialogFragment {
 		mSettingsHelper = new SettingsDataStoreHelper(getContext());
 		mChosenGroupsCallback = (ChosenDeanGroupsInterface) getActivity();
 
+	}
+
+	@Override
+	public void onStart() {
+		super.onStart();
+		final View decorView = getDialog()
+				.getWindow()
+				.getDecorView();
+		AnimatorSet animatorSet = new AnimatorSet();
+		animatorSet.playTogether(
+				ObjectAnimator.ofFloat(decorView, "scaleX", 2, 1.5f, 1).setDuration(600),
+				ObjectAnimator.ofFloat(decorView, "scaleY", 2, 1.5f, 1).setDuration(600),
+				ObjectAnimator.ofFloat(decorView, "alpha", 0, 1).setDuration(700 * 3 / 2)
+
+		);
+		animatorSet.start();
 	}
 
 	@Nullable
