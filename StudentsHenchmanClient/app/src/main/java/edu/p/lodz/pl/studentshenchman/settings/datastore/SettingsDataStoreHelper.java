@@ -21,7 +21,7 @@ public class SettingsDataStoreHelper {
 	private long mTerm;
 	private String mGroups;
 
-	enum PREFERENCES_KEYS {
+	private enum PREFERENCES_KEYS {
 		DEPARTMENT, FIELD, TYPE, KIND, TERM, GROUPS
 	}
 
