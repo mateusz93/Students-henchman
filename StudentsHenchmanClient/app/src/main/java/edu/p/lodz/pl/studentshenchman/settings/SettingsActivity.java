@@ -106,6 +106,10 @@ public class SettingsActivity extends StudentShenchmanMainActivity implements Gr
 		mKindSpinner.setOnItemSelectedListener(new KindOnItemSelectedListener());
 		mKindSpinner.setAdapter(mKindAdapter);
 
+		mTermSpinner = (Spinner) findViewById(R.id.term_spinner);
+		mTermSpinner.setOnItemSelectedListener(new TermOnItemSelectedListener());
+		mTermSpinner.setAdapter(mTermAdapter);
+
 		mGroupsButton = (Button) findViewById(R.id.set_groups);
 		mGroupsButton.setOnClickListener((v) -> {
 			GroupsDialogFragment dialogFragment = GroupsDialogFragment.getInstance(mSettingsDataHelper.getFieldId(), 7, 1, mSettingsDataHelper.getGroups());
@@ -132,6 +136,7 @@ public class SettingsActivity extends StudentShenchmanMainActivity implements Gr
 		mTypeAdapter = new TypeAdapter(getApplicationContext(), mTypes);
 		mKindAdapter = new KindAdapter(getApplicationContext(), mKinds);
 		mGroupsAdapter = new GroupsAdapter(getApplicationContext(), mGroups);
+		mTermAdapter = new TermAdapter(getApplicationContext());
 	}
 
 	private void loadAllRequiredData() {
@@ -196,9 +201,18 @@ public class SettingsActivity extends StudentShenchmanMainActivity implements Gr
 	}
 
 	private void updateDeanGroupsView() {
+		if (requiredDataFilled())
+			mGroupsLinear.setVisibility(View.VISIBLE);
+		else mGroupsLinear.setVisibility(View.GONE);
 
-		mGroupsLinear.setVisibility(View.VISIBLE);
+	}
 
+	private boolean requiredDataFilled() {
+		if (mSettingsDataHelper.getDepartmentId() > 0 && mSettingsDataHelper.getFieldId() > 0 &&
+				mSettingsDataHelper.getTerm() > 0 && !mSettingsDataHelper.getGroups().isEmpty())
+			return true;
+
+		return false;
 	}
 
 
@@ -289,6 +303,19 @@ public class SettingsActivity extends StudentShenchmanMainActivity implements Gr
 		}
 	}
 
+	private class TermOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
+		@Override
+		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+			mSettingsDataHelper.setTerm(id);
+			updateDeanGroupsView();
+		}
+
+		@Override
+		public void onNothingSelected(AdapterView<?> parent) {
+
+		}
+	}
+
 	private class SaveOnClickListener implements View.OnClickListener {
 
 		@Override
@@ -321,4 +348,5 @@ public class SettingsActivity extends StudentShenchmanMainActivity implements Gr
 		Log.i(TAG, "Otrzymane id'ki grup z callbacka z dialog fragmentu: " + groupsIds);
 		mSettingsDataHelper.setGroups(groupsIds);
 	}
+
 }
