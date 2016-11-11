@@ -30,11 +30,9 @@ public class DegreeAdapter extends BaseAdapter {
 
 	private void init() {
 		mValues = new ArrayList<>();
-		Kind kind = new Kind();
-		kind.setId(Long.MIN_VALUE);
-		kind.setExternalId(Long.MIN_VALUE);
-		kind.setName(mContext.getString(R.string.spinner_option_choose));
-		mValues.add(0, kind);
+		mValues.add(new Degree(mContext.getString(R.string.settings_degree_spinner_value_label, 1), 1L));
+		mValues.add(new Degree(mContext.getString(R.string.settings_degree_spinner_value_label, 2), 2L));
+		mValues.add(new Degree(mContext.getString(R.string.settings_degree_spinner_value_label, 2), 2L));
 	}
 
 
@@ -44,13 +42,13 @@ public class DegreeAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public Kind getItem(int position) {
+	public Degree getItem(int position) {
 		return mValues.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
-		return mValues.get(position).getExternalId();
+		return mValues.get(position).getValue();
 	}
 
 	@Override
@@ -65,23 +63,18 @@ public class DegreeAdapter extends BaseAdapter {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
 
-		Kind kind = getItem(position);
+		Degree degree = getItem(position);
 
-		viewHolder.text.setText(kind.getName());
+		viewHolder.text.setText(degree.getName());
 
 		return convertView;
 	}
 
-	public void setValues(List<Kind> newValues) {
-		init(newValues);
-		notifyDataSetChanged();
-	}
-
 	public int getPosForId(long id) {
 		int i = 0;
-		Iterator<Kind> iterator = mValues.iterator();
+		Iterator<Degree> iterator = mValues.iterator();
 		while (iterator.hasNext()) {
-			if (iterator.next().getExternalId() == id) {
+			if (iterator.next().getValue() == id) {
 				return i;
 			}
 			i++;

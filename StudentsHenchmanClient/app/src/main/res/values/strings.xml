@@ -39,6 +39,7 @@
     <string name="settings_kind_label">Degree:</string>
     <string name="settings_groups_label">Groups:</string>
     <string name="settings_select_groups_button">Select your groups</string>
+    <string name="settings_degree_spinner_value_label">Studies %1$d degree</string>
 
     <!--login-->
     <string name="login_hint_text">Enter login or email</string>

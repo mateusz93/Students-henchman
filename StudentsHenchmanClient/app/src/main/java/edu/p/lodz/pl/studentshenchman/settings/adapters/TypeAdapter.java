@@ -30,11 +30,9 @@ public class TypeAdapter extends BaseAdapter {
 
 	private void init() {
 		mValues = new ArrayList<>();
-		Type type = new Type();
-		type.setId(Long.MIN_VALUE);
-		type.setExternalId(Long.MIN_VALUE);
-		type.setName(mContext.getString(R.string.spinner_option_choose));
-		mValues.add(0, type);
+		mValues.add(new Type(mContext.getString(R.string.spinner_option_choose), 0L));
+		mValues.add(new Type("Studia dzienne", 1L));
+		mValues.add(new Type("Studia zaoczne", 2L));
 	}
 
 	@Override
@@ -49,7 +47,7 @@ public class TypeAdapter extends BaseAdapter {
 
 	@Override
 	public long getItemId(int position) {
-		return mValues.get(position).getExternalId();
+		return mValues.get(position).getValue();
 	}
 
 	@Override
@@ -71,17 +69,11 @@ public class TypeAdapter extends BaseAdapter {
 		return convertView;
 	}
 
-
-	public void setValues(List<Type> newValues) {
-		init(newValues);
-		notifyDataSetChanged();
-	}
-
 	public int getPosForId(long id) {
 		int i = 0;
 		Iterator<Type> iterator = mValues.iterator();
 		while (iterator.hasNext()) {
-			if (iterator.next().getExternalId() == id) {
+			if (iterator.next().getValue() == id) {
 				return i;
 			}
 			i++;
