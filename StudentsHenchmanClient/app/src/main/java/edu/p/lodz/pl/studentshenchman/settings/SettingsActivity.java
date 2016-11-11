@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import edu.p.lodz.pl.studentshenchman.R;
@@ -23,12 +22,10 @@ import edu.p.lodz.pl.studentshenchman.database.DatabaseHelper;
 import edu.p.lodz.pl.studentshenchman.database.models.DeanGroup;
 import edu.p.lodz.pl.studentshenchman.database.models.Department;
 import edu.p.lodz.pl.studentshenchman.database.models.Field;
-import edu.p.lodz.pl.studentshenchman.database.models.Kind;
-import edu.p.lodz.pl.studentshenchman.database.models.Type;
+import edu.p.lodz.pl.studentshenchman.settings.adapters.DegreeAdapter;
 import edu.p.lodz.pl.studentshenchman.settings.adapters.DepartmentAdapter;
 import edu.p.lodz.pl.studentshenchman.settings.adapters.FieldAdapter;
 import edu.p.lodz.pl.studentshenchman.settings.adapters.GroupsAdapter;
-import edu.p.lodz.pl.studentshenchman.settings.adapters.KindAdapter;
 import edu.p.lodz.pl.studentshenchman.settings.adapters.TermAdapter;
 import edu.p.lodz.pl.studentshenchman.settings.adapters.TypeAdapter;
 import edu.p.lodz.pl.studentshenchman.settings.datastore.DependentDataHelper;
@@ -55,21 +52,19 @@ public class SettingsActivity extends StudentShenchmanMainActivity implements Gr
 	private DepartmentAdapter mDepartmentAdapter;
 	private FieldAdapter mFieldAdapter;
 	private TypeAdapter mTypeAdapter;
-	private KindAdapter mKindAdapter;
+	private DegreeAdapter mKindAdapter;
 	private GroupsAdapter mGroupsAdapter;
 	private TermAdapter mTermAdapter;
 
 	private List<Department> mDepartments;
 	private List<Field> mFields;
-	private List<Type> mTypes;
-	private List<Kind> mKinds;
 	private List<DeanGroup> mGroups;
 
 	private SettingsDataStoreHelper mSettingsDataHelper;
 	private DependentDataHelper mDependentDataHelper;
 
 	public enum SpinnerType {
-		DEPARTMENTS, FIELDS, SPECIALIZATIONS, DEAN_GROUPS
+		DEPARTMENTS, FIELDS, SPECIALIZATIONS, DEAN_GROUPS, TERM
 	}
 
 	@Override
@@ -112,7 +107,10 @@ public class SettingsActivity extends StudentShenchmanMainActivity implements Gr
 
 		mGroupsButton = (Button) findViewById(R.id.set_groups);
 		mGroupsButton.setOnClickListener((v) -> {
-			GroupsDialogFragment dialogFragment = GroupsDialogFragment.getInstance(mSettingsDataHelper.getFieldId(), 7, 1, mSettingsDataHelper.getGroups());
+			if (!mSettingsDataHelper.areCurentAndSavedOptionsSame())
+				mSettingsDataHelper.setGroups("");
+			GroupsDialogFragment dialogFragment = GroupsDialogFragment.getInstance(mSettingsDataHelper.getFieldId(),
+					mSettingsDataHelper.getTerm(), 1, mSettingsDataHelper.getGroups());
 			FragmentManager fm = getSupportFragmentManager();
 			dialogFragment.show(fm, TAG);
 
@@ -163,6 +161,13 @@ public class SettingsActivity extends StudentShenchmanMainActivity implements Gr
 			mKindSpinner.setSelection(mKindAdapter.getPosForId(selectedKindId), true);
 		} else {
 			mKindSpinner.setSelection(0, true);
+		}
+
+		long selectedTermValue = mSettingsDataHelper.getTerm();
+		if (selectedTermValue > 0) {
+			mTermSpinner.setSelection(mTermAdapter.getPosForValue(selectedTermValue), true);
+		} else {
+			mTermSpinner.setSelection(0, true);
 		}
 
 	}

@@ -154,6 +154,19 @@ public class SettingsDataStoreHelper {
 		setGroups(groups);
 	}
 
+	public boolean areCurentAndSavedOptionsSame() {
+		if (mDepartmentId != mSharedPreferences.getLong(PREFERENCES_KEYS.DEPARTMENT.name(), Long.MIN_VALUE))
+			return false;
+		if (mFieldId != mSharedPreferences.getLong(PREFERENCES_KEYS.FIELD.name(), Long.MIN_VALUE))
+			return false;
+		if (mTerm != mSharedPreferences.getLong(PREFERENCES_KEYS.TERM.name(), Long.MIN_VALUE))
+			return false;
+		if (mKindId != mSharedPreferences.getLong(PREFERENCES_KEYS.KIND.name(), Long.MIN_VALUE))
+			return false;
+
+		return true;
+	}
+
 	@Override
 	public String toString() {
 		return "SettingsDataStoreHelper{" +
