@@ -29,6 +29,7 @@ import edu.p.lodz.pl.studentshenchman.settings.adapters.DepartmentAdapter;
 import edu.p.lodz.pl.studentshenchman.settings.adapters.FieldAdapter;
 import edu.p.lodz.pl.studentshenchman.settings.adapters.GroupsAdapter;
 import edu.p.lodz.pl.studentshenchman.settings.adapters.KindAdapter;
+import edu.p.lodz.pl.studentshenchman.settings.adapters.TermAdapter;
 import edu.p.lodz.pl.studentshenchman.settings.adapters.TypeAdapter;
 import edu.p.lodz.pl.studentshenchman.settings.datastore.DependentDataHelper;
 import edu.p.lodz.pl.studentshenchman.settings.datastore.SettingsDataStoreHelper;
@@ -39,10 +40,12 @@ public class SettingsActivity extends StudentShenchmanMainActivity implements Gr
 
 	private Toolbar toolbar;
 	private LinearLayout mFieldLinear;
+	private LinearLayout mGroupsLinear;
 	private Spinner mDepartmentSpinner;
 	private Spinner mFieldSpinner;
 	private Spinner mTypeSpinner;
 	private Spinner mKindSpinner;
+	private Spinner mTermSpinner;
 
 	private Button mGroupsButton;
 	private Button mSave;
@@ -54,6 +57,7 @@ public class SettingsActivity extends StudentShenchmanMainActivity implements Gr
 	private TypeAdapter mTypeAdapter;
 	private KindAdapter mKindAdapter;
 	private GroupsAdapter mGroupsAdapter;
+	private TermAdapter mTermAdapter;
 
 	private List<Department> mDepartments;
 	private List<Field> mFields;
@@ -83,6 +87,7 @@ public class SettingsActivity extends StudentShenchmanMainActivity implements Gr
 		prepareToolbar();
 
 		mFieldLinear = (LinearLayout) findViewById(R.id.field_content);
+		mGroupsLinear = (LinearLayout) findViewById(R.id.dean_groups_content);
 
 		mDepartmentSpinner = (Spinner) findViewById(R.id.department_spinner);
 		mDepartmentSpinner.setOnItemSelectedListener(new DepartmentOnItemSelectedListener());
@@ -91,6 +96,7 @@ public class SettingsActivity extends StudentShenchmanMainActivity implements Gr
 		mFieldSpinner = (Spinner) findViewById(R.id.field_spinner);
 		mFieldSpinner.setOnItemSelectedListener(new FieldOnItemSelectedListener());
 		mFieldSpinner.setAdapter(mFieldAdapter);
+
 
 		mTypeSpinner = (Spinner) findViewById(R.id.type_spinner);
 		mTypeSpinner.setOnItemSelectedListener(new TypeOnItemSelectedListener());
