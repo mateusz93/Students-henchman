@@ -27,15 +27,17 @@
         <Button
             android:id="@+id/ok_button"
             style="@style/button"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.5"
             android:text="@string/ok"/>
 
         <Button
             android:id="@+id/cancel_button"
             style="@style/button"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.5"
             android:text="@string/cancel_button"/>
 
     </LinearLayout>
