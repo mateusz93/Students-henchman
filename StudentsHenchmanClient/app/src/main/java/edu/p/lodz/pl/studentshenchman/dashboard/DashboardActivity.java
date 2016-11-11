@@ -1,6 +1,8 @@
 package edu.p.lodz.pl.studentshenchman.dashboard;
 
 import android.Manifest;
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -9,6 +11,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
+import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -73,6 +76,8 @@ public class DashboardActivity extends StudentShenchmanMainActivity {
 		mRoom.setText("303");
 		mLessonTime.setText("8:15 - 10:00");
 
+		setAnimation();
+
 		DatabaseHelper.getInstance(getApplicationContext());
 
 		ImageButton buttonTimetable = (ImageButton) findViewById(R.id.timetable_icon);
@@ -113,6 +118,29 @@ public class DashboardActivity extends StudentShenchmanMainActivity {
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		mLessonName.clearAnimation();
+	}
+
+	private void setAnimation() {
+		int colorFrom = getResources().getColor(android.R.color.white);
+		int colorTo = getResources().getColor(R.color.light_blue_color);
+		ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
+		colorAnimation.setDuration(3000); // milliseconds
+		colorAnimation.setRepeatCount(Animation.INFINITE);
+		colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+
+			@Override
+			public void onAnimationUpdate(ValueAnimator animator) {
+				mLessonName.setTextColor((int) animator.getAnimatedValue());
+			}
+
+		});
+		colorAnimation.start();
 	}
 
 	private List<DrawerItem> getDrawerItemList() {
