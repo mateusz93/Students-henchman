@@ -14,6 +14,7 @@ import edu.p.lodz.pl.studentshenchman.database.models.DeanGroup;
 import edu.p.lodz.pl.studentshenchman.database.models.Department;
 import edu.p.lodz.pl.studentshenchman.database.models.Field;
 import edu.p.lodz.pl.studentshenchman.factories.ServiceFactory;
+import edu.p.lodz.pl.studentshenchman.settings.datastore.SettingsDataStoreHelper;
 import edu.p.lodz.pl.studentshenchman.workers.endpoints.SettingsEndpoints;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
@@ -36,6 +37,9 @@ public class DownloadSettingsWorker extends AbstractWorker<SettingsRS> {
 
 	@Override
 	public void run() {
+		SettingsDataStoreHelper settingsDataStoreHelper = new SettingsDataStoreHelper(mContext);
+		settingsDataStoreHelper.setDefault().save();
+
 		SettingsEndpoints settingsEndpoints = ServiceFactory.produceService(SettingsEndpoints.class, false);
 		Observable<SettingsRS> call = settingsEndpoints.getSettings();
 
