@@ -14,6 +14,6 @@ public interface SettingsEndpoints {
 	@GET("settings")
 	Observable<SettingsRS> getSettings();
 
-	@GET
+	@GET("settings/date")
 	Observable<Date> getDate();
 }
