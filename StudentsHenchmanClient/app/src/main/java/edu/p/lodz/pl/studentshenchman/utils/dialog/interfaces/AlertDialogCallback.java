@@ -1,4 +1,4 @@
-package edu.p.lodz.pl.studentshenchman.utils.interfaces;
+package edu.p.lodz.pl.studentshenchman.utils.dialog.interfaces;
 
 /**
  * Created by Michał on 2016-11-06.
