@@ -8,6 +8,7 @@ import android.util.Log;
 import java.util.HashMap;
 import java.util.Map;
 
+import edu.p.lodz.pl.studentshenchman.database.models.Date;
 import edu.p.lodz.pl.studentshenchman.database.models.DeanGroup;
 import edu.p.lodz.pl.studentshenchman.database.models.Department;
 import edu.p.lodz.pl.studentshenchman.database.models.Field;
@@ -27,7 +28,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private static DatabaseHelper databaseHelper;
 
 	private static final String DATABASE_NAME = "StudentShenchman";
-	private static final int DATABASE_VERSION = 6;
+	private static final int DATABASE_VERSION = 7;
 
 	private static final String DROP_TABLE = "drop table if exists ";
 	private static final String CREATE_TABLE = "create table ";
@@ -44,6 +45,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			put(Field.TABLE_NAME, createTableQuery(Field.TABLE_NAME, Field.COLUMN_NAMES, Field.COLUMN_TYPES));
 			put(Specialization.TABLE_NAME, createTableQuery(Specialization.TABLE_NAME, Specialization.COLUMN_NAMES, Specialization.COLUMN_TYPES));
 			put(DeanGroup.TABLE_NAME, createTableQuery(DeanGroup.TABLE_NAME, DeanGroup.COLUMN_NAMES, DeanGroup.COLUMN_TYPES));
+			put(Date.TABLE_NAME, createTableQuery(Date.TABLE_NAME, Date.COLUMN_NAMES, Date.COLUMN_TYPES));
 		}
 	};
 
