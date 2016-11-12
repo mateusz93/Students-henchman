@@ -1,8 +1,8 @@
 package edu.p.lodz.pl.studentshenchman.workers.endpoints;
 
 import cdm.SettingsRS;
+import model.Date;
 import retrofit2.http.GET;
-import retrofit2.http.Header;
 import rx.Observable;
 
 /**
@@ -13,4 +13,7 @@ public interface SettingsEndpoints {
 
 	@GET("settings")
 	Observable<SettingsRS> getSettings();
+
+	@GET
+	Observable<Date> getDate();
 }
