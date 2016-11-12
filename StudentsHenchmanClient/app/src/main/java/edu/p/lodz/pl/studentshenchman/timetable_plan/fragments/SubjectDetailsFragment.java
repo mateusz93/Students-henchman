@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainFragment;
 import edu.p.lodz.pl.studentshenchman.constants.Constants;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.adapters.NotesAdapter;
 import edu.p.lodz.pl.studentshenchman.utils.SelectedCourseContext;
+import edu.p.lodz.pl.studentshenchman.utils.animation.AnimationHelper;
 
 /**
  * Created by Michał on 2016-10-20.
@@ -49,10 +51,11 @@ public class SubjectDetailsFragment extends StudentShenchmanMainFragment {
 		mLector = (TextView) view.findViewById(R.id.item_teacher_name);
 		mLocationBuild = (TextView) view.findViewById(R.id.item_building_name);
 		mLocationRoom = (TextView) view.findViewById(R.id.item_room_name);
-		mSubjectNoteList = (ListView) view.findViewById(R.id.subject_note_list);
-		mLessonNavigator = (ImageView) view.findViewById(R.id.navigate_item_icon);
 		mAddSubjectNoteFAB = (FloatingActionButton) view.findViewById(R.id.add_note_fab);
 		mAddSubjectNoteFAB.setOnClickListener(new AddNoteOnClickListener());
+		mSubjectNoteList = (ListView) view.findViewById(R.id.subject_note_list);
+		mSubjectNoteList.setOnScrollListener(new NoteOnScrollListener());
+		mLessonNavigator = (ImageView) view.findViewById(R.id.navigate_item_icon);
 
 		mSubjectName.setText("Projektowanie aplikacji internetowych");
 		mLector.setText("dr inz. Rafal Kielbik");
@@ -77,6 +80,23 @@ public class SubjectDetailsFragment extends StudentShenchmanMainFragment {
 		@Override
 		public void onClick(View v) {
 			Toast.makeText(getContext(), "DODAJ NOTATKE DO PRZEDMIOTU", Toast.LENGTH_SHORT).show();
+		}
+	}
+
+	private class NoteOnScrollListener implements AbsListView.OnScrollListener {
+		@Override
+		public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+		}
+
+		@Override
+		public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+			if (firstVisibleItem + visibleItemCount >= totalItemCount - visibleItemCount) {
+				mAddSubjectNoteFAB.setVisibility(View.GONE);
+			} else {
+				AnimationHelper.startSlideBottomAnimation(mAddSubjectNoteFAB);
+				mAddSubjectNoteFAB.setVisibility(View.VISIBLE);
+			}
 		}
 	}
 }
