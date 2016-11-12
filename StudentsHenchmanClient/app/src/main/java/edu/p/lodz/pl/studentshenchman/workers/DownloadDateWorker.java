@@ -1,13 +1,15 @@
 package edu.p.lodz.pl.studentshenchman.workers;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import java.util.Date;
-
+import edu.p.lodz.pl.studentshenchman.database.DatabaseHelper;
 import edu.p.lodz.pl.studentshenchman.factories.ServiceFactory;
-import edu.p.lodz.pl.studentshenchman.workers.endpoints.DateEndpoints;
+import edu.p.lodz.pl.studentshenchman.workers.endpoints.SettingsEndpoints;
+import model.Date;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -28,7 +30,7 @@ public class DownloadDateWorker extends AbstractWorker<Date> {
 
 	@Override
 	public void run() {
-		DateEndpoints dateEndpoints = ServiceFactory.produceService(DateEndpoints.class, false);
+		SettingsEndpoints dateEndpoints = ServiceFactory.produceService(SettingsEndpoints.class, false);
 		Observable<Date> call = dateEndpoints.getDate();
 
 		call.subscribeOn(Schedulers.newThread())
@@ -38,17 +40,27 @@ public class DownloadDateWorker extends AbstractWorker<Date> {
 
 	@Override
 	public void onCompleted() {
-		// do nothing
+		Toast.makeText(mContext, "Date downloaded successfully", Toast.LENGTH_SHORT).show();
 	}
 
 	@Override
 	public void onError(Throwable e) {
 		onError(mContext, e);
-
 	}
 
 	@Override
 	public void onNext(Date date) {
-		Toast.makeText(mContext, date.toString(), Toast.LENGTH_LONG).show();
+		SQLiteDatabase db = DatabaseHelper.getInstance(mContext).getWritableDatabase();
+		deleteOldSettings(db);
+		saveDateIntoDB(db, date);
+	}
+
+	private void saveDateIntoDB(SQLiteDatabase db, Date date) {
+		ContentValues cv = edu.p.lodz.pl.studentshenchman.database.models.Date.fromDTO2CV(date);
+		db.insert(edu.p.lodz.pl.studentshenchman.database.models.Date.TABLE_NAME, null, cv);
+	}
+
+	private void deleteOldSettings(SQLiteDatabase db) {
+		db.delete(edu.p.lodz.pl.studentshenchman.database.models.Date.TABLE_NAME, null, null);
 	}
 }
