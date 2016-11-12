@@ -38,9 +38,6 @@ public class DownloadSettingsWorker extends AbstractWorker<SettingsRS> {
 
 	@Override
 	public void run() {
-		SettingsDataStoreHelper settingsDataStoreHelper = new SettingsDataStoreHelper(mContext);
-		settingsDataStoreHelper.setDefault().save();
-		Log.i(TAG, "Domyslne ustawienia uzytkownika");
 		SettingsEndpoints settingsEndpoints = ServiceFactory.produceService(SettingsEndpoints.class, false);
 		Observable<SettingsRS> call = settingsEndpoints.getSettings();
 
@@ -61,6 +58,10 @@ public class DownloadSettingsWorker extends AbstractWorker<SettingsRS> {
 
 	@Override
 	public void onNext(SettingsRS settingsRS) {
+		SettingsDataStoreHelper settingsDataStoreHelper = new SettingsDataStoreHelper(mContext);
+		settingsDataStoreHelper.setDefault().save();
+		Log.i(TAG, "Domyslne ustawienia uzytkownika");
+
 		SQLiteDatabase db = DatabaseHelper.getInstance(mContext).getWritableDatabase();
 		deleteOldSettings(db);
 		saveDepartmentsIntoDB(db, settingsRS.getDepartments());
