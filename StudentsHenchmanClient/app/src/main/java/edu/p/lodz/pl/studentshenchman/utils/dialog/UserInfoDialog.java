@@ -16,8 +16,8 @@ import edu.p.lodz.pl.studentshenchman.R;
  * Created by Michał on 2016-11-11.
  */
 
-public class UserDialog extends DialogFragment {
-	private static final String TAG = UserDialog.class.getName();
+public class UserInfoDialog extends DialogFragment {
+	private static final String TAG = UserInfoDialog.class.getName();
 
 	private static final String TITLE = TAG + ":title";
 	private static final String MESSAGE = TAG + "message";
@@ -26,8 +26,8 @@ public class UserDialog extends DialogFragment {
 	private TextView mMessage;
 	private ImageView mIcon;
 
-	public static UserDialog getInstance(String title, String message) {
-		UserDialog dialog = new UserDialog();
+	public static UserInfoDialog getInstance(String title, String message) {
+		UserInfoDialog dialog = new UserInfoDialog();
 		Bundle bundle = new Bundle();
 		bundle.putString(TITLE, title);
 		bundle.putString(MESSAGE, message);
