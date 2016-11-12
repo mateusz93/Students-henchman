@@ -40,7 +40,7 @@ public class UserInfoDialog extends DialogFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		getDialog().requestWindowFeature(STYLE_NO_TITLE);
-		return inflater.inflate(R.layout.user_dialog_fragment, container);
+		return inflater.inflate(R.layout.user_info_dialog_fragment, container);
 	}
 
 	@Override
