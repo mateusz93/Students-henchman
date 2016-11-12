@@ -13,6 +13,7 @@ import android.widget.Toast;
 import java.util.Date;
 
 import edu.p.lodz.pl.studentshenchman.R;
+import edu.p.lodz.pl.studentshenchman.utils.animation.AnimationHelper;
 
 /**
  * Created by Michał on 2016-10-20.
@@ -32,7 +33,7 @@ public class NotesAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		return 2;
+		return 15;
 	}
 
 	@Override
@@ -87,6 +88,7 @@ public class NotesAdapter extends BaseAdapter {
 
 		@Override
 		public void onClick(View v) {
+			AnimationHelper.startShockAnimation(v);
 			Toast.makeText(mContext, "notatka do usuniecia toast", Toast.LENGTH_SHORT).show();
 		}
 	}
