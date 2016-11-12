@@ -22,8 +22,8 @@ import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainFragment;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.activity.TimetableActivity;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.adapters.SubjectListAdapter;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.interfaces.CourseDialogFragmentInterface;
+import edu.p.lodz.pl.studentshenchman.timetable_plan.utils.TimeTableUtils;
 import edu.p.lodz.pl.studentshenchman.utils.SelectedCourseContext;
-import edu.p.lodz.pl.studentshenchman.utils.Utils;
 
 /**
  * Created by Michał on 2016-10-12.
@@ -83,7 +83,7 @@ public class DayFragment extends StudentShenchmanMainFragment {
 				Toast.makeText(getContext(), "onclick: tworzenie contextu" + position, Toast.LENGTH_SHORT).show();
 				long courseId = mAdapter.getItemId(position);
 				try {
-					courseContext = Utils.createCourseContext(getContext(), courseId);
+					courseContext = TimeTableUtils.createCourseContext(getContext(), courseId);
 				} catch (Exception e) {
 					Log.e(TAG, e.toString());
 				}
@@ -104,27 +104,13 @@ public class DayFragment extends StudentShenchmanMainFragment {
 		mAdapter = new SubjectListAdapter(getContext());
 		mRecyclerView.setAdapter(mAdapter);
 
-		mAdapter.setOnItemClickListener(onItemClickListener);
 		return view;
 
 	}
 
-
-	@Override
-	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-
-	}
-
-	private SubjectListAdapter.OnItemClickListener onItemClickListener = new SubjectListAdapter.OnItemClickListener() {
-		@Override
-		public void onItemClick(View view, int position) {
-			Log.i(TAG, "onItemCLick z adaptera!!!!!");
-		}
-	};
-
 	private static class DividerItemDecoration extends RecyclerView.ItemDecoration {
 
-		private static final int[] ATTRS = new int[] { android.R.attr.listDivider };
+		private static final int[] ATTRS = new int[]{android.R.attr.listDivider};
 
 		private Drawable mDivider;
 

@@ -20,7 +20,6 @@ public class SubjectListAdapter extends RecyclerView.Adapter<SubjectListAdapter.
 
 	private Context mContext;
 	private LayoutInflater mInflater;
-	private OnItemClickListener mItemClickListener;
 
 	public SubjectListAdapter(Context context) {
 		this.mContext = context;
@@ -94,7 +93,7 @@ public class SubjectListAdapter extends RecyclerView.Adapter<SubjectListAdapter.
 
     }*/
 
-	public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+	public class ViewHolder extends RecyclerView.ViewHolder {
 		public RelativeLayout lessonMainHolder;
 		public TextView lessonHeaderTitle;
 		public TextView lessonName;
@@ -115,21 +114,6 @@ public class SubjectListAdapter extends RecyclerView.Adapter<SubjectListAdapter.
 			lessonTeacher = (TextView) itemView.findViewById(R.id.item_teacher_name);
 			lessonRoom = (TextView) itemView.findViewById(R.id.item_room_name);
 			navigateLesson = (ImageView) itemView.findViewById(R.id.navigate_item_icon);
-			lessonMainHolder.setOnClickListener(this);
-		}
-
-		@Override
-		public void onClick(View v) {
-			mItemClickListener.onItemClick(v, getPosition());
 		}
 	}
-
-	public interface OnItemClickListener {
-		void onItemClick(View view, int position);
-	}
-
-	public void setOnItemClickListener(final OnItemClickListener mItemClickListener) {
-		this.mItemClickListener = mItemClickListener;
-	}
-
 }
