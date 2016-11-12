@@ -20,4 +20,26 @@ public class AnimationHelper {
 
 		animatorSet.start();
 	}
+
+	public static void startSlideBottomAnimation(View target) {
+		AnimatorSet animatorSet = new AnimatorSet();
+
+		animatorSet.playTogether(
+				ObjectAnimator.ofFloat(target, "translationY", 300, 0).setDuration(600),
+				ObjectAnimator.ofFloat(target, "alpha", 0, 1).setDuration(600 * 3 / 2));
+
+		animatorSet.start();
+	}
+
+
+	public static void startSlideTopAnimation(View target) {
+		AnimatorSet animatorSet = new AnimatorSet();
+
+		animatorSet.playTogether(
+				ObjectAnimator.ofFloat(target, "translationY", -300, 0).setDuration(600),
+				ObjectAnimator.ofFloat(target, "alpha", 0, 1).setDuration(600 * 3 / 2));
+
+		animatorSet.start();
+	}
+
 }
