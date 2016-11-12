@@ -12,9 +12,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.nineoldandroids.animation.AnimatorSet;
-import com.nineoldandroids.animation.ObjectAnimator;
-
 import java.util.List;
 
 import edu.p.lodz.pl.studentshenchman.R;
@@ -23,6 +20,7 @@ import edu.p.lodz.pl.studentshenchman.database.models.DeanGroup;
 import edu.p.lodz.pl.studentshenchman.settings.adapters.GroupsAdapter;
 import edu.p.lodz.pl.studentshenchman.settings.datastore.DependentDataHelper;
 import edu.p.lodz.pl.studentshenchman.settings.datastore.SettingsDataStoreHelper;
+import edu.p.lodz.pl.studentshenchman.utils.animation.AnimationHelper;
 
 /**
  * Created by Michał on 2016-11-10.
@@ -73,14 +71,8 @@ public class GroupsDialogFragment extends DialogFragment {
 		final View decorView = getDialog()
 				.getWindow()
 				.getDecorView();
-		AnimatorSet animatorSet = new AnimatorSet();
-		animatorSet.playTogether(
-				ObjectAnimator.ofFloat(decorView, "scaleX", 2, 1.5f, 1).setDuration(600),
-				ObjectAnimator.ofFloat(decorView, "scaleY", 2, 1.5f, 1).setDuration(600),
-				ObjectAnimator.ofFloat(decorView, "alpha", 0, 1).setDuration(700 * 3 / 2)
 
-		);
-		animatorSet.start();
+		AnimationHelper.startFallAnimation(decorView);
 	}
 
 	@Nullable

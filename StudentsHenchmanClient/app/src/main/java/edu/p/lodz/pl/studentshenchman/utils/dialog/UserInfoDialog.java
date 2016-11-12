@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import edu.p.lodz.pl.studentshenchman.R;
+import edu.p.lodz.pl.studentshenchman.utils.animation.AnimationHelper;
 
 /**
  * Created by Michał on 2016-11-11.
@@ -68,14 +69,7 @@ public class UserInfoDialog extends DialogFragment {
 				.getWindow()
 				.getDecorView();
 
-		android.animation.AnimatorSet animatorSet = new android.animation.AnimatorSet();
-		android.animation.ObjectAnimator objectAnimator = android.animation.ObjectAnimator.ofFloat(decorView, "scaleX", 2, 1.5f, 1).setDuration(600);
-		android.animation.ObjectAnimator objectAnimator2 = android.animation.ObjectAnimator.ofFloat(decorView, "scaleY", 2, 1.5f, 1).setDuration(600);
-		android.animation.ObjectAnimator objectAnimator3 = android.animation.ObjectAnimator.ofFloat(decorView, "alpha", 0, 1).setDuration(600);
-		animatorSet.playTogether(objectAnimator, objectAnimator2, objectAnimator3);
-
-		animatorSet.start();
-
+		AnimationHelper.startFallAnimation(decorView);
 	}
 
 
