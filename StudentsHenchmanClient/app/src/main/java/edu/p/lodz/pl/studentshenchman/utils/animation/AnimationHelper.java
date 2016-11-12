@@ -42,4 +42,12 @@ public class AnimationHelper {
 		animatorSet.start();
 	}
 
+	public static void startShockAnimation(View target) {
+		AnimatorSet animatorSet = new AnimatorSet();
+
+		animatorSet.playTogether(
+				ObjectAnimator.ofFloat(target, "translationX", 0, .10f, -25, .26f, 25, .42f, -25, .58f, 25, .74f, -25, .90f, 1, 0).setDuration(600));
+
+		animatorSet.start();
+	}
 }
