@@ -54,6 +54,8 @@
     <string name="change_course_button">Change date of the course</string>
     <string name="delete_button">Delete</string>
     <string name="ok">OK</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
 
     <!--drawer-->
     <string name="drawer_settings_name">Settings</string>

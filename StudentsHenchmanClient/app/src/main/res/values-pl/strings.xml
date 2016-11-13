@@ -54,6 +54,8 @@
     <string name="change_course_button">Zamień datę zajęć</string>
     <string name="delete_button">Usuń</string>
     <string name="ok">OK</string>
+    <string name="no">Nie</string>
+    <string name="yes">Tak</string>
 
     <!--drawer-->
     <string name="drawer_settings_name">Ustawienia</string>
