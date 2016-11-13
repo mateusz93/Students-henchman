@@ -1,6 +1,8 @@
 package edu.p.lodz.pl.studentshenchman.timetable_plan.adapters;
 
+
 import android.content.Context;
+import android.support.v4.app.FragmentManager;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,21 +16,29 @@ import java.util.Date;
 
 import edu.p.lodz.pl.studentshenchman.R;
 import edu.p.lodz.pl.studentshenchman.utils.animation.AnimationHelper;
+import edu.p.lodz.pl.studentshenchman.utils.dialog.helper.AlertDialogHelper;
+import edu.p.lodz.pl.studentshenchman.utils.dialog.helper.DialogType;
+import edu.p.lodz.pl.studentshenchman.utils.dialog.interfaces.AlertDialogCallback;
+
+import static edu.p.lodz.pl.studentshenchman.utils.dialog.helper.UniqueYesNoDialogTAG.DELETE_NOTE_TAG;
 
 /**
  * Created by Michał on 2016-10-20.
  */
 
-public class NotesAdapter extends BaseAdapter {
+public class NotesAdapter extends BaseAdapter implements AlertDialogCallback {
 	private static final String TAG = NotesAdapter.class.getName();
 
 	private final Context mContext;
+	private final FragmentManager fm;
 	private final LayoutInflater mInflater;
 
-	public NotesAdapter(Context context) {
+	public NotesAdapter(Context context, FragmentManager fm) {
 		mContext = context;
+		this.fm = fm;
 		mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+		AlertDialogHelper.readjustYesNoCallback(fm, this, DELETE_NOTE_TAG);
 	}
 
 	@Override
@@ -74,9 +84,7 @@ public class NotesAdapter extends BaseAdapter {
 			noteContent = (TextView) view.findViewById(R.id.note_item_content);
 			addedDate = (TextView) view.findViewById(R.id.note_item_added_date);
 			deleteNote = (ImageButton) view.findViewById(R.id.delete_note);
-
 		}
-
 	}
 
 	private class DelNoteOnClickListener implements View.OnClickListener {
