@@ -59,6 +59,7 @@ public class TimetableActivity extends StudentShenchmanMainActivity implements E
 		prepareToolbar();
 
 		if (null != savedInstanceState) {
+			mSelectedCourseContext = savedInstanceState.getParcelable(Constants.SELECTED_COURSE_CONTEXT);
 			mCourseContextToEdit = savedInstanceState.getParcelable(CONTEXT_TO_EDIT);
 			mAreLocalChanges = savedInstanceState.getBoolean(ARE_LOCAL_CHANGES, false);
 			mCoursesToDelete = savedInstanceState.getParcelableArrayList(COURSES_TO_DELETE);
@@ -88,6 +89,7 @@ public class TimetableActivity extends StudentShenchmanMainActivity implements E
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		outState.putBoolean(DUAL_PANE, mDualPane);
+		outState.putParcelable(Constants.SELECTED_COURSE_CONTEXT, mSelectedCourseContext);
 		outState.putParcelable(CONTEXT_TO_EDIT, mCourseContextToEdit);
 		outState.putBoolean(ARE_LOCAL_CHANGES, mAreLocalChanges);
 		outState.putParcelableArrayList(COURSES_TO_DELETE, mCoursesToDelete);
@@ -123,6 +125,14 @@ public class TimetableActivity extends StudentShenchmanMainActivity implements E
 		startActivity(previousActivity);
 	}
 
+	public SelectedCourseContext getSelectedCourseContext() {
+		return mSelectedCourseContext;
+	}
+
+	public void setSelectedCourseContext(SelectedCourseContext selectedCourseContext) {
+		this.mSelectedCourseContext = selectedCourseContext;
+	}
+
 	@Override
 	public void editSelectedCourse() {
 		buildDialogByType(DialogType.CHOOSE);
@@ -136,8 +146,6 @@ public class TimetableActivity extends StudentShenchmanMainActivity implements E
 	@Override
 	public void selectedCourse(SelectedCourseContext selectedCourseContext) {
 		mSelectedCourseContext = selectedCourseContext;
-		Bundle bundle = new Bundle();
-		bundle.putParcelable(Constants.SELECTED_COURSE_CONTEXT, selectedCourseContext);
 		if (mDualPane) {
 			Fragment fragment;
 			if (null == selectedCourseContext)
@@ -145,11 +153,12 @@ public class TimetableActivity extends StudentShenchmanMainActivity implements E
 			else
 				fragment = new SubjectDetailsFragment();
 
-			fragment.setArguments(bundle);
 			getSupportFragmentManager().beginTransaction().replace(R.id.timetable_details_container, fragment).commit();
 		} else {
 			if (null != selectedCourseContext) {
 				Intent intent = new Intent(TimetableActivity.this, SubjectDetailsActivity.class);
+				Bundle bundle = new Bundle();
+				bundle.putParcelable(Constants.SELECTED_COURSE_CONTEXT, mSelectedCourseContext);
 				intent.putExtras(bundle);
 				startActivity(intent);
 			}
