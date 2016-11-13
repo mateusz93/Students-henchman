@@ -10,12 +10,12 @@ import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import edu.p.lodz.pl.studentshenchman.R;
 import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainFragment;
 import edu.p.lodz.pl.studentshenchman.constants.Constants;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.adapters.NotesAdapter;
+import edu.p.lodz.pl.studentshenchman.timetable_plan.dialog_fragments.AddNoteDialogFragment;
 import edu.p.lodz.pl.studentshenchman.utils.SelectedCourseContext;
 import edu.p.lodz.pl.studentshenchman.utils.animation.AnimationHelper;
 
@@ -79,7 +79,8 @@ public class SubjectDetailsFragment extends StudentShenchmanMainFragment {
 	public class AddNoteOnClickListener implements View.OnClickListener {
 		@Override
 		public void onClick(View v) {
-			Toast.makeText(getContext(), "DODAJ NOTATKE DO PRZEDMIOTU", Toast.LENGTH_SHORT).show();
+			AddNoteDialogFragment dialog = AddNoteDialogFragment.getInstance();
+			dialog.show(getChildFragmentManager(), TAG);
 		}
 	}
 
