@@ -89,7 +89,17 @@ public class NotesAdapter extends BaseAdapter {
 		@Override
 		public void onClick(View v) {
 			AnimationHelper.startShockAnimation(v);
-			Toast.makeText(mContext, "notatka do usuniecia toast", Toast.LENGTH_SHORT).show();
+			AlertDialogHelper.showDialog(fm, "Usun notatke", "Czy napewno chcesz usunac ta notatke ?", DialogType.YES_NO, NotesAdapter.this, DELETE_NOTE_TAG);
 		}
+	}
+
+	@Override
+	public void positiveCallback() {
+		Toast.makeText(mContext, "notatka do usuniecia toast yes", Toast.LENGTH_SHORT).show();
+	}
+
+	@Override
+	public void negativeCallback() {
+		Toast.makeText(mContext, "notatka do usuniecia toast no", Toast.LENGTH_SHORT).show();
 	}
 }
