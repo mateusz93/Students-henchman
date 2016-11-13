@@ -1,9 +1,10 @@
-package edu.p.lodz.pl.studentshenchman.utils.dialog;
+package edu.p.lodz.pl.studentshenchman.utils.dialog.helper;
 
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 
 import edu.p.lodz.pl.studentshenchman.utils.dialog.factory.DialogFactory;
+import edu.p.lodz.pl.studentshenchman.utils.dialog.interfaces.AlertDialogCallback;
 
 /**
  * Created by Michał on 2016-11-06.
@@ -24,8 +25,17 @@ public class AlertDialogHelper {
 		showDialog(fm, title, message, DialogType.USER_SUCCESS);
 	}
 
+	public static void showYesNoDialog(FragmentManager fm, String title, String message, AlertDialogCallback callback, String dialogTAG) {
+		showDialog(fm, title, message, DialogType.YES_NO, callback, dialogTAG);
+	}
+
 	public static void showDialog(FragmentManager fm, String title, String message, DialogType dialogType) {
-		DialogFragment dialog = DialogFactory.produceDialog(title, message, dialogType);
-		dialog.show(fm, TAG);
+		showDialog(fm, title, message, dialogType, null, TAG);
+
+	}
+
+	public static void showDialog(FragmentManager fm, String title, String message, DialogType dialogType, AlertDialogCallback callback, String dialogTAG) {
+		DialogFragment dialog = DialogFactory.produceDialog(title, message, dialogType, callback);
+		dialog.show(fm, dialogTAG);
 	}
 }
