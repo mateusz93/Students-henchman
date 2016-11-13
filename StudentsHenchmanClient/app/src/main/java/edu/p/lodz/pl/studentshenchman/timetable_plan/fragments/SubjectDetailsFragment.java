@@ -37,6 +37,8 @@ public class SubjectDetailsFragment extends StudentShenchmanMainFragment {
 	private TextView mLocationRoom;
 	private ImageView mLessonNavigator;
 
+	NotesAdapter mNotesAdapter;
+
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -55,6 +57,8 @@ public class SubjectDetailsFragment extends StudentShenchmanMainFragment {
 		mAddSubjectNoteFAB.setOnClickListener(new AddNoteOnClickListener());
 		mSubjectNoteList = (ListView) view.findViewById(R.id.subject_note_list);
 		mSubjectNoteList.setOnScrollListener(new NoteOnScrollListener());
+		mNotesAdapter = new NotesAdapter(getContext(), getActivity().getSupportFragmentManager());
+		mSubjectNoteList.setAdapter(mNotesAdapter);
 		mLessonNavigator = (ImageView) view.findViewById(R.id.navigate_item_icon);
 
 		mSubjectName.setText("Projektowanie aplikacji internetowych");
@@ -68,19 +72,11 @@ public class SubjectDetailsFragment extends StudentShenchmanMainFragment {
 		return view;
 	}
 
-	@Override
-	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-
-		NotesAdapter notesAdapter = new NotesAdapter(getContext());
-		mSubjectNoteList.setAdapter(notesAdapter);
-
-	}
-
 	public class AddNoteOnClickListener implements View.OnClickListener {
 		@Override
 		public void onClick(View v) {
 			AddNoteDialogFragment dialog = AddNoteDialogFragment.getInstance();
-			dialog.show(getChildFragmentManager(), TAG);
+			dialog.show(getActivity().getSupportFragmentManager(), TAG);
 		}
 	}
 
