@@ -42,6 +42,7 @@ public class UserYesNoDialog extends DialogFragment {
 	}
 
 	public UserYesNoDialog() {
+
 	}
 
 	private UserYesNoDialog(AlertDialogCallback callback) {
@@ -56,6 +57,10 @@ public class UserYesNoDialog extends DialogFragment {
 				.getDecorView();
 
 		AnimationHelper.startFallAnimation(decorView);
+	}
+
+	public void readjustCallback(AlertDialogCallback callback) {
+		this.callback = callback;
 	}
 
 	@Nullable
