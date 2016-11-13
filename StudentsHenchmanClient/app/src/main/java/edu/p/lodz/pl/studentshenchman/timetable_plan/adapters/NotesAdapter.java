@@ -97,7 +97,8 @@ public class NotesAdapter extends BaseAdapter implements AlertDialogCallback {
 		@Override
 		public void onClick(View v) {
 			AnimationHelper.startShockAnimation(v);
-			AlertDialogHelper.showDialog(fm, "Usun notatke", "Czy napewno chcesz usunac ta notatke ?", DialogType.YES_NO, NotesAdapter.this, DELETE_NOTE_TAG);
+			AlertDialogHelper.showDialog(fm, mContext.getString(R.string.delete_note),
+					mContext.getString(R.string.del_note_msg), DialogType.YES_NO, NotesAdapter.this, DELETE_NOTE_TAG);
 		}
 	}
 

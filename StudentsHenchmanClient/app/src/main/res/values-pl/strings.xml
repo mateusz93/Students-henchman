@@ -26,6 +26,9 @@
     <!--notes-->
     <string name="note_added_date">Data dodania:</string>
     <string name="note_content">Treść:</string>
+    <string name="add_note">Dodaj notatkę</string>
+    <string name="delete_note">Usuń notatkę</string>
+    <string name="del_note_msg">Jesteś pewien, że chcesz usunąć notatkę ?</string>
 
     <!--menu-->
     <string name="settings">Ustawienia</string>
@@ -56,6 +59,7 @@
     <string name="ok">OK</string>
     <string name="no">Nie</string>
     <string name="yes">Tak</string>
+    <string name="add">Dodaj</string>
 
     <!--drawer-->
     <string name="drawer_settings_name">Ustawienia</string>

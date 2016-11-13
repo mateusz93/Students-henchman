@@ -8,4 +8,8 @@
     <color name="subject_title_text_color">#505050</color>
     <color name="text_color">#ffffff</color>
     <color name="light_blue_color">#1f9fde</color>
+    <color name="white">#FFFFFF</color>
+    <color name="green">#00cc00</color>
+    <color name="red">#FF0000</color>
+
 </resources>

@@ -57,7 +57,6 @@ public class UserSuccessDialog extends DialogFragment {
 		Bundle b = getArguments();
 		mTitle.setText(b.getString(TITLE));
 		mMessage.setText(b.getString(MESSAGE));
-		mIcon.setImageResource(R.drawable.about_app_icon);
 
 	}
 

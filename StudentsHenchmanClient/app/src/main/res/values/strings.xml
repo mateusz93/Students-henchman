@@ -26,6 +26,9 @@
     <!--notes-->
     <string name="note_added_date">Added date:</string>
     <string name="note_content">Content:</string>
+    <string name="add_note">Add note</string>
+    <string name="delete_note">Delete note</string>
+    <string name="del_note_msg">Are you sure that you can delete the note ?</string>
 
     <!--menu-->
     <string name="settings">Settings</string>
@@ -56,6 +59,7 @@
     <string name="ok">OK</string>
     <string name="no">No</string>
     <string name="yes">Yes</string>
+    <string name="add">Add</string>
 
     <!--drawer-->
     <string name="drawer_settings_name">Settings</string>
