@@ -34,6 +34,11 @@ public class SubjectDetailsActivity extends StudentShenchmanMainActivity {
 
 	}
 
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+	}
+
 	private void prepareToolbar() {
 		setSupportActionBar(toolbar);
 		toolbar.setTitle(R.string.subject_details_activity_title);
