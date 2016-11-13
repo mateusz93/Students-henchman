@@ -28,7 +28,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private static DatabaseHelper databaseHelper;
 
 	private static final String DATABASE_NAME = "StudentShenchman";
-	private static final int DATABASE_VERSION = 7;
+	private static final int DATABASE_VERSION = 8;
 
 	private static final String DROP_TABLE = "drop table if exists ";
 	private static final String CREATE_TABLE = "create table ";
@@ -85,7 +85,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		StringBuilder createTableQuery = new StringBuilder();
 
 		createTableQuery.append(CREATE_TABLE).append(tableName).append(" ( ").append(query).append(" );");
-		Log.i(TAG, "Created table with query: " + createTableQuery.toString());
+		Log.i(TAG, "Created table" + tableName + " with query: " + createTableQuery.toString());
 		db.execSQL(createTableQuery.toString());
 	}
 
