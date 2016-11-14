@@ -42,33 +42,32 @@ public class DashboardActivity extends StudentShenchmanMainActivity {
 	private static final String TAG = DashboardActivity.class.getName();
 	private static final int MY_PERMISSIONS_REQUEST_CAMERA = 1;
 
+	private Toolbar toolbar;
 	private DrawerLayout mDrawerLayout;
-	private ListView mDrawerList;
 	private TextView mLessonName;
 	private TextView mTeacher;
 	private TextView mBuilding;
 	private TextView mRoom;
 	private TextView mLessonTime;
 
-	private DrawerListAdapter mDrawerAdapter;
-
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_dashboard);
 
+		toolbar = (Toolbar) findViewById(R.id.tool_bar);
+		toolbar.setNavigationIcon(R.drawable.error_icon);
+		setSupportActionBar(toolbar);
+
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-		mDrawerList = (ListView) findViewById(R.id.drawer_list);
 		mLessonName = (TextView) findViewById(R.id.item_lesson_name);
 		mTeacher = (TextView) findViewById(R.id.item_teacher_name);
 		mBuilding = (TextView) findViewById(R.id.item_building_name);
 		mRoom = (TextView) findViewById(R.id.item_room_name);
 		mLessonTime = (TextView) findViewById(R.id.item_lesson_time);
 
-		mDrawerAdapter = new DrawerListAdapter(getApplicationContext(), getDrawerItemList());
-		mDrawerList.setAdapter(mDrawerAdapter);
-		mDrawerList.setOnItemClickListener(new DrawerOnItemClickListener());
+		//mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN, mDrawerList);
+//		mDrawerLayout.setScrimColor(Color.TRANSPARENT);
 
 		mLessonName.setText("Projektowanie aplikacji internetowych");
 		mTeacher.setText("Dr. inz Rafal Kielbik");
@@ -76,7 +75,7 @@ public class DashboardActivity extends StudentShenchmanMainActivity {
 		mRoom.setText("303");
 		mLessonTime.setText("8:15 - 10:00");
 
-		setAnimation();
+		//setAnimation();
 
 		DatabaseHelper.getInstance(getApplicationContext());
 
@@ -123,7 +122,7 @@ public class DashboardActivity extends StudentShenchmanMainActivity {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		mLessonName.clearAnimation();
+		//mLessonName.clearAnimation();
 	}
 
 	private void setAnimation() {
@@ -132,27 +131,13 @@ public class DashboardActivity extends StudentShenchmanMainActivity {
 		ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
 		colorAnimation.setDuration(3000); // milliseconds
 		colorAnimation.setRepeatCount(Animation.INFINITE);
-		colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+		colorAnimation.addUpdateListener((animator) ->
+				mLessonName.setTextColor((int) animator.getAnimatedValue())
 
-			@Override
-			public void onAnimationUpdate(ValueAnimator animator) {
-				mLessonName.setTextColor((int) animator.getAnimatedValue());
-			}
-
-		});
+		);
 		colorAnimation.start();
 	}
 
-	private List<DrawerItem> getDrawerItemList() {
-		List<DrawerItem> drawerItems = new ArrayList<>();
-		//drawerItems.add(new DrawerItem(getString(R.string.drawer_settings_name), R.drawable.logo_mini));
-		drawerItems.add(new DrawerItem(getString(R.string.drawer_refresh_timetable_data), R.drawable.download_plan_icon));
-		drawerItems.add(new DrawerItem(getString(R.string.drawer_refresh_settings_data), R.drawable.download_plan_icon));
-		drawerItems.add(new DrawerItem(getString(R.string.drawer_about_app), R.drawable.about_app_icon));
-		drawerItems.add(new DrawerItem(getString(R.string.drawer_logout_name), R.drawable.logout_icon));
-		return drawerItems;
-
-	}
 
 	private void goToTimetable() {
 		Intent intent = new Intent(DashboardActivity.this, TimetableActivity.class);
