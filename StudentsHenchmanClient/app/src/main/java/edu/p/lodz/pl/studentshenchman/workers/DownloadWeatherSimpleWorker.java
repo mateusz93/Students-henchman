@@ -9,6 +9,7 @@ import edu.p.lodz.pl.studentshenchman.factories.ServiceFactory;
 import edu.p.lodz.pl.studentshenchman.workers.endpoints.WeatherEndpoints;
 import edu.p.lodz.pl.studentshenchman.workers.woeid_dto.WOEID;
 import rx.Observable;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -28,12 +29,14 @@ public class DownloadWeatherSimpleWorker extends AbstractWorker<WOEID> {
 	}
 
 	@Override
-	public void run() {
+	public Subscription run() {
 		WeatherEndpoints weatherInterface = ServiceFactory.produceService(WeatherEndpoints.class, false);
 		Observable<WOEID> call = weatherInterface.getWoeid();
-		call.subscribeOn(Schedulers.newThread())
+		Subscription subscription = call.subscribeOn(Schedulers.newThread())
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(this);
+
+		return subscription;
 	}
 
 	@Override

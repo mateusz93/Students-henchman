@@ -10,6 +10,7 @@ import java.net.SocketTimeoutException;
 
 import retrofit2.adapter.rxjava.HttpException;
 import rx.Observer;
+import rx.Subscription;
 
 /**
  * Created by Michał on 2016-10-05.
@@ -25,7 +26,7 @@ public abstract class AbstractWorker<T> implements Observer<T> {
 
 	}
 
-	public abstract void run();
+	public abstract Subscription run();
 
 	// tymczasowa obsluga bledow, trzeba zwracac bardziej czytelne bledy
 	public void onError(Context context, Throwable throwable) {

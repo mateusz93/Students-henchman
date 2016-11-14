@@ -11,6 +11,7 @@ import edu.p.lodz.pl.studentshenchman.factories.ServiceFactory;
 import edu.p.lodz.pl.studentshenchman.workers.endpoints.SettingsEndpoints;
 import model.Date;
 import rx.Observable;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -29,13 +30,15 @@ public class DownloadDateWorker extends AbstractWorker<Date> {
 	}
 
 	@Override
-	public void run() {
+	public Subscription run() {
 		SettingsEndpoints dateEndpoints = ServiceFactory.produceService(SettingsEndpoints.class, false);
 		Observable<Date> call = dateEndpoints.getDate();
 
-		call.subscribeOn(Schedulers.newThread())
+		Subscription subscription = call.subscribeOn(Schedulers.newThread())
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(this);
+
+		return subscription;
 	}
 
 	@Override

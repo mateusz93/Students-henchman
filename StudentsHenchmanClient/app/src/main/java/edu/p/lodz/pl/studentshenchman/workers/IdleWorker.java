@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 
+import rx.Subscription;
+
 /**
  * Created by Michał on 2016-10-05.
  */
@@ -19,8 +21,9 @@ public class IdleWorker extends AbstractWorker {
 	}
 
 	@Override
-	public void run() {
+	public Subscription run() {
 		Log.i(TAG, "Idle service - nothing to do");
+		return null;
 	}
 
 	@Override

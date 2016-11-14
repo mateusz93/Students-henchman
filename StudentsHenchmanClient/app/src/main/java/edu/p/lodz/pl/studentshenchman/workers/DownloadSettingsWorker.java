@@ -18,6 +18,7 @@ import edu.p.lodz.pl.studentshenchman.factories.ServiceFactory;
 import edu.p.lodz.pl.studentshenchman.settings.datastore.SettingsDataStoreHelper;
 import edu.p.lodz.pl.studentshenchman.workers.endpoints.SettingsEndpoints;
 import rx.Observable;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -37,13 +38,15 @@ public class DownloadSettingsWorker extends AbstractWorker<SettingsRS> {
 	}
 
 	@Override
-	public void run() {
+	public Subscription run() {
 		SettingsEndpoints settingsEndpoints = ServiceFactory.produceService(SettingsEndpoints.class, false);
 		Observable<SettingsRS> call = settingsEndpoints.getSettings();
 
-		call.subscribeOn(Schedulers.newThread())
+		Subscription subscription = call.subscribeOn(Schedulers.newThread())
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(this);
+
+		return subscription;
 	}
 
 	@Override
