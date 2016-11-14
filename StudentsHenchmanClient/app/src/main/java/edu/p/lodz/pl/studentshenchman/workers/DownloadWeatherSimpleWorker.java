@@ -20,11 +20,10 @@ import rx.schedulers.Schedulers;
 public class DownloadWeatherSimpleWorker extends AbstractWorker<WOEID> {
 	private static final String TAG = DownloadWeatherSimpleWorker.class.getName();
 
-	private Context mContext;
 	private Bundle mBundle;
 
 	public DownloadWeatherSimpleWorker(Context context, Bundle bundle) {
-		mContext = context;
+		super(context);
 		mBundle = bundle;
 	}
 

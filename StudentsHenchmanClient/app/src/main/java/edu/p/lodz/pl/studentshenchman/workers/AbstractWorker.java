@@ -8,6 +8,8 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 
+import edu.p.lodz.pl.studentshenchman.workers.helpers.WorkerRunnerManager;
+import edu.p.lodz.pl.studentshenchman.workers.utils.WorkerType;
 import retrofit2.adapter.rxjava.HttpException;
 import rx.Observer;
 import rx.Subscription;
@@ -22,7 +24,16 @@ public abstract class AbstractWorker<T> implements Observer<T> {
 	public static final String WORKER_NAME = "WORKER_NAME";
 	public static final String RESPONSE_STATUS = "RESPONSE_STATUS";
 
+	protected Context mContext;
+
+	public AbstractWorker(Context context) {
+		mContext = context;
+	}
+
 	public void notifyTaskFinished(Bundle bundle) {
+		WorkerType workerType = WorkerType.valueOf(bundle.getString(WORKER_NAME));
+		WorkerRunnerManager.getInstance(mContext).deleteFromRunningWorkers(workerType);
+
 
 	}
 

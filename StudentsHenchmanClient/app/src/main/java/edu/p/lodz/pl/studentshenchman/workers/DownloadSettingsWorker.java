@@ -19,7 +19,6 @@ import edu.p.lodz.pl.studentshenchman.settings.datastore.SettingsDataStoreHelper
 import edu.p.lodz.pl.studentshenchman.workers.endpoints.SettingsEndpoints;
 import rx.Observable;
 import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 /**
@@ -29,11 +28,10 @@ import rx.schedulers.Schedulers;
 public class DownloadSettingsWorker extends AbstractWorker<SettingsRS> {
 	private static final String TAG = DownloadSettingsWorker.class.getName();
 
-	private Context mContext;
 	private Bundle mBundle;
 
 	public DownloadSettingsWorker(Context context, Bundle bundle) {
-		mContext = context;
+		super(context);
 		mBundle = bundle;
 	}
 
@@ -43,7 +41,7 @@ public class DownloadSettingsWorker extends AbstractWorker<SettingsRS> {
 		Observable<SettingsRS> call = settingsEndpoints.getSettings();
 
 		Subscription subscription = call.subscribeOn(Schedulers.newThread())
-				.observeOn(AndroidSchedulers.mainThread())
+				.observeOn(Schedulers.newThread())
 				.subscribe(this);
 
 		return subscription;
@@ -51,12 +49,15 @@ public class DownloadSettingsWorker extends AbstractWorker<SettingsRS> {
 
 	@Override
 	public void onCompleted() {
+		Log.i(TAG, "Settings downloaded successfully");
 		Toast.makeText(mContext, "Settings downloaded successfully", Toast.LENGTH_SHORT).show();
+		notifyTaskFinished(mBundle);
 	}
 
 	@Override
 	public void onError(Throwable e) {
 		onError(mContext, e);
+		notifyTaskFinished(mBundle);
 	}
 
 	@Override

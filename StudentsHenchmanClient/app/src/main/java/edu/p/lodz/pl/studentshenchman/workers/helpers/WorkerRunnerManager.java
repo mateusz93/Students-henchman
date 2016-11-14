@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import edu.p.lodz.pl.studentshenchman.factories.WorkerFactory;
 import edu.p.lodz.pl.studentshenchman.workers.AbstractWorker;
 import edu.p.lodz.pl.studentshenchman.workers.utils.WorkerType;
@@ -19,14 +22,60 @@ import static edu.p.lodz.pl.studentshenchman.workers.AbstractWorker.WORKER_NAME;
 public class WorkerRunnerManager {
 	private static final String TAG = WorkerRunnerManager.class.getName();
 
-	public static void startWorker(Context context, Bundle bundle) {
+	private static WorkerRunnerManager mInstance;
+
+	private Context mContext;
+	private Map<WorkerType, Subscription> runningWorkers;
+
+	public static WorkerRunnerManager getInstance(Context context) {
+		if (null == mInstance)
+			mInstance = new WorkerRunnerManager(context);
+		return mInstance;
+	}
+
+	private WorkerRunnerManager(Context context) {
+		mContext = context;
+		runningWorkers = new HashMap<>();
+	}
+
+	public void startWorker(Bundle bundle) {
 		WorkerType workerType = WorkerType.valueOf(bundle.getString(WORKER_NAME));
-		AbstractWorker abstractWorker = WorkerFactory.produce(context, workerType, bundle);
-		Log.i(TAG, "Uruchamianie nowego workera typu: " + workerType.name() + " klasy: " + abstractWorker.getClass().getName());
+		AbstractWorker abstractWorker = null;
+		abstractWorker = WorkerFactory.produce(mContext, workerType, bundle);
 		try {
-			Subscription subscription = abstractWorker.run();
+			if (canRunWorker(workerType)) {
+				Log.i(TAG, "Uruchamianie nowego workera typu: " + workerType.name() + " klasy: " + abstractWorker.getClass().getName());
+				Subscription subscription = abstractWorker.run();
+				runningWorkers.put(workerType, subscription);
+			} else {
+				Log.i(TAG, "Worker typu: " + workerType.name() + " klasy: " + abstractWorker.getClass().getName() + " jest juz uruchominy !!!");
+			}
 		} catch (Exception e) {
-			Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+			Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_LONG).show();
+		}
+	}
+
+	private boolean canRunWorker(WorkerType workerType) {
+		if (runningWorkers.containsKey(workerType))
+			return false;
+		return true;
+	}
+
+	public void deleteFromRunningWorkers(WorkerType workerType) {
+		if (runningWorkers.containsKey(workerType)) {
+			Subscription subscription = runningWorkers.remove(workerType);
+			if (!subscription.isUnsubscribed()) {
+				subscription.unsubscribe();
+				Log.i(TAG, "Usuniecie z listy workerow i odsubskrybowanie workera typu: " + workerType.name());
+			}
+		} else {
+			Log.i(TAG, "Brak aktualnie odpalonego workera typu: " + workerType.name());
+		}
+	}
+
+	public void stopAllWorkers() {
+		for (Map.Entry<WorkerType, Subscription> entry : runningWorkers.entrySet()) {
+			deleteFromRunningWorkers(entry.getKey());
 		}
 	}
 }
