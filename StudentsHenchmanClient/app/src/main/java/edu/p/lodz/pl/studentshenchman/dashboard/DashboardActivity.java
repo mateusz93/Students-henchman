@@ -5,35 +5,31 @@ import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.view.View;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.animation.Animation;
-import android.widget.AdapterView;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.gitonway.lee.niftymodaldialogeffects.lib.Effectstype;
-import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import edu.p.lodz.pl.studentshenchman.R;
 import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainActivity;
-import edu.p.lodz.pl.studentshenchman.dashboard.adapters.DrawerListAdapter;
-import edu.p.lodz.pl.studentshenchman.dashboard.drawer_data.DrawerItem;
 import edu.p.lodz.pl.studentshenchman.database.DatabaseHelper;
 import edu.p.lodz.pl.studentshenchman.qr_scanner.SimpleScanner;
 import edu.p.lodz.pl.studentshenchman.settings.SettingsActivity;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.activity.TimetableActivity;
-import edu.p.lodz.pl.studentshenchman.utils.AllOptionsToSelect;
-import edu.p.lodz.pl.studentshenchman.workers.helpers.WorkerRunnerHelper;
+import edu.p.lodz.pl.studentshenchman.utils.animation.AnimationHelper;
+import edu.p.lodz.pl.studentshenchman.utils.dialog.helper.AlertDialogHelper;
+import edu.p.lodz.pl.studentshenchman.workers.helpers.WorkerRunnerManager;
 import edu.p.lodz.pl.studentshenchman.workers.utils.WorkerType;
 
 import static edu.p.lodz.pl.studentshenchman.workers.AbstractWorker.WORKER_NAME;
@@ -44,11 +40,13 @@ public class DashboardActivity extends StudentShenchmanMainActivity {
 
 	private Toolbar toolbar;
 	private DrawerLayout mDrawerLayout;
+	private NavigationView mNavDrawer;
 	private TextView mLessonName;
 	private TextView mTeacher;
 	private TextView mBuilding;
 	private TextView mRoom;
 	private TextView mLessonTime;
+	private ActionBarDrawerToggle mDrawerToggle;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,16 +54,19 @@ public class DashboardActivity extends StudentShenchmanMainActivity {
 		setContentView(R.layout.activity_dashboard);
 
 		toolbar = (Toolbar) findViewById(R.id.tool_bar);
-		toolbar.setNavigationIcon(R.drawable.error_icon);
 		setSupportActionBar(toolbar);
 
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+		mNavDrawer = (NavigationView) findViewById(R.id.nav_view);
 		mLessonName = (TextView) findViewById(R.id.item_lesson_name);
 		mTeacher = (TextView) findViewById(R.id.item_teacher_name);
 		mBuilding = (TextView) findViewById(R.id.item_building_name);
 		mRoom = (TextView) findViewById(R.id.item_room_name);
 		mLessonTime = (TextView) findViewById(R.id.item_lesson_time);
 
+		mDrawerToggle = setupDrawerToggle();
+		setupDrawerContent(mNavDrawer);
+		mDrawerLayout.addDrawerListener(mDrawerToggle);
 		//mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN, mDrawerList);
 //		mDrawerLayout.setScrimColor(Color.TRANSPARENT);
 
@@ -102,15 +103,10 @@ public class DashboardActivity extends StudentShenchmanMainActivity {
 //			DownloadSettingsWorker worker = new DownloadSettingsWorker(getApplicationContext(), new Bundle());
 //			worker.run();
 
-			NiftyDialogBuilder.getInstance(this)
-					.withTitle("Animated Fall Dialog Title")
-					.withMessage("Add your dialog message here. Animated dialog description place.")
-					.withDialogColor("#1c90ec")
-					.withButton1Text("OK")
-					.withButton2Text("Cancel")
-					.withDuration(700)
-					.withEffect(Effectstype.Fall)
-					.show();
+			AlertDialogHelper.showSuccessDialog(getSupportFragmentManager(), "jakis tytul", "jakis message");
+			AlertDialogHelper.showErrorDialog(getSupportFragmentManager(), "jakis tytul", "jakis message");
+			AlertDialogHelper.showInfoDialog(getSupportFragmentManager(), "jakis tytul", "jakis message");
+
 		});
 	}
 
@@ -123,6 +119,66 @@ public class DashboardActivity extends StudentShenchmanMainActivity {
 	protected void onPause() {
 		super.onPause();
 		//mLessonName.clearAnimation();
+	}
+
+	private ActionBarDrawerToggle setupDrawerToggle() {
+		return new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.ok, R.string.no);
+	}
+
+	private void setupDrawerContent(NavigationView navigationView) {
+		navigationView.setNavigationItemSelectedListener(
+				new NavigationView.OnNavigationItemSelectedListener() {
+					@Override
+					public boolean onNavigationItemSelected(MenuItem menuItem) {
+						selectDrawerItem(menuItem);
+						return true;
+					}
+				});
+	}
+
+	public void selectDrawerItem(MenuItem menuItem) {
+		switch (menuItem.getItemId()) {
+			case R.id.nav_download_timetable:
+
+				break;
+			case R.id.nav_download_settings:
+				Bundle bundle = new Bundle();
+				bundle.putString(WORKER_NAME, WorkerType.DOWNLOAD_SETTINGS.name());
+				WorkerRunnerManager.getInstance(getApplicationContext()).startWorker(bundle);
+				break;
+			case R.id.nav_customize:
+				AnimationHelper.startShockAnimation(menuItem.getActionView());
+				break;
+			case R.id.nav_about:
+
+				break;
+			case R.id.nav_logout:
+
+				break;
+			default:
+				break;
+		}
+	}
+
+	@Override
+	protected void onPostCreate(Bundle savedInstanceState) {
+		super.onPostCreate(savedInstanceState);
+		mDrawerToggle.syncState();
+	}
+
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		mDrawerToggle.onConfigurationChanged(newConfig);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (mDrawerToggle.onOptionsItemSelected(item)) {
+			Log.i(TAG, "tooootle");
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	private void setAnimation() {
@@ -177,34 +233,6 @@ public class DashboardActivity extends StudentShenchmanMainActivity {
 				} else {
 					Toast.makeText(this, "Brak uprawnień do aparatu!", Toast.LENGTH_SHORT).show();
 				}
-			}
-		}
-	}
-
-
-	private class DrawerOnItemClickListener implements android.widget.AdapterView.OnItemClickListener {
-		@Override
-		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			switch (position) {
-				case AllOptionsToSelect.DOWNLOAD_PLAN:
-
-					break;
-				case AllOptionsToSelect.DOWNLOAD_SETTINGS:
-					Bundle bundle = new Bundle();
-					bundle.putString(WORKER_NAME, WorkerType.DOWNLOAD_SETTINGS.name());
-					WorkerRunnerHelper.startWorker(getApplicationContext(), bundle);
-					break;
-				case AllOptionsToSelect.APP_INFO:
-
-					break;
-				case AllOptionsToSelect.LOGOUT:
-					finish();
-					break;
-				/*case 4:
-				    finish();
-                    break;*/
-				default:
-					break;
 			}
 		}
 	}
