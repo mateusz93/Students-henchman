@@ -32,6 +32,12 @@
 
     <!--menu-->
     <string name="settings">Ustawienia</string>
+    <string name="menu_download_label">Pobierz / zaktualizuj:</string>
+    <string name="menu_download_settings">Ustawienia</string>
+    <string name="menu_download_timetable">Plan zajęć</string>
+    <string name="menu_logout">Wyloguj</string>
+    <string name="menu_about_app">O nas</string>
+    <string name="menu_customize_dashboard">Dostosuj ekran główny</string>
 
     <!--settings-->
     <string name="settings_department_label">Wydział:</string>

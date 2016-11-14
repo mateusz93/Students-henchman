@@ -32,6 +32,12 @@
 
     <!--menu-->
     <string name="settings">Settings</string>
+    <string name="menu_download_label">Download / update:</string>
+    <string name="menu_download_settings">Settings</string>
+    <string name="menu_download_timetable">Timetable</string>
+    <string name="menu_logout">Logout</string>
+    <string name="menu_about_app">About App</string>
+    <string name="menu_customize_dashboard">Customize dashboard</string>
 
     <!--settings-->
     <string name="settings_department_label">Department:</string>
