@@ -15,6 +15,20 @@
     <View
         style="@style/horizontal_divider"/>
 
+    <TextView
+        android:id="@+id/expandable_date_view"
+        style="@style/lesson_item_value_label"
+        android:background="@color/bg_color"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="dodaj date aktywacji"/>
+
+    <DatePicker
+        android:id="@+id/note_activation_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+
     <EditText
         android:id="@+id/content"
         android:layout_width="match_parent"
