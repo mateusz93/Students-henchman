@@ -4,7 +4,10 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 
+import org.greenrobot.eventbus.EventBus;
+
 import edu.p.lodz.pl.studentshenchman.utils.dialog.UserYesNoDialog;
+import edu.p.lodz.pl.studentshenchman.utils.dialog.event.DialogEvent;
 import edu.p.lodz.pl.studentshenchman.utils.dialog.factory.DialogFactory;
 import edu.p.lodz.pl.studentshenchman.utils.dialog.interfaces.AlertDialogCallback;
 
@@ -17,30 +20,35 @@ import static edu.p.lodz.pl.studentshenchman.utils.dialog.helper.UniqueYesNoDial
 public class AlertDialogHelper {
 	private static final String TAG = AlertDialogHelper.class.getName();
 
-	public static void showErrorDialog(FragmentManager fm, String title, String message) {
-		showDialog(fm, title, message, DialogType.USER_ERROR);
+	public static void showErrorDialog(String title, String message) {
+		DialogEvent event = new DialogEvent(title, message, TAG, null, DialogType.USER_ERROR);
+		EventBus.getDefault().postSticky(event);
 	}
 
-	public static void showInfoDialog(FragmentManager fm, String title, String message) {
-		showDialog(fm, title, message, DialogType.USER_INFO);
+	public static void showInfoDialog(String title, String message) {
+		DialogEvent event = new DialogEvent(title, message, TAG, null, DialogType.USER_INFO);
+		EventBus.getDefault().postSticky(event);
 	}
 
-	public static void showSuccessDialog(FragmentManager fm, String title, String message) {
-		showDialog(fm, title, message, DialogType.USER_SUCCESS);
+	public static void showSuccessDialog(String title, String message) {
+		DialogEvent event = new DialogEvent(title, message, TAG, null, DialogType.USER_SUCCESS);
+		EventBus.getDefault().postSticky(event);
 	}
 
-	public static void showYesNoDialog(FragmentManager fm, String title, String message, AlertDialogCallback callback, String dialogTAG) {
-		showDialog(fm, title, message, DialogType.YES_NO, callback, dialogTAG);
+	public static void showYesNoDialog(String title, String message, AlertDialogCallback callback, String dialogTAG) {
+		DialogEvent event = new DialogEvent(title, message, dialogTAG, callback, DialogType.YES_NO);
+		EventBus.getDefault().postSticky(event);
 	}
 
-	public static void showDialog(FragmentManager fm, String title, String message, DialogType dialogType) {
-		showDialog(fm, title, message, dialogType, null, TAG);
+	public static void showDialog(String title, String message, DialogType dialogType) {
+		DialogEvent event = new DialogEvent(title, message, TAG, null, dialogType);
+		EventBus.getDefault().postSticky(event);
 
 	}
 
-	public static void showDialog(FragmentManager fm, String title, String message, DialogType dialogType, AlertDialogCallback callback, String dialogTAG) {
-		DialogFragment dialog = DialogFactory.produceDialog(title, message, dialogType, callback);
-		dialog.show(fm, dialogTAG);
+	public static void showDialog(FragmentManager fm, DialogEvent event) {
+		DialogFragment dialog = DialogFactory.produceDialog(event.getTitle(), event.getMessage(), event.getDialogType(), event.getCallback());
+		dialog.show(fm, event.getTAG());
 	}
 
 

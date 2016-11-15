@@ -100,14 +100,9 @@ public class DashboardActivity extends StudentShenchmanMainActivity {
 
 		ImageButton testButton = (ImageButton) findViewById(R.id.test_button);
 		testButton.setOnClickListener((view) -> {
-//			DownloadSettingsWorker worker = new DownloadSettingsWorker(getApplicationContext(), new Bundle());
-//			worker.run();
-
-			AlertDialogHelper.showSuccessDialog(getSupportFragmentManager(), "jakis tytul", "jakis message");
-			AlertDialogHelper.showErrorDialog(getSupportFragmentManager(), "jakis tytul", "jakis message");
-			AlertDialogHelper.showInfoDialog(getSupportFragmentManager(), "jakis tytul", "jakis message");
-
+			AlertDialogHelper.showInfoDialog("Tytul z dashboardu", "Wiadomosc z dashboardu");
 		});
+
 	}
 
 	@Override
