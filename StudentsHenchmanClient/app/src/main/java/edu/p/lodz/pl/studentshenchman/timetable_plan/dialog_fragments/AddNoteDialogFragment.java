@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -54,7 +55,6 @@ public class AddNoteDialogFragment extends DialogFragment {
 
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
-
 		mExpandableDateLable = (TextView) view.findViewById(R.id.expandable_date_view);
 		mExpandableDateLable.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -84,7 +84,8 @@ public class AddNoteDialogFragment extends DialogFragment {
 			String content = mNoteContent.getText().toString().trim();
 			long activationDate = date.getTime();
 			Log.i(TAG, "Tresc notatki: " + content + " data aktywacji: " + activationDate);
-			TimeTableUtils.addNoteToDB(getContext(), 1, 1, content, activationDate);
+			if (!content.isEmpty())
+				TimeTableUtils.addNoteToDB(getContext(), 1, 1, content, activationDate);
 			dismiss();
 		}
 	}
