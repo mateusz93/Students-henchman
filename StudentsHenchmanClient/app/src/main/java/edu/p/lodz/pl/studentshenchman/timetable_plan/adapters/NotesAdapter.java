@@ -12,9 +12,13 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import edu.p.lodz.pl.studentshenchman.R;
+import edu.p.lodz.pl.studentshenchman.database.models.Note;
+import edu.p.lodz.pl.studentshenchman.timetable_plan.utils.TimeTableUtils;
 import edu.p.lodz.pl.studentshenchman.utils.animation.AnimationHelper;
 import edu.p.lodz.pl.studentshenchman.utils.dialog.helper.AlertDialogHelper;
 import edu.p.lodz.pl.studentshenchman.utils.dialog.interfaces.AlertDialogCallback;
@@ -30,27 +34,34 @@ public class NotesAdapter extends BaseAdapter implements AlertDialogCallback {
 
 	private final Context mContext;
 	private final LayoutInflater mInflater;
+	private List<Note> mValues;
 
 	public NotesAdapter(Context context, FragmentManager fm) {
 		mContext = context;
 		mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 		AlertDialogHelper.readjustYesNoCallback(fm, this, DELETE_NOTE_TAG);
+		init();
+	}
+
+	private void init() {
+		mValues = new ArrayList<>();
+		mValues = TimeTableUtils.loadNotesForCourse(mContext, 1L);
 	}
 
 	@Override
 	public int getCount() {
-		return 15;
+		return mValues.size();
 	}
 
 	@Override
-	public Object getItem(int position) {
-		return null;
+	public Note getItem(int position) {
+		return mValues.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
-		return 0;
+		return mValues.get(position).getId();
 	}
 
 	@Override
@@ -65,8 +76,10 @@ public class NotesAdapter extends BaseAdapter implements AlertDialogCallback {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
 
-		viewHolder.noteContent.setText("Tresc notatki");
-		viewHolder.addedDate.setText(DateFormat.getDateFormat(mContext).format(new Date()));
+		Note note = getItem(position);
+
+		viewHolder.noteContent.setText(note.getContent());
+		viewHolder.addedDate.setText(DateFormat.getDateFormat(mContext).format(new Date(note.getActivationDate())));
 		viewHolder.deleteNote.setOnClickListener(new DelNoteOnClickListener(mContext));
 
 		return convertView;
