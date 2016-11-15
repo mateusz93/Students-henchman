@@ -15,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import edu.p.lodz.pl.studentshenchman.R;
 import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainFragment;
@@ -24,6 +23,10 @@ import edu.p.lodz.pl.studentshenchman.timetable_plan.adapters.SubjectListAdapter
 import edu.p.lodz.pl.studentshenchman.timetable_plan.interfaces.CourseDialogFragmentInterface;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.utils.TimeTableUtils;
 import edu.p.lodz.pl.studentshenchman.utils.SelectedCourseContext;
+import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
+import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
+
 
 /**
  * Created by Michał on 2016-10-12.
@@ -79,30 +82,28 @@ public class DayFragment extends StudentShenchmanMainFragment {
 			@Override
 			public void onItemClick(View view, int position) {
 				SelectedCourseContext courseContext = null;
-				Log.i(TAG, "onItemClick: " + position);
-				Toast.makeText(getContext(), "onclick: tworzenie contextu" + position, Toast.LENGTH_SHORT).show();
 				long courseId = mAdapter.getItemId(position);
 				try {
 					courseContext = TimeTableUtils.createCourseContext(getContext(), courseId);
 				} catch (Exception e) {
-					Log.e(TAG, e.toString());
+					Log.e(TAG, e.getMessage());
 				}
-				/*Intent intent = new Intent(getActivity(), SubjectDetailsActivity.class);
-				Bundle bundle = new Bundle();
-				bundle.putParcelable(Constants.SELECTED_COURSE_CONTEXT, courseContext);
-				intent.putExtras(bundle);
-				getActivity().startActivity(intent);*/
 				mSelectedCourseInterface.selectedCourse(new SelectedCourseContext());
+
+
 			}
 
 			@Override
 			public void onLongItemClick(View view, int position) {
-				mDialogFragmentInterface.showEditOptionsDialogFragment(new SelectedCourseContext());
+				//mDialogFragmentInterface.showEditOptionsDialogFragment(new SelectedCourseContext());
+				mAdapter.notifyItemRemoved(0);
 			}
 		}));
 		mRecyclerView.setHasFixedSize(true);
+		mRecyclerView.setItemAnimator(new SlideInLeftAnimator());
 		mAdapter = new SubjectListAdapter(getContext());
-		mRecyclerView.setAdapter(mAdapter);
+		AlphaInAnimationAdapter alphaAdapter = new AlphaInAnimationAdapter(mAdapter);
+		mRecyclerView.setAdapter(new ScaleInAnimationAdapter(alphaAdapter));
 
 		return view;
 
