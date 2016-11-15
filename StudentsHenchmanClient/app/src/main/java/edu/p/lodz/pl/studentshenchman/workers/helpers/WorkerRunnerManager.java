@@ -82,10 +82,12 @@ public class WorkerRunnerManager {
 	}
 
 	public void registerBroadcastForWorkerType(BroadcastReceiver receiver, WorkerType workerType) {
+		Log.i(TAG, "Rejstracja broadcast receiver dla akcji: " + workerType.name());
 		mContext.registerReceiver(receiver, new IntentFilter(workerType.name()));
 	}
 
 	public void unregisterBroadcastReceiverForWorkerType(BroadcastReceiver receiver) {
+		Log.i(TAG, "Wyrejstrowanie broadcast receiver: ");
 		mContext.unregisterReceiver(receiver);
 	}
 
