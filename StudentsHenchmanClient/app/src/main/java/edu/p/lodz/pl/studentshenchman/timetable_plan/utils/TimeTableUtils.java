@@ -1,5 +1,6 @@
 package edu.p.lodz.pl.studentshenchman.timetable_plan.utils;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -7,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import edu.p.lodz.pl.studentshenchman.database.DatabaseHelper;
 import edu.p.lodz.pl.studentshenchman.database.models.Build;
 import edu.p.lodz.pl.studentshenchman.database.models.Course;
+import edu.p.lodz.pl.studentshenchman.database.models.Note;
 import edu.p.lodz.pl.studentshenchman.database.models.Room;
 import edu.p.lodz.pl.studentshenchman.database.models.Teacher;
 import edu.p.lodz.pl.studentshenchman.utils.SelectedCourseContext;
@@ -46,5 +48,15 @@ public class TimeTableUtils {
 		selectedCourseContext.setLongitude(build.getLongitude());
 
 		return selectedCourseContext;
+	}
+
+	public static void addNoteToDB(Context context, long courseId, long externalCourseId, String content, long activationDate) {
+		SQLiteDatabase db = DatabaseHelper.getInstance(context).getWritableDatabase();
+		ContentValues cv = new ContentValues();
+		cv.put(Note.COURSE_ID, courseId);
+		cv.put(Note.EXTERNAL_COURSE_ID, externalCourseId);
+		cv.put(Note.CONTENT, content);
+		cv.put(Note.ACTIVATION_DATE, activationDate);
+		db.insert(Note.TABLE_NAME, null, cv);
 	}
 }
