@@ -12,6 +12,7 @@ import edu.p.lodz.pl.studentshenchman.database.models.Date;
 import edu.p.lodz.pl.studentshenchman.database.models.DeanGroup;
 import edu.p.lodz.pl.studentshenchman.database.models.Department;
 import edu.p.lodz.pl.studentshenchman.database.models.Field;
+import edu.p.lodz.pl.studentshenchman.database.models.Note;
 import edu.p.lodz.pl.studentshenchman.database.models.Room;
 import edu.p.lodz.pl.studentshenchman.database.models.Specialization;
 import edu.p.lodz.pl.studentshenchman.database.models.Teacher;
@@ -28,7 +29,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private static DatabaseHelper databaseHelper;
 
 	private static final String DATABASE_NAME = "StudentShenchman";
-	private static final int DATABASE_VERSION = 9;
+	private static final int DATABASE_VERSION = 10;
 
 	private static final String DROP_TABLE = "drop table if exists ";
 	private static final String CREATE_TABLE = "create table ";
@@ -46,6 +47,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			put(Specialization.TABLE_NAME, createTableQuery(Specialization.TABLE_NAME, Specialization.COLUMN_NAMES, Specialization.COLUMN_TYPES));
 			put(DeanGroup.TABLE_NAME, createTableQuery(DeanGroup.TABLE_NAME, DeanGroup.COLUMN_NAMES, DeanGroup.COLUMN_TYPES));
 			put(Date.TABLE_NAME, createTableQuery(Date.TABLE_NAME, Date.COLUMN_NAMES, Date.COLUMN_TYPES));
+			put(Note.TABLE_NAME, createTableQuery(Note.TABLE_NAME, Note.COLUMN_NAMES, Note.COLUMN_TYPES));
 		}
 	};
 
