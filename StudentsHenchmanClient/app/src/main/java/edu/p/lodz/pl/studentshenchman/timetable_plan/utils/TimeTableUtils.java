@@ -5,6 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.p.lodz.pl.studentshenchman.database.DatabaseHelper;
 import edu.p.lodz.pl.studentshenchman.database.models.Build;
 import edu.p.lodz.pl.studentshenchman.database.models.Course;
@@ -58,5 +61,17 @@ public class TimeTableUtils {
 		cv.put(Note.CONTENT, content);
 		cv.put(Note.ACTIVATION_DATE, activationDate);
 		db.insert(Note.TABLE_NAME, null, cv);
+	}
+
+	public static List<Note> loadNotesForCourse(Context context, long courseId) {
+		SQLiteDatabase db = DatabaseHelper.getInstance(context).getReadableDatabase();
+		List<Note> notes = new ArrayList<>();
+		Cursor c = db.query(Note.TABLE_NAME, null, null, null, null, null, null);
+		while (c.moveToNext()) {
+			Note note = new Note(c);
+			notes.add(note);
+		}
+
+		return notes;
 	}
 }
