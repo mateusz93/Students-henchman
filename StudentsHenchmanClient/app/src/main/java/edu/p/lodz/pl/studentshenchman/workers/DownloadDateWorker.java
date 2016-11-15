@@ -21,11 +21,8 @@ import rx.schedulers.Schedulers;
 public class DownloadDateWorker extends AbstractWorker<Date> {
 	private static final String TAG = DownloadDateWorker.class.getName();
 
-	private final Bundle mBundle;
-
 	public DownloadDateWorker(Context context, Bundle bundle) {
-		super(context);
-		mBundle = bundle;
+		super(context, bundle);
 	}
 
 	@Override

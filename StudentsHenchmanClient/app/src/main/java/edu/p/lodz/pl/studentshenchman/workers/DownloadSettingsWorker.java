@@ -28,11 +28,8 @@ import rx.schedulers.Schedulers;
 public class DownloadSettingsWorker extends AbstractWorker<SettingsRS> {
 	private static final String TAG = DownloadSettingsWorker.class.getName();
 
-	private Bundle mBundle;
-
 	public DownloadSettingsWorker(Context context, Bundle bundle) {
-		super(context);
-		mBundle = bundle;
+		super(context, bundle);
 	}
 
 	@Override

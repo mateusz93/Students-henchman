@@ -26,13 +26,15 @@ public abstract class AbstractWorker<T> implements Observer<T> {
 	public static final String FINISHED_STATUS = "FINISHED_STATUS";
 
 	protected Context mContext;
+	protected Bundle mBundle;
 
 	public enum FinishedWorkerStatus {
 		SUCCESS, FAIL
 	}
 
-	public AbstractWorker(Context context) {
+	public AbstractWorker(Context context, Bundle bundle) {
 		mContext = context;
+		mBundle = bundle;
 	}
 
 	public void notifyTaskFinished(Bundle bundle, FinishedWorkerStatus finishedWorkerStatus) {
