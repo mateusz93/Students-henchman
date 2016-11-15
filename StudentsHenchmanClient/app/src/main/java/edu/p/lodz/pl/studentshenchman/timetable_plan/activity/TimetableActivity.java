@@ -87,13 +87,13 @@ public class TimetableActivity extends StudentShenchmanMainActivity implements E
 
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
 		outState.putBoolean(DUAL_PANE, mDualPane);
 		outState.putParcelable(Constants.SELECTED_COURSE_CONTEXT, mSelectedCourseContext);
 		outState.putParcelable(CONTEXT_TO_EDIT, mCourseContextToEdit);
 		outState.putBoolean(ARE_LOCAL_CHANGES, mAreLocalChanges);
 		outState.putParcelableArrayList(COURSES_TO_DELETE, mCoursesToDelete);
 		outState.putParcelableArrayList(COURSES_TO_ADD, mCoursesToAdd);
+		super.onSaveInstanceState(outState);
 	}
 
 	@Override
@@ -160,6 +160,7 @@ public class TimetableActivity extends StudentShenchmanMainActivity implements E
 				Bundle bundle = new Bundle();
 				bundle.putParcelable(Constants.SELECTED_COURSE_CONTEXT, mSelectedCourseContext);
 				intent.putExtras(bundle);
+				finish();
 				startActivity(intent);
 			}
 		}
