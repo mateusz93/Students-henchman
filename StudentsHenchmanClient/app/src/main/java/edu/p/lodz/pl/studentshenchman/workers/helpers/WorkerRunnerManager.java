@@ -48,7 +48,7 @@ public class WorkerRunnerManager {
 				Subscription subscription = abstractWorker.run();
 				runningWorkers.put(workerType, subscription);
 			} else {
-				Log.i(TAG, "Worker typu: " + workerType.name() + " klasy: " + abstractWorker.getClass().getName() + " jest juz uruchominy !!!");
+				Log.i(TAG, "Worker typu: " + workerType.name() + " klasy: " + abstractWorker.getClass().getName() + " jest juz uruchominy !!! Pominiecie akcji");
 			}
 		} catch (Exception e) {
 			Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_LONG).show();
