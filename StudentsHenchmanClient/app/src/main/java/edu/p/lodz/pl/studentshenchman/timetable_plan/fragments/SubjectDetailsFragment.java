@@ -13,7 +13,8 @@ import android.widget.TextView;
 
 import edu.p.lodz.pl.studentshenchman.R;
 import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainFragment;
-import edu.p.lodz.pl.studentshenchman.constants.Constants;
+import edu.p.lodz.pl.studentshenchman.timetable_plan.activity.SubjectDetailsActivity;
+import edu.p.lodz.pl.studentshenchman.timetable_plan.activity.TimetableActivity;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.adapters.NotesAdapter;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.dialog_fragments.AddNoteDialogFragment;
 import edu.p.lodz.pl.studentshenchman.utils.SelectedCourseContext;
@@ -43,8 +44,11 @@ public class SubjectDetailsFragment extends StudentShenchmanMainFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.subject_details_fragment, container, false);
-
-		SelectedCourseContext courseContext = getArguments().getParcelable(Constants.SELECTED_COURSE_CONTEXT);
+		SelectedCourseContext courseContext;
+		if (getActivity() instanceof TimetableActivity)
+			courseContext = ((TimetableActivity) getActivity()).getSelectedCourseContext();
+		if (getActivity() instanceof SubjectDetailsActivity)
+			courseContext = ((SubjectDetailsActivity) getActivity()).getSelectedCourseContext();
 
 		mSubjectName = (TextView) view.findViewById(R.id.item_lesson_name);
 		//mSubjectType = (TextView) view.findViewById(R.id.subject_type);

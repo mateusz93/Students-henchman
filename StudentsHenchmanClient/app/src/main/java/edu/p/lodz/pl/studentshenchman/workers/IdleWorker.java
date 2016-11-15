@@ -12,11 +12,8 @@ import rx.Subscription;
 public class IdleWorker extends AbstractWorker {
 	public static final String TAG = IdleWorker.class.getName();
 
-	private final Bundle mBundle;
-
 	public IdleWorker(Context context, Bundle bundle) {
-		super(context);
-		mBundle = bundle;
+		super(context, bundle);
 	}
 
 	@Override

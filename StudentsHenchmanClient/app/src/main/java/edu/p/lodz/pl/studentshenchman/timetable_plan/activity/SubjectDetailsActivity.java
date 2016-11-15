@@ -7,7 +7,9 @@ import android.view.MenuItem;
 
 import edu.p.lodz.pl.studentshenchman.R;
 import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainActivity;
+import edu.p.lodz.pl.studentshenchman.constants.Constants;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.fragments.SubjectDetailsFragment;
+import edu.p.lodz.pl.studentshenchman.utils.SelectedCourseContext;
 
 /**
  * Created by Michał on 2016-10-13.
@@ -17,12 +19,17 @@ public class SubjectDetailsActivity extends StudentShenchmanMainActivity {
 	private static final String TAG = SubjectDetailsActivity.class.getName();
 
 	private Toolbar toolbar;
-
+	private SelectedCourseContext mSelectedCourseContext;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_subject_details);
+
+		if (null != getIntent()) {
+			mSelectedCourseContext = getIntent().getParcelableExtra(Constants.SELECTED_COURSE_CONTEXT);
+		}
+
 		toolbar = (Toolbar) findViewById(R.id.tool_bar);
 		prepareToolbar();
 
@@ -32,11 +39,6 @@ public class SubjectDetailsActivity extends StudentShenchmanMainActivity {
 
 		getSupportFragmentManager().beginTransaction().replace(R.id.subjectdetails_details_container, detailsFragment).commit();
 
-	}
-
-	@Override
-	protected void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
 	}
 
 	private void prepareToolbar() {
@@ -67,4 +69,7 @@ public class SubjectDetailsActivity extends StudentShenchmanMainActivity {
 		startActivity(intent);
 	}
 
+	public SelectedCourseContext getSelectedCourseContext() {
+		return mSelectedCourseContext;
+	}
 }

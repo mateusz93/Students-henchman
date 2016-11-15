@@ -28,11 +28,8 @@ import rx.schedulers.Schedulers;
 public class DownloadSettingsWorker extends AbstractWorker<SettingsRS> {
 	private static final String TAG = DownloadSettingsWorker.class.getName();
 
-	private Bundle mBundle;
-
 	public DownloadSettingsWorker(Context context, Bundle bundle) {
-		super(context);
-		mBundle = bundle;
+		super(context, bundle);
 	}
 
 	@Override
@@ -51,13 +48,13 @@ public class DownloadSettingsWorker extends AbstractWorker<SettingsRS> {
 	public void onCompleted() {
 		Log.i(TAG, "Settings downloaded successfully");
 		Toast.makeText(mContext, "Settings downloaded successfully", Toast.LENGTH_SHORT).show();
-		notifyTaskFinished(mBundle);
+		notifyTaskFinished(mBundle, FinishedWorkerStatus.SUCCESS);
 	}
 
 	@Override
 	public void onError(Throwable e) {
 		onError(mContext, e);
-		notifyTaskFinished(mBundle);
+		notifyTaskFinished(mBundle, FinishedWorkerStatus.FAIL);
 	}
 
 	@Override

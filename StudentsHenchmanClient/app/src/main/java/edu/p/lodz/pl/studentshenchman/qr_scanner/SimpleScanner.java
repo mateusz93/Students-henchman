@@ -15,6 +15,7 @@ import java.io.IOException;
 import edu.p.lodz.pl.studentshenchman.qr_scanner.classes.Information;
 import edu.p.lodz.pl.studentshenchman.dashboard.DashboardActivity;
 import edu.p.lodz.pl.studentshenchman.utils.AlertDialogActivity;
+import edu.p.lodz.pl.studentshenchman.utils.dialog.helper.AlertDialogHelper;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class SimpleScanner extends FragmentActivity implements ZXingScannerView.ResultHandler {
@@ -33,14 +34,12 @@ public class SimpleScanner extends FragmentActivity implements ZXingScannerView.
 	@Override
 	public void onResume() {
 		super.onResume();
-		Log.v(TAG, "onResume");
 		mScannerView.setResultHandler(this);
 		mScannerView.startCamera();
 	}
 
 	@Override
 	public void onPause() {
-		Log.v(TAG, "onPause");
 		super.onPause();
 		mScannerView.stopCamera();
 	}
@@ -60,7 +59,8 @@ public class SimpleScanner extends FragmentActivity implements ZXingScannerView.
 			alertDialogActivity.show(fm, formattedText);
 		} catch (IOException e) {
 			Log.i(TAG, e.toString());
-			Toast.makeText(getApplicationContext(), "Nieobsługiwany komunikat!", Toast.LENGTH_SHORT).show();
+			AlertDialogHelper.showErrorDialog("QR error", "Wystapil blad podczas skanowania QR kodu");
+
 		}
 		mScannerView.resumeCameraPreview(this);
 	}
