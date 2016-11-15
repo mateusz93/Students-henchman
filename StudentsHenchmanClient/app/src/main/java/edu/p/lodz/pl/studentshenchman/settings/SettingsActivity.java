@@ -31,7 +31,6 @@ import edu.p.lodz.pl.studentshenchman.settings.adapters.TypeAdapter;
 import edu.p.lodz.pl.studentshenchman.settings.datastore.DependentDataHelper;
 import edu.p.lodz.pl.studentshenchman.settings.datastore.SettingsDataStoreHelper;
 import edu.p.lodz.pl.studentshenchman.settings.dialog_fragment.GroupsDialogFragment;
-import edu.p.lodz.pl.studentshenchman.utils.dialog.helper.AlertDialogHelper;
 import edu.p.lodz.pl.studentshenchman.workers.AbstractWorker;
 import edu.p.lodz.pl.studentshenchman.workers.helpers.WorkerRunnerManager;
 import edu.p.lodz.pl.studentshenchman.workers.utils.WorkerType;
@@ -74,7 +73,6 @@ public class SettingsActivity extends StudentShenchmanMainActivity implements Gr
 		public void onReceive(Context context, Intent intent) {
 			if (intent.getAction().equals(WorkerType.DOWNLOAD_SETTINGS.name())) {
 				if (intent.getStringExtra(AbstractWorker.FINISHED_STATUS).equals(AbstractWorker.FinishedWorkerStatus.SUCCESS.name())) {
-					AlertDialogHelper.showInfoDialog("W Broadcast Receiverze", "Tak jak w tytule");
 					generateView();
 				}
 			}
@@ -197,6 +195,7 @@ public class SettingsActivity extends StudentShenchmanMainActivity implements Gr
 		switch (spinnerType) {
 			case DEPARTMENTS:
 				cachedValue = mSettingsDataHelper.getDepartmentId();
+				mDepartmentAdapter.setValues(mDependentDataHelper.loadDepartments(db));
 				if (cachedValue > 0)
 					mDepartmentSpinner.setSelection(mDepartmentAdapter.getPosForId(cachedValue), false);
 				else
