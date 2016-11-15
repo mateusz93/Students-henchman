@@ -8,6 +8,7 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 
+import edu.p.lodz.pl.studentshenchman.utils.dialog.helper.AlertDialogHelper;
 import edu.p.lodz.pl.studentshenchman.workers.helpers.WorkerRunnerManager;
 import edu.p.lodz.pl.studentshenchman.workers.utils.WorkerType;
 import retrofit2.adapter.rxjava.HttpException;
@@ -33,6 +34,7 @@ public abstract class AbstractWorker<T> implements Observer<T> {
 	public void notifyTaskFinished(Bundle bundle) {
 		WorkerType workerType = WorkerType.valueOf(bundle.getString(WORKER_NAME));
 		WorkerRunnerManager.getInstance(mContext).deleteFromRunningWorkers(workerType);
+		AlertDialogHelper.showInfoDialog("Worker Finished", "Worker of type: " + workerType + "finished");
 
 
 	}

@@ -17,7 +17,6 @@ import java.util.Date;
 import edu.p.lodz.pl.studentshenchman.R;
 import edu.p.lodz.pl.studentshenchman.utils.animation.AnimationHelper;
 import edu.p.lodz.pl.studentshenchman.utils.dialog.helper.AlertDialogHelper;
-import edu.p.lodz.pl.studentshenchman.utils.dialog.helper.DialogType;
 import edu.p.lodz.pl.studentshenchman.utils.dialog.interfaces.AlertDialogCallback;
 
 import static edu.p.lodz.pl.studentshenchman.utils.dialog.helper.UniqueYesNoDialogTAG.DELETE_NOTE_TAG;
@@ -97,8 +96,8 @@ public class NotesAdapter extends BaseAdapter implements AlertDialogCallback {
 		@Override
 		public void onClick(View v) {
 			AnimationHelper.startShockAnimation(v);
-			AlertDialogHelper.showDialog(fm, mContext.getString(R.string.delete_note),
-					mContext.getString(R.string.del_note_msg), DialogType.YES_NO, NotesAdapter.this, DELETE_NOTE_TAG);
+			AlertDialogHelper.showYesNoDialog(mContext.getString(R.string.delete_note),
+					mContext.getString(R.string.del_note_msg), NotesAdapter.this, DELETE_NOTE_TAG);
 		}
 	}
 
