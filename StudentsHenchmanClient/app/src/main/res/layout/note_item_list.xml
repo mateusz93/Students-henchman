@@ -41,7 +41,7 @@
                 style="@style/lesson_item_value_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/note_added_date"/>
+                android:text="@string/note_activation_date"/>
 
             <TextView
                 android:id="@+id/note_item_added_date"
