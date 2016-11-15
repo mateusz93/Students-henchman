@@ -8,9 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
+
+import java.util.Date;
 
 import edu.p.lodz.pl.studentshenchman.R;
+import edu.p.lodz.pl.studentshenchman.timetable_plan.utils.TimeTableUtils;
 import edu.p.lodz.pl.studentshenchman.utils.animation.AnimationHelper;
 
 /**
@@ -20,6 +25,8 @@ import edu.p.lodz.pl.studentshenchman.utils.animation.AnimationHelper;
 public class AddNoteDialogFragment extends DialogFragment {
 	private static final String TAG = AddNoteDialogFragment.class.getName();
 
+	private TextView mExpandableDateLable;
+	private DatePicker mActivationDate;
 	private EditText mNoteContent;
 	private Button mOkButton;
 	private Button mCancelButton;
@@ -48,6 +55,20 @@ public class AddNoteDialogFragment extends DialogFragment {
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 
+		mExpandableDateLable = (TextView) view.findViewById(R.id.expandable_date_view);
+		mExpandableDateLable.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mActivationDate.setVisibility(mActivationDate.isShown() ? View.GONE : View.VISIBLE);
+			}
+		});
+		mActivationDate = (DatePicker) view.findViewById(R.id.note_activation_date);
+		mActivationDate.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mActivationDate.setVisibility(View.GONE);
+			}
+		});
 		mNoteContent = (EditText) view.findViewById(R.id.content);
 		mOkButton = (Button) view.findViewById(R.id.ok_button);
 		mOkButton.setOnClickListener(new OkOnClickListener());
@@ -59,7 +80,11 @@ public class AddNoteDialogFragment extends DialogFragment {
 	private class OkOnClickListener implements View.OnClickListener {
 		@Override
 		public void onClick(View v) {
-			Log.i(TAG, mNoteContent.getText().toString().trim());
+			Date date = new Date(mActivationDate.getYear() - 1900, mActivationDate.getMonth(), mActivationDate.getDayOfMonth());
+			String content = mNoteContent.getText().toString().trim();
+			long activationDate = date.getTime();
+			Log.i(TAG, "Tresc notatki: " + content + " data aktywacji: " + activationDate);
+			TimeTableUtils.addNoteToDB(getContext(), 1, 1, content, activationDate);
 			dismiss();
 		}
 	}
