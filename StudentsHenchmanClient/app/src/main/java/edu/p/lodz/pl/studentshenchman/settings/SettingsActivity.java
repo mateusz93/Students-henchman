@@ -1,5 +1,7 @@
 package edu.p.lodz.pl.studentshenchman.settings;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -29,6 +31,10 @@ import edu.p.lodz.pl.studentshenchman.settings.adapters.TypeAdapter;
 import edu.p.lodz.pl.studentshenchman.settings.datastore.DependentDataHelper;
 import edu.p.lodz.pl.studentshenchman.settings.datastore.SettingsDataStoreHelper;
 import edu.p.lodz.pl.studentshenchman.settings.dialog_fragment.GroupsDialogFragment;
+import edu.p.lodz.pl.studentshenchman.utils.dialog.helper.AlertDialogHelper;
+import edu.p.lodz.pl.studentshenchman.workers.AbstractWorker;
+import edu.p.lodz.pl.studentshenchman.workers.helpers.WorkerRunnerManager;
+import edu.p.lodz.pl.studentshenchman.workers.utils.WorkerType;
 
 public class SettingsActivity extends StudentShenchmanMainActivity implements GroupsDialogFragment.ChosenDeanGroupsInterface {
 	private static final String TAG = SettingsActivity.class.getName();
@@ -63,11 +69,23 @@ public class SettingsActivity extends StudentShenchmanMainActivity implements Gr
 		DEPARTMENTS, FIELDS, SPECIALIZATIONS, DEAN_GROUPS, TERM
 	}
 
+	private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			if (intent.getAction().equals(WorkerType.DOWNLOAD_SETTINGS.name())) {
+				if (intent.getStringExtra(AbstractWorker.FINISHED_STATUS).equals(AbstractWorker.FinishedWorkerStatus.SUCCESS.name())) {
+					AlertDialogHelper.showInfoDialog("W Broadcast Receiverze", "Tak jak w tytule");
+					generateView();
+				}
+			}
+		}
+	};
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_settings);
-
+		WorkerRunnerManager.getInstance(getApplicationContext()).registerBroadcastForWorkerType(mBroadcastReceiver, WorkerType.DOWNLOAD_SETTINGS);
 		mSettingsDataHelper = new SettingsDataStoreHelper(getApplicationContext());
 		mDependentDataHelper = new DependentDataHelper();
 
@@ -122,6 +140,12 @@ public class SettingsActivity extends StudentShenchmanMainActivity implements Gr
 		mClear.setOnClickListener(new ClearOnClickListener());
 
 		generateView();
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		WorkerRunnerManager.getInstance(getApplicationContext()).unregisterBroadcastReceiverForWorkerType(mBroadcastReceiver);
 	}
 
 	private void initAdapters() {

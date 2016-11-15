@@ -1,6 +1,7 @@
 package edu.p.lodz.pl.studentshenchman.workers;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -8,7 +9,6 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 
-import edu.p.lodz.pl.studentshenchman.utils.dialog.helper.AlertDialogHelper;
 import edu.p.lodz.pl.studentshenchman.workers.helpers.WorkerRunnerManager;
 import edu.p.lodz.pl.studentshenchman.workers.utils.WorkerType;
 import retrofit2.adapter.rxjava.HttpException;
@@ -23,19 +23,25 @@ public abstract class AbstractWorker<T> implements Observer<T> {
 	private static final String TAG = AbstractWorker.class.getName();
 
 	public static final String WORKER_NAME = "WORKER_NAME";
-	public static final String RESPONSE_STATUS = "RESPONSE_STATUS";
+	public static final String FINISHED_STATUS = "FINISHED_STATUS";
 
 	protected Context mContext;
+
+	public enum FinishedWorkerStatus {
+		SUCCESS, FAIL
+	}
 
 	public AbstractWorker(Context context) {
 		mContext = context;
 	}
 
-	public void notifyTaskFinished(Bundle bundle) {
+	public void notifyTaskFinished(Bundle bundle, FinishedWorkerStatus finishedWorkerStatus) {
 		WorkerType workerType = WorkerType.valueOf(bundle.getString(WORKER_NAME));
 		WorkerRunnerManager.getInstance(mContext).deleteFromRunningWorkers(workerType);
-		AlertDialogHelper.showInfoDialog("Worker Finished", "Worker of type: " + workerType + "finished");
-
+		//AlertDialogHelper.showInfoDialog("Worker Finished", "Worker of type: " + workerType + "finished");
+		Intent intent = new Intent(workerType.name());
+		intent.putExtra(FINISHED_STATUS, finishedWorkerStatus.name());
+		mContext.sendBroadcast(intent);
 
 	}
 
