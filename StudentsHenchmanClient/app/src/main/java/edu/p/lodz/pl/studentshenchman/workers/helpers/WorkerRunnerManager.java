@@ -1,6 +1,8 @@
 package edu.p.lodz.pl.studentshenchman.workers.helpers;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -78,4 +80,14 @@ public class WorkerRunnerManager {
 			deleteFromRunningWorkers(entry.getKey());
 		}
 	}
+
+	public void registerBroadcastForWorkerType(BroadcastReceiver receiver, WorkerType workerType) {
+		mContext.registerReceiver(receiver, new IntentFilter(workerType.name()));
+	}
+
+	public void unregisterBroadcastReceiverForWorkerType(BroadcastReceiver receiver) {
+		mContext.unregisterReceiver(receiver);
+	}
+
+
 }
