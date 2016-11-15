@@ -17,8 +17,9 @@ public class Note implements BaseColumns {
 
 	public static final String _ID = "_id";
 	public static final String COURSE_ID = "course_id";
+	public static final String EXTERNAL_COURSE_ID = "external_course_id";
 	public static final String CONTENT = "content";
-	public static final String ADDED_DATE = "added_date";
+	public static final String ACTIVATION_DATE = "activation_date";
 
 
 	public static final Map<String, String> projectionColumns;
@@ -29,36 +30,41 @@ public class Note implements BaseColumns {
 				_ID);
 		projectionColumns.put(COURSE_ID,
 				COURSE_ID);
+		projectionColumns.put(EXTERNAL_COURSE_ID,
+				EXTERNAL_COURSE_ID);
 		projectionColumns.put(CONTENT,
 				CONTENT);
-		projectionColumns.put(ADDED_DATE,
-				ADDED_DATE);
+		projectionColumns.put(ACTIVATION_DATE,
+				ACTIVATION_DATE);
 	}
 
-	public static final String[] COLUMN_NAMES = {_ID, COURSE_ID, CONTENT, ADDED_DATE};
+	public static final String[] COLUMN_NAMES = {_ID, COURSE_ID, EXTERNAL_COURSE_ID, CONTENT, ACTIVATION_DATE};
 
 
 	public static final String[] COLUMN_TYPES = {
 			"integer primary key autoincrement",     //NOTE_ID
 			"integer",                               //COURSE_ID
+			"integer",                               //EXTERNAL_COURSE_ID
 			"text",                                  //CONTENT
-			"long",                                  //ADDED_DATE
+			"long",                                  //ACTIVATION_DATE
 	};
 
 
 	private long id;
 	private long courseId;
+	private long externalCourseId;
 	private String content;
-	private long addedDate;
+	private long activationDate;
 
 	public Note() {
 	}
 
 	public Note(Cursor cursor) {
-		id = cursor.getLong(cursor.getColumnIndexOrThrow(Note._ID));
-		courseId = cursor.getLong(cursor.getColumnIndexOrThrow(Note.COURSE_ID));
-		content = cursor.getString(cursor.getColumnIndexOrThrow(Note.CONTENT));
-		addedDate = cursor.getLong(cursor.getColumnIndexOrThrow(Note.ADDED_DATE));
+		id = cursor.getLong(cursor.getColumnIndexOrThrow(_ID));
+		courseId = cursor.getLong(cursor.getColumnIndexOrThrow(COURSE_ID));
+		externalCourseId = cursor.getLong(cursor.getColumnIndexOrThrow(EXTERNAL_COURSE_ID));
+		content = cursor.getString(cursor.getColumnIndexOrThrow(CONTENT));
+		activationDate = cursor.getLong(cursor.getColumnIndexOrThrow(ACTIVATION_DATE));
 	}
 
 	public long getId() {
@@ -77,6 +83,14 @@ public class Note implements BaseColumns {
 		this.courseId = courseId;
 	}
 
+	public long getExternalCourseId() {
+		return externalCourseId;
+	}
+
+	public void setExternalCourseId(long externalCourseId) {
+		this.externalCourseId = externalCourseId;
+	}
+
 	public String getContent() {
 		return content;
 	}
@@ -85,12 +99,12 @@ public class Note implements BaseColumns {
 		this.content = content;
 	}
 
-	public long getAddedDate() {
-		return addedDate;
+	public long getActivationDate() {
+		return activationDate;
 	}
 
-	public void setAddedDate(long addedDate) {
-		this.addedDate = addedDate;
+	public void setActivationDate(long activationDate) {
+		this.activationDate = activationDate;
 	}
 
 	@Override
@@ -98,8 +112,9 @@ public class Note implements BaseColumns {
 		return "Note{" +
 				"id=" + id +
 				", courseId=" + courseId +
+				", externalCourseId=" + externalCourseId +
 				", content='" + content + '\'' +
-				", addedDate=" + addedDate +
+				", activationDate=" + activationDate +
 				'}';
 	}
 }
