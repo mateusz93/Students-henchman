@@ -28,7 +28,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private static DatabaseHelper databaseHelper;
 
 	private static final String DATABASE_NAME = "StudentShenchman";
-	private static final int DATABASE_VERSION = 8;
+	private static final int DATABASE_VERSION = 9;
 
 	private static final String DROP_TABLE = "drop table if exists ";
 	private static final String CREATE_TABLE = "create table ";
