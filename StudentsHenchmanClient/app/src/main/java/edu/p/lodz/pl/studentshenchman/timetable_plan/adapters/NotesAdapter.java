@@ -29,12 +29,10 @@ public class NotesAdapter extends BaseAdapter implements AlertDialogCallback {
 	private static final String TAG = NotesAdapter.class.getName();
 
 	private final Context mContext;
-	private final FragmentManager fm;
 	private final LayoutInflater mInflater;
 
 	public NotesAdapter(Context context, FragmentManager fm) {
 		mContext = context;
-		this.fm = fm;
 		mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 		AlertDialogHelper.readjustYesNoCallback(fm, this, DELETE_NOTE_TAG);
