@@ -1,6 +1,3 @@
-INSERT INTO TEACHER (NAME)
-  SELECT DISTINCT PLAN_MAPPING.Surname
-  FROM PLAN_MAPPING WHERE Surname is not null and Surname not in('Surname','');
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertuj$$
