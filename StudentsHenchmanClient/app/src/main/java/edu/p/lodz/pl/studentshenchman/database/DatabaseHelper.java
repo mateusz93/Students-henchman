@@ -8,9 +8,12 @@ import android.util.Log;
 import java.util.HashMap;
 import java.util.Map;
 
+import edu.p.lodz.pl.studentshenchman.database.models.Build;
+import edu.p.lodz.pl.studentshenchman.database.models.Course;
 import edu.p.lodz.pl.studentshenchman.database.models.Date;
 import edu.p.lodz.pl.studentshenchman.database.models.DeanGroup;
 import edu.p.lodz.pl.studentshenchman.database.models.Department;
+import edu.p.lodz.pl.studentshenchman.database.models.ErrorReport;
 import edu.p.lodz.pl.studentshenchman.database.models.Field;
 import edu.p.lodz.pl.studentshenchman.database.models.Note;
 import edu.p.lodz.pl.studentshenchman.database.models.Room;
@@ -29,7 +32,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private static DatabaseHelper databaseHelper;
 
 	private static final String DATABASE_NAME = "StudentShenchman";
-	private static final int DATABASE_VERSION = 11;
+	private static final int DATABASE_VERSION = 12;
 
 	private static final String DROP_TABLE = "drop table if exists ";
 	private static final String CREATE_TABLE = "create table ";
@@ -41,6 +44,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		{
 			put(User.TABLE_NAME, createTableQuery(User.TABLE_NAME, User.COLUMN_NAMES, User.COLUMN_TYPES));
 			put(Teacher.TABLE_NAME, createTableQuery(Teacher.TABLE_NAME, Teacher.COLUMN_NAMES, Teacher.COLUMN_TYPES));
+			put(Build.TABLE_NAME, createTableQuery(Build.TABLE_NAME, Build.COLUMN_NAMES, Build.COLUMN_TYPES));
 			put(Room.TABLE_NAME, createTableQuery(Room.TABLE_NAME, Room.COLUMN_NAMES, Room.COLUMN_TYPES));
 			put(Department.TABLE_NAME, createTableQuery(Department.TABLE_NAME, Department.COLUMN_NAMES, Department.COLUMN_TYPES));
 			put(Field.TABLE_NAME, createTableQuery(Field.TABLE_NAME, Field.COLUMN_NAMES, Field.COLUMN_TYPES));
@@ -49,6 +53,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			put(Date.TABLE_NAME, createTableQuery(Date.TABLE_NAME, Date.COLUMN_NAMES, Date.COLUMN_TYPES));
 			put(Note.TABLE_NAME, createTableQuery(Note.TABLE_NAME, Note.COLUMN_NAMES, Note.COLUMN_TYPES));
 			put(Date.TABLE_NAME, createTableQuery(Date.TABLE_NAME, Date.COLUMN_NAMES, Date.COLUMN_TYPES));
+			put(ErrorReport.TABLE_NAME, createTableQuery(ErrorReport.TABLE_NAME, ErrorReport.COLUMN_NAMES, ErrorReport.COLUMN_TYPES));
+			put(Course.TABLE_NAME, createTableQuery(Course.TABLE_NAME, Course.COLUMN_NAMES, Course.COLUMN_TYPES));
 		}
 	};
 
