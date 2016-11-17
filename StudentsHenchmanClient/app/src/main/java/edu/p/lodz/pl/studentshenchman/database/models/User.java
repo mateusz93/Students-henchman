@@ -11,19 +11,26 @@ public class User implements BaseColumns {
 
 	public static final String TABLE_NAME = "user";
 
-	public static final String USER_ID = "external_user_id";
+	public static final String _ID = "user_id";
 	public static final String EMAIL = "email";
-	public static final String TOKEN = "token";
-	public static final String PLAN_VERSION = "plan_version";
+	public static final String EXTERNAL_DEPARTMENT_ID = "external_department_id";
+	public static final String EXTERNAL_FIELD_ID = "external_field_id";
+	public static final String EXTERNAL_DEAN_GROUPS_IDS = "external_dean_group_ids";
+	public static final String TERM = "term";
+	public static final String DEGREE = "degree";
 
 
-	public static final String[] COLUMN_NAMES = {_ID, USER_ID, EMAIL, TOKEN, PLAN_VERSION};
+	public static final String[] COLUMN_NAMES = {_ID, EMAIL, EXTERNAL_DEPARTMENT_ID, EXTERNAL_FIELD_ID, EXTERNAL_DEAN_GROUPS_IDS, TERM, DEGREE};
 
 	public static final String[] COLUMN_TYPES = {
-			"integer primary key autoincrement",    //USER_ID
-			"integer",                              //EXTERNAL_USER_ID
+			"integer primary key autoincrement",    //ID
 			"text",                                 //EMAIL
-			"text",                                 //TOKEN
-			"text",                                 //PLAN_VERSION
+			"long",                                 //EXTERNAL_DEPARTMENT_ID
+			"long",                                 //EXTERNAL_FIELD_ID
+			"text",                                 //EXTERNAL_DEAN_GROUPS_IDS
+			"integer",                              //TERM
+			"integer",                              //DEGREE
 	};
+
+
 }

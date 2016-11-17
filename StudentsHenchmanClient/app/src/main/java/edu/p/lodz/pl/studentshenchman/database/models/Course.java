@@ -19,14 +19,11 @@ public class Course implements BaseColumns {
 	public static final String _ID = "_id";
 	public static final String EXTERNAL_COURSE_ID = "external_course_id";
 	public static final String NAME = "name";
-	public static final String QUANTITY = "quantity";
-	public static final String CYCLE = "cycle";
-	public static final String FIRST_WEEK = "first_week";
-	public static final String START_TIME = "start_time";
-	public static final String END_TIME = "end_time";
-	public static final String EXTERNAL_ROOM_ID = "external_room_id";
+	public static final String TIME = "time";
+	public static final String DAY = "day";
+	public static final String WEEKS = "weeks";
+	public static final String EXTERNAL_DEAN_GROUP_ID = "external_dean_group_id";
 	public static final String EXTERNAL_TEACHER_ID = "external_teacher_id";
-	public static final String COURSE_TYPE = "course_type";
 
 	public static final Map<String, String> projectionColumns;
 
@@ -38,40 +35,31 @@ public class Course implements BaseColumns {
 				EXTERNAL_COURSE_ID);
 		projectionColumns.put(NAME,
 				NAME);
-		projectionColumns.put(QUANTITY,
-				QUANTITY);
-		projectionColumns.put(CYCLE,
-				CYCLE);
-		projectionColumns.put(FIRST_WEEK,
-				FIRST_WEEK);
-		projectionColumns.put(START_TIME,
-				START_TIME);
-		projectionColumns.put(END_TIME,
-				END_TIME);
-		projectionColumns.put(EXTERNAL_ROOM_ID,
-				EXTERNAL_ROOM_ID);
+		projectionColumns.put(TIME,
+				TIME);
+		projectionColumns.put(DAY,
+				DAY);
+		projectionColumns.put(WEEKS,
+				WEEKS);
+		projectionColumns.put(EXTERNAL_DEAN_GROUP_ID,
+				EXTERNAL_DEAN_GROUP_ID);
 		projectionColumns.put(EXTERNAL_TEACHER_ID,
 				EXTERNAL_TEACHER_ID);
-		projectionColumns.put(COURSE_TYPE,
-				COURSE_TYPE);
 	}
 
-	public static final String[] COLUMN_NAMES = {_ID, EXTERNAL_COURSE_ID, NAME, QUANTITY, CYCLE, FIRST_WEEK,
-			START_TIME, END_TIME, EXTERNAL_ROOM_ID, EXTERNAL_TEACHER_ID, COURSE_TYPE};
+	public static final String[] COLUMN_NAMES = {_ID, EXTERNAL_COURSE_ID, NAME, TIME, DAY, WEEKS,
+			EXTERNAL_DEAN_GROUP_ID, EXTERNAL_TEACHER_ID};
 
 
 	public static final String[] COLUMN_TYPES = {
 			"integer primary key autoincrement",    //ROOM_ID
-			"integer",                              //EXTERNAL_COURSE_ID
+			"long",                                 //EXTERNAL_COURSE_ID
 			"text",                                 //NAME
-			"integer",                              //QUANTITY
-			"integer",                              //CYCLE
-			"integer",                              //FIRST_WEEK
-			"long",                                 //START_TIME
-			"long",                                 //END_TIME
-			"integer",                              //EXTERNAL_ROOM_ID
-			"integer",                              //EXTERNAL_TEACHER_ID
-			"text",                                 //COURSE_TYPE
+			"text",                                 //TIME
+			"text",                                 //DAY
+			"text",                                 //WEEKS
+			"long",                                 //EXTERNAL_DEAN_GROUP_ID
+			"long",                                 //EXTERNAL_TEACHER_ID
 	};
 
 	public static Course fromCursor2Course(Cursor cursor) {
@@ -81,14 +69,11 @@ public class Course implements BaseColumns {
 			course.setId(cursor.getLong(cursor.getColumnIndexOrThrow(Course._ID)));
 			course.setExternalId(cursor.getLong(cursor.getColumnIndexOrThrow(Course.EXTERNAL_COURSE_ID)));
 			course.setName(cursor.getString(cursor.getColumnIndexOrThrow(Course.NAME)));
-			course.setQuantity(cursor.getLong(cursor.getColumnIndexOrThrow(Course.QUANTITY)));
-			course.setCycle(cursor.getLong(cursor.getColumnIndexOrThrow(Course.CYCLE)));
-			course.setFirstWeek(cursor.getLong(cursor.getColumnIndexOrThrow(Course.FIRST_WEEK)));
-			course.setStartTime(cursor.getLong(cursor.getColumnIndexOrThrow(Course.START_TIME)));
-			course.setEndTime(cursor.getLong(cursor.getColumnIndexOrThrow(Course.END_TIME)));
-			course.setExternalRoomId(cursor.getLong(cursor.getColumnIndexOrThrow(Course.EXTERNAL_ROOM_ID)));
+			course.setTime(cursor.getString(cursor.getColumnIndexOrThrow(Course.TIME)));
+			course.setDay(cursor.getString(cursor.getColumnIndexOrThrow(Course.DAY)));
+			course.setWeeks(cursor.getString(cursor.getColumnIndexOrThrow(Course.WEEKS)));
+			course.setExternalDeanGroupId(cursor.getLong(cursor.getColumnIndexOrThrow(Course.EXTERNAL_DEAN_GROUP_ID)));
 			course.setExternalTeacherId(cursor.getLong(cursor.getColumnIndexOrThrow(Course.EXTERNAL_TEACHER_ID)));
-			course.setCourseType(cursor.getString(cursor.getColumnIndexOrThrow(Course.COURSE_TYPE)));
 		}
 		return course;
 	}
@@ -96,14 +81,11 @@ public class Course implements BaseColumns {
 	private long id;
 	private long externalId;
 	private String name;
-	private long quantity;
-	private long cycle;
-	private long firstWeek;
-	private long startTime;
-	private long endTime;
-	private long externalRoomId;
+	private String time;
+	private String day;
+	private String weeks;
+	private long externalDeanGroupId;
 	private long externalTeacherId;
-	private String courseType;
 
 	public long getId() {
 		return id;
@@ -129,52 +111,36 @@ public class Course implements BaseColumns {
 		this.name = name;
 	}
 
-	public long getQuantity() {
-		return quantity;
+	public String getTime() {
+		return time;
 	}
 
-	public void setQuantity(long quantity) {
-		this.quantity = quantity;
+	public void setTime(String time) {
+		this.time = time;
 	}
 
-	public long getCycle() {
-		return cycle;
+	public String getDay() {
+		return day;
 	}
 
-	public void setCycle(long cycle) {
-		this.cycle = cycle;
+	public void setDay(String day) {
+		this.day = day;
 	}
 
-	public long getFirstWeek() {
-		return firstWeek;
+	public String getWeeks() {
+		return weeks;
 	}
 
-	public void setFirstWeek(long firstWeek) {
-		this.firstWeek = firstWeek;
+	public void setWeeks(String weeks) {
+		this.weeks = weeks;
 	}
 
-	public long getStartTime() {
-		return startTime;
+	public long getExternalDeanGroupId() {
+		return externalDeanGroupId;
 	}
 
-	public void setStartTime(long startTime) {
-		this.startTime = startTime;
-	}
-
-	public long getEndTime() {
-		return endTime;
-	}
-
-	public void setEndTime(long endTime) {
-		this.endTime = endTime;
-	}
-
-	public long getExternalRoomId() {
-		return externalRoomId;
-	}
-
-	public void setExternalRoomId(long externalRoomId) {
-		this.externalRoomId = externalRoomId;
+	public void setExternalDeanGroupId(long externalDeanGroupId) {
+		this.externalDeanGroupId = externalDeanGroupId;
 	}
 
 	public long getExternalTeacherId() {
@@ -185,28 +151,17 @@ public class Course implements BaseColumns {
 		this.externalTeacherId = externalTeacherId;
 	}
 
-	public String getCourseType() {
-		return courseType;
-	}
-
-	public void setCourseType(String courseType) {
-		this.courseType = courseType;
-	}
-
 	@Override
 	public String toString() {
 		return "Course{" +
 				"id=" + id +
 				", externalId=" + externalId +
 				", name='" + name + '\'' +
-				", quantity=" + quantity +
-				", cycle=" + cycle +
-				", firstWeek=" + firstWeek +
-				", startTime=" + startTime +
-				", endTime=" + endTime +
-				", externalRoomId=" + externalRoomId +
+				", time='" + time + '\'' +
+				", day='" + day + '\'' +
+				", weeks='" + weeks + '\'' +
+				", externalDeanGroupId=" + externalDeanGroupId +
 				", externalTeacherId=" + externalTeacherId +
-				", courseType='" + courseType + '\'' +
 				'}';
 	}
 }

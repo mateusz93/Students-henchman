@@ -18,8 +18,7 @@ public class Teacher implements BaseColumns {
 
 	public static final String _ID = "_id";
 	public static final String EXTERNAL_TEACHER_ID = "external_teacher_id";
-	public static final String FIRST_NAME = "first_name";
-	public static final String LAST_NAME = "last_name";
+	public static final String NAME = "name";
 	public static final String EMAIL = "email";
 
 	public static final Map<String, String> projectionColumns;
@@ -30,22 +29,19 @@ public class Teacher implements BaseColumns {
 				_ID);
 		projectionColumns.put(EXTERNAL_TEACHER_ID,
 				EXTERNAL_TEACHER_ID);
-		projectionColumns.put(FIRST_NAME,
-				FIRST_NAME);
-		projectionColumns.put(LAST_NAME,
-				LAST_NAME);
+		projectionColumns.put(NAME,
+				NAME);
 		projectionColumns.put(EMAIL,
 				EMAIL);
 	}
 
-	public static final String[] COLUMN_NAMES = {_ID, EXTERNAL_TEACHER_ID, FIRST_NAME, LAST_NAME, EMAIL};
+	public static final String[] COLUMN_NAMES = {_ID, EXTERNAL_TEACHER_ID, NAME, EMAIL};
 
 
 	public static final String[] COLUMN_TYPES = {
 			"integer primary key autoincrement",    //TEACHER_ID
 			"integer",                              //EXTERNAL_TEACHER_ID
-			"text",                                 //FIRST_NAME
-			"text",                                 //LAST_NAME
+			"text",                                 //NAME
 			"text",                                 //EMAIL
 	};
 
@@ -55,8 +51,7 @@ public class Teacher implements BaseColumns {
 		if (cursor.moveToFirst()) {
 			teacher.setId(cursor.getLong(cursor.getColumnIndexOrThrow(Teacher._ID)));
 			teacher.setExternalId(cursor.getLong(cursor.getColumnIndexOrThrow(Teacher.EXTERNAL_TEACHER_ID)));
-			teacher.setFirstName(cursor.getString(cursor.getColumnIndexOrThrow(Teacher.FIRST_NAME)));
-			teacher.setLastName(cursor.getString(cursor.getColumnIndexOrThrow(Teacher.LAST_NAME)));
+			teacher.setName(cursor.getString(cursor.getColumnIndexOrThrow(Teacher.NAME)));
 			teacher.setEmail(cursor.getString(cursor.getColumnIndexOrThrow(Teacher.EMAIL)));
 
 		}
@@ -66,8 +61,7 @@ public class Teacher implements BaseColumns {
 
 	private long id;
 	private long externalId;
-	private String firstName;
-	private String lastName;
+	private String name;
 	private String email;
 
 	public long getId() {
@@ -86,20 +80,12 @@ public class Teacher implements BaseColumns {
 		this.externalId = externalId;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getName() {
+		return name;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getEmail() {
@@ -108,5 +94,15 @@ public class Teacher implements BaseColumns {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	@Override
+	public String toString() {
+		return "Teacher{" +
+				"id=" + id +
+				", externalId=" + externalId +
+				", name='" + name + '\'' +
+				", email='" + email + '\'' +
+				'}';
 	}
 }
