@@ -161,6 +161,9 @@ public class DashboardActivity extends StudentShenchmanMainActivity {
 			case R.id.nav_about:
 
 				break;
+			case R.id.todos_for_today:
+
+				break;
 			case R.id.nav_logout:
 
 				break;
