@@ -6,15 +6,18 @@ import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.animation.Animation;
 import android.widget.ImageButton;
@@ -48,6 +51,8 @@ public class DashboardActivity extends StudentShenchmanMainActivity {
 	private TextView mLessonTime;
 	private ActionBarDrawerToggle mDrawerToggle;
 
+	private TextView mTodosCounter;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -63,7 +68,10 @@ public class DashboardActivity extends StudentShenchmanMainActivity {
 		mBuilding = (TextView) findViewById(R.id.item_building_name);
 		mRoom = (TextView) findViewById(R.id.item_room_name);
 		mLessonTime = (TextView) findViewById(R.id.item_lesson_time);
-
+		mTodosCounter = (TextView) MenuItemCompat.getActionView(mNavDrawer.getMenu().
+				findItem(R.id.todos_for_today));
+		mTodosCounter.setText("10");
+		setCountersProperties(mTodosCounter);
 		mDrawerToggle = setupDrawerToggle();
 		setupDrawerContent(mNavDrawer);
 		mDrawerLayout.addDrawerListener(mDrawerToggle);
@@ -103,6 +111,12 @@ public class DashboardActivity extends StudentShenchmanMainActivity {
 			AlertDialogHelper.showInfoDialog("Tytul z dashboardu", "Wiadomosc z dashboardu");
 		});
 
+	}
+
+	private void setCountersProperties(TextView view) {
+		view.setTextColor(getResources().getColor(R.color.light_blue_color));
+		view.setGravity(Gravity.CENTER_VERTICAL);
+		view.setTypeface(null, Typeface.BOLD);
 	}
 
 	@Override
