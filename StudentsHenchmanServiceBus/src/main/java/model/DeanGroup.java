@@ -1,6 +1,9 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by Michał on 2016-10-30.
@@ -15,6 +18,7 @@ public class DeanGroup {
     private long term;
     private long degree;
     private Field field;
+    private Set<Course> courses;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -71,5 +75,15 @@ public class DeanGroup {
 
     public void setField(Field field) {
         this.field = field;
+    }
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "deanGroup", cascade = CascadeType.ALL)
+    public Set<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(Set<Course> courses) {
+        this.courses = courses;
     }
 }

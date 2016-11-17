@@ -1,6 +1,9 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by Michał on 2016-10-30.
@@ -12,6 +15,7 @@ public class Teacher {
     private long id;
     private String name;
     private String email;
+    private Set<Course> courses;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -43,4 +47,13 @@ public class Teacher {
         this.email = email;
     }
 
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "teacher", cascade = CascadeType.ALL)
+    public Set<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(Set<Course> courses) {
+        this.courses = courses;
+    }
 }

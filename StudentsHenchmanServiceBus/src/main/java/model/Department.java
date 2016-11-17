@@ -15,6 +15,7 @@ public class Department {
     private long id;
     private String name;
     private Set<Field> fields;
+    private Set<User> users;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -44,5 +45,15 @@ public class Department {
 
     public void setFields(Set<Field> fields) {
         this.fields = fields;
+    }
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "department", fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 }

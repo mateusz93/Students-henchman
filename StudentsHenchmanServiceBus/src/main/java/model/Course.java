@@ -1,7 +1,9 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
-import java.sql.Time;
+import java.util.Set;
 
 /**
  * Created by Michał on 2016-10-18.
@@ -14,11 +16,12 @@ public class Course {
     private String externalId;
     private String name;
     private String weekDay;
-    private String teacherName;
+    private Teacher teacher;
     private String weeks;
     private String time;
-    private String abbreviation;
-    private String groupName;
+    private DeanGroup deanGroup;
+    private Set<Note> notes;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -58,13 +61,14 @@ public class Course {
         this.weekDay = weekDay;
     }
 
-    @Column(name = "TEACHER_NAME")
-    public String getTeacherName() {
-        return teacherName;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "TEACHER_ID", nullable = false)
+    public Teacher getTeacher() {
+        return teacher;
     }
 
-    public void setTeacherName(String teacherName) {
-        this.teacherName = teacherName;
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
     }
 
     @Column(name = "WEEKS", nullable = false)
@@ -85,21 +89,23 @@ public class Course {
         this.time = time;
     }
 
-    @Column(name = "ABBREVIATION")
-    public String getAbbreviation() {
-        return abbreviation;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "DEAN_GROUP_ID", nullable = false)
+    public DeanGroup getDeanGroup() {
+        return deanGroup;
     }
 
-    public void setAbbreviation(String abbreviation) {
-        this.abbreviation = abbreviation;
+    public void setDeanGroup(DeanGroup deanGroup) {
+        this.deanGroup = deanGroup;
     }
 
-    @Column(name = "GROUP_NAME")
-    public String getGroupName() {
-        return groupName;
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "course", cascade = CascadeType.ALL)
+    public Set<Note> getNotes() {
+        return notes;
     }
 
-    public void setGroupName(String groupName) {
-        this.groupName = groupName;
+    public void setNotes(Set<Note> notes) {
+        this.notes = notes;
     }
 }
