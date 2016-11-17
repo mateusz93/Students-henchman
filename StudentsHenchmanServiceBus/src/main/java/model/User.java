@@ -18,6 +18,8 @@ public class User {
     private Field field;
     private String deanGroups;
     private String courses;
+    private int term;
+    private int degree;
     private Set<Note> notes;
 
 
@@ -77,6 +79,24 @@ public class User {
 
     public void setCourses(String courses) {
         this.courses = courses;
+    }
+
+    @Column(name = "TERM", nullable = false)
+    public int getTerm() {
+        return term;
+    }
+
+    public void setTerm(int term) {
+        this.term = term;
+    }
+
+    @Column(name = "DEGREE", nullable = false)
+    public int getDegree() {
+        return degree;
+    }
+
+    public void setDegree(int degree) {
+        this.degree = degree;
     }
 
     @JsonIgnore
