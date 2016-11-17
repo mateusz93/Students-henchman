@@ -1,0 +1,19 @@
+17.11.2016 
+Dodane
+	Dodana tabela ErrorReport
+	Dodana tabela User
+	Dodana tabela Note
+Modyfikacje:
+	Dodana relacja User -> notes
+	Dodana relacja Course -> notes
+	Dodana relacja DeanGroup -> courses
+	Dodana relacja Department-> users
+	Dodana relacja Field -> users
+	Dodana relacja DeanGroup -> courses
+	Dodana relacja Teacher -> courses
+
+Usuniete:
+	Usunieta kolumna ABBREVIATION z tabeli Course
+	Usunieta kolumna GROUP_NAME z tabeli Course
+	Usunieta kolumna TEACHER_NAME z tabeli Course
+	
