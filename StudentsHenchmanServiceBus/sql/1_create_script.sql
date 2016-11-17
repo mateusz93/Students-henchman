@@ -13,7 +13,10 @@ drop table if exists COURSE_TYPE;
 drop table if exists SUBJECT;
 drop table if exists FIELD_SUBJECT;
 drop table if exists TEACHER;
-
+drop table if exists USER;
+drop table if exists ERROR_REPORT;
+drop table if exists NOTE;
+drop table if exists COURSE;
 
 CREATE TABLE `PLAN_MAPPING` (
   `Ref` varchar(100) DEFAULT NULL,
@@ -145,6 +148,60 @@ CREATE TABLE `TEACHER` (
   PRIMARY KEY (`ID`),
   UNIQUE KEY `UK_al3ku1wrpfx7sc1py7vn99do` (`EMAIL`),
   UNIQUE KEY `UK_sj49cde2ewvr2t1vb0x1uro3` (`NAME`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `COURSE` (
+  `ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `EXTERNAL_ID` varchar(255) NOT NULL,
+  `NAME` varchar(255) NOT NULL,
+  `TIME` varchar(255) NOT NULL,
+  `DAY` varchar(255) DEFAULT NULL,
+  `WEEKS` varchar(255) NOT NULL,
+  `DEAN_GROUP_ID` bigint(20) UNSIGNED NOT NULL,
+  `TEACHER_ID` bigint(20) UNSIGNED NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `FK_4d4r7ttn209utbehetm1dtg2q` (`DEAN_GROUP_ID`),
+  KEY `FK_q82ykatqbuiqwfyswdfxtw11w` (`TEACHER_ID`),
+  CONSTRAINT `FK_4d4r7ttn209utbehetm1dtg2q` FOREIGN KEY (`DEAN_GROUP_ID`) REFERENCES `DEAN_GROUP` (`ID`),
+  CONSTRAINT `FK_q82ykatqbuiqwfyswdfxtw11w` FOREIGN KEY (`TEACHER_ID`) REFERENCES `TEACHER` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=1024 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `USER` (
+  `ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `COURSES` varchar(255) NOT NULL,
+  `DEAN_GROUPS` varchar(255) NOT NULL,
+  `EMAIL` varchar(255) NOT NULL,
+  `DEPARTMENT_ID` bigint(20) UNSIGNED NOT NULL,
+  `FIELD_ID` bigint(20) UNSIGNED NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `FK_deni62jhk0t06xe86s4e3716b` (`DEPARTMENT_ID`),
+  KEY `FK_a4qca7hctnysx1v73ujrfy6d6` (`FIELD_ID`),
+  CONSTRAINT `FK_a4qca7hctnysx1v73ujrfy6d6` FOREIGN KEY (`FIELD_ID`) REFERENCES `FIELD` (`ID`),
+  CONSTRAINT `FK_deni62jhk0t06xe86s4e3716b` FOREIGN KEY (`DEPARTMENT_ID`) REFERENCES `DEPARTMENT` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `NOTE` (
+  `ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `ACTIVATION_DATE` bigint(20) NOT NULL,
+  `CONTENT` varchar(255) NOT NULL,
+  `COURSE_ID` bigint(20) UNSIGNED NOT NULL,
+  `USER_ID` bigint(20) UNSIGNED NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `FK_siav2c5tja5iwf20suk8t38ae` (`COURSE_ID`),
+  KEY `FK_j3y3pd5paooie56aaub2menl9` (`USER_ID`),
+  CONSTRAINT `FK_j3y3pd5paooie56aaub2menl9` FOREIGN KEY (`USER_ID`) REFERENCES `USER` (`ID`),
+  CONSTRAINT `FK_siav2c5tja5iwf20suk8t38ae` FOREIGN KEY (`COURSE_ID`) REFERENCES `COURSE` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `ERROR_REPORT` (
+  `ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `CONTENT` varchar(255) NOT NULL,
+  `OCCURED_DATE` bigint(20) NOT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 SET foreign_key_checks = 1;
