@@ -32,6 +32,7 @@ public abstract class AbstractWorker<T> implements Observer<T> {
 		SUCCESS, FAIL
 	}
 
+	//TODO trzeba zaimplementowac przyjmowanie w kazdym workerze zamiast samego zwracanego obiektu to Response<responseObject> co pozwoli na sprawdzanie response codu
 	public AbstractWorker(Context context, Bundle bundle) {
 		mContext = context;
 		mBundle = bundle;
