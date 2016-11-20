@@ -4,11 +4,11 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.widget.Toast;
+import android.util.Log;
 
 import edu.p.lodz.pl.studentshenchman.database.DatabaseHelper;
-import edu.p.lodz.pl.studentshenchman.workers.factories.ServiceFactory;
 import edu.p.lodz.pl.studentshenchman.workers.endpoints.SettingsEndpoints;
+import edu.p.lodz.pl.studentshenchman.workers.factories.ServiceFactory;
 import model.Date;
 import rx.Observable;
 import rx.Subscription;
@@ -39,16 +39,19 @@ public class DownloadDateWorker extends AbstractWorker<Date> {
 
 	@Override
 	public void onCompleted() {
-		Toast.makeText(mContext, "Date downloaded successfully", Toast.LENGTH_SHORT).show();
+		Log.i(TAG, "Settings downloaded successfully");
+		notifyTaskFinished(FinishedWorkerStatus.SUCCESS);
 	}
 
 	@Override
 	public void onError(Throwable e) {
 		onError(mContext, e);
+		notifyTaskFinished(FinishedWorkerStatus.FAIL);
 	}
 
 	@Override
 	public void onNext(Date date) {
+		Log.i(TAG, "Zapisywanie dat uczelnianych pobranych z serwera");
 		SQLiteDatabase db = DatabaseHelper.getInstance(mContext).getWritableDatabase();
 		deleteOldSettings(db);
 		saveDateIntoDB(db, date);
