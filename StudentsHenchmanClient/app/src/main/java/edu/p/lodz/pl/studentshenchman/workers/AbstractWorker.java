@@ -54,7 +54,7 @@ public abstract class AbstractWorker<T> implements Observer<T> {
 	public void onError(Context context, Throwable throwable) {
 		if (throwable instanceof HttpException) {
 			HttpException httpException = (HttpException) throwable;
-			AlertDialogHelper.showErrorDialog("Error", httpException.code() + " - " + httpException.message());
+			AlertDialogHelper.showErrorDialog("Error", httpException.getMessage() + "\nAction: " + mBundle.getString(WORKER_NAME));
 		} else if (throwable instanceof SocketTimeoutException) {
 			AlertDialogHelper.showErrorDialog("Socket Timeout", throwable.getMessage());
 		} else if (throwable instanceof IOException) {
