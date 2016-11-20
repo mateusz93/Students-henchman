@@ -38,6 +38,11 @@ public class CoursesLoader extends AsyncTaskLoader<List<CoursesLoaderObject>> {
 		List<CoursesLoaderObject> courses = new ArrayList<>();
 		courses = loadCourses();
 
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		return courses;
 	}
 
