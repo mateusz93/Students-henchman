@@ -38,3 +38,6 @@ http://localhost:8080/mobile/rooms?id={id}   Method.GET - zwraca RoomRS
 http://localhost:8080/mobile/rooms?name={name}   Method.GET - zwraca RoomRS
 http://localhost:8080/mobile/rooms?code={code}   Method.GET - zwraca RoomRS
 http://localhost:8080/mobile/settings   Method.GET - zwraca SettingsRS
+http://localhost:8080/mobile/setNote   Method.POST - przyjmuje NoteRQ, zwraca HttpStatus.OK
+http://localhost:8080/mobile/deleteNote?id={id}   Method.DELETE - zwraca HttpStatus.OK
+http://localhost:8080/mobile/user/setPreferences   Method.POST - przyjmuje PreferencesRQ, zwraca HttpStatus.OK
