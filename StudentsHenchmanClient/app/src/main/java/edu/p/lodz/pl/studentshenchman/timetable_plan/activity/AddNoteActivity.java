@@ -1,5 +1,7 @@
 package edu.p.lodz.pl.studentshenchman.timetable_plan.activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -60,9 +62,11 @@ public class AddNoteActivity extends StudentShenchmanMainActivity {
 			Date date = new Date(mActivationDate.getYear() - 1900, mActivationDate.getMonth(), mActivationDate.getDayOfMonth());
 			String content = mNoteContent.getText().toString().trim();
 			long activationDate = date.getTime();
-			Log.i(TAG, "Tresc notatki: " + content + " data aktywacji: " + activationDate);
+			Log.i(TAG, "Note content: " + content + " activation date: " + activationDate);
 			if (!content.isEmpty())
 				TimeTableUtils.addNoteToDB(getApplicationContext(), 1, 1, content, activationDate);
+			Intent returnIntent = new Intent();
+			setResult(Activity.RESULT_OK, returnIntent);
 			finish();
 		}
 	}
@@ -70,6 +74,8 @@ public class AddNoteActivity extends StudentShenchmanMainActivity {
 	private class CancelOnClickListener implements View.OnClickListener {
 		@Override
 		public void onClick(View v) {
+			Intent returnIntent = new Intent();
+			setResult(Activity.RESULT_CANCELED, returnIntent);
 			finish();
 		}
 	}

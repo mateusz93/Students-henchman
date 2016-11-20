@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,6 +33,7 @@ public class NotesAdapter extends BaseAdapter implements AlertDialogCallback {
 
 	private final Context mContext;
 	private final LayoutInflater mInflater;
+	private long noteToDelete = Long.MIN_VALUE;
 	private List<Note> mValues;
 
 	public NotesAdapter(Context context, FragmentManager fm) {
@@ -80,7 +80,7 @@ public class NotesAdapter extends BaseAdapter implements AlertDialogCallback {
 
 		viewHolder.noteContent.setText(note.getContent());
 		viewHolder.addedDate.setText(DateFormat.getDateFormat(mContext).format(new Date(note.getActivationDate())));
-		viewHolder.deleteNote.setOnClickListener(new DelNoteOnClickListener(mContext));
+		viewHolder.deleteNote.setOnClickListener(new DelNoteOnClickListener(mContext, getItemId(position)));
 
 		return convertView;
 	}
@@ -99,13 +99,16 @@ public class NotesAdapter extends BaseAdapter implements AlertDialogCallback {
 
 	private class DelNoteOnClickListener implements View.OnClickListener {
 		Context mContext;
+		public long noteId;
 
-		public DelNoteOnClickListener(Context context) {
+		public DelNoteOnClickListener(Context context, long noteId) {
 			this.mContext = context;
+			this.noteId = noteId;
 		}
 
 		@Override
 		public void onClick(View v) {
+			noteToDelete = noteId;
 			AnimationHelper.startShockAnimation(v);
 			AlertDialogHelper.showYesNoDialog(mContext.getString(R.string.delete_note),
 					mContext.getString(R.string.del_note_msg), NotesAdapter.this, DELETE_NOTE_TAG);
@@ -114,11 +117,13 @@ public class NotesAdapter extends BaseAdapter implements AlertDialogCallback {
 
 	@Override
 	public void positiveCallback() {
-		Toast.makeText(mContext, "notatka do usuniecia toast yes", Toast.LENGTH_SHORT).show();
+		TimeTableUtils.deleteNoteById(mContext, noteToDelete);
+		init();
+		notifyDataSetChanged();
 	}
 
 	@Override
 	public void negativeCallback() {
-		Toast.makeText(mContext, "notatka do usuniecia toast no", Toast.LENGTH_SHORT).show();
+		//do nothing
 	}
 }
