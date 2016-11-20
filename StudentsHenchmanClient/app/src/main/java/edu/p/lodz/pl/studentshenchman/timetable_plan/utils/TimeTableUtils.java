@@ -25,7 +25,7 @@ public class TimeTableUtils {
 		SelectedCourseContext selectedCourseContext = new SelectedCourseContext();
 
 		Cursor c = db.query(Course.TABLE_NAME, null, Course._ID + "=?", new String[]{courseId + ""}, null, null, null);
-		Course course = Course.fromCursor2Course(c);
+		Course course = new Course(c);
 
 		/*c = db.query(Room.TABLE_NAME, null, Room.EXTERNAL_ROOM_ID + "=?", new String[]{course.getExternalRoomId() + ""}, null, null, null);
 		Room room = Room.fromCursor2Room(c);*/
