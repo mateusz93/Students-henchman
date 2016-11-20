@@ -27,6 +27,7 @@
     <string name="note_activation_date">Activation date:</string>
     <string name="note_content">Content:</string>
     <string name="add_note">Add note</string>
+    <string name="add_activation_date">Add activation date</string>
     <string name="delete_note">Delete note</string>
     <string name="del_note_msg">Are you sure that you can delete the note ?</string>
 

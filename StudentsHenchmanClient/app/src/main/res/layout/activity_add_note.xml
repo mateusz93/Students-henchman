@@ -1,44 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@drawable/info_dialog_background"
-              android:orientation="vertical">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/bg_color"
+                android:orientation="vertical">
 
-    <TextView
-        style="@style/lesson_item_value_label"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="@string/add_note"/>
 
-    <View
-        style="@style/horizontal_divider"/>
-
-    <TextView
-        android:id="@+id/expandable_date_view"
-        style="@style/lesson_item_value_label"
-        android:background="@color/bg_color"
+    <ScrollView
+        android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="dodaj date aktywacji"/>
+        android:layout_above="@+id/buttons"
+        android:layout_alignParentTop="true">
 
-    <DatePicker
-        android:id="@+id/note_activation_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:isScrollContainer="true"
-        android:maxHeight="200dp"/>
+            <EditText
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/add_note"
+                android:isScrollContainer="true"
+                android:maxHeight="200dp"/>
+
+            <Button
+                android:id="@+id/add_activation_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/bg_color"
+                android:text="@string/add_activation_date"/>
+
+            <DatePicker
+                android:id="@+id/note_activation_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+        </LinearLayout>
+    </ScrollView>
+
 
     <LinearLayout
+        android:id="@+id/buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:orientation="horizontal">
 
         <Button
@@ -56,4 +64,4 @@
             android:text="@string/cancel_button"/>
 
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

@@ -43,6 +43,9 @@
             android:name=".timetable_plan.activity.SubjectDetailsActivity"
             android:label="@string/subject_details_activity_title"
             android:launchMode="singleTop"/>
+        <activity
+            android:name=".timetable_plan.activity.AddNoteActivity"
+            android:launchMode="singleTop"/>
     </application>
 
 </manifest>
