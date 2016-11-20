@@ -9,8 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ToxicBakery.viewpager.transforms.CubeInTransformer;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,13 +80,11 @@ public class TimetableDaysFragment extends StudentShenchmanMainFragment {
 
 	private List<Fragment> getRequiredFragments() {
 		List<Fragment> fragments = new ArrayList<>();
-		fragments.add(DayFragment.getInstance(getString(R.string.monday), 1));
-		fragments.add(DayFragment.getInstance(getString(R.string.tuesday), 2));
-		fragments.add(DayFragment.getInstance(getString(R.string.wednesday), 3));
-		fragments.add(DayFragment.getInstance(getString(R.string.thursday), 4));
-		fragments.add(DayFragment.getInstance(getString(R.string.friday), 5));
-		fragments.add(DayFragment.getInstance(getString(R.string.saturday), 6));
-		fragments.add(DayFragment.getInstance(getString(R.string.sunday), 7));
+		fragments.add(DayFragment.getInstance(getString(R.string.monday), 1, "Pn"));
+		fragments.add(DayFragment.getInstance(getString(R.string.tuesday), 2, "Wt"));
+		fragments.add(DayFragment.getInstance(getString(R.string.wednesday), 3, "Sr"));
+		fragments.add(DayFragment.getInstance(getString(R.string.thursday), 4, "Czw"));
+		fragments.add(DayFragment.getInstance(getString(R.string.friday), 5, "Pt"));
 
 		return fragments;
 	}
