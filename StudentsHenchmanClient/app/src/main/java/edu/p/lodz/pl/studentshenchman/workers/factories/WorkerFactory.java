@@ -6,6 +6,7 @@ import android.os.Bundle;
 import edu.p.lodz.pl.studentshenchman.workers.AbstractWorker;
 import edu.p.lodz.pl.studentshenchman.workers.DownloadDateWorker;
 import edu.p.lodz.pl.studentshenchman.workers.DownloadSettingsWorker;
+import edu.p.lodz.pl.studentshenchman.workers.DownloadTeachersWorker;
 import edu.p.lodz.pl.studentshenchman.workers.DownloadTimeTableWorker;
 import edu.p.lodz.pl.studentshenchman.workers.IdleWorker;
 import edu.p.lodz.pl.studentshenchman.workers.utils.WorkerType;
@@ -23,6 +24,8 @@ public class WorkerFactory {
 				return new DownloadSettingsWorker(context, bundle);
 			case DOWNLOAD_TIMETABLE:
 				return new DownloadTimeTableWorker(context, bundle);
+			case DOWNLOAD_TEACHERS:
+				return new DownloadTeachersWorker(context, bundle);
 			default:
 				return new IdleWorker(context, bundle);
 		}
