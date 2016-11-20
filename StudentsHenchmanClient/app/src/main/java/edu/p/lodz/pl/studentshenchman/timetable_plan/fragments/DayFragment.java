@@ -86,8 +86,9 @@ public class DayFragment extends StudentShenchmanMainFragment implements LoaderM
 
 		View view = inflater.inflate(R.layout.day_fragment, container, false);
 
-
 		mRecyclerView = (RecyclerView) view.findViewById(R.id.list);
+		mProgressBarLayout = (RelativeLayout) view.findViewById(R.id.progress_bar_layout);
+		mEmptyLayout = (RelativeLayout) view.findViewById(R.id.empty_layout);
 		mStaggeredLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
 		mRecyclerView.setLayoutManager(mStaggeredLayoutManager);
 		mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext()));
@@ -169,7 +170,7 @@ public class DayFragment extends StudentShenchmanMainFragment implements LoaderM
 
 	@Override
 	public void onLoaderReset(Loader<List<CoursesLoaderObject>> loader) {
-
+		mAdapter.setItems(new ArrayList<>());
 	}
 
 

@@ -10,24 +10,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/bg_color"
-        android:listSelector="@android:color/transparent"/>
+        android:listSelector="@android:color/transparent"
+        android:visibility="gone"/>
 
     <RelativeLayout
         android:id="@+id/progress_bar_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="visible">
 
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:visibility="gone"/>
+            android:layout_centerInParent="true"/>
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/empty_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:visibility="gone">
 
         <TextView
@@ -35,15 +36,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="brak zajec do wyswietlenie. Pobierz plan ponownie"/>
+            android:text="@string/timetable_free_day"/>
 
-        <Button
-            android:id="@+id/retry"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/empty_text"
-            android:layout_centerInParent="true"
-            android:text="reload"/>
     </RelativeLayout>
 
 
