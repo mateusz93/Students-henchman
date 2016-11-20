@@ -34,7 +34,7 @@ public class TimeTableUtils {
 		Build build = Build.fromCursor2Build(c);*/
 
 		c = db.query(Teacher.TABLE_NAME, null, Teacher.EXTERNAL_TEACHER_ID + "=?", new String[]{course.getExternalTeacherId() + ""}, null, null, null);
-		Teacher teacher = Teacher.fromCursor2Teacher(c);
+		Teacher teacher = new Teacher(c);
 
 		c.close();
 
@@ -58,6 +58,7 @@ public class TimeTableUtils {
 		cv.put(Note.EXTERNAL_COURSE_ID, externalCourseId);
 		cv.put(Note.CONTENT, content);
 		cv.put(Note.ACTIVATION_DATE, activationDate);
+		cv.put(Note.IS_SYNCH, 0);
 		db.insert(Note.TABLE_NAME, null, cv);
 	}
 

@@ -8,8 +8,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
 import edu.p.lodz.pl.studentshenchman.R;
 import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainActivity;
 import edu.p.lodz.pl.studentshenchman.constants.Constants;
@@ -33,15 +31,11 @@ public class TimetableActivity extends StudentShenchmanMainActivity implements E
 	private static final String LAST_SELECTED_COURSE = ":last_selected_course";
 	private static final String ARE_LOCAL_CHANGES = ":are_local_changes";
 	private static final String CONTEXT_TO_EDIT = ":context_to_edit";
-	private static final String COURSES_TO_DELETE = ":courses_to_delete";
-	private static final String COURSES_TO_ADD = ":courses_to_add";
 
 	private Toolbar toolbar;
 
 	private SelectedCourseContext mSelectedCourseContext;
 	private SelectedCourseContext mCourseContextToEdit;
-	private ArrayList<SelectedCourseContext> mCoursesToDelete = new ArrayList<>();
-	private ArrayList<SelectedCourseContext> mCoursesToAdd = new ArrayList<>();
 	private boolean mDualPane = false;
 	private boolean mAreLocalChanges = false;
 
@@ -62,8 +56,6 @@ public class TimetableActivity extends StudentShenchmanMainActivity implements E
 			mSelectedCourseContext = savedInstanceState.getParcelable(Constants.SELECTED_COURSE_CONTEXT);
 			mCourseContextToEdit = savedInstanceState.getParcelable(CONTEXT_TO_EDIT);
 			mAreLocalChanges = savedInstanceState.getBoolean(ARE_LOCAL_CHANGES, false);
-			mCoursesToDelete = savedInstanceState.getParcelableArrayList(COURSES_TO_DELETE);
-			mCoursesToAdd = savedInstanceState.getParcelableArrayList(COURSES_TO_ADD);
 		}
 
 		if (null != (findViewById(R.id.timetable_details_container))) {
@@ -91,8 +83,6 @@ public class TimetableActivity extends StudentShenchmanMainActivity implements E
 		outState.putParcelable(Constants.SELECTED_COURSE_CONTEXT, mSelectedCourseContext);
 		outState.putParcelable(CONTEXT_TO_EDIT, mCourseContextToEdit);
 		outState.putBoolean(ARE_LOCAL_CHANGES, mAreLocalChanges);
-		outState.putParcelableArrayList(COURSES_TO_DELETE, mCoursesToDelete);
-		outState.putParcelableArrayList(COURSES_TO_ADD, mCoursesToAdd);
 		super.onSaveInstanceState(outState);
 	}
 
