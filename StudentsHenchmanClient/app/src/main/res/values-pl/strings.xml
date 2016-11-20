@@ -74,9 +74,10 @@
     <string name="drawer_about_app">O aplikacji</string>
     <string name="drawer_logout_name">Wyloguj</string>
 
-    <!--change timetable-->
+    <!--timetable-->
     <string name="change_timetable_course_duration">Godzina:</string>
     <string name="change_timetable_downloading_data">Czekaj, pobieranie danych..</string>
+    <string name="timetable_free_day">Nie masz zaplanowanych zajęć na dziś</string>
 
     <!--course details-->
     <string name="subject_details_empty_text">Wybierz zajęcia aby zobaczyć szczegóły</string>

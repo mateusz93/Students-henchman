@@ -74,9 +74,10 @@
     <string name="drawer_about_app">About</string>
     <string name="drawer_logout_name">Logout</string>
 
-    <!--change timetable-->
+    <!--timetable-->
     <string name="change_timetable_course_duration">Duration</string>
     <string name="change_timetable_downloading_data">Wait, data downloading..</string>
+    <string name="timetable_free_day">You do not have courses for today</string>
 
     <!--course details-->
     <string name="subject_details_empty_text">Select course to see details</string>
