@@ -1,4 +1,4 @@
-package edu.p.lodz.pl.studentshenchman.factories;
+package edu.p.lodz.pl.studentshenchman.workers.factories;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

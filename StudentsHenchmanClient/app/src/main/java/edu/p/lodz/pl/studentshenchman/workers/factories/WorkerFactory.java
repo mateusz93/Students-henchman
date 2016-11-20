@@ -1,4 +1,4 @@
-package edu.p.lodz.pl.studentshenchman.factories;
+package edu.p.lodz.pl.studentshenchman.workers.factories;
 
 import android.content.Context;
 import android.os.Bundle;
