@@ -15,13 +15,13 @@ import edu.p.lodz.pl.studentshenchman.R;
  * Created by Michał on 2016-10-12.
  */
 
-public class SubjectListAdapter extends RecyclerView.Adapter<SubjectListAdapter.ViewHolder> {
-	private static final String TAG = SubjectListAdapter.class.getName();
+public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.ViewHolder> {
+	private static final String TAG = CourseListAdapter.class.getName();
 
 	private Context mContext;
 	private LayoutInflater mInflater;
 
-	public SubjectListAdapter(Context context) {
+	public CourseListAdapter(Context context) {
 		this.mContext = context;
 		this.mInflater = LayoutInflater.from(mContext);
 	}

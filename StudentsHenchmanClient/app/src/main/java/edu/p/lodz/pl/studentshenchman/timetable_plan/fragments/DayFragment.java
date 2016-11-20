@@ -21,7 +21,7 @@ import android.view.ViewGroup;
 import edu.p.lodz.pl.studentshenchman.R;
 import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainFragment;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.activity.TimetableActivity;
-import edu.p.lodz.pl.studentshenchman.timetable_plan.adapters.SubjectListAdapter;
+import edu.p.lodz.pl.studentshenchman.timetable_plan.adapters.CourseListAdapter;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.interfaces.CourseDialogFragmentInterface;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.utils.CoursesLoader;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.utils.TimeTableUtils;
@@ -46,7 +46,7 @@ public class DayFragment extends StudentShenchmanMainFragment implements LoaderM
 
 	private RecyclerView mRecyclerView;
 	private StaggeredGridLayoutManager mStaggeredLayoutManager;
-	private SubjectListAdapter mAdapter;
+	private CourseListAdapter mAdapter;
 
 	private SelectedCourseInterface mSelectedCourseInterface;
 	private CourseDialogFragmentInterface mDialogFragmentInterface;
@@ -106,7 +106,7 @@ public class DayFragment extends StudentShenchmanMainFragment implements LoaderM
 		}));
 		mRecyclerView.setHasFixedSize(true);
 		mRecyclerView.setItemAnimator(new SlideInLeftAnimator());
-		mAdapter = new SubjectListAdapter(getContext());
+		mAdapter = new CourseListAdapter(getContext());
 		AlphaInAnimationAdapter alphaAdapter = new AlphaInAnimationAdapter(mAdapter);
 		mRecyclerView.setAdapter(new ScaleInAnimationAdapter(alphaAdapter));
 
