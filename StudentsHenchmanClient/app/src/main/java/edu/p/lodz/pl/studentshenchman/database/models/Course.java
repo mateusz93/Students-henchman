@@ -87,6 +87,23 @@ public class Course implements BaseColumns {
 	private long externalDeanGroupId;
 	private long externalTeacherId;
 
+	public Course() {
+
+	}
+
+	public Course(Cursor cursor) {
+		if (cursor.moveToFirst()) {
+			id = cursor.getLong(cursor.getColumnIndexOrThrow(Course._ID));
+			externalId = cursor.getLong(cursor.getColumnIndexOrThrow(Course.EXTERNAL_COURSE_ID));
+			name = cursor.getString(cursor.getColumnIndexOrThrow(Course.NAME));
+			time = cursor.getString(cursor.getColumnIndexOrThrow(Course.TIME));
+			day = cursor.getString(cursor.getColumnIndexOrThrow(Course.DAY));
+			weeks = cursor.getString(cursor.getColumnIndexOrThrow(Course.WEEKS));
+			externalDeanGroupId = cursor.getLong(cursor.getColumnIndexOrThrow(Course.EXTERNAL_DEAN_GROUP_ID));
+			externalTeacherId = cursor.getLong(cursor.getColumnIndexOrThrow(Course.EXTERNAL_TEACHER_ID));
+		}
+	}
+
 	public long getId() {
 		return id;
 	}
