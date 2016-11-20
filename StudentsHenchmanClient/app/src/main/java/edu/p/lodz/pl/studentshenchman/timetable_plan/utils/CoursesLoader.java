@@ -2,9 +2,19 @@ package edu.p.lodz.pl.studentshenchman.timetable_plan.utils;
 
 import android.content.Context;
 import android.content.IntentFilter;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.content.AsyncTaskLoader;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
+
+import edu.p.lodz.pl.studentshenchman.database.DatabaseHelper;
+import edu.p.lodz.pl.studentshenchman.database.models.Course;
+import edu.p.lodz.pl.studentshenchman.database.models.DeanGroup;
+import edu.p.lodz.pl.studentshenchman.database.models.Teacher;
 
 /**
  * Created by Michał on 2016-11-20.
@@ -13,19 +23,65 @@ import java.util.List;
 public class CoursesLoader extends AsyncTaskLoader<List<CoursesLoaderObject>> {
 
 	private List<CoursesLoaderObject> mData;
+	private String mDayCode;
+	private String mDayAbbreviation;
 
-	public CoursesLoader(Context context) {
+	public CoursesLoader(Context context, String dayCode, String dayAbbreviation) {
 		super(context);
+
+		mDayCode = dayCode;
+		mDayAbbreviation = dayAbbreviation;
 	}
 
 	@Override
 	public List<CoursesLoaderObject> loadInBackground() {
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+		List<CoursesLoaderObject> courses = new ArrayList<>();
+		courses = loadCourses();
+
+		return courses;
+	}
+
+	private List<CoursesLoaderObject> loadCourses() {
+		List<CoursesLoaderObject> values = new ArrayList<>();
+		Calendar calendar = new GregorianCalendar();
+		String formattedDate = calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DAY_OF_MONTH);
+		int weekNo = 0;
+		SQLiteDatabase db = DatabaseHelper.getInstance(getContext()).getReadableDatabase();
+
+		/*Cursor c = db.query(Date.TABLE_NAME, null, Date.DATE + "=?", new String[]{formattedDate}, null, null, null, null);
+		if (c.moveToFirst()) {
+			weekNo = c.getInt(c.getColumnIndexOrThrow(Date.WEEK_NO));
+		}*/
+
+		Cursor c = db.query(Course.TABLE_NAME, null, Course.DAY + "=?", new String[]{mDayAbbreviation}, null, null, null);
+		Course course;
+		Teacher teacher = new Teacher();
+		DeanGroup deanGroup = new DeanGroup();
+		while (c.moveToNext()) {
+			course = new Course(c);
+			CoursesLoaderObject loaderObject = new CoursesLoaderObject();
+			Cursor teacherCursor = db.query(Teacher.TABLE_NAME, null, Teacher.EXTERNAL_TEACHER_ID + "=?",
+					new String[]{course.getExternalTeacherId() + ""}, null, null, null);
+			if (teacherCursor.moveToFirst()) {
+				teacher = new Teacher(teacherCursor);
+			}
+			Cursor deanGroupCursor = db.query(DeanGroup.TABLE_NAME, null, DeanGroup.EXTERNAL_DEAN_GROUP_ID + "=?",
+					new String[]{course.getExternalDeanGroupId() + ""}, null, null, null);
+			if (deanGroupCursor.moveToFirst()) {
+				deanGroup = new DeanGroup(deanGroupCursor);
+			}
+			teacherCursor.close();
+			deanGroupCursor.close();
+
+			loaderObject.setCourseId(course.getId());
+			loaderObject.setExternalCourseId(course.getExternalId());
+			loaderObject.setCourseName(course.getName());
+			loaderObject.setTeacherName(teacher.getName());
+			loaderObject.setDeanGroupName(deanGroup.getName());
+			values.add(loaderObject);
 		}
-		return null;
+		c.close();
+		return values;
 	}
 
 
