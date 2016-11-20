@@ -1,5 +1,6 @@
 package edu.p.lodz.pl.studentshenchman.timetable_plan.fragments;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -62,8 +63,6 @@ public class SubjectDetailsFragment extends StudentShenchmanMainFragment {
 		mAddSubjectNoteFAB.setOnClickListener(new AddNoteOnClickListener());
 		mSubjectNoteList = (ListView) view.findViewById(R.id.subject_note_list);
 		mSubjectNoteList.setOnScrollListener(new NoteOnScrollListener());
-		mNotesAdapter = new NotesAdapter(getContext(), getActivity().getSupportFragmentManager());
-		mSubjectNoteList.setAdapter(mNotesAdapter);
 		mLessonNavigator = (ImageView) view.findViewById(R.id.navigate_item_icon);
 
 		mSubjectName.setText("Projektowanie aplikacji internetowych");
@@ -77,12 +76,29 @@ public class SubjectDetailsFragment extends StudentShenchmanMainFragment {
 		return view;
 	}
 
+	@Override
+	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+		mNotesAdapter = new NotesAdapter(getContext(), getActivity().getSupportFragmentManager());
+		mSubjectNoteList.setAdapter(mNotesAdapter);
+	}
+
 	public class AddNoteOnClickListener implements View.OnClickListener {
 		@Override
 		public void onClick(View v) {
 			Intent intent = new Intent(getActivity(), AddNoteActivity.class);
-			startActivity(intent);
+			startActivityForResult(intent, 500);
 		}
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == 500) {
+			if (resultCode == Activity.RESULT_OK) {
+				mNotesAdapter = new NotesAdapter(getContext(), getActivity().getSupportFragmentManager());
+				mSubjectNoteList.setAdapter(mNotesAdapter);
+			}
+		}
+
 	}
 
 	private class NoteOnScrollListener implements AbsListView.OnScrollListener {
@@ -93,7 +109,8 @@ public class SubjectDetailsFragment extends StudentShenchmanMainFragment {
 
 		@Override
 		public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-			if (totalItemCount <= visibleItemCount) {
+			AnimationHelper.startSlideBottomAnimation(mAddSubjectNoteFAB);
+			/*if (totalItemCount <= visibleItemCount) {
 				AnimationHelper.startSlideBottomAnimation(mAddSubjectNoteFAB);
 				mAddSubjectNoteFAB.setVisibility(View.VISIBLE);
 			} else if (firstVisibleItem + visibleItemCount >= totalItemCount - visibleItemCount) {
@@ -101,7 +118,7 @@ public class SubjectDetailsFragment extends StudentShenchmanMainFragment {
 			} else {
 				AnimationHelper.startSlideBottomAnimation(mAddSubjectNoteFAB);
 				mAddSubjectNoteFAB.setVisibility(View.VISIBLE);
-			}
+			}*/
 		}
 	}
 }
