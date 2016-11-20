@@ -1,5 +1,6 @@
 package edu.p.lodz.pl.studentshenchman.database.models;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.provider.BaseColumns;
 
@@ -45,24 +46,32 @@ public class Teacher implements BaseColumns {
 			"text",                                 //EMAIL
 	};
 
-	public static Teacher fromCursor2Teacher(Cursor cursor) {
-		Teacher teacher = new Teacher();
+	public static ContentValues fromDTO2CV(model.Teacher teacherDto) {
+		ContentValues cv = new ContentValues();
 
-		if (cursor.moveToFirst()) {
-			teacher.setId(cursor.getLong(cursor.getColumnIndexOrThrow(Teacher._ID)));
-			teacher.setExternalId(cursor.getLong(cursor.getColumnIndexOrThrow(Teacher.EXTERNAL_TEACHER_ID)));
-			teacher.setName(cursor.getString(cursor.getColumnIndexOrThrow(Teacher.NAME)));
-			teacher.setEmail(cursor.getString(cursor.getColumnIndexOrThrow(Teacher.EMAIL)));
+		cv.put(EXTERNAL_TEACHER_ID, teacherDto.getId());
+		cv.put(NAME, teacherDto.getName());
+		cv.put(EMAIL, teacherDto.getEmail());
 
-		}
-
-		return teacher;
+		return cv;
 	}
 
 	private long id;
 	private long externalId;
 	private String name;
 	private String email;
+
+	public Teacher() {
+	}
+
+	public Teacher(Cursor cursor) {
+		if (cursor.moveToFirst()) {
+			id = (cursor.getLong(cursor.getColumnIndexOrThrow(Teacher._ID)));
+			externalId = (cursor.getLong(cursor.getColumnIndexOrThrow(Teacher.EXTERNAL_TEACHER_ID)));
+			name = (cursor.getString(cursor.getColumnIndexOrThrow(Teacher.NAME)));
+			email = (cursor.getString(cursor.getColumnIndexOrThrow(Teacher.EMAIL)));
+		}
+	}
 
 	public long getId() {
 		return id;
