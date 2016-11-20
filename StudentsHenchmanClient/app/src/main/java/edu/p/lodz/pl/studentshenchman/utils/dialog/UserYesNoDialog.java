@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import edu.p.lodz.pl.studentshenchman.R;
-import edu.p.lodz.pl.studentshenchman.timetable_plan.dialog_fragments.AddNoteDialogFragment;
 import edu.p.lodz.pl.studentshenchman.utils.animation.AnimationHelper;
 import edu.p.lodz.pl.studentshenchman.utils.dialog.interfaces.AlertDialogCallback;
 
@@ -19,7 +18,7 @@ import edu.p.lodz.pl.studentshenchman.utils.dialog.interfaces.AlertDialogCallbac
  */
 
 public class UserYesNoDialog extends DialogFragment {
-	private static final String TAG = AddNoteDialogFragment.class.getName();
+	private static final String TAG = UserYesNoDialog.class.getName();
 
 	private static final String TITLE = TAG + ":title";
 	private static final String MESSAGE = TAG + ":message";

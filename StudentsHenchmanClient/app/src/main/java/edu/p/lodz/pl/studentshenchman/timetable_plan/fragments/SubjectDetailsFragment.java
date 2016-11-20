@@ -1,5 +1,6 @@
 package edu.p.lodz.pl.studentshenchman.timetable_plan.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -13,10 +14,10 @@ import android.widget.TextView;
 
 import edu.p.lodz.pl.studentshenchman.R;
 import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainFragment;
+import edu.p.lodz.pl.studentshenchman.timetable_plan.activity.AddNoteActivity;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.activity.SubjectDetailsActivity;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.activity.TimetableActivity;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.adapters.NotesAdapter;
-import edu.p.lodz.pl.studentshenchman.timetable_plan.dialog_fragments.AddNoteDialogFragment;
 import edu.p.lodz.pl.studentshenchman.utils.SelectedCourseContext;
 import edu.p.lodz.pl.studentshenchman.utils.animation.AnimationHelper;
 
@@ -79,8 +80,8 @@ public class SubjectDetailsFragment extends StudentShenchmanMainFragment {
 	public class AddNoteOnClickListener implements View.OnClickListener {
 		@Override
 		public void onClick(View v) {
-			AddNoteDialogFragment dialog = AddNoteDialogFragment.getInstance();
-			dialog.show(getActivity().getSupportFragmentManager(), TAG);
+			Intent intent = new Intent(getActivity(), AddNoteActivity.class);
+			startActivity(intent);
 		}
 	}
 
