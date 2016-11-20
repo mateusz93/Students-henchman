@@ -17,6 +17,10 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ViewSwitcher;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import edu.p.lodz.pl.studentshenchman.R;
 import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainFragment;
@@ -24,6 +28,7 @@ import edu.p.lodz.pl.studentshenchman.timetable_plan.activity.TimetableActivity;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.adapters.CourseListAdapter;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.interfaces.CourseDialogFragmentInterface;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.utils.CoursesLoader;
+import edu.p.lodz.pl.studentshenchman.timetable_plan.utils.CoursesLoaderObject;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.utils.TimeTableUtils;
 import edu.p.lodz.pl.studentshenchman.utils.SelectedCourseContext;
 import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
@@ -35,15 +40,16 @@ import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
  * Created by Michał on 2016-10-12.
  */
 
-public class DayFragment extends StudentShenchmanMainFragment implements LoaderManager.LoaderCallbacks<CoursesLoader> {
+public class DayFragment extends StudentShenchmanMainFragment implements LoaderManager.LoaderCallbacks<List<CoursesLoaderObject>> {
 
 	private static final String TAG = DayFragment.class.getName();
-
+	private static final int COURSES_LOADER_ID = DayFragment.class.hashCode();
 
 	public static final String TAB_NAME = "tab_name";
 	public static final String TAB_NUMBER = "tab_number";
 	public static final String TAB_DAY_ABBREVIATION = "tab_day_abbreviation";
 
+	private ViewSwitcher mViewSwitcher;
 	private RecyclerView mRecyclerView;
 	private StaggeredGridLayoutManager mStaggeredLayoutManager;
 	private CourseListAdapter mAdapter;
@@ -79,6 +85,7 @@ public class DayFragment extends StudentShenchmanMainFragment implements LoaderM
 
 		View view = inflater.inflate(R.layout.day_fragment, container, false);
 
+		mViewSwitcher = (ViewSwitcher) view.findViewById(R.id.view_switcher);
 		mRecyclerView = (RecyclerView) view.findViewById(R.id.list);
 		mStaggeredLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
 		mRecyclerView.setLayoutManager(mStaggeredLayoutManager);
@@ -106,7 +113,7 @@ public class DayFragment extends StudentShenchmanMainFragment implements LoaderM
 		}));
 		mRecyclerView.setHasFixedSize(true);
 		mRecyclerView.setItemAnimator(new SlideInLeftAnimator());
-		mAdapter = new CourseListAdapter(getContext());
+		mAdapter = new CourseListAdapter(getContext(), new ArrayList<>());
 		AlphaInAnimationAdapter alphaAdapter = new AlphaInAnimationAdapter(mAdapter);
 		mRecyclerView.setAdapter(new ScaleInAnimationAdapter(alphaAdapter));
 
@@ -115,19 +122,32 @@ public class DayFragment extends StudentShenchmanMainFragment implements LoaderM
 	}
 
 	@Override
-	public Loader<CoursesLoader> onCreateLoader(int id, Bundle args) {
-		return null;
+	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+		getLoaderManager().initLoader(COURSES_LOADER_ID, getArguments(), this);
+	}
+
+	private void generateView(List<CoursesLoaderObject> data) {
+		mAdapter.setItems(data);
 	}
 
 	@Override
-	public void onLoadFinished(Loader<CoursesLoader> loader, CoursesLoader data) {
-
+	public Loader<List<CoursesLoaderObject>> onCreateLoader(int id, Bundle args) {
+		return new CoursesLoader(getContext());
 	}
 
 	@Override
-	public void onLoaderReset(Loader<CoursesLoader> loader) {
+	public void onLoadFinished(Loader<List<CoursesLoaderObject>> loader, List<CoursesLoaderObject> data) {
+		if (loader.getId() == COURSES_LOADER_ID) {
+			generateView(data);
+			mViewSwitcher.setDisplayedChild(1);
+		}
+	}
+
+	@Override
+	public void onLoaderReset(Loader<List<CoursesLoaderObject>> loader) {
 
 	}
+
 
 	private static class DividerItemDecoration extends RecyclerView.ItemDecoration {
 
