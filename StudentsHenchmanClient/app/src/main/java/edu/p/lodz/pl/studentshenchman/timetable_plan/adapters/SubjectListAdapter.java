@@ -15,7 +15,7 @@ import edu.p.lodz.pl.studentshenchman.R;
  * Created by Michał on 2016-10-12.
  */
 
-public class SubjectListAdapter extends RecyclerView.Adapter<SubjectListAdapter.ViewHolder> /*implements CursorAdapter*/ {
+public class SubjectListAdapter extends RecyclerView.Adapter<SubjectListAdapter.ViewHolder> {
 	private static final String TAG = SubjectListAdapter.class.getName();
 
 	private Context mContext;
@@ -54,44 +54,6 @@ public class SubjectListAdapter extends RecyclerView.Adapter<SubjectListAdapter.
 	public long getItemId(int position) {
 		return 3;
 	}
-
-   /* @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-
-        ViewHolder holder;
-
-        if (convertView == null) {
-            holder = new ViewHolder();
-            convertView = mInflater.inflate(R.layout.subject_item_list, parent, false);
-            holder.mainHolder = (LinearLayout) convertView.findViewById(R.id.main_holder);
-            holder.lessonName = (TextView) convertView.findViewById(R.id.subject_name);
-            holder.lessonTime = (TextView) convertView.findViewById(R.id.lessonTime);
-            holder.lessonBuilding = (TextView) convertView.findViewById(R.id.lessonBuilding);
-            holder.subjectInfoHolder = (LinearLayout) convertView.findViewById(R.id.subject_info_holder);
-            holder.subjectImage = (ImageView) convertView.findViewById(R.id.subject_image);
-            convertView.setTag(holder);
-        } else {
-            holder = (ViewHolder) convertView.getTag();
-        }
-
-        holder.lessonName.setText("Analiza Matematyczna");
-        holder.lessonTime.setText("8:15 - 9:45");
-        holder.lessonBuilding.setText("Budynek xxx sala 104");
-        Picasso.with(mContext).load(R.drawable.bg).into(holder.subjectImage);
-        holder.subjectInfoHolder.setBackgroundColor(mContext.getColor(android.R.color.black));
-        return convertView;
-
-    }*/
-
-    /*@Override
-    public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        return null;
-    }
-
-    @Override
-    public void bindView(View view, Context context, Cursor cursor) {
-
-    }*/
 
 	public class ViewHolder extends RecyclerView.ViewHolder {
 		public RelativeLayout lessonMainHolder;
