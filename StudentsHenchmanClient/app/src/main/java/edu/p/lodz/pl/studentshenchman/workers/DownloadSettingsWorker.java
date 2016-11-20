@@ -14,7 +14,7 @@ import edu.p.lodz.pl.studentshenchman.database.DatabaseHelper;
 import edu.p.lodz.pl.studentshenchman.database.models.DeanGroup;
 import edu.p.lodz.pl.studentshenchman.database.models.Department;
 import edu.p.lodz.pl.studentshenchman.database.models.Field;
-import edu.p.lodz.pl.studentshenchman.factories.ServiceFactory;
+import edu.p.lodz.pl.studentshenchman.workers.factories.ServiceFactory;
 import edu.p.lodz.pl.studentshenchman.settings.datastore.SettingsDataStoreHelper;
 import edu.p.lodz.pl.studentshenchman.workers.endpoints.SettingsEndpoints;
 import rx.Observable;

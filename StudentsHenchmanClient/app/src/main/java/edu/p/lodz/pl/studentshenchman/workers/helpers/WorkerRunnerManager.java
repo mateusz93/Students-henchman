@@ -10,7 +10,7 @@ import android.widget.Toast;
 import java.util.HashMap;
 import java.util.Map;
 
-import edu.p.lodz.pl.studentshenchman.factories.WorkerFactory;
+import edu.p.lodz.pl.studentshenchman.workers.factories.WorkerFactory;
 import edu.p.lodz.pl.studentshenchman.workers.AbstractWorker;
 import edu.p.lodz.pl.studentshenchman.workers.utils.WorkerType;
 import rx.Subscription;

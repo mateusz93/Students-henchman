@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import edu.p.lodz.pl.studentshenchman.database.DatabaseHelper;
-import edu.p.lodz.pl.studentshenchman.factories.ServiceFactory;
+import edu.p.lodz.pl.studentshenchman.workers.factories.ServiceFactory;
 import edu.p.lodz.pl.studentshenchman.workers.endpoints.SettingsEndpoints;
 import model.Date;
 import rx.Observable;
