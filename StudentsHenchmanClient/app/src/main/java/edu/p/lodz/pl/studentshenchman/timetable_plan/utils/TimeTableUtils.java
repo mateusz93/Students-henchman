@@ -73,4 +73,11 @@ public class TimeTableUtils {
 
 		return notes;
 	}
+
+	public static void deleteNoteById(Context context, long noteId) {
+		SQLiteDatabase db = DatabaseHelper.getInstance(context).getReadableDatabase();
+
+		db.delete(Note.TABLE_NAME, Note._ID + "=?", new String[]{noteId + ""});
+
+	}
 }
