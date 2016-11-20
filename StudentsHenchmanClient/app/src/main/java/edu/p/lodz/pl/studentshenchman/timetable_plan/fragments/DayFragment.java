@@ -17,7 +17,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ViewSwitcher;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +49,8 @@ public class DayFragment extends StudentShenchmanMainFragment implements LoaderM
 	public static final String TAB_NUMBER = "tab_number";
 	public static final String TAB_DAY_ABBREVIATION = "tab_day_abbreviation";
 
-	private ViewSwitcher mViewSwitcher;
+	private RelativeLayout mProgressBarLayout;
+	private RelativeLayout mEmptyLayout;
 	private RecyclerView mRecyclerView;
 	private StaggeredGridLayoutManager mStaggeredLayoutManager;
 	private CourseListAdapter mAdapter;
@@ -85,7 +86,7 @@ public class DayFragment extends StudentShenchmanMainFragment implements LoaderM
 
 		View view = inflater.inflate(R.layout.day_fragment, container, false);
 
-		mViewSwitcher = (ViewSwitcher) view.findViewById(R.id.view_switcher);
+
 		mRecyclerView = (RecyclerView) view.findViewById(R.id.list);
 		mStaggeredLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
 		mRecyclerView.setLayoutManager(mStaggeredLayoutManager);
@@ -132,15 +133,38 @@ public class DayFragment extends StudentShenchmanMainFragment implements LoaderM
 
 	@Override
 	public Loader<List<CoursesLoaderObject>> onCreateLoader(int id, Bundle args) {
+		showProgressBar();
 		return new CoursesLoader(getContext());
+	}
+
+	private void showProgressBar() {
+		mRecyclerView.setVisibility(View.GONE);
+		mEmptyLayout.setVisibility(View.GONE);
+		mProgressBarLayout.setVisibility(View.VISIBLE);
 	}
 
 	@Override
 	public void onLoadFinished(Loader<List<CoursesLoaderObject>> loader, List<CoursesLoaderObject> data) {
 		if (loader.getId() == COURSES_LOADER_ID) {
-			generateView(data);
-			mViewSwitcher.setDisplayedChild(1);
+			if (data != null && data.size() > 0) {
+				showListLayout();
+				generateView(data);
+			} else {
+				showEmptyLayout();
+			}
 		}
+	}
+
+	private void showEmptyLayout() {
+		mRecyclerView.setVisibility(View.GONE);
+		mEmptyLayout.setVisibility(View.VISIBLE);
+		mProgressBarLayout.setVisibility(View.GONE);
+	}
+
+	private void showListLayout() {
+		mRecyclerView.setVisibility(View.VISIBLE);
+		mEmptyLayout.setVisibility(View.GONE);
+		mProgressBarLayout.setVisibility(View.GONE);
 	}
 
 	@Override
