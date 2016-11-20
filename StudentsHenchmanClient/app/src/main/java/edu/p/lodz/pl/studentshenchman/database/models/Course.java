@@ -1,5 +1,6 @@
 package edu.p.lodz.pl.studentshenchman.database.models;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.provider.BaseColumns;
 
@@ -52,7 +53,7 @@ public class Course implements BaseColumns {
 
 
 	public static final String[] COLUMN_TYPES = {
-			"integer primary key autoincrement",    //ROOM_ID
+			"integer primary key autoincrement",    //COURSE_ID
 			"long",                                 //EXTERNAL_COURSE_ID
 			"text",                                 //NAME
 			"text",                                 //TIME
@@ -62,20 +63,18 @@ public class Course implements BaseColumns {
 			"long",                                 //EXTERNAL_TEACHER_ID
 	};
 
-	public static Course fromCursor2Course(Cursor cursor) {
-		Course course = new Course();
+	public static ContentValues fromDTO2CV(model.Course courseDto) {
+		ContentValues cv = new ContentValues();
 
-		if (cursor.moveToFirst()) {
-			course.setId(cursor.getLong(cursor.getColumnIndexOrThrow(Course._ID)));
-			course.setExternalId(cursor.getLong(cursor.getColumnIndexOrThrow(Course.EXTERNAL_COURSE_ID)));
-			course.setName(cursor.getString(cursor.getColumnIndexOrThrow(Course.NAME)));
-			course.setTime(cursor.getString(cursor.getColumnIndexOrThrow(Course.TIME)));
-			course.setDay(cursor.getString(cursor.getColumnIndexOrThrow(Course.DAY)));
-			course.setWeeks(cursor.getString(cursor.getColumnIndexOrThrow(Course.WEEKS)));
-			course.setExternalDeanGroupId(cursor.getLong(cursor.getColumnIndexOrThrow(Course.EXTERNAL_DEAN_GROUP_ID)));
-			course.setExternalTeacherId(cursor.getLong(cursor.getColumnIndexOrThrow(Course.EXTERNAL_TEACHER_ID)));
-		}
-		return course;
+		cv.put(EXTERNAL_COURSE_ID, courseDto.getId());
+		cv.put(NAME, courseDto.getName());
+		cv.put(TIME, courseDto.getTime());
+		cv.put(DAY, courseDto.getWeekDay());
+		cv.put(WEEKS, courseDto.getWeeks());
+		//cv.put(EXTERNAL_DEAN_GROUP_ID,);
+		//cv.put(EXTERNAL_TEACHER_ID,);
+
+		return cv;
 	}
 
 	private long id;
