@@ -47,6 +47,7 @@ public class DayFragment extends StudentShenchmanMainFragment implements LoaderM
 
 	public static final String TAB_NAME = "tab_name";
 	public static final String TAB_NUMBER = "tab_number";
+	public static final String TAB_DAY_CODE = "tab_day_code";
 	public static final String TAB_DAY_ABBREVIATION = "tab_day_abbreviation";
 
 	private RelativeLayout mProgressBarLayout;
@@ -58,13 +59,14 @@ public class DayFragment extends StudentShenchmanMainFragment implements LoaderM
 	private SelectedCourseInterface mSelectedCourseInterface;
 	private CourseDialogFragmentInterface mDialogFragmentInterface;
 
-	public static DayFragment getInstance(String tabName, int tabNumber, String tabDayAbbreviation) {
+	public static DayFragment getInstance(String tabName, int tabNumber, String dayCode, String dayAbbreviation) {
 		DayFragment day = new DayFragment();
 
 		Bundle bundle = new Bundle();
 		bundle.putString(TAB_NAME, tabName);
 		bundle.putInt(TAB_NUMBER, tabNumber);
-		bundle.putString(TAB_DAY_ABBREVIATION, tabDayAbbreviation);
+		bundle.putString(TAB_DAY_CODE, dayCode);
+		bundle.putString(TAB_DAY_ABBREVIATION, dayAbbreviation);
 		day.setArguments(bundle);
 
 		return day;
@@ -135,13 +137,7 @@ public class DayFragment extends StudentShenchmanMainFragment implements LoaderM
 	@Override
 	public Loader<List<CoursesLoaderObject>> onCreateLoader(int id, Bundle args) {
 		showProgressBar();
-		return new CoursesLoader(getContext());
-	}
-
-	private void showProgressBar() {
-		mRecyclerView.setVisibility(View.GONE);
-		mEmptyLayout.setVisibility(View.GONE);
-		mProgressBarLayout.setVisibility(View.VISIBLE);
+		return new CoursesLoader(getContext(), getArguments().getString(TAB_DAY_CODE), getArguments().getString(TAB_DAY_ABBREVIATION));
 	}
 
 	@Override
@@ -156,6 +152,17 @@ public class DayFragment extends StudentShenchmanMainFragment implements LoaderM
 		}
 	}
 
+	@Override
+	public void onLoaderReset(Loader<List<CoursesLoaderObject>> loader) {
+		mAdapter.setItems(new ArrayList<>());
+	}
+
+	private void showProgressBar() {
+		mRecyclerView.setVisibility(View.GONE);
+		mEmptyLayout.setVisibility(View.GONE);
+		mProgressBarLayout.setVisibility(View.VISIBLE);
+	}
+
 	private void showEmptyLayout() {
 		mRecyclerView.setVisibility(View.GONE);
 		mEmptyLayout.setVisibility(View.VISIBLE);
@@ -167,12 +174,6 @@ public class DayFragment extends StudentShenchmanMainFragment implements LoaderM
 		mEmptyLayout.setVisibility(View.GONE);
 		mProgressBarLayout.setVisibility(View.GONE);
 	}
-
-	@Override
-	public void onLoaderReset(Loader<List<CoursesLoaderObject>> loader) {
-		mAdapter.setItems(new ArrayList<>());
-	}
-
 
 	private static class DividerItemDecoration extends RecyclerView.ItemDecoration {
 

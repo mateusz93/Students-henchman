@@ -80,11 +80,11 @@ public class TimetableDaysFragment extends StudentShenchmanMainFragment {
 
 	private List<Fragment> getRequiredFragments() {
 		List<Fragment> fragments = new ArrayList<>();
-		fragments.add(DayFragment.getInstance(getString(R.string.monday), 1, "Pn"));
-		fragments.add(DayFragment.getInstance(getString(R.string.tuesday), 2, "Wt"));
-		fragments.add(DayFragment.getInstance(getString(R.string.wednesday), 3, "Sr"));
-		fragments.add(DayFragment.getInstance(getString(R.string.thursday), 4, "Czw"));
-		fragments.add(DayFragment.getInstance(getString(R.string.friday), 5, "Pt"));
+		fragments.add(DayFragment.getInstance(getString(R.string.monday), 1, "MONDAY", "Pn"));
+		fragments.add(DayFragment.getInstance(getString(R.string.tuesday), 2, "TUESDAY", "Wt"));
+		fragments.add(DayFragment.getInstance(getString(R.string.wednesday), 3, "WEDNESDAY", "Sr"));
+		fragments.add(DayFragment.getInstance(getString(R.string.thursday), 4, "THURSDAY", "Czw"));
+		fragments.add(DayFragment.getInstance(getString(R.string.friday), 5, "FRIDAY", "Pt"));
 
 		return fragments;
 	}
