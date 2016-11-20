@@ -14,9 +14,9 @@ import edu.p.lodz.pl.studentshenchman.database.DatabaseHelper;
 import edu.p.lodz.pl.studentshenchman.database.models.DeanGroup;
 import edu.p.lodz.pl.studentshenchman.database.models.Department;
 import edu.p.lodz.pl.studentshenchman.database.models.Field;
-import edu.p.lodz.pl.studentshenchman.workers.factories.ServiceFactory;
 import edu.p.lodz.pl.studentshenchman.settings.datastore.SettingsDataStoreHelper;
 import edu.p.lodz.pl.studentshenchman.workers.endpoints.SettingsEndpoints;
+import edu.p.lodz.pl.studentshenchman.workers.factories.ServiceFactory;
 import rx.Observable;
 import rx.Subscription;
 import rx.schedulers.Schedulers;
@@ -48,13 +48,13 @@ public class DownloadSettingsWorker extends AbstractWorker<SettingsRS> {
 	public void onCompleted() {
 		Log.i(TAG, "Settings downloaded successfully");
 		Toast.makeText(mContext, "Settings downloaded successfully", Toast.LENGTH_SHORT).show();
-		notifyTaskFinished(mBundle, FinishedWorkerStatus.SUCCESS);
+		notifyTaskFinished(FinishedWorkerStatus.SUCCESS);
 	}
 
 	@Override
 	public void onError(Throwable e) {
 		onError(mContext, e);
-		notifyTaskFinished(mBundle, FinishedWorkerStatus.FAIL);
+		notifyTaskFinished(FinishedWorkerStatus.FAIL);
 	}
 
 	@Override

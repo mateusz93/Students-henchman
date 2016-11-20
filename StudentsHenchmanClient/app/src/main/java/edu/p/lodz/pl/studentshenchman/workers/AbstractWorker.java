@@ -37,8 +37,8 @@ public abstract class AbstractWorker<T> implements Observer<T> {
 		mBundle = bundle;
 	}
 
-	public void notifyTaskFinished(Bundle bundle, FinishedWorkerStatus finishedWorkerStatus) {
-		WorkerType workerType = WorkerType.valueOf(bundle.getString(WORKER_NAME));
+	public void notifyTaskFinished(FinishedWorkerStatus finishedWorkerStatus) {
+		WorkerType workerType = WorkerType.valueOf(mBundle.getString(WORKER_NAME));
 		Log.i(TAG, "Worker: " + workerType.name() + " finished with status: " + finishedWorkerStatus.name());
 		WorkerRunnerManager.getInstance(mContext).deleteFromRunningWorkers(workerType);
 		Intent intent = new Intent(workerType.name());
