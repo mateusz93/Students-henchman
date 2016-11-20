@@ -9,7 +9,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.List;
+
 import edu.p.lodz.pl.studentshenchman.R;
+import edu.p.lodz.pl.studentshenchman.timetable_plan.utils.CoursesLoaderObject;
 
 /**
  * Created by Michał on 2016-10-12.
@@ -19,10 +22,12 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
 	private static final String TAG = CourseListAdapter.class.getName();
 
 	private Context mContext;
+	private List<CoursesLoaderObject> mValues;
 	private LayoutInflater mInflater;
 
-	public CourseListAdapter(Context context) {
+	public CourseListAdapter(Context context, List<CoursesLoaderObject> values) {
 		this.mContext = context;
+		this.mValues = values;
 		this.mInflater = LayoutInflater.from(mContext);
 	}
 
@@ -47,12 +52,19 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
 	@Override
 	public int getItemCount() {
 		return 5;
+		//return mValues.size();
 	}
 
 
 	@Override
 	public long getItemId(int position) {
 		return 3;
+		//tutaj trzeba zdecydowac czy externalId czy internal
+	}
+
+	public void setItems(List<CoursesLoaderObject> values) {
+		mValues = values;
+		notifyDataSetChanged();
 	}
 
 	public class ViewHolder extends RecyclerView.ViewHolder {
