@@ -55,6 +55,7 @@
     <string name="login_hint_text">Wprowadź login lub email</string>
     <string name="login_at_least_six_sign">Co najmniej 6 znaków</string>
     <string name="password_required">Hasło jest wymagane</string>
+    <string name="login_remember_me">Zapamiętaj mnie</string>
 
     <!--buttons-->
     <string name="login_button">Zaloguj</string>
