@@ -49,7 +49,7 @@ public class LoginManager {
 	}
 
 	public LoginManager saveRememberMeChoose(boolean rememberMeChoose) {
-		mSharedPreferences.edit().putBoolean(EMAIL_PREFERENCES_KEY, rememberMeChoose).apply();
+		mSharedPreferences.edit().putBoolean(REMEMBER_ME_PREFERENCES_KEY, rememberMeChoose).apply();
 
 		return this;
 	}
