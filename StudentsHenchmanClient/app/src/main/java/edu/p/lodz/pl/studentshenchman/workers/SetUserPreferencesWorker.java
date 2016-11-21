@@ -11,6 +11,7 @@ import edu.p.lodz.pl.studentshenchman.workers.factories.ServiceFactory;
 import edu.p.lodz.pl.studentshenchman.workers.helpers.WorkerRunnerManager;
 import edu.p.lodz.pl.studentshenchman.workers.utils.WorkerType;
 import retrofit2.Response;
+import retrofit2.adapter.rxjava.HttpException;
 import rx.Observable;
 import rx.Subscription;
 import rx.schedulers.Schedulers;
@@ -50,7 +51,7 @@ public class SetUserPreferencesWorker extends AbstractWorker<Response<Void>> {
 
 		preferencesRQ.setDepartmentId(mBundle.getLong(EXTERNAL_DEPARTMENT_ID));
 		preferencesRQ.setFieldId(mBundle.getLong(EXTERNAL_FIELD_ID));
-		preferencesRQ.setDeanGroupIds(fromStringToLongList(mBundle.getString(EXTERNAL_GROUPS_IDS), ","));
+		preferencesRQ.setDeanGroupIds(fromStringToLongList(mBundle.getString(EXTERNAL_GROUPS_IDS), ";"));
 		preferencesRQ.setTerm(mBundle.getInt(TERM));
 		preferencesRQ.setDegree(mBundle.getInt(DEGREE));
 
@@ -72,6 +73,9 @@ public class SetUserPreferencesWorker extends AbstractWorker<Response<Void>> {
 
 	@Override
 	public void onNext(Response<Void> response) {
+		Log.i(TAG, "Saved user preferences response code: " + response.code());
+		if (null != response && response.code() != 200)
+			onError(mContext, new HttpException(response));
 		// do nothing
 		// this worker just set user preferences
 	}

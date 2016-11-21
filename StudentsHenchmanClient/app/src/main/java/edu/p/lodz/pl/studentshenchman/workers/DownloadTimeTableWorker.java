@@ -14,6 +14,7 @@ import edu.p.lodz.pl.studentshenchman.database.models.Course;
 import edu.p.lodz.pl.studentshenchman.workers.endpoints.TimeTableEndpoints;
 import edu.p.lodz.pl.studentshenchman.workers.factories.ServiceFactory;
 import retrofit2.Response;
+import retrofit2.adapter.rxjava.HttpException;
 import rx.Observable;
 import rx.Subscription;
 import rx.schedulers.Schedulers;
@@ -51,6 +52,7 @@ public class DownloadTimeTableWorker extends AbstractWorker<Response<CourseRS>> 
 
 	@Override
 	public void onError(Throwable e) {
+		Log.i(TAG, "Timetable downloaded failure");
 		onError(mContext, e);
 		notifyTaskFinished(FinishedWorkerStatus.FAIL);
 	}
@@ -58,14 +60,17 @@ public class DownloadTimeTableWorker extends AbstractWorker<Response<CourseRS>> 
 	@Override
 	public void onNext(Response<CourseRS> courseRS) {
 		Log.i(TAG, "Saving timetable downloaded from server");
+		if (null != courseRS && courseRS.code() != 200)
+			onError(mContext, new HttpException(courseRS));
 		SQLiteDatabase db = DatabaseHelper.getInstance(mContext).getWritableDatabase();
 		deleteOldTimeTable(db);
-		saveNewTimeTable(db, courseRS.body().getCourses());
+		if (null != courseRS && null != courseRS.body() && null != courseRS.body().getCourses())
+			saveNewTimeTable(db, courseRS.body().getCourses());
 	}
 
 	private void saveNewTimeTable(SQLiteDatabase db, List<model.Course> courses) {
-		//for (model.Course courseDto : courses)
-		//db.insert(Course.TABLE_NAME, null, Course.fromDTO2CV(courseDto));
+		for (model.Course courseDto : courses)
+			db.insert(Course.TABLE_NAME, null, Course.fromDTO2CV(courseDto));
 	}
 
 	private void deleteOldTimeTable(SQLiteDatabase db) {

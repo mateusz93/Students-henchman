@@ -12,6 +12,6 @@ import rx.Observable;
 
 public interface UserEndpoints {
 
-	@POST
+	@POST("user/setPreferences")
 	Observable<Response<Void>> setUserPreferences(@Body PreferencesRQ userPreferences);
 }
