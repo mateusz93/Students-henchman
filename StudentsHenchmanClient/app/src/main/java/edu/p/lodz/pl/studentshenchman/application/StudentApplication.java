@@ -22,7 +22,7 @@ public class StudentApplication extends Application {
 	protected void attachBaseContext(Context base) {
 		super.attachBaseContext(base);
 		// Initialise ACRA
-		LoginManager.initiate(getApplicationContext());
+		LoginManager.initiate(base);
 
 		ACRA.init(this);
 	}

@@ -32,6 +32,7 @@ import edu.p.lodz.pl.studentshenchman.settings.datastore.DependentDataHelper;
 import edu.p.lodz.pl.studentshenchman.settings.datastore.SettingsDataStoreHelper;
 import edu.p.lodz.pl.studentshenchman.settings.dialog_fragment.GroupsDialogFragment;
 import edu.p.lodz.pl.studentshenchman.workers.AbstractWorker;
+import edu.p.lodz.pl.studentshenchman.workers.SetUserPreferencesWorker;
 import edu.p.lodz.pl.studentshenchman.workers.helpers.WorkerRunnerManager;
 import edu.p.lodz.pl.studentshenchman.workers.utils.WorkerType;
 
@@ -342,6 +343,8 @@ public class SettingsActivity extends StudentShenchmanMainActivity implements Gr
 		@Override
 		public void onClick(View v) {
 			mSettingsDataHelper.save();
+			SetUserPreferencesWorker.prepareAndStart(getApplicationContext(), mSettingsDataHelper.getDepartmentId(), mSettingsDataHelper.getFieldId(),
+					mSettingsDataHelper.getGroups(), 7/*mSettingsDataHelper.getTermValue()*/, 1/* mSettingsDataHelper.getDegreeValue()*/);
 			goToDashBoard();
 		}
 	}
