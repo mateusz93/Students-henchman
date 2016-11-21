@@ -1,11 +1,13 @@
 package edu.p.lodz.pl.studentshenchman.login.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 import edu.p.lodz.pl.studentshenchman.R;
@@ -16,22 +18,29 @@ import edu.p.lodz.pl.studentshenchman.dashboard.DashboardActivity;
  */
 public class LoginActivity extends AppCompatActivity {
 	private static final String TAG = LoginActivity.class.getName();
+	private static final String EMAIL_PREFERENCES_KEY = TAG + ":email";
+	private static final String REMEMBER_ME_PREFERENCES_KEY = TAG + ":remember_me";
 
 	private Button mLoginButton;
 	private Button mClearButton;
 	private EditText mLogin;
 	private EditText mPassword;
+	private CheckBox mRememberMe;
+
+	private SharedPreferences mSharedPreferences;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_login);
+		mSharedPreferences = getSharedPreferences(TAG, MODE_PRIVATE);
 
 		mLogin = (EditText) findViewById(R.id.login);
 		mLogin.addTextChangedListener(new LoginWatcher());
 		mPassword = (EditText) findViewById(R.id.password);
 		mPassword.addTextChangedListener(new PasswordWatcher());
+		mRememberMe = (CheckBox) findViewById(R.id.remember_me);
 
 		mLoginButton = (Button) findViewById(R.id.login_button);
 		mLoginButton.setOnClickListener((view) ->
@@ -39,6 +48,18 @@ public class LoginActivity extends AppCompatActivity {
 //			if (mLogin.getText().toString().equals("mobile@") && mPassword.getText().toString().equals("mobile")) {
 //				goToDashboard();
 //			}
+			if (mRememberMe.isChecked()) {
+				mSharedPreferences.edit()
+						.putString(EMAIL_PREFERENCES_KEY, mLogin.getText().toString())
+						.putBoolean(REMEMBER_ME_PREFERENCES_KEY, true)
+						.apply();
+			} else {
+				mSharedPreferences.edit()
+						.putString(EMAIL_PREFERENCES_KEY, "")
+						.putBoolean(REMEMBER_ME_PREFERENCES_KEY, false)
+						.apply();
+
+			}
 			goToDashboard();
 		});
 
@@ -48,6 +69,12 @@ public class LoginActivity extends AppCompatActivity {
 			mPassword.setText("");
 		});
 
+		boolean rememberMe = mSharedPreferences.getBoolean(REMEMBER_ME_PREFERENCES_KEY, false);
+		if (rememberMe) {
+			mRememberMe.setChecked(true);
+			String email = mSharedPreferences.getString(EMAIL_PREFERENCES_KEY, "");
+			mLogin.setText(email);
+		}
 
 	}
 
