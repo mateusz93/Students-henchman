@@ -30,8 +30,6 @@ import edu.p.lodz.pl.studentshenchman.database.DatabaseHelper;
 import edu.p.lodz.pl.studentshenchman.qr_scanner.SimpleScanner;
 import edu.p.lodz.pl.studentshenchman.settings.SettingsActivity;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.activity.TimetableActivity;
-import edu.p.lodz.pl.studentshenchman.utils.animation.AnimationHelper;
-import edu.p.lodz.pl.studentshenchman.utils.dialog.helper.AlertDialogHelper;
 import edu.p.lodz.pl.studentshenchman.workers.helpers.WorkerRunnerManager;
 import edu.p.lodz.pl.studentshenchman.workers.utils.WorkerType;
 
@@ -108,8 +106,9 @@ public class DashboardActivity extends StudentShenchmanMainActivity {
 
 		ImageButton testButton = (ImageButton) findViewById(R.id.test_button);
 		testButton.setOnClickListener((view) -> {
-			AlertDialogHelper.showInfoDialog("Tytul z dashboardu", "Wiadomosc z dashboardu");
+
 		});
+
 
 	}
 
@@ -146,17 +145,20 @@ public class DashboardActivity extends StudentShenchmanMainActivity {
 	}
 
 	public void selectDrawerItem(MenuItem menuItem) {
+		Bundle bundle;
 		switch (menuItem.getItemId()) {
 			case R.id.nav_download_timetable:
-
+				bundle = new Bundle();
+				bundle.putString(WORKER_NAME, WorkerType.DOWNLOAD_COURSES.name());
+				WorkerRunnerManager.getInstance(getApplicationContext()).startWorker(bundle);
 				break;
 			case R.id.nav_download_settings:
-				Bundle bundle = new Bundle();
+				bundle = new Bundle();
 				bundle.putString(WORKER_NAME, WorkerType.DOWNLOAD_SETTINGS.name());
 				WorkerRunnerManager.getInstance(getApplicationContext()).startWorker(bundle);
 				break;
 			case R.id.nav_customize:
-				AnimationHelper.startShockAnimation(menuItem.getActionView());
+				
 				break;
 			case R.id.nav_about:
 
@@ -165,7 +167,7 @@ public class DashboardActivity extends StudentShenchmanMainActivity {
 
 				break;
 			case R.id.nav_logout:
-
+				finish();
 				break;
 			default:
 				break;
