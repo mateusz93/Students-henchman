@@ -7,6 +7,8 @@ import org.acra.ACRA;
 import org.acra.ReportField;
 import org.acra.annotation.ReportsCrashes;
 
+import edu.p.lodz.pl.studentshenchman.login.utils.LoginManager;
+
 /**
  * Created by Michał on 2016-11-16.
  */
@@ -20,6 +22,8 @@ public class StudentApplication extends Application {
 	protected void attachBaseContext(Context base) {
 		super.attachBaseContext(base);
 		// Initialise ACRA
+		LoginManager.initiate(getApplicationContext());
+
 		ACRA.init(this);
 	}
 }
