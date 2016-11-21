@@ -52,9 +52,10 @@
     <string name="settings_degree_spinner_value_label">Studies %1$d degree</string>
 
     <!--login-->
-    <string name="login_hint_text">Enter login or email</string>
+    <string name="login_hint_text">Enter your email</string>
     <string name="login_at_least_six_sign">At least 6 sign</string>
     <string name="password_required">Password is required</string>
+    <string name="login_incorrect_email">Incorrect login format</string>
     <string name="login_remember_me">Remember me</string>
 
     <!--buttons-->

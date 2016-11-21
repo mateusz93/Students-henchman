@@ -1,7 +1,6 @@
 package edu.p.lodz.pl.studentshenchman.login.activities;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -26,14 +25,11 @@ public class LoginActivity extends AppCompatActivity {
 	private EditText mPassword;
 	private CheckBox mRememberMe;
 
-	private SharedPreferences mSharedPreferences;
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_login);
-		mSharedPreferences = getSharedPreferences(TAG, MODE_PRIVATE);
 
 		mLogin = (EditText) findViewById(R.id.login);
 		mLogin.addTextChangedListener(new LoginWatcher());
@@ -92,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
 			if (mLogin.getText().toString().trim().length() < 6)
 				mLogin.setError(getString(R.string.login_at_least_six_sign));
 			else if (!mLogin.getText().toString().trim().contains("@"))
-				mLogin.setError("Niepoprawny format loginu");
+				mLogin.setError(getString(R.string.login_incorrect_email));
 		}
 	}
 
