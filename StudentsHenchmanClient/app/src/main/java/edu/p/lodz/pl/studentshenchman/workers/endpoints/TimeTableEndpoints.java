@@ -11,6 +11,6 @@ import rx.Observable;
 
 public interface TimeTableEndpoints {
 
-	@GET("courses")
+	@GET("courses/user")
 	Observable<Response<CourseRS>> getMyTimeTable();
 }
