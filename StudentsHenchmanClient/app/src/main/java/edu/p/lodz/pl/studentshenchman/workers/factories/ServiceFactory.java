@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import edu.p.lodz.pl.studentshenchman.constants.Constants;
+import edu.p.lodz.pl.studentshenchman.login.utils.LoginManager;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -66,6 +67,7 @@ public class ServiceFactory {
 						.header("Accept", "application/json")
 						.addHeader("Content-Type", "application/json")
 						.addHeader("Authorization", "Basic bW9iaWxlOm1vYmlsZQ==") //dodana autoryzacja basic dla konta testowego mobile:mobile
+						.addHeader("email", LoginManager.getInstance().getUserEmail())
 						.method(original.method(), original.body())
 						.build();
 
