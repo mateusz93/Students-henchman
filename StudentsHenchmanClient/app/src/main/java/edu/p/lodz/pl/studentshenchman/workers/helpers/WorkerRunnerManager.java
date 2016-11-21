@@ -48,11 +48,11 @@ public class WorkerRunnerManager {
 		abstractWorker = WorkerFactory.produce(mContext, workerType, bundle);
 		try {
 			if (canRunWorker(workerType)) {
-				Log.i(TAG, "Uruchamianie nowego workera typu: " + workerType.name() + " klasy: " + abstractWorker.getClass().getName());
+				Log.i(TAG, "Running new worker type of: " + workerType.name() + " class: " + abstractWorker.getClass().getName());
 				subscription = abstractWorker.run();
 				runningWorkers.put(workerType, subscription);
 			} else {
-				Log.i(TAG, "Worker typu: " + workerType.name() + " klasy: " + abstractWorker.getClass().getName() + " jest juz uruchominy !!! Pominiecie akcji");
+				Log.i(TAG, "Worker type of: " + workerType.name() + " class: " + abstractWorker.getClass().getName() + " is already running !!!  Action missed");
 			}
 		} catch (Exception e) {
 			if (null != subscription && subscription.isUnsubscribed())
@@ -75,10 +75,10 @@ public class WorkerRunnerManager {
 			Subscription subscription = runningWorkers.remove(workerType);
 			if (!subscription.isUnsubscribed()) {
 				subscription.unsubscribe();
-				Log.i(TAG, "Usuniecie z listy workerow i odsubskrybowanie workera typu: " + workerType.name());
+				Log.i(TAG, "Removed and un subscribed from worker list a worker type of : " + workerType.name());
 			}
 		} else {
-			Log.i(TAG, "Brak aktualnie odpalonego workera typu: " + workerType.name());
+			Log.i(TAG, "No current running worker type of: " + workerType.name());
 		}
 	}
 
@@ -89,12 +89,12 @@ public class WorkerRunnerManager {
 	}
 
 	public void registerBroadcastForWorkerType(BroadcastReceiver receiver, WorkerType workerType) {
-		Log.i(TAG, "Rejstracja broadcast receiver dla akcji: " + workerType.name());
+		Log.i(TAG, "Registered broadcast receiver for action: " + workerType.name());
 		mContext.registerReceiver(receiver, new IntentFilter(workerType.name()));
 	}
 
 	public void unregisterBroadcastReceiverForWorkerType(BroadcastReceiver receiver) {
-		Log.i(TAG, "Wyrejstrowanie broadcast receiver: ");
+		Log.i(TAG, "Unregistered  broadcast receiver: " + receiver.getClass());
 		mContext.unregisterReceiver(receiver);
 	}
 
