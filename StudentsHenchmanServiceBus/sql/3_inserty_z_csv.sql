@@ -1,4 +1,4 @@
-#use henchman; #kazdy musi sobie usatwic swoja nazwe schematu
+use students_henchman; #kazdy musi sobie usatwic swoja nazwe schematu
 SET foreign_key_checks = 0;
 
 INSERT INTO `PLAN_MAPPING` (`Ref`, `Day`, `Time`, `Weeks`, `EventCat`, `Weighting`, `Module`, `ModCode`, `Room`, `Surname`, `Forenames`, `StaffCode`, `Group`, `Student`, `StudCode`, `Protected`, `Global`, `Description`, `DateChanged`) VALUES ('6370977', 'Pn', '08:15-10:00', '1-15', 'l', 'f', 'Metody modelowania uk�ad�w analogowych', '5242', 'i13 3E402', 'Rybicki T.', '', 'I13', '2AiR2', '', '', 'N', 'N', '', '2016-09-06');
