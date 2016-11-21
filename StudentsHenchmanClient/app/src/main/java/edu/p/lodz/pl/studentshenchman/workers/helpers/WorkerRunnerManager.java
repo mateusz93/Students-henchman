@@ -10,8 +10,9 @@ import android.widget.Toast;
 import java.util.HashMap;
 import java.util.Map;
 
-import edu.p.lodz.pl.studentshenchman.workers.factories.WorkerFactory;
+import edu.p.lodz.pl.studentshenchman.utils.dialog.helper.AlertDialogHelper;
 import edu.p.lodz.pl.studentshenchman.workers.AbstractWorker;
+import edu.p.lodz.pl.studentshenchman.workers.factories.WorkerFactory;
 import edu.p.lodz.pl.studentshenchman.workers.utils.WorkerType;
 import rx.Subscription;
 
@@ -43,17 +44,23 @@ public class WorkerRunnerManager {
 	public void startWorker(Bundle bundle) {
 		WorkerType workerType = WorkerType.valueOf(bundle.getString(WORKER_NAME));
 		AbstractWorker abstractWorker = null;
+		Subscription subscription = null;
 		abstractWorker = WorkerFactory.produce(mContext, workerType, bundle);
 		try {
 			if (canRunWorker(workerType)) {
 				Log.i(TAG, "Uruchamianie nowego workera typu: " + workerType.name() + " klasy: " + abstractWorker.getClass().getName());
-				Subscription subscription = abstractWorker.run();
+				subscription = abstractWorker.run();
 				runningWorkers.put(workerType, subscription);
 			} else {
 				Log.i(TAG, "Worker typu: " + workerType.name() + " klasy: " + abstractWorker.getClass().getName() + " jest juz uruchominy !!! Pominiecie akcji");
 			}
 		} catch (Exception e) {
+			if (null != subscription && subscription.isUnsubscribed())
+				subscription.unsubscribe();
+			deleteFromRunningWorkers(workerType);
+			AlertDialogHelper.showErrorDialog("Error", e.getMessage());
 			Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_LONG).show();
+			Log.e(TAG, e.toString());
 		}
 	}
 
