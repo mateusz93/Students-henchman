@@ -13,6 +13,7 @@ import edu.p.lodz.pl.studentshenchman.database.DatabaseHelper;
 import edu.p.lodz.pl.studentshenchman.database.models.Teacher;
 import edu.p.lodz.pl.studentshenchman.workers.endpoints.TeachersEndpoints;
 import edu.p.lodz.pl.studentshenchman.workers.factories.ServiceFactory;
+import retrofit2.Response;
 import rx.Observable;
 import rx.Subscription;
 import rx.schedulers.Schedulers;
@@ -21,7 +22,7 @@ import rx.schedulers.Schedulers;
  * Created by Michał on 2016-11-20.
  */
 
-public class DownloadTeachersWorker extends AbstractWorker<TeacherRS> {
+public class DownloadTeachersWorker extends AbstractWorker<Response<TeacherRS>> {
 	private static final String TAG = DownloadTeachersWorker.class.getName();
 
 	public DownloadTeachersWorker(Context context, Bundle bundle) {
@@ -32,7 +33,7 @@ public class DownloadTeachersWorker extends AbstractWorker<TeacherRS> {
 	public Subscription run() {
 		Toast.makeText(mContext, "Starting download teachers", Toast.LENGTH_SHORT).show();
 		TeachersEndpoints settingsEndpoints = ServiceFactory.produceService(TeachersEndpoints.class, false);
-		Observable<TeacherRS> call = settingsEndpoints.getTeachers();
+		Observable<Response<TeacherRS>> call = settingsEndpoints.getTeachers();
 
 		Subscription subscription = call.subscribeOn(Schedulers.newThread())
 				.observeOn(Schedulers.newThread())
@@ -55,11 +56,11 @@ public class DownloadTeachersWorker extends AbstractWorker<TeacherRS> {
 	}
 
 	@Override
-	public void onNext(TeacherRS teacherRS) {
+	public void onNext(Response<TeacherRS> teacherRS) {
 		Log.i(TAG, "Saving teachers downloaded from server");
 		SQLiteDatabase db = DatabaseHelper.getInstance(mContext).getWritableDatabase();
 		deleteOldTeachers(db);
-		saveNewTeachers(db, teacherRS.getTeachers());
+		saveNewTeachers(db, teacherRS.body().getTeachers());
 	}
 
 	private void saveNewTeachers(SQLiteDatabase db, List<model.Teacher> teachers) {

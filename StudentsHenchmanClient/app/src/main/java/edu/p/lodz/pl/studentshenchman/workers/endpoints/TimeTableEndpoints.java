@@ -1,6 +1,7 @@
 package edu.p.lodz.pl.studentshenchman.workers.endpoints;
 
 import cdm.CourseRS;
+import retrofit2.Response;
 import retrofit2.http.GET;
 import rx.Observable;
 
@@ -10,6 +11,6 @@ import rx.Observable;
 
 public interface TimeTableEndpoints {
 
-	@GET("timetable/my")
-	Observable<CourseRS> getMyTimeTable();
+	@GET("courses/user")
+	Observable<Response<CourseRS>> getMyTimeTable();
 }

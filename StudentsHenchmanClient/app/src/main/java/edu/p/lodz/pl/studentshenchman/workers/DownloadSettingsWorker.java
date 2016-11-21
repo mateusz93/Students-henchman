@@ -17,6 +17,7 @@ import edu.p.lodz.pl.studentshenchman.database.models.Field;
 import edu.p.lodz.pl.studentshenchman.settings.datastore.SettingsDataStoreHelper;
 import edu.p.lodz.pl.studentshenchman.workers.endpoints.SettingsEndpoints;
 import edu.p.lodz.pl.studentshenchman.workers.factories.ServiceFactory;
+import retrofit2.Response;
 import rx.Observable;
 import rx.Subscription;
 import rx.schedulers.Schedulers;
@@ -25,7 +26,7 @@ import rx.schedulers.Schedulers;
  * Created by Michał on 2016-10-26.
  */
 
-public class DownloadSettingsWorker extends AbstractWorker<SettingsRS> {
+public class DownloadSettingsWorker extends AbstractWorker<Response<SettingsRS>> {
 	private static final String TAG = DownloadSettingsWorker.class.getName();
 
 	public DownloadSettingsWorker(Context context, Bundle bundle) {
@@ -35,7 +36,7 @@ public class DownloadSettingsWorker extends AbstractWorker<SettingsRS> {
 	@Override
 	public Subscription run() {
 		SettingsEndpoints settingsEndpoints = ServiceFactory.produceService(SettingsEndpoints.class, false);
-		Observable<SettingsRS> call = settingsEndpoints.getSettings();
+		Observable<Response<SettingsRS>> call = settingsEndpoints.getSettings();
 
 		Subscription subscription = call.subscribeOn(Schedulers.newThread())
 				.observeOn(Schedulers.newThread())
@@ -58,16 +59,16 @@ public class DownloadSettingsWorker extends AbstractWorker<SettingsRS> {
 	}
 
 	@Override
-	public void onNext(SettingsRS settingsRS) {
+	public void onNext(Response<SettingsRS> settingsRS) {
 		SettingsDataStoreHelper settingsDataStoreHelper = new SettingsDataStoreHelper(mContext);
 		settingsDataStoreHelper.setDefault().save();
-		Log.i(TAG, "Domyslne ustawienia uzytkownika");
+		Log.i(TAG, "Setting default user preferences");
 
 		SQLiteDatabase db = DatabaseHelper.getInstance(mContext).getWritableDatabase();
 		deleteOldSettings(db);
-		saveDepartmentsIntoDB(db, settingsRS.getDepartments());
-		saveFieldsIntoDB(db, settingsRS.getFields());
-		saveDeanGroupsIntoDB(db, settingsRS.getDeanGroups());
+		saveDepartmentsIntoDB(db, settingsRS.body().getDepartments());
+		saveFieldsIntoDB(db, settingsRS.body().getFields());
+		saveDeanGroupsIntoDB(db, settingsRS.body().getDeanGroups());
 	}
 
 	private void saveDeanGroupsIntoDB(SQLiteDatabase db, List<model.DeanGroup> deanGroups) {

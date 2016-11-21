@@ -1,7 +1,6 @@
 package edu.p.lodz.pl.studentshenchman.login.activities;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -12,14 +11,13 @@ import android.widget.EditText;
 
 import edu.p.lodz.pl.studentshenchman.R;
 import edu.p.lodz.pl.studentshenchman.dashboard.DashboardActivity;
+import edu.p.lodz.pl.studentshenchman.login.utils.LoginManager;
 
 /**
  * @author Michal Warcholinski
  */
 public class LoginActivity extends AppCompatActivity {
 	private static final String TAG = LoginActivity.class.getName();
-	private static final String EMAIL_PREFERENCES_KEY = TAG + ":email";
-	private static final String REMEMBER_ME_PREFERENCES_KEY = TAG + ":remember_me";
 
 	private Button mLoginButton;
 	private Button mClearButton;
@@ -27,14 +25,11 @@ public class LoginActivity extends AppCompatActivity {
 	private EditText mPassword;
 	private CheckBox mRememberMe;
 
-	private SharedPreferences mSharedPreferences;
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_login);
-		mSharedPreferences = getSharedPreferences(TAG, MODE_PRIVATE);
 
 		mLogin = (EditText) findViewById(R.id.login);
 		mLogin.addTextChangedListener(new LoginWatcher());
@@ -49,16 +44,9 @@ public class LoginActivity extends AppCompatActivity {
 //				goToDashboard();
 //			}
 			if (mRememberMe.isChecked()) {
-				mSharedPreferences.edit()
-						.putString(EMAIL_PREFERENCES_KEY, mLogin.getText().toString())
-						.putBoolean(REMEMBER_ME_PREFERENCES_KEY, true)
-						.apply();
+				LoginManager.getInstance().saveRememberMeChoose(true).saveUserEmail(mLogin.getText().toString());
 			} else {
-				mSharedPreferences.edit()
-						.putString(EMAIL_PREFERENCES_KEY, "")
-						.putBoolean(REMEMBER_ME_PREFERENCES_KEY, false)
-						.apply();
-
+				LoginManager.getInstance().saveRememberMeChoose(false).saveUserEmail("");
 			}
 			goToDashboard();
 		});
@@ -69,10 +57,10 @@ public class LoginActivity extends AppCompatActivity {
 			mPassword.setText("");
 		});
 
-		boolean rememberMe = mSharedPreferences.getBoolean(REMEMBER_ME_PREFERENCES_KEY, false);
+		boolean rememberMe = LoginManager.getInstance().getRememberMeChoose();
 		if (rememberMe) {
 			mRememberMe.setChecked(true);
-			String email = mSharedPreferences.getString(EMAIL_PREFERENCES_KEY, "");
+			String email = LoginManager.getInstance().getUserEmail();
 			mLogin.setText(email);
 		}
 
@@ -100,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
 			if (mLogin.getText().toString().trim().length() < 6)
 				mLogin.setError(getString(R.string.login_at_least_six_sign));
 			else if (!mLogin.getText().toString().trim().contains("@"))
-				mLogin.setError("Niepoprawny format loginu");
+				mLogin.setError(getString(R.string.login_incorrect_email));
 		}
 	}
 

@@ -7,6 +7,8 @@ import android.util.Log;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
+import java.util.ArrayList;
+import java.util.List;
 
 import edu.p.lodz.pl.studentshenchman.utils.dialog.helper.AlertDialogHelper;
 import edu.p.lodz.pl.studentshenchman.workers.helpers.WorkerRunnerManager;
@@ -66,4 +68,43 @@ public abstract class AbstractWorker<T> implements Observer<T> {
 
 	}
 
+	public String listIntegerToString(List<Integer> values) {
+		StringBuilder sb = new StringBuilder();
+		for (Integer iValue : values) {
+			if (!sb.toString().isEmpty())
+				sb.append(",");
+			sb.append(iValue);
+		}
+
+		return sb.toString();
+	}
+
+	public String listLongToString(List<Long> values) {
+		StringBuilder sb = new StringBuilder();
+		for (Long lValue : values) {
+			if (!sb.toString().isEmpty())
+				sb.append(",");
+			sb.append(lValue);
+		}
+
+		return sb.toString();
+	}
+
+	public List<Long> fromStringToLongList(String value, String separator) {
+		List<Long> list = new ArrayList<>();
+		String[] separatedValues = value.split(separator);
+		for (String s : separatedValues) {
+			list.add(Long.valueOf(s));
+		}
+		return list;
+	}
+
+	public List<Integer> fromStringToIntegerList(String value, String separator) {
+		List<Integer> list = new ArrayList<>();
+		String[] separatedValues = value.split(separator);
+		for (String s : separatedValues) {
+			list.add(Integer.valueOf(s));
+		}
+		return list;
+	}
 }

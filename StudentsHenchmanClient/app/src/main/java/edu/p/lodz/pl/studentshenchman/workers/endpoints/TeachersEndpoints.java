@@ -1,6 +1,7 @@
 package edu.p.lodz.pl.studentshenchman.workers.endpoints;
 
 import cdm.TeacherRS;
+import retrofit2.Response;
 import retrofit2.http.GET;
 import rx.Observable;
 
@@ -11,5 +12,5 @@ import rx.Observable;
 public interface TeachersEndpoints {
 
 	@GET("teachers")
-	Observable<TeacherRS> getTeachers();
+	Observable<Response<TeacherRS>> getTeachers();
 }
