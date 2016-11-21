@@ -1,3 +1,5 @@
+use henchman; #kazdy musi sobie usatwic swoja nazwe schematu
+SET foreign_key_checks = 0;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertuj$$
@@ -101,3 +103,5 @@ BEGIN
 END $$
 DELIMITER ;
 CALL swapuj();
+
+SET foreign_key_checks = 1;

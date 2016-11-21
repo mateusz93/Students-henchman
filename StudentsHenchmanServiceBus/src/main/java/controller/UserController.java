@@ -41,10 +41,18 @@ public class UserController {
         Field field = fieldRepository.findById(preferencesRQ.getFieldId());
         user.setDepartment(department);
         user.setField(field);
-        user.setDeanGroups(preferencesRQ.getDeanGroupIds().toString());
+        user.setDeanGroups(getDeanGroups(preferencesRQ));
         user.setTerm(preferencesRQ.getTerm());
         user.setDegree(preferencesRQ.getDegree());
         userRepository.save(user);
         log.info("setPreferences finished. Send response.");
+    }
+
+    private String getDeanGroups(@RequestBody PreferencesRQ preferencesRQ) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Long id : preferencesRQ.getDeanGroupIds()) {
+            stringBuilder.append(id).append(",");
+        }
+        return stringBuilder.toString().substring(0, stringBuilder.toString().length()-1); //remove last ','
     }
 }

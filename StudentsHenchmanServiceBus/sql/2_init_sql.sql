@@ -454,4 +454,9 @@ INSERT INTO DATE(CYCLE,DATE,DAY_OF_WEEK,WEEK_NO) VALUES(1,"2016-01-03","FRIDAY",
 INSERT INTO DATE(CYCLE,DATE,DAY_OF_WEEK,WEEK_NO) VALUES(2,"2016-01-13","FRIDAY",14);
 INSERT INTO DATE(CYCLE,DATE,DAY_OF_WEEK,WEEK_NO) VALUES(1,"2016-01-20","FRIDAY",15);
 
+#############################################################################################
+INSERT INTO USER(EMAIL) VALUES("mobile1@mobile.com");
+INSERT INTO USER(EMAIL) VALUES("mobile2@mobile.com");
+INSERT INTO USER(EMAIL) VALUES("mobile3@mobile.com");
+
 SET foreign_key_checks = 1;

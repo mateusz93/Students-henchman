@@ -11,7 +11,7 @@ public class PreferencesRQ {
     private long fieldId;
     private int term;
     private int degree;
-    private List<String> deanGroupIds;
+    private List<Long> deanGroupIds;
 
     public long getDepartmentId() {
         return departmentId;
@@ -45,11 +45,11 @@ public class PreferencesRQ {
         this.degree = degree;
     }
 
-    public List<String> getDeanGroupIds() {
+    public List<Long> getDeanGroupIds() {
         return deanGroupIds;
     }
 
-    public void setDeanGroupIds(List<String> deanGroupIds) {
+    public void setDeanGroupIds(List<Long> deanGroupIds) {
         this.deanGroupIds = deanGroupIds;
     }
 
