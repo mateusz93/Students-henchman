@@ -10,6 +10,7 @@ import edu.p.lodz.pl.studentshenchman.database.DatabaseHelper;
 import edu.p.lodz.pl.studentshenchman.workers.endpoints.SettingsEndpoints;
 import edu.p.lodz.pl.studentshenchman.workers.factories.ServiceFactory;
 import model.Date;
+import retrofit2.Response;
 import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -18,7 +19,7 @@ import rx.schedulers.Schedulers;
 /**
  * Created by Michał on 2016-10-08.
  */
-public class DownloadDateWorker extends AbstractWorker<Date> {
+public class DownloadDateWorker extends AbstractWorker<Response<Date>> {
 	private static final String TAG = DownloadDateWorker.class.getName();
 
 	public DownloadDateWorker(Context context, Bundle bundle) {
@@ -28,7 +29,7 @@ public class DownloadDateWorker extends AbstractWorker<Date> {
 	@Override
 	public Subscription run() {
 		SettingsEndpoints dateEndpoints = ServiceFactory.produceService(SettingsEndpoints.class, false);
-		Observable<Date> call = dateEndpoints.getDate();
+		Observable<Response<Date>> call = dateEndpoints.getDate();
 
 		Subscription subscription = call.subscribeOn(Schedulers.newThread())
 				.observeOn(AndroidSchedulers.mainThread())
@@ -50,11 +51,11 @@ public class DownloadDateWorker extends AbstractWorker<Date> {
 	}
 
 	@Override
-	public void onNext(Date date) {
+	public void onNext(Response<Date> date) {
 		Log.i(TAG, "Zapisywanie dat uczelnianych pobranych z serwera");
 		SQLiteDatabase db = DatabaseHelper.getInstance(mContext).getWritableDatabase();
 		deleteOldSettings(db);
-		saveDateIntoDB(db, date);
+		saveDateIntoDB(db, date.body());
 	}
 
 	private void saveDateIntoDB(SQLiteDatabase db, Date date) {
