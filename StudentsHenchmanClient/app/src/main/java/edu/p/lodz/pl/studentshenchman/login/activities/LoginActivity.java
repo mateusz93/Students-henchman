@@ -12,14 +12,13 @@ import android.widget.EditText;
 
 import edu.p.lodz.pl.studentshenchman.R;
 import edu.p.lodz.pl.studentshenchman.dashboard.DashboardActivity;
+import edu.p.lodz.pl.studentshenchman.login.utils.LoginManager;
 
 /**
  * @author Michal Warcholinski
  */
 public class LoginActivity extends AppCompatActivity {
 	private static final String TAG = LoginActivity.class.getName();
-	private static final String EMAIL_PREFERENCES_KEY = TAG + ":email";
-	private static final String REMEMBER_ME_PREFERENCES_KEY = TAG + ":remember_me";
 
 	private Button mLoginButton;
 	private Button mClearButton;
@@ -49,16 +48,9 @@ public class LoginActivity extends AppCompatActivity {
 //				goToDashboard();
 //			}
 			if (mRememberMe.isChecked()) {
-				mSharedPreferences.edit()
-						.putString(EMAIL_PREFERENCES_KEY, mLogin.getText().toString())
-						.putBoolean(REMEMBER_ME_PREFERENCES_KEY, true)
-						.apply();
+				LoginManager.getInstance().saveRememberMeChoose(true).saveUserEmail(mLogin.getText().toString());
 			} else {
-				mSharedPreferences.edit()
-						.putString(EMAIL_PREFERENCES_KEY, "")
-						.putBoolean(REMEMBER_ME_PREFERENCES_KEY, false)
-						.apply();
-
+				LoginManager.getInstance().saveRememberMeChoose(false).saveUserEmail("");
 			}
 			goToDashboard();
 		});
@@ -69,10 +61,10 @@ public class LoginActivity extends AppCompatActivity {
 			mPassword.setText("");
 		});
 
-		boolean rememberMe = mSharedPreferences.getBoolean(REMEMBER_ME_PREFERENCES_KEY, false);
+		boolean rememberMe = LoginManager.getInstance().getRememberMeChoose();
 		if (rememberMe) {
 			mRememberMe.setChecked(true);
-			String email = mSharedPreferences.getString(EMAIL_PREFERENCES_KEY, "");
+			String email = LoginManager.getInstance().getUserEmail();
 			mLogin.setText(email);
 		}
 
