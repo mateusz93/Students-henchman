@@ -40,7 +40,7 @@ public class DownloadDateWorker extends AbstractWorker<Response<Date>> {
 
 	@Override
 	public void onCompleted() {
-		Log.i(TAG, "Settings downloaded successfully");
+		Log.i(TAG, "Date downloaded successfully");
 		notifyTaskFinished(FinishedWorkerStatus.SUCCESS);
 	}
 
@@ -52,7 +52,7 @@ public class DownloadDateWorker extends AbstractWorker<Response<Date>> {
 
 	@Override
 	public void onNext(Response<Date> date) {
-		Log.i(TAG, "Zapisywanie dat uczelnianych pobranych z serwera");
+		Log.i(TAG, "Saving dates downloaded from server");
 		SQLiteDatabase db = DatabaseHelper.getInstance(mContext).getWritableDatabase();
 		deleteOldSettings(db);
 		saveDateIntoDB(db, date.body());

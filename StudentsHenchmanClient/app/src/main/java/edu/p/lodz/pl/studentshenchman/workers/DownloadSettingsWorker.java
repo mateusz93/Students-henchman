@@ -62,7 +62,7 @@ public class DownloadSettingsWorker extends AbstractWorker<Response<SettingsRS>>
 	public void onNext(Response<SettingsRS> settingsRS) {
 		SettingsDataStoreHelper settingsDataStoreHelper = new SettingsDataStoreHelper(mContext);
 		settingsDataStoreHelper.setDefault().save();
-		Log.i(TAG, "Domyslne ustawienia uzytkownika");
+		Log.i(TAG, "Setting default user preferences");
 
 		SQLiteDatabase db = DatabaseHelper.getInstance(mContext).getWritableDatabase();
 		deleteOldSettings(db);
