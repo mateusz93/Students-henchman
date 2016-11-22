@@ -13,7 +13,7 @@ import java.util.Map;
 public class Room implements BaseColumns {
 	private static final String TAG = Teacher.class.getName();
 
-	public static final String TABLE_NAME = "teacher";
+	public static final String TABLE_NAME = "room";
 
 
 	public static final String _ID = "_id";

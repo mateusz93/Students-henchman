@@ -51,7 +51,7 @@ public class Teacher implements BaseColumns {
 
 		cv.put(EXTERNAL_TEACHER_ID, teacherDto.getId());
 		cv.put(NAME, teacherDto.getName());
-		cv.put(EMAIL, teacherDto.getEmail());
+		cv.put(EMAIL, teacherDto.getEmail() == null ? "" : teacherDto.getEmail());
 
 		return cv;
 	}
