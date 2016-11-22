@@ -36,6 +36,8 @@ import edu.p.lodz.pl.studentshenchman.workers.SetUserPreferencesWorker;
 import edu.p.lodz.pl.studentshenchman.workers.helpers.WorkerRunnerManager;
 import edu.p.lodz.pl.studentshenchman.workers.utils.WorkerType;
 
+import static edu.p.lodz.pl.studentshenchman.workers.AbstractWorker.WORKER_NAME;
+
 public class SettingsActivity extends StudentShenchmanMainActivity implements GroupsDialogFragment.ChosenDeanGroupsInterface {
 	private static final String TAG = SettingsActivity.class.getName();
 
@@ -315,7 +317,7 @@ public class SettingsActivity extends StudentShenchmanMainActivity implements Gr
 
 		@Override
 		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-			mSettingsDataHelper.setDegreeValue(id);
+			mSettingsDataHelper.setDegreeValue((int)id);
 			updateDeanGroupsView();
 		}
 
@@ -328,7 +330,7 @@ public class SettingsActivity extends StudentShenchmanMainActivity implements Gr
 	private class TermOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
 		@Override
 		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-			mSettingsDataHelper.setTermValue(id);
+			mSettingsDataHelper.setTermValue((int)id);
 			updateDeanGroupsView();
 		}
 
@@ -343,8 +345,17 @@ public class SettingsActivity extends StudentShenchmanMainActivity implements Gr
 		@Override
 		public void onClick(View v) {
 			mSettingsDataHelper.save();
-			SetUserPreferencesWorker.prepareAndStart(getApplicationContext(), mSettingsDataHelper.getDepartmentId(), mSettingsDataHelper.getFieldId(),
-					mSettingsDataHelper.getGroups(), 7/*mSettingsDataHelper.getTermValue()*/, 1/* mSettingsDataHelper.getDegreeValue()*/);
+			Bundle bundlePref = new Bundle();
+			bundlePref.putString(WORKER_NAME, WorkerType.SET_USER_PREFERENCES.name());
+			bundlePref.putLong(SetUserPreferencesWorker.EXTERNAL_DEPARTMENT_ID, mSettingsDataHelper.getDepartmentId());
+			bundlePref.putLong(SetUserPreferencesWorker.EXTERNAL_FIELD_ID, mSettingsDataHelper.getFieldId());
+			bundlePref.putString(SetUserPreferencesWorker.EXTERNAL_GROUPS_IDS, mSettingsDataHelper.getGroups());
+			bundlePref.putInt(SetUserPreferencesWorker.TERM, mSettingsDataHelper.getTermValue());
+			bundlePref.putInt(SetUserPreferencesWorker.DEGREE, mSettingsDataHelper.getDegreeValue());
+
+			WorkerRunnerManager.getInstance(getApplicationContext()).startWorker(bundlePref);
+			/*SetUserPreferencesWorker.prepareAndStart(getApplicationContext(), mSettingsDataHelper.getDepartmentId(), mSettingsDataHelper.getFieldId(),
+					mSettingsDataHelper.getGroups(), 7*//*mSettingsDataHelper.getTermValue()*//*, 1*//* mSettingsDataHelper.getDegreeValue()*//*);*/
 			goToDashBoard();
 		}
 	}

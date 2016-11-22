@@ -82,17 +82,4 @@ public class SetUserPreferencesWorker extends AbstractWorker<Response<Void>> {
 			onError(mContext, new HttpException(response));
 
 	}
-
-	public static void prepareAndStart(Context context, long externalDepartmentId, long externalFieldId,
-	                                   String externalGroupsIds, int term, int degree) {
-		Bundle bundle = new Bundle();
-		bundle.putString(WORKER_NAME, WorkerType.SET_USER_PREFERENCES.name());
-		bundle.putLong(EXTERNAL_DEPARTMENT_ID, externalDepartmentId);
-		bundle.putLong(EXTERNAL_FIELD_ID, externalFieldId);
-		bundle.putString(EXTERNAL_GROUPS_IDS, externalGroupsIds);
-		bundle.putInt(TERM, term);
-		bundle.putInt(DEGREE, degree);
-
-		WorkerRunnerManager.getInstance(context).startWorker(bundle);
-	}
 }

@@ -29,7 +29,10 @@ import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainActivity;
 import edu.p.lodz.pl.studentshenchman.database.DatabaseHelper;
 import edu.p.lodz.pl.studentshenchman.qr_scanner.SimpleScanner;
 import edu.p.lodz.pl.studentshenchman.settings.SettingsActivity;
+import edu.p.lodz.pl.studentshenchman.settings.datastore.SettingsDataStoreHelper;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.activity.TimetableActivity;
+import edu.p.lodz.pl.studentshenchman.workers.DownloadTeachersWorker;
+import edu.p.lodz.pl.studentshenchman.workers.SetUserPreferencesWorker;
 import edu.p.lodz.pl.studentshenchman.workers.helpers.WorkerRunnerManager;
 import edu.p.lodz.pl.studentshenchman.workers.utils.WorkerType;
 
@@ -156,9 +159,13 @@ public class DashboardActivity extends StudentShenchmanMainActivity {
 				bundle = new Bundle();
 				bundle.putString(WORKER_NAME, WorkerType.DOWNLOAD_SETTINGS.name());
 				WorkerRunnerManager.getInstance(getApplicationContext()).startWorker(bundle);
+
+				Bundle bundleTeachers = new Bundle();
+				bundleTeachers.putString(WORKER_NAME, WorkerType.DOWNLOAD_TEACHERS.name());
+				WorkerRunnerManager.getInstance(getApplicationContext()).startWorker(bundleTeachers);
 				break;
 			case R.id.nav_customize:
-				
+
 				break;
 			case R.id.nav_about:
 

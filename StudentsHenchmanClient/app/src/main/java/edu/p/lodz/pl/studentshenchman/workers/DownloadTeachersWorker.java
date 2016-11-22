@@ -13,8 +13,6 @@ import edu.p.lodz.pl.studentshenchman.database.DatabaseHelper;
 import edu.p.lodz.pl.studentshenchman.database.models.Teacher;
 import edu.p.lodz.pl.studentshenchman.workers.endpoints.TeachersEndpoints;
 import edu.p.lodz.pl.studentshenchman.workers.factories.ServiceFactory;
-import edu.p.lodz.pl.studentshenchman.workers.helpers.WorkerRunnerManager;
-import edu.p.lodz.pl.studentshenchman.workers.utils.WorkerType;
 import retrofit2.Response;
 import retrofit2.adapter.rxjava.HttpException;
 import rx.Observable;
@@ -76,12 +74,6 @@ public class DownloadTeachersWorker extends AbstractWorker<Response<TeacherRS>> 
 
 	private void deleteOldTeachers(SQLiteDatabase db) {
 		db.delete(Teacher.TABLE_NAME, null, null);
-	}
-
-	public static void prepareAndStart(Context context) {
-		Bundle bundle = new Bundle();
-		bundle.putString(WORKER_NAME, WorkerType.DOWNLOAD_TEACHERS.name());
-		WorkerRunnerManager.getInstance(context).startWorker(bundle);
 	}
 
 }

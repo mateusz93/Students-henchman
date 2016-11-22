@@ -60,7 +60,8 @@ public class WorkerRunnerManager {
 			deleteFromRunningWorkers(workerType);
 			AlertDialogHelper.showErrorDialog("Error", e.getMessage());
 			Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_LONG).show();
-			Log.e(TAG, e.toString());
+			//Log.e(TAG, e.printStackTrace());
+			e.printStackTrace();
 		}
 	}
 
