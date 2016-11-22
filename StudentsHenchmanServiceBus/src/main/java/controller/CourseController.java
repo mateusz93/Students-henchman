@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import repository.CourseRepository;
 import repository.DeansGroupRepository;
@@ -40,8 +41,8 @@ public class CourseController {
     private CourseService courseService;
 
     @RequestMapping(method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
-    public CourseRS getCourses(@RequestParam(value="name", required=false) String name,
-                               @RequestParam(value="id", required=false) String id,
+    public CourseRS getCourses(@RequestParam(value = "name", required = false) String name,
+                               @RequestParam(value = "id", required = false) String id,
                                HttpServletResponse httpResponse) {
         log.info("getCourses core invoked");
         if (StringUtils.isNotEmpty(name)) {
@@ -54,32 +55,41 @@ public class CourseController {
 
     @RequestMapping(value = "/user", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
     public CourseRS getCoursesByUser(@RequestHeader("email") String email,
-                               HttpServletResponse httpResponse) {
-        log.info("getCoursesByUser core invoked");
+                                     HttpServletResponse httpResponse) {
         CourseRS response = new CourseRS();
         User user = userRepository.findByEmail(email);
+        if (null == user) {
+            log.info("Unauthorized user during downloading courses");
+            httpResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
+            return null;
+        }
+        log.info("getCoursesByUser core invoked");
         List<Course> courses = new ArrayList<>();
         if (StringUtils.isNotBlank(user.getCourses())) {
-            for (String id : getUserCourseIdsAsList(user)) {
+            for (String id : fromStringToList(user.getCourses())) {
                 Course course = courseRepository.findById(Long.valueOf(id));
                 courses.add(course);
             }
         } else {
-            for (String id : getUserDeanGroupsIdsAsList(user)) {
+            for (String id : fromStringToList(user.getDeanGroups())) {
                 DeanGroup deanGroup = deansGroupRepository.findById(Long.valueOf(id));
                 List<Course> course = courseRepository.findByDeanGroup(deanGroup);
                 courses.addAll(course);
             }
         }
+        if (courses.size() > 0)
+            httpResponse.setStatus(HttpStatus.OK.value());
+        else
+            httpResponse.setStatus(HttpStatus.NO_CONTENT.value());
         response.getCourses().addAll(courses);
+
         return response;
     }
 
-    private String[] getUserDeanGroupsIdsAsList(User user) {
-        return user.getDeanGroups().split(",");
-    }
-
-    private String[] getUserCourseIdsAsList(User user) {
-        return user.getCourses().split(",");
+    private String[] fromStringToList(String stringValue) {
+        if (null != stringValue)
+            return stringValue.split(",");
+        else
+            return new String[]{};
     }
 }

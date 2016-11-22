@@ -78,4 +78,13 @@ public class Field {
     public void setDeanGroups(Set<DeanGroup> deanGroups) {
         this.deanGroups = deanGroups;
     }
+
+    @Override
+    public String toString() {
+        return "Field{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", department=" + department +
+                '}';
+    }
 }

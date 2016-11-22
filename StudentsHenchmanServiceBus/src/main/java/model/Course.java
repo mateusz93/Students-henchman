@@ -108,4 +108,18 @@ public class Course {
     public void setNotes(Set<Note> notes) {
         this.notes = notes;
     }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "id=" + id +
+                ", externalId='" + externalId + '\'' +
+                ", name='" + name + '\'' +
+                ", weekDay='" + weekDay + '\'' +
+                ", teacher=" + teacher +
+                ", weeks='" + weeks + '\'' +
+                ", time='" + time + '\'' +
+                ", deanGroup=" + deanGroup +
+                '}';
+    }
 }

@@ -27,7 +27,7 @@ public class NoteController {
     private UserRepository userRepository;
 
     @ResponseStatus(value = HttpStatus.OK)
-    @RequestMapping(value = "/setNote", method = RequestMethod.POST, consumes = "application/json")
+    @RequestMapping(value = "/addNote", method = RequestMethod.POST, consumes = "application/json")
     public void setNote(@RequestHeader("email") String email,
                      @RequestBody NoteRQ note) {
         log.info("setNote invoked.");

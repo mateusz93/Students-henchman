@@ -29,11 +29,11 @@ public class TeacherServiceImpl implements TeacherService {
         log.info("PathParameter: name=" + name);
         TeacherRS result = new TeacherRS();
         List<Teacher> teachers = teacherRepository.findByName(name);
-        if (CollectionUtils.isEmpty(teachers)) {
-            httpResponse.setStatus(HttpStatus.NOT_FOUND.value());
-        } else {
+        if (null != teachers && !teachers.isEmpty()) {
             result.getTeachers().addAll(teachers);
-            httpResponse.setStatus(HttpStatus.FOUND.value());
+            httpResponse.setStatus(HttpStatus.OK.value());
+        } else {
+            httpResponse.setStatus(HttpStatus.NO_CONTENT.value());
         }
         log.info("ResponseBody: " + result.toString());
         return result;
@@ -44,11 +44,11 @@ public class TeacherServiceImpl implements TeacherService {
         log.info("PathParameter: id=" + id);
         TeacherRS result = new TeacherRS();
         Teacher teacher = teacherRepository.findById(Long.valueOf(id));
-        if (teacher != null) {
+        if (null != teacher) {
             result.getTeachers().add(teacher);
-            httpResponse.setStatus(HttpStatus.FOUND.value());
+            httpResponse.setStatus(HttpStatus.OK.value());
         } else {
-            httpResponse.setStatus(HttpStatus.NOT_FOUND.value());
+            httpResponse.setStatus(HttpStatus.NO_CONTENT.value());
         }
         log.info("ResponseBody: " + result.toString());
         return result;
@@ -61,9 +61,9 @@ public class TeacherServiceImpl implements TeacherService {
         Teacher teacher = teacherRepository.findByEmail(email);
         if (teacher != null) {
             result.getTeachers().add(teacher);
-            httpResponse.setStatus(HttpStatus.FOUND.value());
+            httpResponse.setStatus(HttpStatus.OK.value());
         } else {
-            httpResponse.setStatus(HttpStatus.NOT_FOUND.value());
+            httpResponse.setStatus(HttpStatus.NO_CONTENT.value());
         }
         log.info("ResponseBody: " + result.toString());
         return result;
@@ -73,11 +73,11 @@ public class TeacherServiceImpl implements TeacherService {
     public TeacherRS prepareResultForGetTeachers(HttpServletResponse httpResponse) {
         TeacherRS result = new TeacherRS();
         List<Teacher> teachers = (List<Teacher>) teacherRepository.findAll();
-        if (CollectionUtils.isEmpty(teachers)) {
-            httpResponse.setStatus(HttpStatus.NOT_FOUND.value());
-        } else {
+        if (null != teachers && !CollectionUtils.isEmpty(teachers)) {
             result.getTeachers().addAll(teachers);
-            httpResponse.setStatus(HttpStatus.FOUND.value());
+            httpResponse.setStatus(HttpStatus.OK.value());
+        } else {
+            httpResponse.setStatus(HttpStatus.NO_CONTENT.value());
         }
         log.info("ResponseBody: " + result.toString());
         return result;

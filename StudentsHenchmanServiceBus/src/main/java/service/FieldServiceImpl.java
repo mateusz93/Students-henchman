@@ -34,11 +34,11 @@ public class FieldServiceImpl implements FieldService {
         log.info("PathParameter: Name=" + name);
         FieldRS result = new FieldRS();
         List<Field> fields = fieldRepository.findByName(name);
-        if (CollectionUtils.isEmpty(fields)) {
-            httpResponse.setStatus(HttpStatus.NOT_FOUND.value());
-        } else {
+        if (null != fields && !CollectionUtils.isEmpty(fields)) {
             result.getFields().addAll(fields);
-            httpResponse.setStatus(HttpStatus.FOUND.value());
+            httpResponse.setStatus(HttpStatus.OK.value());
+        } else {
+            httpResponse.setStatus(HttpStatus.NO_CONTENT.value());
         }
         log.info("ResponseBody: " + result.toString());
         return result;
@@ -50,10 +50,10 @@ public class FieldServiceImpl implements FieldService {
         FieldRS result = new FieldRS();
         Field field = fieldRepository.findById(Long.valueOf(id));
         if (field != null) {
-            httpResponse.setStatus(HttpStatus.FOUND.value());
             result.getFields().add(field);
+            httpResponse.setStatus(HttpStatus.OK.value());
         } else {
-            httpResponse.setStatus(HttpStatus.NOT_FOUND.value());
+            httpResponse.setStatus(HttpStatus.NO_CONTENT.value());
         }
         log.info("ResponseBody: " + result.toString());
         return result;
@@ -65,11 +65,11 @@ public class FieldServiceImpl implements FieldService {
         FieldRS result = new FieldRS();
         Department department = departmentRepository.findById(Long.valueOf(departmentId));
         List<Field> fields = fieldRepository.findByDepartment(department);
-        if (CollectionUtils.isEmpty(fields)) {
-            httpResponse.setStatus(HttpStatus.NOT_FOUND.value());
-        } else {
+        if (null != fields && !CollectionUtils.isEmpty(fields)) {
             result.getFields().addAll(fields);
-            httpResponse.setStatus(HttpStatus.FOUND.value());
+            httpResponse.setStatus(HttpStatus.OK.value());
+        } else {
+            httpResponse.setStatus(HttpStatus.NO_CONTENT.value());
         }
         log.info("ResponseBody: " + result.toString());
         return result;
@@ -79,11 +79,11 @@ public class FieldServiceImpl implements FieldService {
     public FieldRS prepareResultForGetFields(HttpServletResponse httpResponse) {
         FieldRS result = new FieldRS();
         List<Field> fields = (List<Field>) fieldRepository.findAll();
-        if (CollectionUtils.isEmpty(fields)) {
-            httpResponse.setStatus(HttpStatus.NOT_FOUND.value());
-        } else {
+        if (null != fields && !CollectionUtils.isEmpty(fields)) {
             result.getFields().addAll(fields);
-            httpResponse.setStatus(HttpStatus.FOUND.value());
+            httpResponse.setStatus(HttpStatus.OK.value());
+        } else {
+            httpResponse.setStatus(HttpStatus.NO_CONTENT.value());
         }
         log.info("ResponseBody: " + result.toString());
         return result;
