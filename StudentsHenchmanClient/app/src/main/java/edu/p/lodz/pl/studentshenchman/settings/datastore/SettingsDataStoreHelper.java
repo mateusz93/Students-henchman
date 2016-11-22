@@ -17,8 +17,8 @@ public class SettingsDataStoreHelper {
 	private long mDepartmentId;
 	private long mFieldId;
 	private long mTypeValue;
-	private long mDegreeValue;
-	private long mTermValue;
+	private int mDegreeValue;
+	private int mTermValue;
 	private String mGroups;
 
 	private enum PREFERENCES_KEYS {
@@ -35,8 +35,8 @@ public class SettingsDataStoreHelper {
 				.putLong(PREFERENCES_KEYS.DEPARTMENT.name(), mDepartmentId)
 				.putLong(PREFERENCES_KEYS.FIELD.name(), mFieldId)
 				.putLong(PREFERENCES_KEYS.TYPE.name(), mTypeValue)
-				.putLong(PREFERENCES_KEYS.KIND.name(), mDegreeValue)
-				.putLong(PREFERENCES_KEYS.TERM.name(), mTermValue)
+				.putInt(PREFERENCES_KEYS.KIND.name(), mDegreeValue)
+				.putInt(PREFERENCES_KEYS.TERM.name(), mTermValue)
 				.putString(PREFERENCES_KEYS.GROUPS.name(), mGroups)
 				.apply();
 	}
@@ -45,8 +45,8 @@ public class SettingsDataStoreHelper {
 		mDepartmentId = mSharedPreferences.getLong(PREFERENCES_KEYS.DEPARTMENT.name(), Long.MIN_VALUE);
 		mFieldId = mSharedPreferences.getLong(PREFERENCES_KEYS.FIELD.name(), Long.MIN_VALUE);
 		mTypeValue = mSharedPreferences.getLong(PREFERENCES_KEYS.TYPE.name(), Long.MIN_VALUE);
-		mDegreeValue = mSharedPreferences.getLong(PREFERENCES_KEYS.KIND.name(), Long.MIN_VALUE);
-		mTermValue = mSharedPreferences.getLong(PREFERENCES_KEYS.TERM.name(), Long.MIN_VALUE);
+		mDegreeValue = mSharedPreferences.getInt(PREFERENCES_KEYS.KIND.name(), Integer.MIN_VALUE);
+		mTermValue = mSharedPreferences.getInt(PREFERENCES_KEYS.TERM.name(), Integer.MIN_VALUE);
 		mGroups = mSharedPreferences.getString(PREFERENCES_KEYS.GROUPS.name(), "");
 	}
 
@@ -54,18 +54,18 @@ public class SettingsDataStoreHelper {
 		mDepartmentId = Long.MIN_VALUE;
 		mFieldId = Long.MIN_VALUE;
 		mTypeValue = Long.MIN_VALUE;
-		mDegreeValue = Long.MIN_VALUE;
-		mTermValue = Long.MIN_VALUE;
+		mDegreeValue = Integer.MIN_VALUE;
+		mTermValue = Integer.MIN_VALUE;
 		mGroups = "";
 
 		return this;
 	}
 
-	public long getDegreeValue() {
+	public int getDegreeValue() {
 		return mDegreeValue;
 	}
 
-	public SettingsDataStoreHelper setDegreeValue(long degreeValue) {
+	public SettingsDataStoreHelper setDegreeValue(int degreeValue) {
 		this.mDegreeValue = degreeValue;
 		return this;
 	}
@@ -97,11 +97,11 @@ public class SettingsDataStoreHelper {
 		return this;
 	}
 
-	public long getTermValue() {
+	public int getTermValue() {
 		return mTermValue;
 	}
 
-	public SettingsDataStoreHelper setTermValue(long termValue) {
+	public SettingsDataStoreHelper setTermValue(int termValue) {
 		this.mTermValue = termValue;
 		return this;
 	}
@@ -162,9 +162,9 @@ public class SettingsDataStoreHelper {
 			return false;
 		if (mFieldId != mSharedPreferences.getLong(PREFERENCES_KEYS.FIELD.name(), Long.MIN_VALUE))
 			return false;
-		if (mTermValue != mSharedPreferences.getLong(PREFERENCES_KEYS.TERM.name(), Long.MIN_VALUE))
+		if (mTermValue != mSharedPreferences.getInt(PREFERENCES_KEYS.TERM.name(), Integer.MIN_VALUE))
 			return false;
-		if (mDegreeValue != mSharedPreferences.getLong(PREFERENCES_KEYS.KIND.name(), Long.MIN_VALUE))
+		if (mDegreeValue != mSharedPreferences.getInt(PREFERENCES_KEYS.KIND.name(), Integer.MIN_VALUE))
 			return false;
 
 		return true;
