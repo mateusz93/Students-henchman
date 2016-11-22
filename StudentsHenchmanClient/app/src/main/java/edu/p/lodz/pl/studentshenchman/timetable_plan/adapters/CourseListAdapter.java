@@ -39,20 +39,22 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
 
 	@Override
 	public void onBindViewHolder(ViewHolder holder, int position) {
-		holder.lessonHeaderTitle.setText("WYKLAD");
-		holder.lessonName.setText("Analiza Matematyczna");
-		holder.lessonTime.setText("8:15 - 9:45");
-		holder.lessonBuilding.setText("CTI");
-		holder.lessonRoom.setText("301");
-		holder.lessonTeacher.setText("Dr. inz. Rafal Kielbik");
+		CoursesLoaderObject loaderObject = mValues.get(position);
+
+		holder.lessonHeaderTitle.setText(loaderObject.getDeanGroupName());
+		holder.lessonName.setText(loaderObject.getCourseName());
+		holder.lessonTime.setText(loaderObject.getTime());
+		holder.lessonBuilding.setVisibility(View.GONE);
+		holder.lessonRoom.setVisibility(View.GONE);
+		holder.lessonTeacher.setText(loaderObject.getTeacherName());
+
 		holder.navigateLesson.setVisibility(View.GONE);
 
 	}
 
 	@Override
 	public int getItemCount() {
-		return 5;
-		//return mValues.size();
+		return mValues.size();
 	}
 
 
