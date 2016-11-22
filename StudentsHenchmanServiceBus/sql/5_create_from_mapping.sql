@@ -3,13 +3,6 @@ SET foreign_key_checks = 0;
 
 drop view if exists v;
 
-#Przeniesiony insert z pliku nr 5 poniewaz teraz wplywa on na wartosci w widoku wiec musi byc wykonany przed tworzeniem widoku
-INSERT INTO TEACHER (NAME)
-  SELECT DISTINCT PLAN_MAPPING.Surname
-  FROM PLAN_MAPPING WHERE Surname is not null and Surname not in('Surname','');
-  
-
-
 #tworzenie widoku z tabeli PLAN_MAPPING joinowanej z TEACHER oraz DEAN_GROUP (jak na razie)
 
 create view v AS 

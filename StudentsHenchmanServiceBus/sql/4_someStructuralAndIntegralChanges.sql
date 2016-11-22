@@ -1,6 +1,20 @@
 use students_henchman; #kazdy musi sobie usatwic swoja nazwe schematu
 SET foreign_key_checks = 0;
 
+UPDATE PLAN_MAPPING set EventCat = 'c' where EventCat like 'c%';
+UPDATE PLAN_MAPPING set EventCat = 'l' where EventCat like 'l%' AND EventCat <> '%lekt%';
+UPDATE PLAN_MAPPING set EventCat = 'p' where EventCat like 'p%';
+UPDATE PLAN_MAPPING set EventCat = 'sem' where EventCat like 'sem.';
+UPDATE PLAN_MAPPING set EventCat = 'w' where EventCat like 'w%';
+
+
+#Przeniesiony insert z pliku nr 5 poniewaz teraz wplywa on na wartosci w widoku wiec musi byc wykonany przed tworzeniem widoku
+INSERT INTO TEACHER (NAME)
+  SELECT DISTINCT PLAN_MAPPING.Surname
+  FROM PLAN_MAPPING WHERE Surname is not null and Surname not in('Surname','');
+  
+  
+  
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertuj$$
 CREATE PROCEDURE insertuj()
