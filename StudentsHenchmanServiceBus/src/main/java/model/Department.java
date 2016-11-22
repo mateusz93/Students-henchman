@@ -12,7 +12,7 @@ import java.util.Set;
 @Table(name = "DEPARTMENT")
 public class Department {
 
-    private long id;
+    private Long id;
     private String name;
     private Set<Field> fields;
     private Set<User> users;
@@ -20,11 +20,11 @@ public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

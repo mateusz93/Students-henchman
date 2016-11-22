@@ -9,15 +9,15 @@ import javax.persistence.*;
 @Table(name = "DATE")
 public class Date {
 
-    private long id;
+    private Long id;
     private String dayOfWeek;
     private java.sql.Date date;
-    private long weekNo;
-    private long cycle;
+    private Long weekNo;
+    private Long cycle;
 
     public Date() {}
 
-    public Date(String dayOfWeek, java.sql.Date date, int weekNo, int cycle) {
+    public Date(String dayOfWeek, java.sql.Date date, Long weekNo, Long cycle) {
         this.dayOfWeek = dayOfWeek;
         this.date = date;
         this.weekNo = weekNo;
@@ -27,11 +27,11 @@ public class Date {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID", unique = true, nullable = false)
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -55,20 +55,20 @@ public class Date {
     }
 
     @Column(name = "WEEK_NO", nullable = false)
-    public long getWeekNo() {
+    public Long getWeekNo() {
         return weekNo;
     }
 
-    public void setWeekNo(long weekNo) {
+    public void setWeekNo(Long weekNo) {
         this.weekNo = weekNo;
     }
 
     @Column(name = "CYCLE", nullable = false)
-    public long getCycle() {
+    public Long getCycle() {
         return cycle;
     }
 
-    public void setCycle(long cycle) {
+    public void setCycle(Long cycle) {
         this.cycle = cycle;
     }
 }

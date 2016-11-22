@@ -12,7 +12,7 @@ import java.util.Set;
 @Table(name = "COURSE")
 public class Course {
 
-    private long id;
+    private Long id;
     private String externalId;
     private String name;
     private String weekDay;
@@ -26,11 +26,11 @@ public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID", unique = true, nullable = false)
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

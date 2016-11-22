@@ -12,22 +12,22 @@ import java.util.Set;
 @Table(name = "DEAN_GROUP")
 public class DeanGroup {
 
-    private long id;
+    private Long id;
     private String name;
     private String abbreviation;
-    private long term;
-    private long degree;
+    private Long term;
+    private Long degree;
     private Field field;
     private Set<Course> courses;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID", unique = true, nullable = false)
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -50,20 +50,20 @@ public class DeanGroup {
     }
 
     @Column(name = "TERM", nullable = false)
-    public long getTerm() {
+    public Long getTerm() {
         return term;
     }
 
-    public void setTerm(long term) {
+    public void setTerm(Long term) {
         this.term = term;
     }
 
     @Column(name = "DEGREE", nullable = false)
-    public long getDegree() {
+    public Long getDegree() {
         return degree;
     }
 
-    public void setDegree(long degree) {
+    public void setDegree(Long degree) {
         this.degree = degree;
     }
 

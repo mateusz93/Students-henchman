@@ -9,18 +9,18 @@ import javax.persistence.*;
 @Table(name = "SPECIALIZATION")
 public class Specialization {
 
-    private long id;
+    private Long id;
     private String name;
     private Field field;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
     @Column(name = "NAME")

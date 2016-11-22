@@ -8,20 +8,20 @@ import javax.persistence.*;
 @Entity
 @Table(name = "NOTE")
 public class Note {
-    private long id;
+    private Long id;
     private String content;
-    private long activationDate;
+    private Long activationDate;
     private Course course;
     private User user;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -35,11 +35,11 @@ public class Note {
     }
 
     @Column(name = "ACTIVATION_DATE", nullable = false)
-    public long getActivationDate() {
+    public Long getActivationDate() {
         return activationDate;
     }
 
-    public void setActivationDate(long activationDate) {
+    public void setActivationDate(Long activationDate) {
         this.activationDate = activationDate;
     }
 

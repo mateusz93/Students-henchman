@@ -9,18 +9,18 @@ import javax.persistence.*;
 @Table(name = "ROOM")
 public class Room {
 
-    private long id;
+    private Long id;
     private String code;
     private String name;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID", unique = true, nullable = false)
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

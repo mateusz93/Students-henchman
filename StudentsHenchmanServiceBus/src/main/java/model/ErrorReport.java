@@ -9,18 +9,18 @@ import javax.persistence.*;
 @Table(name = "ERROR_REPORT")
 public class ErrorReport {
 
-    private long id;
+    private Long id;
     private String content;
-    private long occurredDate;
+    private Long occurredDate;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID", unique = true, nullable = false)
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -34,11 +34,11 @@ public class ErrorReport {
     }
 
     @Column(name = "OCCURED_DATE", nullable = false)
-    public long getOccurredDate() {
+    public Long getOccurredDate() {
         return occurredDate;
     }
 
-    public void setOccurredDate(long occurredDate) {
+    public void setOccurredDate(Long occurredDate) {
         this.occurredDate = occurredDate;
     }
 
