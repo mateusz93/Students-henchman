@@ -32,7 +32,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private static DatabaseHelper databaseHelper;
 
 	private static final String DATABASE_NAME = "StudentShenchman";
-	private static final int DATABASE_VERSION = 12;
+	private static final int DATABASE_VERSION = 16;
 
 	private static final String DROP_TABLE = "drop table if exists ";
 	private static final String CREATE_TABLE = "create table ";
@@ -52,7 +52,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			put(DeanGroup.TABLE_NAME, createTableQuery(DeanGroup.TABLE_NAME, DeanGroup.COLUMN_NAMES, DeanGroup.COLUMN_TYPES));
 			put(Date.TABLE_NAME, createTableQuery(Date.TABLE_NAME, Date.COLUMN_NAMES, Date.COLUMN_TYPES));
 			put(Note.TABLE_NAME, createTableQuery(Note.TABLE_NAME, Note.COLUMN_NAMES, Note.COLUMN_TYPES));
-			put(Date.TABLE_NAME, createTableQuery(Date.TABLE_NAME, Date.COLUMN_NAMES, Date.COLUMN_TYPES));
 			put(ErrorReport.TABLE_NAME, createTableQuery(ErrorReport.TABLE_NAME, ErrorReport.COLUMN_NAMES, ErrorReport.COLUMN_TYPES));
 			put(Course.TABLE_NAME, createTableQuery(Course.TABLE_NAME, Course.COLUMN_NAMES, Course.COLUMN_TYPES));
 		}
@@ -94,7 +93,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		StringBuilder createTableQuery = new StringBuilder();
 
 		createTableQuery.append(CREATE_TABLE).append(tableName).append(" ( ").append(query).append(" );");
-		Log.i(TAG, "Created table" + tableName + " with query: " + createTableQuery.toString());
+		Log.i(TAG, "Created table " + tableName + " with query: " + createTableQuery.toString());
 		db.execSQL(createTableQuery.toString());
 	}
 
