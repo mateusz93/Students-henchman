@@ -31,9 +31,9 @@ public class DeansGroupServiceImpl implements DeansGroupService {
         DeanGroup deansGroup = repository.findByName(name);
         if (deansGroup != null) {
             result.getDeansGroups().add(deansGroup);
-            httpResponse.setStatus(HttpStatus.FOUND.value());
+            httpResponse.setStatus(HttpStatus.OK.value());
         } else {
-            httpResponse.setStatus(HttpStatus.NOT_FOUND.value());
+            httpResponse.setStatus(HttpStatus.NO_CONTENT.value());
         }
         log.info("ResponseBody: " + result.toString());
         return result;
@@ -46,9 +46,9 @@ public class DeansGroupServiceImpl implements DeansGroupService {
         DeanGroup deansGroup = repository.findById(Long.valueOf(id));
         if (deansGroup != null) {
             result.getDeansGroups().add(deansGroup);
-            httpResponse.setStatus(HttpStatus.FOUND.value());
+            httpResponse.setStatus(HttpStatus.OK.value());
         } else {
-            httpResponse.setStatus(HttpStatus.NOT_FOUND.value());
+            httpResponse.setStatus(HttpStatus.NO_CONTENT.value());
         }
         log.info("ResponseBody: " + result.toString());
         return result;
@@ -58,11 +58,11 @@ public class DeansGroupServiceImpl implements DeansGroupService {
     public DeansGroupRS prepareResultForGetDeansGroups(HttpServletResponse httpResponse) {
         DeansGroupRS result = new DeansGroupRS();
         List<DeanGroup> deansGroups = (List<DeanGroup>) repository.findAll();
-        if (CollectionUtils.isEmpty(deansGroups)) {
-            httpResponse.setStatus(HttpStatus.NOT_FOUND.value());
-        } else {
+        if (null != deansGroups && !CollectionUtils.isEmpty(deansGroups)) {
             result.getDeansGroups().addAll(deansGroups);
-            httpResponse.setStatus(HttpStatus.FOUND.value());
+            httpResponse.setStatus(HttpStatus.OK.value());
+        } else {
+            httpResponse.setStatus(HttpStatus.NO_CONTENT.value());
         }
         log.info("ResponseBody: " + result.toString());
         return result;

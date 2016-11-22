@@ -29,11 +29,11 @@ public class CourseServiceImpl implements CourseService {
         log.info("PathParameter: Name=" + name);
         CourseRS result = new CourseRS();
         List<Course> courses = repository.findByName(name);
-        if (CollectionUtils.isEmpty(courses)) {
-            httpResponse.setStatus(HttpStatus.NOT_FOUND.value());
-        } else {
+        if (null != courses && !CollectionUtils.isEmpty(courses)) {
             result.getCourses().addAll(courses);
-            httpResponse.setStatus(HttpStatus.FOUND.value());
+            httpResponse.setStatus(HttpStatus.OK.value());
+        } else {
+            httpResponse.setStatus(HttpStatus.NO_CONTENT.value());
         }
         log.info("ResponseBody: " + result.toString());
         return result;
@@ -46,9 +46,9 @@ public class CourseServiceImpl implements CourseService {
         Course course = repository.findById(Long.valueOf(id));
         if (course != null) {
             result.getCourses().add(course);
-            httpResponse.setStatus(HttpStatus.FOUND.value());
+            httpResponse.setStatus(HttpStatus.OK.value());
         } else {
-            httpResponse.setStatus(HttpStatus.NOT_FOUND.value());
+            httpResponse.setStatus(HttpStatus.NO_CONTENT.value());
         }
         log.info("ResponseBody: " + result.toString());
         return result;
@@ -58,11 +58,11 @@ public class CourseServiceImpl implements CourseService {
     public CourseRS prepareResultForGetCourses(HttpServletResponse httpResponse) {
         CourseRS result = new CourseRS();
         List<Course> courses = (List<Course>) repository.findAll();
-        if (CollectionUtils.isEmpty(courses)) {
-            httpResponse.setStatus(HttpStatus.NOT_FOUND.value());
-        } else {
+        if (null != courses && !CollectionUtils.isEmpty(courses)) {
             result.getCourses().addAll(courses);
-            httpResponse.setStatus(HttpStatus.FOUND.value());
+            httpResponse.setStatus(HttpStatus.OK.value());
+        } else {
+            httpResponse.setStatus(HttpStatus.NO_CONTENT.value());
         }
         log.info("ResponseBody: " + result.toString());
         return result;

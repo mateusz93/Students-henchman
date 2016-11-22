@@ -28,11 +28,11 @@ public class DepartmentServiceImpl implements DepartmentService {
     public DepartmentsRS prepareResultForGetDepartments(HttpServletResponse httpResponse) {
         DepartmentsRS result = new DepartmentsRS();
         List<Department> departments = (List<Department>) repository.findAll();
-        if (CollectionUtils.isEmpty(departments)) {
-            httpResponse.setStatus(HttpStatus.NOT_FOUND.value());
-        } else {
+        if (null != departments && !CollectionUtils.isEmpty(departments)) {
             result.getDepartments().addAll(departments);
-            httpResponse.setStatus(HttpStatus.FOUND.value());
+            httpResponse.setStatus(HttpStatus.OK.value());
+        } else {
+            httpResponse.setStatus(HttpStatus.NO_CONTENT.value());
         }
         log.info("ResponseBody: " + result.toString());
         return result;
@@ -45,9 +45,9 @@ public class DepartmentServiceImpl implements DepartmentService {
         Department department = repository.findByName(name);
         if (department != null) {
             result.getDepartments().add(department);
-            httpResponse.setStatus(HttpStatus.FOUND.value());
+            httpResponse.setStatus(HttpStatus.OK.value());
         } else {
-            httpResponse.setStatus(HttpStatus.NOT_FOUND.value());
+            httpResponse.setStatus(HttpStatus.BAD_REQUEST.value());
         }
         log.info("ResponseBody: " + result.toString());
         return result;
