@@ -71,8 +71,8 @@ public class Course implements BaseColumns {
 		cv.put(TIME, courseDto.getTime());
 		cv.put(DAY, courseDto.getWeekDay());
 		cv.put(WEEKS, courseDto.getWeeks());
-		//cv.put(EXTERNAL_DEAN_GROUP_ID,);
-		//cv.put(EXTERNAL_TEACHER_ID,);
+		cv.put(EXTERNAL_DEAN_GROUP_ID, courseDto.getDeanGroup().getId());
+		cv.put(EXTERNAL_TEACHER_ID, courseDto.getTeacher().getId());
 
 		return cv;
 	}
