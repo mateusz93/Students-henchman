@@ -79,6 +79,7 @@ public class DayFragment extends StudentShenchmanMainFragment implements LoaderM
 
 		mSelectedCourseInterface = (TimetableActivity) getActivity();
 		mDialogFragmentInterface = (TimetableActivity) getActivity();
+
 	}
 
 	@Nullable
@@ -126,8 +127,10 @@ public class DayFragment extends StudentShenchmanMainFragment implements LoaderM
 	}
 
 	@Override
-	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-		getLoaderManager().initLoader(COURSES_LOADER_ID, getArguments(), this);
+	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		getActivity().getSupportLoaderManager().initLoader(COURSES_LOADER_ID + getArguments().getString(TAB_NAME).hashCode(), getArguments(), this);
+
 	}
 
 	private void generateView(List<CoursesLoaderObject> data) {
@@ -136,13 +139,16 @@ public class DayFragment extends StudentShenchmanMainFragment implements LoaderM
 
 	@Override
 	public Loader<List<CoursesLoaderObject>> onCreateLoader(int id, Bundle args) {
-		showProgressBar();
-		return new CoursesLoader(getContext(), getArguments().getString(TAB_DAY_CODE), getArguments().getString(TAB_DAY_ABBREVIATION));
+		if (id == COURSES_LOADER_ID + getArguments().getString(TAB_NAME).hashCode()) {
+			showProgressBar();
+			return new CoursesLoader(getContext(), getArguments().getString(TAB_DAY_CODE), getArguments().getString(TAB_DAY_ABBREVIATION));
+		}
+		return null;
 	}
 
 	@Override
 	public void onLoadFinished(Loader<List<CoursesLoaderObject>> loader, List<CoursesLoaderObject> data) {
-		if (loader.getId() == COURSES_LOADER_ID) {
+		if (loader.getId() == COURSES_LOADER_ID + getArguments().getString(TAB_NAME).hashCode()) {
 			if (data != null && data.size() > 0) {
 				showListLayout();
 				generateView(data);
