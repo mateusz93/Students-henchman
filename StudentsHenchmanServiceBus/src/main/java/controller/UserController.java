@@ -14,6 +14,8 @@ import repository.FieldRepository;
 import repository.UserRepository;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Author Mateusz Wieczorek on 20.11.2016.
@@ -71,5 +73,41 @@ public class UserController {
         return stringBuilder.toString();
     }
 
+    @RequestMapping(value = "/login", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
+    public PreferencesRQ setPreferences(@RequestHeader("email") String email, HttpServletResponse httpResponse) {
+        User user = userRepository.findByEmail(email);
+        if (null == user) {
+            log.info("User login first time. Creating user model");
+            User newUser = new User();
+            newUser.setEmail(email);
+            userRepository.save(newUser);
+            httpResponse.setStatus(HttpStatus.CREATED.value());
+            return null;
+        }
+        if (null == user.getDepartment() || null == user.getField() || null == user.getDeanGroups() || null == user.getTerm() || null == user.getDegree()) {
+            httpResponse.setStatus(HttpStatus.NO_CONTENT.value());
+            return null;
+        }
+
+        PreferencesRQ preferencesRQ = new PreferencesRQ();
+        preferencesRQ.setDepartmentId(user.getDepartment().getId());
+        preferencesRQ.setFieldId(user.getField().getId());
+        preferencesRQ.setDeanGroupIds(fromStringToList(user.getDeanGroups()));
+        preferencesRQ.setTerm(user.getTerm());
+        preferencesRQ.setDegree(user.getDegree());
+
+        httpResponse.setStatus(HttpStatus.OK.value());
+        return preferencesRQ;
+    }
+
+    private List<Long> fromStringToList(String stringValue) {
+        List<Long> list = new ArrayList<>();
+        if (null != stringValue) {
+            for (String s : stringValue.split(",")) {
+                list.add(Long.valueOf(s));
+            }
+        }
+        return list;
+    }
 
 }
