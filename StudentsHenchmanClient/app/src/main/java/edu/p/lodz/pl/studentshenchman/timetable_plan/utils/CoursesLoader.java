@@ -5,6 +5,7 @@ import android.content.IntentFilter;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.content.AsyncTaskLoader;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -38,11 +39,6 @@ public class CoursesLoader extends AsyncTaskLoader<List<CoursesLoaderObject>> {
 		List<CoursesLoaderObject> courses = new ArrayList<>();
 		courses = loadCourses();
 
-		try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 		return courses;
 	}
 
@@ -81,6 +77,7 @@ public class CoursesLoader extends AsyncTaskLoader<List<CoursesLoaderObject>> {
 			loaderObject.setCourseId(course.getId());
 			loaderObject.setExternalCourseId(course.getExternalId());
 			loaderObject.setCourseName(course.getName());
+			loaderObject.setTime(course.getTime());
 			loaderObject.setTeacherName(teacher.getName());
 			loaderObject.setDeanGroupName(deanGroup.getName());
 			values.add(loaderObject);
