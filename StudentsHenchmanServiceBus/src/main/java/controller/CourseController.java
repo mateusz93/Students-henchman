@@ -56,13 +56,14 @@ public class CourseController {
     @RequestMapping(value = "/user", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
     public CourseRS getCoursesByUser(@RequestHeader("email") String email,
                                      HttpServletResponse httpResponse) {
-        log.info("getCoursesByUser core invoked");
         CourseRS response = new CourseRS();
         User user = userRepository.findByEmail(email);
         if (null == user) {
+            log.info("Unauthorized user during downloading courses");
             httpResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
-            return response;
+            return null;
         }
+        log.info("getCoursesByUser core invoked");
         List<Course> courses = new ArrayList<>();
         if (StringUtils.isNotBlank(user.getCourses())) {
             for (String id : fromStringToList(user.getCourses())) {
