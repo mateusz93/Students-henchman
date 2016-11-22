@@ -1,4 +1,4 @@
-use henchman; #kazdy musi sobie usatwic swoja nazwe schematu
+use students_henchman; #kazdy musi sobie usatwic swoja nazwe schematu
 SET foreign_key_checks = 0;
 
 DELIMITER $$
