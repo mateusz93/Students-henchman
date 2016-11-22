@@ -13,6 +13,8 @@ import repository.DepartmentRepository;
 import repository.FieldRepository;
 import repository.UserRepository;
 
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * @Author Mateusz Wieczorek on 20.11.2016.
  */
@@ -31,12 +33,21 @@ public class UserController {
     @Autowired
     private FieldRepository fieldRepository;
 
-    @ResponseStatus(value = HttpStatus.OK)
     @RequestMapping(value = "/setPreferences", method = RequestMethod.POST, consumes = "application/json")
-    public void setPreferences(@RequestHeader("email") String email,
-                               @RequestBody PreferencesRQ preferencesRQ) {
-        log.info("setPreferences invoked.");
+    public Boolean setPreferences(@RequestHeader("email") String email,
+                                  @RequestBody PreferencesRQ preferencesRQ,
+                                  HttpServletResponse httpResponse) {
         User user = userRepository.findByEmail(email);
+        if (null == user) {
+            log.info("Unauthorized user during setting user preferences");
+            httpResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
+            return null;
+        }
+        if (null == preferencesRQ || null == preferencesRQ.getDeanGroupIds()) {
+            httpResponse.setStatus(HttpStatus.BAD_REQUEST.value());
+            return null;
+        }
+        log.info("setPreferences invoked.");
         Department department = departmentRepository.findById(preferencesRQ.getDepartmentId());
         Field field = fieldRepository.findById(preferencesRQ.getFieldId());
         user.setDepartment(department);
@@ -46,13 +57,19 @@ public class UserController {
         user.setDegree(preferencesRQ.getDegree());
         userRepository.save(user);
         log.info("setPreferences finished. Send response.");
+        httpResponse.setStatus(HttpStatus.OK.value());
+        return true;
     }
 
     private String getDeanGroups(@RequestBody PreferencesRQ preferencesRQ) {
         StringBuilder stringBuilder = new StringBuilder();
         for (Long id : preferencesRQ.getDeanGroupIds()) {
-            stringBuilder.append(id).append(",");
+            if (!stringBuilder.toString().isEmpty())
+                stringBuilder.append(",");
+            stringBuilder.append(id);
         }
-        return stringBuilder.toString().substring(0, stringBuilder.toString().length()-1); //remove last ','
+        return stringBuilder.toString();
     }
+
+
 }
