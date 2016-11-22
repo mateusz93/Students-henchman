@@ -86,4 +86,16 @@ public class DeanGroup {
     public void setCourses(Set<Course> courses) {
         this.courses = courses;
     }
+
+    @Override
+    public String toString() {
+        return "DeanGroup{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", abbreviation='" + abbreviation + '\'' +
+                ", term=" + term +
+                ", degree=" + degree +
+                ", field=" + field +
+                '}';
+    }
 }

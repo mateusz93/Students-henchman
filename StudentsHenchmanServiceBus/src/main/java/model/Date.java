@@ -15,7 +15,8 @@ public class Date {
     private Long weekNo;
     private Long cycle;
 
-    public Date() {}
+    public Date() {
+    }
 
     public Date(String dayOfWeek, java.sql.Date date, Long weekNo, Long cycle) {
         this.dayOfWeek = dayOfWeek;
@@ -70,5 +71,16 @@ public class Date {
 
     public void setCycle(Long cycle) {
         this.cycle = cycle;
+    }
+
+    @Override
+    public String toString() {
+        return "Date{" +
+                "id=" + id +
+                ", dayOfWeek='" + dayOfWeek + '\'' +
+                ", date=" + date +
+                ", weekNo=" + weekNo +
+                ", cycle=" + cycle +
+                '}';
     }
 }
