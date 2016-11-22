@@ -44,7 +44,7 @@ public class User {
     }
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "DEPARTMENT_ID", nullable = false)
+    @JoinColumn(name = "DEPARTMENT_ID")
     public Department getDepartment() {
         return department;
     }
@@ -54,7 +54,7 @@ public class User {
     }
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "FIELD_ID", nullable = false)
+    @JoinColumn(name = "FIELD_ID")
     public Field getField() {
         return field;
     }
@@ -63,7 +63,7 @@ public class User {
         this.field = fields;
     }
 
-    @Column(name = "DEAN_GROUPS", nullable = false)
+    @Column(name = "DEAN_GROUPS")
     public String getDeanGroups() {
         return deanGroups;
     }
@@ -72,7 +72,7 @@ public class User {
         this.deanGroups = deanGroups;
     }
 
-    @Column(name = "COURSES", nullable = false)
+    @Column(name = "COURSES")
     public String getCourses() {
         return courses;
     }
@@ -81,7 +81,7 @@ public class User {
         this.courses = courses;
     }
 
-    @Column(name = "TERM", nullable = false)
+    @Column(name = "TERM")
     public int getTerm() {
         return term;
     }
@@ -90,7 +90,7 @@ public class User {
         this.term = term;
     }
 
-    @Column(name = "DEGREE", nullable = false)
+    @Column(name = "DEGREE")
     public int getDegree() {
         return degree;
     }
