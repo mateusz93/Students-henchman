@@ -2,107 +2,109 @@ package edu.p.lodz.pl.studentshenchman.workers;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
+import java.util.ArrayList;
+import java.util.List;
 
-import edu.p.lodz.pl.studentshenchman.workers.utils.ResponseError;
-import edu.p.lodz.pl.studentshenchman.workers.utils.WorkerResponseCode;
+import edu.p.lodz.pl.studentshenchman.utils.dialog.helper.AlertDialogHelper;
+import edu.p.lodz.pl.studentshenchman.workers.helpers.WorkerRunnerManager;
+import edu.p.lodz.pl.studentshenchman.workers.utils.WorkerType;
 import retrofit2.adapter.rxjava.HttpException;
 import rx.Observer;
+import rx.Subscription;
 
 /**
  * Created by Michał on 2016-10-05.
  */
 public abstract class AbstractWorker<T> implements Observer<T> {
 
-    private static final String TAG = AbstractWorker.class.getName();
+	private static final String TAG = AbstractWorker.class.getName();
 
-    public static final String WORKER_TYPE = "WORKER_TYPE";
-    public static final String RESPONSE_CODE = "RESPONSE_CODE";
+	public static final String WORKER_NAME = "WORKER_NAME";
+	public static final String FINISHED_STATUS = "FINISHED_STATUS";
 
-    public abstract void sendResponse(Intent responseIntent);
+	protected Context mContext;
+	protected Bundle mBundle;
 
-    public abstract void run();
+	public enum FinishedWorkerStatus {
+		SUCCESS, FAIL
+	}
 
-    public void runService() {
-        run();
-    }
+	//TODO trzeba zaimplementowac przyjmowanie w kazdym workerze zamiast samego zwracanego obiektu to Response<responseObject> co pozwoli na sprawdzanie response codu
+	public AbstractWorker(Context context, Bundle bundle) {
+		mContext = context;
+		mBundle = bundle;
+	}
 
-    // tymczasowa obsluga bledow, trzeba zwracac bardziej czytelne bledy
-    public void onError(Context context, Throwable throwable) {
-        if (throwable instanceof HttpException) {
-            HttpException httpException = (HttpException) throwable;
-            catchServerResponseError(context, new ResponseError(mapResponseCodeToResponseError(httpException.code()), httpException.response().message(), httpException));
-        } else if (throwable instanceof SocketTimeoutException) {
-            Toast.makeText(context, "Socket Timeout Exception", Toast.LENGTH_LONG).show();
-        } else if (throwable instanceof IOException) {
-            Toast.makeText(context, "Network conversion error", Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(context, "Error", Toast.LENGTH_LONG).show();
-        }
-        Log.i(TAG, throwable.toString());
+	public void notifyTaskFinished(FinishedWorkerStatus finishedWorkerStatus) {
+		WorkerType workerType = WorkerType.valueOf(mBundle.getString(WORKER_NAME));
+		Log.i(TAG, "Worker: " + workerType.name() + " finished with status: " + finishedWorkerStatus.name());
+		WorkerRunnerManager.getInstance(mContext).deleteFromRunningWorkers(workerType);
+		Intent intent = new Intent(workerType.name());
+		intent.putExtra(FINISHED_STATUS, finishedWorkerStatus.name());
+		mContext.sendBroadcast(intent);
 
-    }
+	}
 
-    private WorkerResponseCode mapResponseCodeToResponseError(int httpResponseCode) {
-        switch (httpResponseCode) {
-            case 400:
-                return WorkerResponseCode.BAD_REQUEST;
-            case 401:
-                return WorkerResponseCode.UNAUTHORIZED;
-            case 404:
-                return WorkerResponseCode.NOT_FOUND;
-            case 408:
-                return WorkerResponseCode.TIMEOUT;
-            case 414:
-                return WorkerResponseCode.URI_TOO_LONG;
-            case 415:
-                return WorkerResponseCode.UNSUPPORTED_MEDIA_TYPE;
-            case 429:
-                return WorkerResponseCode.TOO_MANY_REQUESTS;
-            case 500:
-                return WorkerResponseCode.SERVER_ERROR;
-            case 503:
-                return WorkerResponseCode.SERVICE_UNAVAILABLE;
-            default:
-                return WorkerResponseCode.IDLE;
-        }
-    }
+	public abstract Subscription run();
 
-    private void catchServerResponseError(Context context, ResponseError responseError) {
-        switch (responseError.getCode()) {
-            case BAD_REQUEST:
-                Toast.makeText(context, responseError.getCode() + " " + responseError.getMessage(), Toast.LENGTH_LONG).show();
-                break;
-            case UNAUTHORIZED:
-                Toast.makeText(context, responseError.getCode() + " " + responseError.getMessage(), Toast.LENGTH_LONG).show();
-                break;
-            case NOT_FOUND:
-                Toast.makeText(context, responseError.getCode() + " " + responseError.getMessage(), Toast.LENGTH_LONG).show();
-                break;
-            case TIMEOUT:
-                Toast.makeText(context, responseError.getCode() + " " + responseError.getMessage(), Toast.LENGTH_LONG).show();
-                break;
-            case URI_TOO_LONG:
-                Toast.makeText(context, responseError.getCode() + " " + responseError.getMessage(), Toast.LENGTH_LONG).show();
-                break;
-            case UNSUPPORTED_MEDIA_TYPE:
-                Toast.makeText(context, responseError.getCode() + " " + responseError.getMessage(), Toast.LENGTH_LONG).show();
-                break;
-            case TOO_MANY_REQUESTS:
-                Toast.makeText(context, responseError.getCode() + " " + responseError.getMessage(), Toast.LENGTH_LONG).show();
-                break;
-            case SERVER_ERROR:
-                Toast.makeText(context, responseError.getCode() + " " + responseError.getMessage(), Toast.LENGTH_LONG).show();
-                break;
-            case SERVICE_UNAVAILABLE:
-                Toast.makeText(context, responseError.getCode() + " " + responseError.getMessage(), Toast.LENGTH_LONG).show();
-                break;
-            default:
-                Toast.makeText(context, "Error", Toast.LENGTH_LONG).show();
-        }
-    }
+	// tymczasowa obsluga bledow, trzeba zwracac bardziej czytelne bledy
+	public void onError(Context context, Throwable throwable) {
+		if (throwable instanceof HttpException) {
+			HttpException httpException = (HttpException) throwable;
+			AlertDialogHelper.showErrorDialog("Error", httpException.getMessage() + "\nAction: " + mBundle.getString(WORKER_NAME));
+		} else if (throwable instanceof SocketTimeoutException) {
+			AlertDialogHelper.showErrorDialog("Socket Timeout", throwable.getMessage());
+		} else if (throwable instanceof IOException) {
+			AlertDialogHelper.showErrorDialog("Network conversion error", throwable.getMessage());
+		} else {
+			AlertDialogHelper.showErrorDialog("Error", throwable.getMessage());
+		}
+		Log.i(TAG, throwable.toString());
+
+	}
+
+	public String listIntegerToString(List<Integer> values) {
+		StringBuilder sb = new StringBuilder();
+		for (Integer iValue : values) {
+			if (!sb.toString().isEmpty())
+				sb.append(",");
+			sb.append(iValue);
+		}
+
+		return sb.toString();
+	}
+
+	public String listLongToString(List<Long> values) {
+		StringBuilder sb = new StringBuilder();
+		for (Long lValue : values) {
+			if (!sb.toString().isEmpty())
+				sb.append(",");
+			sb.append(lValue);
+		}
+
+		return sb.toString();
+	}
+
+	public List<Long> fromStringToLongList(String value, String separator) {
+		List<Long> list = new ArrayList<>();
+		String[] separatedValues = value.split(separator);
+		for (String s : separatedValues) {
+			list.add(Long.valueOf(s));
+		}
+		return list;
+	}
+
+	public List<Integer> fromStringToIntegerList(String value, String separator) {
+		List<Integer> list = new ArrayList<>();
+		String[] separatedValues = value.split(separator);
+		for (String s : separatedValues) {
+			list.add(Integer.valueOf(s));
+		}
+		return list;
+	}
 }

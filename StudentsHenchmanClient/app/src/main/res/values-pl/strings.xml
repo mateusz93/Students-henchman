@@ -1,35 +1,91 @@
 <resources>
-    <!--activities titles-->
+
     <string name="app_name">Students Henchman</string>
-    <string name="dashboard">Ekran główny</string>
-    <string name="settings">Ustawienia</string>
+
+    <!--activities titles-->
+    <string name="dashboard_activity_title">Ekran główny</string>
+    <string name="settings_activity_title">Ustawienia</string>
     <string name="timetable_activity_title">Plan Zajęć</string>
     <string name="subject_details_activity_title">Szczegóły zajęć</string>
+    <string name="qr_scanner_activity_title">QR Scanner</string>
 
     <!--dni tygodnia-->
     <string name="monday">Poniedziałek</string>
     <string name="tuesday">Wtorek</string>
     <string name="wednesday">Sroda</string>
-    <string name="thursday">Czwarter</string>
+    <string name="thursday">Czwartek</string>
     <string name="friday">Piątek</string>
     <string name="saturday">Sobota</string>
     <string name="sunday">Niedziela</string>
 
-    <string name="faculties_prompt">Wydział</string>
-    <string-array name="faculties">
-        <item>Organizacji i Zarządzania</item>
-        <item>Wzornictwa</item>
-    </string-array>
-    <string name="types_prompt">Kierunek</string>
-    <string-array name="types">
-        <item>Inżynierskie dzienne</item>
-        <item>Inżynierskie zaoczne</item>
-        <item>Magisterskie dzienne</item>
-        <item>Magisterskie zaoczne</item>
-    </string-array>
-    <string name="subjects_prompt">Kierunek</string>
-    <string-array name="subjects">
-        <item>Informatyka</item>
-        <item>Matematyka</item>
-    </string-array>
+    <!--lesson widget-->
+    <string name="nearest_lesson">Najbliższe zajęcia</string>
+    <string name="localization">Lokalizacja:</string>
+    <string name="teacher">Wykładowca:</string>
+
+    <!--notes-->
+    <string name="note_activation_date">Data aktywacji:</string>
+    <string name="note_content">Treść:</string>
+    <string name="add_note">Dodaj notatkę</string>
+    <string name="add_activation_date">Dodaj datę aktywacji</string>
+    <string name="delete_note">Usuń notatkę</string>
+    <string name="del_note_msg">Jesteś pewien, że chcesz usunąć notatkę ?</string>
+
+    <!--menu-->
+    <string name="settings">Ustawienia</string>
+    <string name="menu_download_label">Pobierz / zaktualizuj:</string>
+    <string name="menu_download_settings">Ustawienia</string>
+    <string name="menu_download_timetable">Plan zajęć</string>
+    <string name="menu_logout">Wyloguj</string>
+    <string name="menu_about_app">O nas</string>
+    <string name="menu_customize_dashboard">Dostosuj ekran główny</string>
+
+    <!--settings-->
+    <string name="settings_department_label">Wydział:</string>
+    <string name="settings_field_label">Kierunek:</string>
+    <string name="settings_specialization_label">Specjalizacja:</string>
+    <string name="settings_term_label">Semestr:</string>
+    <string name="settings_type_label">Typ:</string>
+    <string name="settings_kind_label">Rodzaj:</string>
+    <string name="settings_groups_label">Grupy:</string>
+    <string name="settings_select_groups_button">Wybierz swoje grupy</string>
+    <string name="settings_degree_spinner_value_label">Studia %1$d stopnia</string>
+
+    <!--login-->
+    <string name="login_hint_text">Wprowadź swój email</string>
+    <string name="login_at_least_six_sign">Co najmniej 6 znaków</string>
+    <string name="password_required">Hasło jest wymagane</string>
+    <string name="login_incorrect_email">Niepoprawny format loginu</string>
+    <string name="login_remember_me">Zapamiętaj mnie</string>
+
+    <!--buttons-->
+    <string name="login_button">Zaloguj</string>
+    <string name="clear_button">Wyczyść</string>
+    <string name="cancel_button">Anuluj</string>
+    <string name="save_button">Zapisz</string>
+    <string name="change_course_button">Zamień datę zajęć</string>
+    <string name="delete_button">Usuń</string>
+    <string name="ok">OK</string>
+    <string name="no">Nie</string>
+    <string name="yes">Tak</string>
+    <string name="add">Dodaj</string>
+
+    <!--drawer-->
+    <string name="drawer_settings_name">Ustawienia</string>
+    <string name="drawer_refresh_timetable_data">Pobierz plan zajęć</string>
+    <string name="drawer_refresh_settings_data">Pobierz ustawienia</string>
+    <string name="drawer_about_app">O aplikacji</string>
+    <string name="drawer_logout_name">Wyloguj</string>
+
+    <!--timetable-->
+    <string name="change_timetable_course_duration">Godzina:</string>
+    <string name="change_timetable_downloading_data">Czekaj, pobieranie danych..</string>
+    <string name="timetable_free_day">Nie masz zaplanowanych zajęć na dziś</string>
+
+    <!--course details-->
+    <string name="subject_details_empty_text">Wybierz zajęcia aby zobaczyć szczegóły</string>
+
+    <!--commons-->
+    <string name="spinner_option_choose">Wybierz:</string>
+
 </resources>

@@ -34,30 +34,108 @@ div#toolbar
 {
 	float: left;
 	width: 280px;
-	padding: 30px 20px;
+	padding: 10px 20px;
+	background: #333333;
 }
 
-div#toolbar_drawer
+div#logo
 {
 	float: left;
-	width: 24px;
-	height: 16px;
-}
-
-div#toolbar_logo
-{
-	float: left;
-	width: 232px;
-	height: 16px;
+	width: 280px;
+	padding: 22px;
 	text-align: center;
 }
 
-div#toolbar_menu
+div#widget
 {
 	float: left;
-	width: 24px;
-	height: 16px;
+	width: 280px;
+	margin: 10px;
+	padding: 10px;
+	background: #333333;
 }
+
+div#widget h1
+{
+	float: left;
+	width: 236px;
+	font-size: 16px;
+	padding: 4px 0px 4px 30px;
+	border-bottom: 1px solid #505050;
+	font-weight: normal;
+	background: url('../images/time_icon.png') no-repeat 6px 6px;
+}
+
+div#navigate
+{
+	float: left;
+	width: 14px;
+	height: 14px;
+	padding: 7px 0px 7px 0px;
+	border-bottom: 1px solid #505050;
+}
+
+div#widget_content
+{
+	float: left;
+	width: 280px;
+	padding: 10px 0px 0px 0px;
+	line-height: 24px;
+}
+
+div#widget_content table td
+{
+	vertical-align: top;
+}
+
+div#block-menu
+{
+	float: left;
+	width: 300px;
+	margin: 0px 10px;
+}
+
+div#block-menu a
+{
+	position: relative;
+	float: left;
+	width: 125px;
+	height: 125px;
+	padding: 10px;
+	text-align: center;
+	color: #dddddd;
+	text-decoration: none;
+	font-size: 14px;
+}
+
+div#block-menu span
+{
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 10px;
+}
+
+.timetable
+{
+	background: #1f9fde url('../images/timetable_icon.png') no-repeat center center;
+}
+
+.settings
+{
+	background: #1f9fde url('../images/settings_icon.png') no-repeat center center;
+}
+
+.save_data
+{
+	background: #1f9fde url('../images/save_icon.png') no-repeat center center;
+}
+
+.read_data
+{
+	background: #1f9fde url('../images/read_icon.png') no-repeat center center;
+}
+
 
 .little-margin
 {

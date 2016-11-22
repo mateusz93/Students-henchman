@@ -1,60 +1,74 @@
 package edu.p.lodz.pl.studentshenchman.workers;
 
+import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
-import android.widget.Toast;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
+import android.util.Log;
 
-import java.util.Date;
-
-import edu.p.lodz.pl.studentshenchman.factories.ServiceFactory;
-import edu.p.lodz.pl.studentshenchman.workers.endpoints.DateEndpoints;
-import edu.p.lodz.pl.studentshenchman.workers.utils.ResponseError;
-import edu.p.lodz.pl.studentshenchman.workers.utils.WorkerResponseCode;
+import edu.p.lodz.pl.studentshenchman.database.DatabaseHelper;
+import edu.p.lodz.pl.studentshenchman.workers.endpoints.SettingsEndpoints;
+import edu.p.lodz.pl.studentshenchman.workers.factories.ServiceFactory;
+import model.Date;
+import retrofit2.Response;
 import retrofit2.adapter.rxjava.HttpException;
 import rx.Observable;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 /**
  * Created by Michał on 2016-10-08.
  */
-public class DownloadDateWorker extends AbstractWorker<Date> {
-    private static final String TAG = DownloadDateWorker.class.getName();
+public class DownloadDateWorker extends AbstractWorker<Response<Date>> {
+	private static final String TAG = DownloadDateWorker.class.getName();
 
-    private final Context mContext;
+	public DownloadDateWorker(Context context, Bundle bundle) {
+		super(context, bundle);
+	}
 
-    public DownloadDateWorker(Context context) {
-        mContext = context;
-    }
+	@Override
+	public Subscription run() {
+		SettingsEndpoints dateEndpoints = ServiceFactory.produceService(SettingsEndpoints.class, false);
+		Observable<Response<Date>> call = dateEndpoints.getDate();
 
-    @Override
-    public void sendResponse(Intent responseIntent) {
-        // tymczasowy mechanizm przekazywania wiadomosci o zakonczonym workerze oraz ewentualnie jakies dane
-    }
+		Subscription subscription = call.subscribeOn(Schedulers.newThread())
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribe(this);
 
-    @Override
-    public void run() {
-        DateEndpoints dateEndpoints = ServiceFactory.produceService(DateEndpoints.class, false);
-        Observable<Date> call = dateEndpoints.getDate();
+		return subscription;
+	}
 
-        call.subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this);
-    }
+	@Override
+	public void onCompleted() {
+		Log.i(TAG, "Date downloaded successfully");
+		notifyTaskFinished(FinishedWorkerStatus.SUCCESS);
+	}
 
-    @Override
-    public void onCompleted() {
-        // do nothing
-    }
+	@Override
+	public void onError(Throwable e) {
+		Log.i(TAG, "Date downloaded failure");
+		onError(mContext, e);
+		notifyTaskFinished(FinishedWorkerStatus.FAIL);
+	}
 
-    @Override
-    public void onError(Throwable e) {
-        onError(mContext, e);
+	@Override
+	public void onNext(Response<Date> dateResponse) {
+		if (dateResponse.isSuccessful()) {
+			Log.i(TAG, "Saving dates downloaded from server");
+			SQLiteDatabase db = DatabaseHelper.getInstance(mContext).getWritableDatabase();
+			deleteOldSettings(db);
+			saveDateIntoDB(db, dateResponse.body());
+		} else
+			onError(new HttpException(dateResponse));
+	}
 
-    }
+	private void saveDateIntoDB(SQLiteDatabase db, Date date) {
+		ContentValues cv = edu.p.lodz.pl.studentshenchman.database.models.Date.fromDTO2CV(date);
+		db.insert(edu.p.lodz.pl.studentshenchman.database.models.Date.TABLE_NAME, null, cv);
+	}
 
-    @Override
-    public void onNext(Date date) {
-        Toast.makeText(mContext, date.toString(), Toast.LENGTH_LONG).show();
-    }
+	private void deleteOldSettings(SQLiteDatabase db) {
+		db.delete(edu.p.lodz.pl.studentshenchman.database.models.Date.TABLE_NAME, null, null);
+	}
 }

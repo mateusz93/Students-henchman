@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout android:id="@+id/drawer_layout"
+                                        xmlns:android="http://schemas.android.com/apk/res/android"
+                                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                                        xmlns:tools="http://schemas.android.com/tools"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:background="@color/bg_color"
+                                        tools:context="edu.p.lodz.pl.studentshenchman.dashboard.DashboardActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/tool_bar"
+            layout="@layout/tool_bar"/>
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_below="@+id/tool_bar"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="5dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/logo"
+            android:visibility="gone"/>
+
+
+        <!--poczatek widgetu-->
+        <include
+            android:id="@+id/nearest_lesson_item"
+            layout="@layout/subject_item_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/logo"/>
+        <!--koniec widgetu-->
+
+
+        <LinearLayout
+            android:id="@+id/dashboard_icons"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/nearest_lesson_item">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <!-- position 1 -->
+                <ImageButton
+                    android:id="@+id/timetable_icon"
+                    style="@style/dashboardIcon"
+                    android:src="@drawable/timetable_dashboard_icon"/>
+
+                <!-- position 4 -->
+                <ImageButton
+                    android:id="@+id/settings_icon"
+                    style="@style/dashboardIcon"
+                    android:src="@drawable/settings_dashboard_icon"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <!-- position 2 -->
+                <ImageButton
+                    android:id="@+id/qrcode_scanner_icon"
+                    style="@style/dashboardIcon"
+                    android:src="@drawable/qr_code_dashboard_icon"/>
+
+                <!-- position 5 -->
+                <ImageButton
+                    android:id="@+id/test_button"
+                    style="@style/dashboardIcon"
+                    android:src="@drawable/timetable_dashboard_icon"
+                    android:visibility="visible"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <!-- position 3 -->
+                <ImageButton
+                    style="@style/dashboardIcon"
+                    android:src="@drawable/timetable_dashboard_icon"/>
+
+                <!-- position 6 -->
+                <ImageButton
+                    style="@style/dashboardIcon"
+                    android:src="@drawable/settings_dashboard_icon"/>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/nav_header_item"
+        app:menu="@menu/navigation_drawer_menu"/>
+</android.support.v4.widget.DrawerLayout>

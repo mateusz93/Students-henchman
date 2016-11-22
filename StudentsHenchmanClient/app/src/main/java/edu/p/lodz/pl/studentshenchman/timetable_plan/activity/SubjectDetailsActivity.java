@@ -2,77 +2,74 @@ package edu.p.lodz.pl.studentshenchman.timetable_plan.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.view.MenuItem;
 
 import edu.p.lodz.pl.studentshenchman.R;
 import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainActivity;
+import edu.p.lodz.pl.studentshenchman.constants.Constants;
+import edu.p.lodz.pl.studentshenchman.timetable_plan.fragments.SubjectDetailsFragment;
+import edu.p.lodz.pl.studentshenchman.utils.SelectedCourseContext;
 
 /**
  * Created by Michał on 2016-10-13.
  */
 
 public class SubjectDetailsActivity extends StudentShenchmanMainActivity {
-    private static final String TAG = SubjectDetailsActivity.class.getName();
+	private static final String TAG = SubjectDetailsActivity.class.getName();
 
-    private Toolbar toolbar;
-    private ListView mSubjectNoteList;
-    private FloatingActionButton mAddSubjectNoteFAB;
-    private TextView mSubjectName;
-    private TextView mSubjectType;
-    private TextView mTime;
-    private TextView mLector;
-    private TextView mLocationBuild;
-    private TextView mLocationRoom;
+	private Toolbar toolbar;
+	private SelectedCourseContext mSelectedCourseContext;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_subject_details);
-        toolbar = (Toolbar) findViewById(R.id.tool_bar);
-        prepareToolbar();
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_subject_details);
 
-        mSubjectName = (TextView) findViewById(R.id.subject_name);
-        mSubjectType = (TextView) findViewById(R.id.subject_type);
-        mTime = (TextView) findViewById(R.id.time);
-        mLector = (TextView) findViewById(R.id.lector);
-        mLocationBuild = (TextView) findViewById(R.id.location_build);
-        mLocationRoom = (TextView) findViewById(R.id.location_room);
-        mSubjectNoteList = (ListView) findViewById(R.id.subject_note_list);
-        mAddSubjectNoteFAB = (FloatingActionButton) findViewById(R.id.add_note_fab);
-        mAddSubjectNoteFAB.setOnClickListener(new AddNoteOnClickListener());
+		if (null != getIntent()) {
+			mSelectedCourseContext = getIntent().getParcelableExtra(Constants.SELECTED_COURSE_CONTEXT);
+		}
 
-    }
+		toolbar = (Toolbar) findViewById(R.id.tool_bar);
+		prepareToolbar();
 
-    private void prepareToolbar() {
-        setSupportActionBar(toolbar);
-        toolbar.setTitle(R.string.subject_details_activity_title);
-        toolbar.setNavigationIcon(android.R.drawable.btn_plus);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
-        //getSupportActionBar().setHomeButtonEnabled(true);
-    }
+		Bundle bundle = getIntent().getExtras();
+		SubjectDetailsFragment detailsFragment = new SubjectDetailsFragment();
+		detailsFragment.setArguments(bundle);
 
-    @Override
-    public void onBackPressed() {
-        goToTimeTable();
-    }
+		getSupportFragmentManager().beginTransaction().replace(R.id.subjectdetails_details_container, detailsFragment).commit();
 
-    private void goToTimeTable() {
-        Intent intent = new Intent(SubjectDetailsActivity.this, TimetableActivity.class);
-        finish();
-        startActivity(intent);
-    }
+	}
 
-    public class AddNoteOnClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(View v) {
-            Toast.makeText(getApplicationContext(), "DODAJ NOTATKE DO PRZEDMIOTU", Toast.LENGTH_SHORT).show();
-        }
-    }
+	private void prepareToolbar() {
+		setSupportActionBar(toolbar);
+		toolbar.setTitle(R.string.subject_details_activity_title);
+		getSupportActionBar().setDisplayShowHomeEnabled(true);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setHomeButtonEnabled(true);
+	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getItemId() == android.R.id.home) {
+			goToTimeTable();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void onBackPressed() {
+		goToTimeTable();
+	}
+
+	private void goToTimeTable() {
+		Intent intent = new Intent(SubjectDetailsActivity.this, TimetableActivity.class);
+		finish();
+		startActivity(intent);
+	}
+
+	public SelectedCourseContext getSelectedCourseContext() {
+		return mSelectedCourseContext;
+	}
 }
