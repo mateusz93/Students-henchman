@@ -67,6 +67,7 @@ public class SetUserPreferencesWorker extends AbstractWorker<Response<Void>> {
 
 	@Override
 	public void onError(Throwable e) {
+		Log.i(TAG, "User preferences uploaded on server failure");
 		onError(mContext, e);
 		notifyTaskFinished(FinishedWorkerStatus.FAIL);
 	}
@@ -74,10 +75,12 @@ public class SetUserPreferencesWorker extends AbstractWorker<Response<Void>> {
 	@Override
 	public void onNext(Response<Void> response) {
 		Log.i(TAG, "Saved user preferences response code: " + response.code());
-		if (null != response && response.code() != 200)
+		if (response.isSuccessful()) {
+			// now do nothing
+			// this worker just set user preferences
+		} else
 			onError(mContext, new HttpException(response));
-		// do nothing
-		// this worker just set user preferences
+
 	}
 
 	public static void prepareAndStart(Context context, long externalDepartmentId, long externalFieldId,

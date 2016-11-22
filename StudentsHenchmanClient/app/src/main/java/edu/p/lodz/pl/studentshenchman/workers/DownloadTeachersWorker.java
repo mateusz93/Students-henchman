@@ -13,7 +13,10 @@ import edu.p.lodz.pl.studentshenchman.database.DatabaseHelper;
 import edu.p.lodz.pl.studentshenchman.database.models.Teacher;
 import edu.p.lodz.pl.studentshenchman.workers.endpoints.TeachersEndpoints;
 import edu.p.lodz.pl.studentshenchman.workers.factories.ServiceFactory;
+import edu.p.lodz.pl.studentshenchman.workers.helpers.WorkerRunnerManager;
+import edu.p.lodz.pl.studentshenchman.workers.utils.WorkerType;
 import retrofit2.Response;
+import retrofit2.adapter.rxjava.HttpException;
 import rx.Observable;
 import rx.Subscription;
 import rx.schedulers.Schedulers;
@@ -57,10 +60,13 @@ public class DownloadTeachersWorker extends AbstractWorker<Response<TeacherRS>> 
 
 	@Override
 	public void onNext(Response<TeacherRS> teacherRS) {
-		Log.i(TAG, "Saving teachers downloaded from server");
-		SQLiteDatabase db = DatabaseHelper.getInstance(mContext).getWritableDatabase();
-		deleteOldTeachers(db);
-		saveNewTeachers(db, teacherRS.body().getTeachers());
+		if (teacherRS.isSuccessful()) {
+			Log.i(TAG, "Saving teachers downloaded from server");
+			SQLiteDatabase db = DatabaseHelper.getInstance(mContext).getWritableDatabase();
+			deleteOldTeachers(db);
+			saveNewTeachers(db, teacherRS.body().getTeachers());
+		} else
+			onError(new HttpException(teacherRS));
 	}
 
 	private void saveNewTeachers(SQLiteDatabase db, List<model.Teacher> teachers) {
@@ -71,4 +77,11 @@ public class DownloadTeachersWorker extends AbstractWorker<Response<TeacherRS>> 
 	private void deleteOldTeachers(SQLiteDatabase db) {
 		db.delete(Teacher.TABLE_NAME, null, null);
 	}
+
+	public static void prepareAndStart(Context context) {
+		Bundle bundle = new Bundle();
+		bundle.putString(WORKER_NAME, WorkerType.DOWNLOAD_TEACHERS.name());
+		WorkerRunnerManager.getInstance(context).startWorker(bundle);
+	}
+
 }

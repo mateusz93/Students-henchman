@@ -18,6 +18,7 @@ import edu.p.lodz.pl.studentshenchman.settings.datastore.SettingsDataStoreHelper
 import edu.p.lodz.pl.studentshenchman.workers.endpoints.SettingsEndpoints;
 import edu.p.lodz.pl.studentshenchman.workers.factories.ServiceFactory;
 import retrofit2.Response;
+import retrofit2.adapter.rxjava.HttpException;
 import rx.Observable;
 import rx.Subscription;
 import rx.schedulers.Schedulers;
@@ -54,6 +55,7 @@ public class DownloadSettingsWorker extends AbstractWorker<Response<SettingsRS>>
 
 	@Override
 	public void onError(Throwable e) {
+		Log.i(TAG, "Settings downloaded failure");
 		onError(mContext, e);
 		notifyTaskFinished(FinishedWorkerStatus.FAIL);
 	}
@@ -63,12 +65,15 @@ public class DownloadSettingsWorker extends AbstractWorker<Response<SettingsRS>>
 		SettingsDataStoreHelper settingsDataStoreHelper = new SettingsDataStoreHelper(mContext);
 		settingsDataStoreHelper.setDefault().save();
 		Log.i(TAG, "Setting default user preferences");
+		if (settingsRS.isSuccessful()) {
+			SQLiteDatabase db = DatabaseHelper.getInstance(mContext).getWritableDatabase();
+			deleteOldSettings(db);
+			saveDepartmentsIntoDB(db, settingsRS.body().getDepartments());
+			saveFieldsIntoDB(db, settingsRS.body().getFields());
+			saveDeanGroupsIntoDB(db, settingsRS.body().getDeanGroups());
+		} else
+			onError(new HttpException(settingsRS));
 
-		SQLiteDatabase db = DatabaseHelper.getInstance(mContext).getWritableDatabase();
-		deleteOldSettings(db);
-		saveDepartmentsIntoDB(db, settingsRS.body().getDepartments());
-		saveFieldsIntoDB(db, settingsRS.body().getFields());
-		saveDeanGroupsIntoDB(db, settingsRS.body().getDeanGroups());
 	}
 
 	private void saveDeanGroupsIntoDB(SQLiteDatabase db, List<model.DeanGroup> deanGroups) {

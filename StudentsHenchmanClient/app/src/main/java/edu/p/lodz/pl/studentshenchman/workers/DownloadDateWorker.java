@@ -11,6 +11,7 @@ import edu.p.lodz.pl.studentshenchman.workers.endpoints.SettingsEndpoints;
 import edu.p.lodz.pl.studentshenchman.workers.factories.ServiceFactory;
 import model.Date;
 import retrofit2.Response;
+import retrofit2.adapter.rxjava.HttpException;
 import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -46,16 +47,20 @@ public class DownloadDateWorker extends AbstractWorker<Response<Date>> {
 
 	@Override
 	public void onError(Throwable e) {
+		Log.i(TAG, "Date downloaded failure");
 		onError(mContext, e);
 		notifyTaskFinished(FinishedWorkerStatus.FAIL);
 	}
 
 	@Override
-	public void onNext(Response<Date> date) {
-		Log.i(TAG, "Saving dates downloaded from server");
-		SQLiteDatabase db = DatabaseHelper.getInstance(mContext).getWritableDatabase();
-		deleteOldSettings(db);
-		saveDateIntoDB(db, date.body());
+	public void onNext(Response<Date> dateResponse) {
+		if (dateResponse.isSuccessful()) {
+			Log.i(TAG, "Saving dates downloaded from server");
+			SQLiteDatabase db = DatabaseHelper.getInstance(mContext).getWritableDatabase();
+			deleteOldSettings(db);
+			saveDateIntoDB(db, dateResponse.body());
+		} else
+			onError(new HttpException(dateResponse));
 	}
 
 	private void saveDateIntoDB(SQLiteDatabase db, Date date) {

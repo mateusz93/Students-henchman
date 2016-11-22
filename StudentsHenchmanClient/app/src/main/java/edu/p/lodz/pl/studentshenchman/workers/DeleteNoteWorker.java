@@ -7,6 +7,7 @@ import android.util.Log;
 import edu.p.lodz.pl.studentshenchman.workers.endpoints.NotesEndpoints;
 import edu.p.lodz.pl.studentshenchman.workers.factories.ServiceFactory;
 import retrofit2.Response;
+import retrofit2.adapter.rxjava.HttpException;
 import rx.Observable;
 import rx.Subscription;
 import rx.schedulers.Schedulers;
@@ -52,7 +53,10 @@ public class DeleteNoteWorker extends AbstractWorker<Response<Void>> {
 	}
 
 	@Override
-	public void onNext(Response<Void> voidResponse) {
-
+	public void onNext(Response<Void> response) {
+		if (response.isSuccessful()) {
+			// now do nothing just delete note from server
+		} else
+			onError(new HttpException(response));
 	}
 }

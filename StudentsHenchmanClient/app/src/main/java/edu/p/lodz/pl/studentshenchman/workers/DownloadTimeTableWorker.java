@@ -59,13 +59,13 @@ public class DownloadTimeTableWorker extends AbstractWorker<Response<CourseRS>> 
 
 	@Override
 	public void onNext(Response<CourseRS> courseRS) {
-		Log.i(TAG, "Saving timetable downloaded from server");
-		if (null != courseRS && courseRS.code() != 200)
-			onError(mContext, new HttpException(courseRS));
-		SQLiteDatabase db = DatabaseHelper.getInstance(mContext).getWritableDatabase();
-		deleteOldTimeTable(db);
-		if (null != courseRS && null != courseRS.body() && null != courseRS.body().getCourses())
+		if (courseRS.isSuccessful()) {
+			Log.i(TAG, "Saving timetable downloaded from server");
+			SQLiteDatabase db = DatabaseHelper.getInstance(mContext).getWritableDatabase();
+			deleteOldTimeTable(db);
 			saveNewTimeTable(db, courseRS.body().getCourses());
+		} else
+			onError(new HttpException(courseRS));
 	}
 
 	private void saveNewTimeTable(SQLiteDatabase db, List<model.Course> courses) {

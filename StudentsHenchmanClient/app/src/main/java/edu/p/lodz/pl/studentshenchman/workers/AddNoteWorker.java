@@ -16,6 +16,7 @@ import edu.p.lodz.pl.studentshenchman.database.models.Note;
 import edu.p.lodz.pl.studentshenchman.workers.endpoints.NotesEndpoints;
 import edu.p.lodz.pl.studentshenchman.workers.factories.ServiceFactory;
 import retrofit2.Response;
+import retrofit2.adapter.rxjava.HttpException;
 import rx.Observable;
 import rx.Subscription;
 import rx.schedulers.Schedulers;
@@ -78,7 +79,10 @@ public class AddNoteWorker extends AbstractWorker<Response<Void>> {
 	}
 
 	@Override
-	public void onNext(Response<Void> voidResponse) {
-		// now do nothing just save the note on the server
+	public void onNext(Response<Void> response) {
+		if (response.isSuccessful()) {
+			// now do nothing just save the note on the server
+		} else
+			onError(new HttpException(response));
 	}
 }
