@@ -1,4 +1,4 @@
-Wszystkie usługi korzystają z Content-Type: application/json
+﻿Wszystkie usługi korzystają z Content-Type: application/json
 
 http://localhost:8080/mobile/date  Method.GET	- zwraca bierzącą dane w formacie yyyy-MM-dd HH:mm
 http://localhost:8080/mobile/departments	    Method.GET -  zwraca DepartmentsRS
@@ -39,6 +39,6 @@ http://localhost:8080/mobile/rooms?id={id}   Method.GET - zwraca RoomRS
 http://localhost:8080/mobile/rooms?name={name}   Method.GET - zwraca RoomRS
 http://localhost:8080/mobile/rooms?code={code}   Method.GET - zwraca RoomRS
 http://localhost:8080/mobile/settings   Method.GET - zwraca SettingsRS
-http://localhost:8080/mobile/setNote   Method.POST - przyjmuje NoteRQ, zwraca HttpStatus.OK
+http://localhost:8080/mobile/addNote   Method.POST - przyjmuje NoteRQ, zwraca HttpStatus.OK
 http://localhost:8080/mobile/deleteNote?id={id}   Method.DELETE - zwraca HttpStatus.OK
-http://localhost:8080/mobile/user/setPreferences   Method.POST - przyjmuje PreferencesRQ, zwraca HttpStatus.OK
+http://localhost:8080/mobile/user/setPreferences   Method.POST - przyjmuje PreferencesRQ, zwraca Boolean
