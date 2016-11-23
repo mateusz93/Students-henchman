@@ -46,7 +46,6 @@ public class DownloadTeachersWorker extends AbstractWorker<Response<TeacherRS>> 
 	@Override
 	public void onCompleted() {
 		Log.i(TAG, "Teachers downloaded successfully");
-		Toast.makeText(mContext, "Teachers downloaded successfully", Toast.LENGTH_SHORT).show();
 		notifyTaskFinished(FinishedWorkerStatus.SUCCESS);
 	}
 

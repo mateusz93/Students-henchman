@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -46,7 +45,6 @@ public class DownloadTimeTableWorker extends AbstractWorker<Response<CourseRS>> 
 	@Override
 	public void onCompleted() {
 		Log.i(TAG, "Timetable downloaded successfully");
-		Toast.makeText(mContext, "Timetable downloaded successfully", Toast.LENGTH_SHORT).show();
 		notifyTaskFinished(FinishedWorkerStatus.SUCCESS);
 	}
 

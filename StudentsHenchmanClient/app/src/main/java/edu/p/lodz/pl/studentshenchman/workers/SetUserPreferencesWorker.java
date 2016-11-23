@@ -3,13 +3,10 @@ package edu.p.lodz.pl.studentshenchman.workers;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import cdm.PreferencesRQ;
 import edu.p.lodz.pl.studentshenchman.workers.endpoints.UserEndpoints;
 import edu.p.lodz.pl.studentshenchman.workers.factories.ServiceFactory;
-import edu.p.lodz.pl.studentshenchman.workers.helpers.WorkerRunnerManager;
-import edu.p.lodz.pl.studentshenchman.workers.utils.WorkerType;
 import retrofit2.Response;
 import retrofit2.adapter.rxjava.HttpException;
 import rx.Observable;
@@ -61,7 +58,6 @@ public class SetUserPreferencesWorker extends AbstractWorker<Response<Void>> {
 	@Override
 	public void onCompleted() {
 		Log.i(TAG, "User preferences uploaded on server successfully");
-		Toast.makeText(mContext, "User preferences uploaded on server successfully", Toast.LENGTH_SHORT).show();
 		notifyTaskFinished(FinishedWorkerStatus.SUCCESS);
 	}
 
