@@ -74,6 +74,19 @@ public class Build implements BaseColumns {
 	private double latitude;
 	private double longitude;
 
+	public Build() {
+	}
+
+	public Build(Cursor cursor) {
+		id = (cursor.getLong(cursor.getColumnIndexOrThrow(Build._ID)));
+		externalId = (cursor.getLong(cursor.getColumnIndexOrThrow(Build.EXTERNAL_BUILD_ID)));
+		name = (cursor.getString(cursor.getColumnIndexOrThrow(Build.NAME)));
+		code = (cursor.getString(cursor.getColumnIndexOrThrow(Build.CODE)));
+		latitude = (cursor.getDouble(cursor.getColumnIndexOrThrow(Build.LATITUDE)));
+		longitude = (cursor.getDouble(cursor.getColumnIndexOrThrow(Build.LONGITUDE)));
+
+	}
+
 	public long getId() {
 		return id;
 	}
@@ -120,5 +133,17 @@ public class Build implements BaseColumns {
 
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
+	}
+
+	@Override
+	public String toString() {
+		return "Build{" +
+				"id=" + id +
+				", externalId=" + externalId +
+				", name='" + name + '\'' +
+				", code='" + code + '\'' +
+				", latitude=" + latitude +
+				", longitude=" + longitude +
+				'}';
 	}
 }

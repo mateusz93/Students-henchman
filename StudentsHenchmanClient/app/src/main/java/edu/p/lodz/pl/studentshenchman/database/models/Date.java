@@ -75,14 +75,12 @@ public class Date implements BaseColumns {
 	}
 
 	public Date(Cursor cursor) {
-		if (cursor.moveToFirst()) {
-			id = cursor.getLong(cursor.getColumnIndexOrThrow(Build._ID));
-			externalId = cursor.getLong(cursor.getColumnIndexOrThrow(Build.EXTERNAL_BUILD_ID));
-			dayOfWeek = cursor.getString(cursor.getColumnIndexOrThrow(Build.NAME));
-			date = cursor.getString(cursor.getColumnIndexOrThrow(Build.CODE));
-			weekNo = cursor.getInt(cursor.getColumnIndexOrThrow(Build.LATITUDE));
-			cycle = cursor.getInt(cursor.getColumnIndexOrThrow(Build.LONGITUDE));
-		}
+		id = cursor.getLong(cursor.getColumnIndexOrThrow(Build._ID));
+		externalId = cursor.getLong(cursor.getColumnIndexOrThrow(Build.EXTERNAL_BUILD_ID));
+		dayOfWeek = cursor.getString(cursor.getColumnIndexOrThrow(Build.NAME));
+		date = cursor.getString(cursor.getColumnIndexOrThrow(Build.CODE));
+		weekNo = cursor.getInt(cursor.getColumnIndexOrThrow(Build.LATITUDE));
+		cycle = cursor.getInt(cursor.getColumnIndexOrThrow(Build.LONGITUDE));
 	}
 
 	public long getId() {
