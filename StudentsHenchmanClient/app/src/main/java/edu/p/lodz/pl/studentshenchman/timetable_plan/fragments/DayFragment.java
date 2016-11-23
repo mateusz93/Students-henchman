@@ -57,7 +57,6 @@ public class DayFragment extends StudentShenchmanMainFragment implements LoaderM
 	private CourseListAdapter mAdapter;
 
 	private SelectedCourseInterface mSelectedCourseInterface;
-	private CourseDialogFragmentInterface mDialogFragmentInterface;
 
 	public static DayFragment getInstance(String tabName, int tabNumber, String dayCode, String dayAbbreviation) {
 		DayFragment day = new DayFragment();
@@ -78,7 +77,6 @@ public class DayFragment extends StudentShenchmanMainFragment implements LoaderM
 		setHasOptionsMenu(true);
 
 		mSelectedCourseInterface = (TimetableActivity) getActivity();
-		mDialogFragmentInterface = (TimetableActivity) getActivity();
 
 	}
 
@@ -112,7 +110,6 @@ public class DayFragment extends StudentShenchmanMainFragment implements LoaderM
 
 			@Override
 			public void onLongItemClick(View view, int position) {
-				//mDialogFragmentInterface.showEditOptionsDialogFragment(new SelectedCourseContext());
 				mAdapter.notifyItemRemoved(0);
 			}
 		}));

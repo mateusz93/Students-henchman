@@ -3,45 +3,54 @@ package edu.p.lodz.pl.studentshenchman.timetable_plan.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.Toast;
+
+import java.util.List;
 
 import edu.p.lodz.pl.studentshenchman.R;
 import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainActivity;
 import edu.p.lodz.pl.studentshenchman.constants.Constants;
 import edu.p.lodz.pl.studentshenchman.dashboard.DashboardActivity;
-import edu.p.lodz.pl.studentshenchman.timetable_plan.dialog_fragments.ChooseCourseDialogFragment;
-import edu.p.lodz.pl.studentshenchman.timetable_plan.dialog_fragments.EditTimeTableDialogFragment;
-import edu.p.lodz.pl.studentshenchman.timetable_plan.dialog_fragments.LocalChangesDialogFragment;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.fragments.DayFragment;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.fragments.SubjectDetailsEmptyFragment;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.fragments.SubjectDetailsFragment;
-import edu.p.lodz.pl.studentshenchman.timetable_plan.interfaces.CourseDialogFragmentInterface;
+import edu.p.lodz.pl.studentshenchman.timetable_plan.utils.CoursesLoaderObject;
 import edu.p.lodz.pl.studentshenchman.utils.SelectedCourseContext;
-import edu.p.lodz.pl.studentshenchman.utils.Utils;
 
 
-public class TimetableActivity extends StudentShenchmanMainActivity implements EditTimeTableDialogFragment.EditedCoursesOptionsInterface,
-		DayFragment.SelectedCourseInterface, CourseDialogFragmentInterface, ChooseCourseDialogFragment.SelectedCourseToSwap, LocalChangesDialogFragment.UserCallInterface {
+public class TimetableActivity extends StudentShenchmanMainActivity implements DayFragment.SelectedCourseInterface, LoaderManager.LoaderCallbacks<List<CoursesLoaderObject>> {
 
 	private static final String TAG = TimetableActivity.class.getName();
+	private static final int COURSES_LOADER_ID = TimetableActivity.class.hashCode();
+
 	private static final String DUAL_PANE = ":dual_pane";
 	private static final String LAST_SELECTED_COURSE = ":last_selected_course";
-	private static final String ARE_LOCAL_CHANGES = ":are_local_changes";
-	private static final String CONTEXT_TO_EDIT = ":context_to_edit";
 
 	private Toolbar toolbar;
 
 	private SelectedCourseContext mSelectedCourseContext;
-	private SelectedCourseContext mCourseContextToEdit;
 	private boolean mDualPane = false;
-	private boolean mAreLocalChanges = false;
 
+	@Override
+	public Loader<List<CoursesLoaderObject>> onCreateLoader(int id, Bundle args) {
+		if (id == COURSES_LOADER_ID) {
+			//showProgressBar();
+//			return new CoursesLoader(getApplicationContext());
+		}
+		return null;
+	}
 
-	enum DialogType {
-		EDIT, CHOOSE, LOCAL_CHANGES
+	@Override
+	public void onLoadFinished(Loader<List<CoursesLoaderObject>> loader, List<CoursesLoaderObject> data) {
+
+	}
+
+	@Override
+	public void onLoaderReset(Loader<List<CoursesLoaderObject>> loader) {
+
 	}
 
 	@Override
@@ -54,8 +63,6 @@ public class TimetableActivity extends StudentShenchmanMainActivity implements E
 
 		if (null != savedInstanceState) {
 			mSelectedCourseContext = savedInstanceState.getParcelable(Constants.SELECTED_COURSE_CONTEXT);
-			mCourseContextToEdit = savedInstanceState.getParcelable(CONTEXT_TO_EDIT);
-			mAreLocalChanges = savedInstanceState.getBoolean(ARE_LOCAL_CHANGES, false);
 		}
 
 		if (null != (findViewById(R.id.timetable_details_container))) {
@@ -81,20 +88,12 @@ public class TimetableActivity extends StudentShenchmanMainActivity implements E
 	public void onSaveInstanceState(Bundle outState) {
 		outState.putBoolean(DUAL_PANE, mDualPane);
 		outState.putParcelable(Constants.SELECTED_COURSE_CONTEXT, mSelectedCourseContext);
-		outState.putParcelable(CONTEXT_TO_EDIT, mCourseContextToEdit);
-		outState.putBoolean(ARE_LOCAL_CHANGES, mAreLocalChanges);
 		super.onSaveInstanceState(outState);
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == android.R.id.home) {
-			if (!mAreLocalChanges) {
-				goToDashboard();
-			} else {
-				buildDialogByType(DialogType.LOCAL_CHANGES);
-			}
-
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -102,11 +101,7 @@ public class TimetableActivity extends StudentShenchmanMainActivity implements E
 
 	@Override
 	public void onBackPressed() {
-		if (!mAreLocalChanges)
-			goToDashboard();
-		else {
-			buildDialogByType(DialogType.LOCAL_CHANGES);
-		}
+		goToDashboard();
 	}
 
 	private void goToDashboard() {
@@ -118,21 +113,7 @@ public class TimetableActivity extends StudentShenchmanMainActivity implements E
 	public SelectedCourseContext getSelectedCourseContext() {
 		return mSelectedCourseContext;
 	}
-
-	public void setSelectedCourseContext(SelectedCourseContext selectedCourseContext) {
-		this.mSelectedCourseContext = selectedCourseContext;
-	}
-
-	@Override
-	public void editSelectedCourse() {
-		buildDialogByType(DialogType.CHOOSE);
-	}
-
-	@Override
-	public void deleteSelectedCourse() {
-		mAreLocalChanges = true;
-	}
-
+	
 	@Override
 	public void selectedCourse(SelectedCourseContext selectedCourseContext) {
 		mSelectedCourseContext = selectedCourseContext;
@@ -153,53 +134,6 @@ public class TimetableActivity extends StudentShenchmanMainActivity implements E
 				finish();
 				startActivity(intent);
 			}
-		}
-	}
-
-	@Override
-	public void showEditOptionsDialogFragment(SelectedCourseContext courseContext) {
-		mCourseContextToEdit = courseContext;
-		buildDialogByType(DialogType.EDIT);
-	}
-
-	@Override
-	public void courseSelectedFromListToSwap(long id) {
-		Toast.makeText(getApplicationContext(), "wybrany przedmiot o id:" + id, Toast.LENGTH_SHORT).show();
-		mAreLocalChanges = true;
-	}
-
-
-	@Override
-	public void notifyUserCall(Utils.UserCallType userCallType) {
-		switch (userCallType) {
-			case ACCEPT:
-				goToDashboard();
-				break;
-			case DECLINE:
-				goToDashboard();
-				break;
-			default:
-				break;
-		}
-	}
-
-	private void buildDialogByType(DialogType dialogType) {
-		FragmentManager fm = getSupportFragmentManager();
-		switch (dialogType) {
-			case EDIT:
-				EditTimeTableDialogFragment editTimeTableDialogFragment = EditTimeTableDialogFragment.getInstance("TITLE");
-				editTimeTableDialogFragment.show(fm, TAG);
-				break;
-			case CHOOSE:
-				ChooseCourseDialogFragment chooseCourseDialogFragment = ChooseCourseDialogFragment.getInstance("TITLE");
-				chooseCourseDialogFragment.show(fm, TAG);
-				break;
-			case LOCAL_CHANGES:
-				LocalChangesDialogFragment localChangesDialogFragment = LocalChangesDialogFragment.getInstance("Changes", "Can you save local chnges");
-				localChangesDialogFragment.show(fm, TAG);
-				break;
-			default:
-				break;
 		}
 	}
 }
