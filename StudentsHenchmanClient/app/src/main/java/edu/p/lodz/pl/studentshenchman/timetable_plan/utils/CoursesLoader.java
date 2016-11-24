@@ -71,15 +71,6 @@ public class CoursesLoader extends AsyncTaskLoader<List<CoursesLoaderObject>> {
 			loaderObject.setDeanGroupName(deanGroup.getName());
 
 			coursesForTheDay.add(loaderObject);
-			/*if (null != courses.get(course.getDay())) {
-				coursesForTheDay = courses.remove(course.getDay());
-				coursesForTheDay.add(loaderObject);
-				courses.put(course.getDay(), coursesForTheDay);
-			} else {
-				coursesForTheDay = new ArrayList<>();
-				coursesForTheDay.add(loaderObject);
-				courses.put(course.getDay(), coursesForTheDay);
-			}*/
 		}
 		c.close();
 	}
