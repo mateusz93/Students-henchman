@@ -19,6 +19,8 @@ public class DeanGroup {
     private Long degree;
     private Field field;
     private Set<Course> courses;
+    private Set<DependentDeanGroup> dependentDeanGroups;
+    private Set<DependentDeanGroup> commonDeanGroups;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -85,6 +87,26 @@ public class DeanGroup {
 
     public void setCourses(Set<Course> courses) {
         this.courses = courses;
+    }
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "dependentDeanGroupId", cascade = CascadeType.ALL)
+    public Set<DependentDeanGroup> getDependentDeanGroups() {
+        return dependentDeanGroups;
+    }
+
+    public void setDependentDeanGroups(Set<DependentDeanGroup> dependentDeanGroups) {
+        this.dependentDeanGroups = dependentDeanGroups;
+    }
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "commonDeanGroupId", cascade = CascadeType.ALL)
+    public Set<DependentDeanGroup> getCommonDeanGroups() {
+        return commonDeanGroups;
+    }
+
+    public void setCommonDeanGroups(Set<DependentDeanGroup> commonDeanGroups) {
+        this.commonDeanGroups = commonDeanGroups;
     }
 
     @Override
