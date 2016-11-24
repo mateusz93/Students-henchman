@@ -186,6 +186,55 @@ public class SelectedCourseContext implements Parcelable {
 	}
 
 	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		SelectedCourseContext that = (SelectedCourseContext) o;
+
+		if (courseId != that.courseId) return false;
+		if (courseExternalId != that.courseExternalId) return false;
+		if (Double.compare(that.latitude, latitude) != 0) return false;
+		if (Double.compare(that.longitude, longitude) != 0) return false;
+		if (courseName != null ? !courseName.equals(that.courseName) : that.courseName != null)
+			return false;
+		if (courseType != null ? !courseType.equals(that.courseType) : that.courseType != null)
+			return false;
+		if (teacher != null ? !teacher.equals(that.teacher) : that.teacher != null) return false;
+		if (roomName != null ? !roomName.equals(that.roomName) : that.roomName != null)
+			return false;
+		if (buildName != null ? !buildName.equals(that.buildName) : that.buildName != null)
+			return false;
+		if (groupName != null ? !groupName.equals(that.groupName) : that.groupName != null)
+			return false;
+		if (groupAbbreviation != null ? !groupAbbreviation.equals(that.groupAbbreviation) : that.groupAbbreviation != null)
+			return false;
+		return time != null ? time.equals(that.time) : that.time == null;
+
+	}
+
+	@Override
+	public int hashCode() {
+		int result;
+		long temp;
+		result = (int) (courseId ^ (courseId >>> 32));
+		result = 31 * result + (int) (courseExternalId ^ (courseExternalId >>> 32));
+		result = 31 * result + (courseName != null ? courseName.hashCode() : 0);
+		result = 31 * result + (courseType != null ? courseType.hashCode() : 0);
+		result = 31 * result + (teacher != null ? teacher.hashCode() : 0);
+		result = 31 * result + (roomName != null ? roomName.hashCode() : 0);
+		result = 31 * result + (buildName != null ? buildName.hashCode() : 0);
+		temp = Double.doubleToLongBits(latitude);
+		result = 31 * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(longitude);
+		result = 31 * result + (int) (temp ^ (temp >>> 32));
+		result = 31 * result + (groupName != null ? groupName.hashCode() : 0);
+		result = 31 * result + (groupAbbreviation != null ? groupAbbreviation.hashCode() : 0);
+		result = 31 * result + (time != null ? time.hashCode() : 0);
+		return result;
+	}
+
+	@Override
 	public String toString() {
 		return "SelectedCourseContext{" +
 				"courseId=" + courseId +

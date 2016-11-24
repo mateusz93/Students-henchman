@@ -3,12 +3,8 @@ package edu.p.lodz.pl.studentshenchman.timetable_plan.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.util.ArrayMap;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-
-import java.util.List;
-import java.util.Map;
 
 import edu.p.lodz.pl.studentshenchman.R;
 import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainActivity;
@@ -18,7 +14,6 @@ import edu.p.lodz.pl.studentshenchman.timetable_plan.fragments.DayFragment;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.fragments.SubjectDetailsEmptyFragment;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.fragments.SubjectDetailsFragment;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.fragments.TimetableDaysFragment;
-import edu.p.lodz.pl.studentshenchman.timetable_plan.utils.CoursesLoaderObject;
 import edu.p.lodz.pl.studentshenchman.utils.SelectedCourseContext;
 
 
@@ -29,8 +24,7 @@ public class TimetableActivity extends StudentShenchmanMainActivity implements D
 	private static final String LAST_SELECTED_COURSE = ":last_selected_course";
 
 	private Toolbar toolbar;
-
-	private Map<String, List<CoursesLoaderObject>> coursesForTheWeek = new ArrayMap<>();
+	
 	private SelectedCourseContext mSelectedCourseContext;
 	private boolean mDualPane = false;
 
@@ -44,9 +38,6 @@ public class TimetableActivity extends StudentShenchmanMainActivity implements D
 
 		TimetableDaysFragment fragment = new TimetableDaysFragment();
 		getSupportFragmentManager().beginTransaction().replace(R.id.days_container, fragment).commit();
-		if (null != savedInstanceState) {
-			mSelectedCourseContext = savedInstanceState.getParcelable(Constants.SELECTED_COURSE_CONTEXT);
-		}
 
 		if (null != (findViewById(R.id.timetable_details_container))) {
 			mDualPane = true;
@@ -71,7 +62,7 @@ public class TimetableActivity extends StudentShenchmanMainActivity implements D
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		outState.putBoolean(DUAL_PANE, mDualPane);
-		outState.putParcelable(Constants.SELECTED_COURSE_CONTEXT, mSelectedCourseContext);
+		outState.putParcelable(LAST_SELECTED_COURSE, mSelectedCourseContext);
 		super.onSaveInstanceState(outState);
 	}
 
@@ -98,12 +89,11 @@ public class TimetableActivity extends StudentShenchmanMainActivity implements D
 		return mSelectedCourseContext;
 	}
 
-	public Map<String, List<CoursesLoaderObject>> getCoursesForTheWeek() {
-		return coursesForTheWeek;
-	}
-
 	@Override
 	public void selectedCourse(SelectedCourseContext selectedCourseContext) {
+		if (null != mSelectedCourseContext && null != selectedCourseContext && mSelectedCourseContext.equals(selectedCourseContext))
+			return;
+
 		mSelectedCourseContext = selectedCourseContext;
 		if (mDualPane) {
 			Fragment fragment;
