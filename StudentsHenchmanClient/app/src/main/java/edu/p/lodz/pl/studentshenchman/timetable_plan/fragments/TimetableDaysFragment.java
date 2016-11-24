@@ -46,20 +46,14 @@ public class TimetableDaysFragment extends StudentShenchmanMainFragment {
 		mViewPager = (ViewPager) view.findViewById(R.id.viewpager_container);
 		mTabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
 
+		List<DayFragment> fragments = getRequiredFragments();
+		mTimeTableDaysAdapter = new TimeTableDaysAdapter(getContext(), getChildFragmentManager(), fragments);
+		mViewPager.setAdapter(mTimeTableDaysAdapter);
 
-		//mViewPager.setPageTransformer(false, new CubeInTransformer());
 		setUpActionBar();
-
-		//EventBus.getDefault().register(this);
 
 		return view;
 
-	}
-
-	@Override
-	public void onDestroyView() {
-		super.onDestroyView();
-		//EventBus.getDefault().unregister(this);
 	}
 
 	private void setUpActionBar() {
@@ -99,17 +93,4 @@ public class TimetableDaysFragment extends StudentShenchmanMainFragment {
 		return fragments;
 	}
 
-	@Override
-	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-//		super.onViewCreated(view, savedInstanceState);
-		List<DayFragment> fragments = getRequiredFragments();
-		mTimeTableDaysAdapter = new TimeTableDaysAdapter(getContext(), getFragmentManager(), fragments);
-		mViewPager.setAdapter(mTimeTableDaysAdapter);
-
-	}
-
-	/*@Subscribe
-	public void onEvent(RefreshTabs event) {
-		mTimeTableDaysAdapter.refresh();
-	}*/
 }
