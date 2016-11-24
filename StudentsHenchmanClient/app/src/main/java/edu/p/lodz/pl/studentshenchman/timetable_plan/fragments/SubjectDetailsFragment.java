@@ -29,6 +29,8 @@ import edu.p.lodz.pl.studentshenchman.utils.animation.AnimationHelper;
 public class SubjectDetailsFragment extends StudentShenchmanMainFragment {
 	private static final String TAG = SubjectDetailsFragment.class.getName();
 
+	public static final int ADD_NOTE_REQUEST_CODE = 102;
+
 	private ListView mSubjectNoteList;
 	private FloatingActionButton mAddSubjectNoteFAB;
 	private TextView mHeaderTitle;
@@ -46,10 +48,10 @@ public class SubjectDetailsFragment extends StudentShenchmanMainFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.subject_details_fragment, container, false);
-		SelectedCourseContext courseContext;
+		SelectedCourseContext courseContext = new SelectedCourseContext();
 		if (getActivity() instanceof TimetableActivity)
 			courseContext = ((TimetableActivity) getActivity()).getSelectedCourseContext();
-		if (getActivity() instanceof SubjectDetailsActivity)
+		else if (getActivity() instanceof SubjectDetailsActivity)
 			courseContext = ((SubjectDetailsActivity) getActivity()).getSelectedCourseContext();
 
 		mSubjectName = (TextView) view.findViewById(R.id.item_lesson_name);
@@ -65,13 +67,13 @@ public class SubjectDetailsFragment extends StudentShenchmanMainFragment {
 		mSubjectNoteList.setOnScrollListener(new NoteOnScrollListener());
 		mLessonNavigator = (ImageView) view.findViewById(R.id.navigate_item_icon);
 
-		mSubjectName.setText("Projektowanie aplikacji internetowych");
-		mLector.setText("dr inz. Rafal Kielbik");
-		mLocationBuild.setText("CTI");
-		mLocationRoom.setText("302");
-		mTime.setText("10:15 - 12:00");
+		mSubjectName.setText(courseContext.getCourseName());
+		mLector.setText(courseContext.getTeacher());
+		mLocationBuild.setText(courseContext.getBuildName());
+		mLocationRoom.setText(courseContext.getRoomName());
+		mTime.setText(courseContext.getTime());
 
-		mHeaderTitle.setText("CWICZENIA");
+		mHeaderTitle.setText(courseContext.getGroupName());
 
 		return view;
 	}
@@ -86,13 +88,13 @@ public class SubjectDetailsFragment extends StudentShenchmanMainFragment {
 		@Override
 		public void onClick(View v) {
 			Intent intent = new Intent(getActivity(), AddNoteActivity.class);
-			startActivityForResult(intent, 500);
+			startActivityForResult(intent, ADD_NOTE_REQUEST_CODE);
 		}
 	}
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == 500) {
+		if (requestCode == ADD_NOTE_REQUEST_CODE) {
 			if (resultCode == Activity.RESULT_OK) {
 				mNotesAdapter = new NotesAdapter(getContext(), getActivity().getSupportFragmentManager());
 				mSubjectNoteList.setAdapter(mNotesAdapter);
@@ -110,7 +112,7 @@ public class SubjectDetailsFragment extends StudentShenchmanMainFragment {
 		@Override
 		public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 			AnimationHelper.startSlideBottomAnimation(mAddSubjectNoteFAB);
-			/*if (totalItemCount <= visibleItemCount) {
+			if (totalItemCount <= visibleItemCount) {
 				AnimationHelper.startSlideBottomAnimation(mAddSubjectNoteFAB);
 				mAddSubjectNoteFAB.setVisibility(View.VISIBLE);
 			} else if (firstVisibleItem + visibleItemCount >= totalItemCount - visibleItemCount) {
@@ -118,7 +120,7 @@ public class SubjectDetailsFragment extends StudentShenchmanMainFragment {
 			} else {
 				AnimationHelper.startSlideBottomAnimation(mAddSubjectNoteFAB);
 				mAddSubjectNoteFAB.setVisibility(View.VISIBLE);
-			}*/
+			}
 		}
 	}
 }
