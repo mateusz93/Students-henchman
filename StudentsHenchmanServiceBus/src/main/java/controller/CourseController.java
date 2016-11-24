@@ -3,6 +3,7 @@ package controller;
 import cdm.CourseRS;
 import model.Course;
 import model.DeanGroup;
+import model.DependentDeanGroup;
 import model.User;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -12,12 +13,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import repository.CourseRepository;
 import repository.DeansGroupRepository;
+import repository.DependentDeanGroupRepository;
 import repository.UserRepository;
 import service.CourseService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @Author Mateusz Wieczorek on 10/12/16.
@@ -36,6 +40,9 @@ public class CourseController {
 
     @Autowired
     private DeansGroupRepository deansGroupRepository;
+
+    @Autowired
+    private DependentDeanGroupRepository dependentDeanGroupRepository;
 
     @Autowired
     private CourseService courseService;
@@ -65,6 +72,8 @@ public class CourseController {
         }
         log.info("getCoursesByUser core invoked");
         List<Course> courses = new ArrayList<>();
+        Set<DependentDeanGroup> dependentDeanGroups = new HashSet<>();
+
         if (StringUtils.isNotBlank(user.getCourses())) {
             for (String id : fromStringToList(user.getCourses())) {
                 Course course = courseRepository.findById(Long.valueOf(id));
@@ -74,8 +83,17 @@ public class CourseController {
             for (String id : fromStringToList(user.getDeanGroups())) {
                 DeanGroup deanGroup = deansGroupRepository.findById(Long.valueOf(id));
                 List<Course> course = courseRepository.findByDeanGroup(deanGroup);
+                DependentDeanGroup dependentDeanGroup = dependentDeanGroupRepository.findByDependentDeanGroupId(deanGroup);
+                if (null != dependentDeanGroup)
+                    dependentDeanGroups.add(dependentDeanGroup);
                 courses.addAll(course);
             }
+        }
+
+        for (DependentDeanGroup dependentDeanGroup : dependentDeanGroups) {
+            DeanGroup deanGroup = deansGroupRepository.findById(dependentDeanGroup.getCommonDeanGroupId().getId());
+            List<Course> course = courseRepository.findByDeanGroup(deanGroup);
+            courses.addAll(course);
         }
         if (courses.size() > 0)
             httpResponse.setStatus(HttpStatus.OK.value());
