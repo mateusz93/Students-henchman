@@ -39,10 +39,4 @@ public class TimeTableDaysAdapter extends FragmentStatePagerAdapter {
 		return mFragments.get(position).getArguments().getString(DayFragment.TAB_NAME);
 	}
 
-	public void refresh() {
-
-		for (DayFragment f : mFragments) {
-			f.refreshDataView();
-		}
-	}
 }

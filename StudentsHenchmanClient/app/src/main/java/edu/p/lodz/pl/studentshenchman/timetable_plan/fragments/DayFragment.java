@@ -6,7 +6,9 @@ import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.LoaderManager;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
@@ -17,9 +19,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +26,7 @@ import edu.p.lodz.pl.studentshenchman.R;
 import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainFragment;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.activity.TimetableActivity;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.adapters.CourseListAdapter;
-import edu.p.lodz.pl.studentshenchman.timetable_plan.event.RefreshTabs;
+import edu.p.lodz.pl.studentshenchman.timetable_plan.utils.CoursesLoader;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.utils.CoursesLoaderObject;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.utils.TimeTableUtils;
 import edu.p.lodz.pl.studentshenchman.utils.SelectedCourseContext;
@@ -40,10 +39,10 @@ import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
  * Created by Michał on 2016-10-12.
  */
 
-public class DayFragment extends StudentShenchmanMainFragment /*implements LoaderManager.LoaderCallbacks<List<CoursesLoaderObject>>*/ {
+public class DayFragment extends StudentShenchmanMainFragment implements LoaderManager.LoaderCallbacks<List<CoursesLoaderObject>> {
 
 	private static final String TAG = DayFragment.class.getName();
-//	private static final int COURSES_LOADER_ID = DayFragment.class.hashCode();
+	private static final int COURSES_LOADER_ID = DayFragment.class.hashCode();
 
 	public static final String TAB_NAME = "tab_name";
 	public static final String TAB_NUMBER = "tab_number";
@@ -51,6 +50,7 @@ public class DayFragment extends StudentShenchmanMainFragment /*implements Loade
 	public static final String TAB_DAY_ABBREVIATION = "tab_day_abbreviation";
 
 	private RelativeLayout mEmptyLayout;
+	private RelativeLayout mProgressBarLayout;
 	private RecyclerView mRecyclerView;
 	private StaggeredGridLayoutManager mStaggeredLayoutManager;
 	private CourseListAdapter mAdapter;
@@ -86,6 +86,7 @@ public class DayFragment extends StudentShenchmanMainFragment /*implements Loade
 
 		mRecyclerView = (RecyclerView) view.findViewById(R.id.list);
 		mEmptyLayout = (RelativeLayout) view.findViewById(R.id.empty_layout);
+		mProgressBarLayout = (RelativeLayout) view.findViewById(R.id.progress_bar_layout);
 		mStaggeredLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
 		mRecyclerView.setLayoutManager(mStaggeredLayoutManager);
 		mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext()));
@@ -115,38 +116,65 @@ public class DayFragment extends StudentShenchmanMainFragment /*implements Loade
 		AlphaInAnimationAdapter alphaAdapter = new AlphaInAnimationAdapter(mAdapter);
 		mRecyclerView.setAdapter(new ScaleInAnimationAdapter(alphaAdapter));
 
-		EventBus.getDefault().register(this);
-
 		return view;
 
 	}
 
-
-	@Override
-	public void onDestroyView() {
-		super.onDestroyView();
-		EventBus.getDefault().unregister(this);
-	}
-
 	@Override
 	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-		generateView();
+		getLoaderManager().initLoader(COURSES_LOADER_ID, getArguments(), this);
 	}
 
-	private void generateView() {
-		List<CoursesLoaderObject> coursesForTheDay = ((TimetableActivity) getActivity()).getCoursesForTheWeek().get(getArguments().getString(TAB_DAY_ABBREVIATION));
-		if (null == coursesForTheDay || coursesForTheDay.size() == 0) {
-			mEmptyLayout.setVisibility(View.VISIBLE);
-			mRecyclerView.setVisibility(View.GONE);
-		} else {
-			mEmptyLayout.setVisibility(View.GONE);
-			mRecyclerView.setVisibility(View.VISIBLE);
-			mAdapter.setItems(coursesForTheDay);
+	@Override
+	public Loader<List<CoursesLoaderObject>> onCreateLoader(int id, Bundle args) {
+		if (id == COURSES_LOADER_ID) {
+			showProgressbar();
+			return new CoursesLoader(getContext(), getArguments().getString(TAB_DAY_ABBREVIATION));
+		}
+		return null;
+	}
+
+	@Override
+	public void onLoadFinished(Loader<List<CoursesLoaderObject>> loader, List<CoursesLoaderObject> data) {
+		if (loader.getId() == COURSES_LOADER_ID) {
+			generateView(data);
 		}
 	}
 
-	public void refreshDataView() {
-		generateView();
+	@Override
+	public void onLoaderReset(Loader<List<CoursesLoaderObject>> loader) {
+		// do nothing
+	}
+
+	private void generateView(List<CoursesLoaderObject> data) {
+
+		if (null == data || data.size() == 0) {
+			showEmptyLayout();
+		} else {
+			showListView();
+			mAdapter.setItems(data);
+		}
+		hideProgressBar();
+	}
+
+	private void hideProgressBar() {
+		mProgressBarLayout.setVisibility(View.GONE);
+	}
+
+	private void showListView() {
+		mRecyclerView.setVisibility(View.VISIBLE);
+		mEmptyLayout.setVisibility(View.GONE);
+	}
+
+	private void showEmptyLayout() {
+		mRecyclerView.setVisibility(View.GONE);
+		mEmptyLayout.setVisibility(View.VISIBLE);
+	}
+
+	private void showProgressbar() {
+		mRecyclerView.setVisibility(View.GONE);
+		mEmptyLayout.setVisibility(View.GONE);
+		mProgressBarLayout.setVisibility(View.VISIBLE);
 	}
 
 	private static class DividerItemDecoration extends RecyclerView.ItemDecoration {
@@ -245,8 +273,4 @@ public class DayFragment extends StudentShenchmanMainFragment /*implements Loade
 		void selectedCourse(SelectedCourseContext selectedCourseContext);
 	}
 
-	@Subscribe
-	public void onEvent(RefreshTabs event) {
-		generateView();
-	}
 }
