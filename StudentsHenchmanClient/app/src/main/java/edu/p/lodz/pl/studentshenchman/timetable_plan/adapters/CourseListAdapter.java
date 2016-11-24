@@ -60,8 +60,7 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
 
 	@Override
 	public long getItemId(int position) {
-		return 3;
-		//tutaj trzeba zdecydowac czy externalId czy internal
+		return mValues.get(position).getCourseId();
 	}
 
 	public void setItems(List<CoursesLoaderObject> values) {
