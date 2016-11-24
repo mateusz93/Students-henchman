@@ -35,20 +35,16 @@ public class AddNoteActivity extends StudentShenchmanMainActivity {
 		setContentView(R.layout.activity_add_note);
 
 		mExapandableDataPicker = (Button) findViewById(R.id.add_activation_date);
-		mExapandableDataPicker.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				AnimationHelper.startFallAnimation(mActivationDate);
-				mActivationDate.setVisibility(mActivationDate.isShown() ? View.GONE : View.VISIBLE);
-			}
+		mExapandableDataPicker.setOnClickListener((v) -> {
+			AnimationHelper.startFallAnimation(mActivationDate);
+			mActivationDate.setVisibility(mActivationDate.isShown() ? View.GONE : View.VISIBLE);
 		});
+
 		mActivationDate = (DatePicker) findViewById(R.id.note_activation_date);
-		mActivationDate.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				mActivationDate.setVisibility(View.GONE);
-			}
-		});
+		mActivationDate.setOnClickListener((v) ->
+				mActivationDate.setVisibility(View.GONE)
+		);
+
 		mNoteContent = (EditText) findViewById(R.id.content);
 		mOkButton = (Button) findViewById(R.id.ok_button);
 		mOkButton.setOnClickListener(new OkOnClickListener());
