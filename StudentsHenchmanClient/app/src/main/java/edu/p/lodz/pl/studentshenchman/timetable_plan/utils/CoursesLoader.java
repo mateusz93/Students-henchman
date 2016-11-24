@@ -42,7 +42,7 @@ public class CoursesLoader extends AsyncTaskLoader<List<CoursesLoaderObject>> {
 	private void loadCourses(List<CoursesLoaderObject> coursesForTheDay) {
 		SQLiteDatabase db = DatabaseHelper.getInstance(getContext()).getReadableDatabase();
 
-		Cursor c = db.query(Course.TABLE_NAME, null, Course.DAY + "=?", new String[]{mDayAbbreviation}, null, null, null);
+		Cursor c = db.query(Course.TABLE_NAME, null, Course.DAY + "=?", new String[]{mDayAbbreviation}, null, null, Course.TIME + " ASC");
 		Log.e(TAG, "Curses found for the day count: " + c.getCount());
 		Course course;
 		Teacher teacher = new Teacher();
