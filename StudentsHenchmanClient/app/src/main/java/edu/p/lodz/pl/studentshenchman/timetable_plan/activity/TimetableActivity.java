@@ -23,9 +23,7 @@ import edu.p.lodz.pl.studentshenchman.utils.SelectedCourseContext;
 
 
 public class TimetableActivity extends StudentShenchmanMainActivity implements DayFragment.SelectedCourseInterface {
-
 	private static final String TAG = TimetableActivity.class.getName();
-	private static final int COURSES_LOADER_ID = TimetableActivity.class.hashCode();
 
 	private static final String DUAL_PANE = ":dual_pane";
 	private static final String LAST_SELECTED_COURSE = ":last_selected_course";

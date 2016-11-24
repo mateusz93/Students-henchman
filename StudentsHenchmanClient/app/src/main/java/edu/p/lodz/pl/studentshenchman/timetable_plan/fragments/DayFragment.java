@@ -11,7 +11,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -94,20 +93,15 @@ public class DayFragment extends StudentShenchmanMainFragment implements LoaderM
 			@Override
 			public void onItemClick(View view, int position) {
 				SelectedCourseContext courseContext = null;
-				long courseId = mAdapter.getItemId(position);
-				try {
-					courseContext = TimeTableUtils.createCourseContext(getContext(), courseId);
-				} catch (Exception e) {
-					Log.e(TAG, e.getMessage());
-				}
-				mSelectedCourseInterface.selectedCourse(new SelectedCourseContext());
-
-
+				long internalCourseId = mAdapter.getItemId(position);
+				courseContext = TimeTableUtils.createCourseContext(getContext(), internalCourseId);
+				mSelectedCourseInterface.selectedCourse(courseContext);
 			}
 
 			@Override
 			public void onLongItemClick(View view, int position) {
-				mAdapter.notifyItemRemoved(0);
+				//mAdapter.notifyItemRemoved(0);
+				// tutaj mozna pokazac jakies opcje ale na razie nie wykonuje zadnej akcji
 			}
 		}));
 		mRecyclerView.setHasFixedSize(true);
