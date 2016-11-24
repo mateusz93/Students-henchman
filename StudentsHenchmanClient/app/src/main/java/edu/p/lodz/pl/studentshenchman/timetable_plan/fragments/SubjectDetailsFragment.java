@@ -28,6 +28,7 @@ import edu.p.lodz.pl.studentshenchman.utils.animation.AnimationHelper;
 
 public class SubjectDetailsFragment extends StudentShenchmanMainFragment {
 	private static final String TAG = SubjectDetailsFragment.class.getName();
+	public static final String COURSE_ID = TAG + ":course_id";
 
 	public static final int ADD_NOTE_REQUEST_CODE = 102;
 
@@ -43,16 +44,18 @@ public class SubjectDetailsFragment extends StudentShenchmanMainFragment {
 	private ImageView mLessonNavigator;
 
 	NotesAdapter mNotesAdapter;
+	SelectedCourseContext mCourseContext;
 
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.subject_details_fragment, container, false);
-		SelectedCourseContext courseContext = new SelectedCourseContext();
+
+		mCourseContext = new SelectedCourseContext();
 		if (getActivity() instanceof TimetableActivity)
-			courseContext = ((TimetableActivity) getActivity()).getSelectedCourseContext();
+			mCourseContext = ((TimetableActivity) getActivity()).getSelectedCourseContext();
 		else if (getActivity() instanceof SubjectDetailsActivity)
-			courseContext = ((SubjectDetailsActivity) getActivity()).getSelectedCourseContext();
+			mCourseContext = ((SubjectDetailsActivity) getActivity()).getSelectedCourseContext();
 
 		mSubjectName = (TextView) view.findViewById(R.id.item_lesson_name);
 		//mSubjectType = (TextView) view.findViewById(R.id.subject_type);
@@ -67,20 +70,20 @@ public class SubjectDetailsFragment extends StudentShenchmanMainFragment {
 		mSubjectNoteList.setOnScrollListener(new NoteOnScrollListener());
 		mLessonNavigator = (ImageView) view.findViewById(R.id.navigate_item_icon);
 
-		mSubjectName.setText(courseContext.getCourseName());
-		mLector.setText(courseContext.getTeacher());
-		mLocationBuild.setText(courseContext.getBuildName());
-		mLocationRoom.setText(courseContext.getRoomName());
-		mTime.setText(courseContext.getTime());
+		mSubjectName.setText(mCourseContext.getCourseName());
+		mLector.setText(mCourseContext.getTeacher());
+		mLocationBuild.setText(mCourseContext.getBuildName());
+		mLocationRoom.setText(mCourseContext.getRoomName());
+		mTime.setText(mCourseContext.getTime());
 
-		mHeaderTitle.setText(courseContext.getGroupName());
+		mHeaderTitle.setText(mCourseContext.getGroupName());
 
 		return view;
 	}
 
 	@Override
 	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-		mNotesAdapter = new NotesAdapter(getContext(), getActivity().getSupportFragmentManager());
+		mNotesAdapter = new NotesAdapter(getContext(), getActivity().getSupportFragmentManager(), mCourseContext.getCourseId());
 		mSubjectNoteList.setAdapter(mNotesAdapter);
 	}
 
@@ -88,6 +91,7 @@ public class SubjectDetailsFragment extends StudentShenchmanMainFragment {
 		@Override
 		public void onClick(View v) {
 			Intent intent = new Intent(getActivity(), AddNoteActivity.class);
+			intent.putExtra(COURSE_ID, mCourseContext.getCourseId());
 			startActivityForResult(intent, ADD_NOTE_REQUEST_CODE);
 		}
 	}
@@ -96,8 +100,7 @@ public class SubjectDetailsFragment extends StudentShenchmanMainFragment {
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == ADD_NOTE_REQUEST_CODE) {
 			if (resultCode == Activity.RESULT_OK) {
-				mNotesAdapter = new NotesAdapter(getContext(), getActivity().getSupportFragmentManager());
-				mSubjectNoteList.setAdapter(mNotesAdapter);
+				mNotesAdapter.refreshNotes();
 			}
 		}
 

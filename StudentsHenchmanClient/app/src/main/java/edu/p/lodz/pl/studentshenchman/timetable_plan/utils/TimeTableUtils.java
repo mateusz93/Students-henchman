@@ -65,33 +65,46 @@ public class TimeTableUtils {
 		return selectedCourseContext;
 	}
 
-	public static void addNoteToDB(Context context, long courseId, long externalCourseId, String content, long activationDate) {
+	public static void addNoteToDB(Context context, long courseId, String content, long activationDate) {
 		SQLiteDatabase db = DatabaseHelper.getInstance(context).getWritableDatabase();
 		ContentValues cv = new ContentValues();
 		cv.put(Note.COURSE_ID, courseId);
-		cv.put(Note.EXTERNAL_COURSE_ID, externalCourseId);
+		cv.put(Note.EXTERNAL_COURSE_ID, getExternalCourseIdByInternalCourseId(context, courseId));
 		cv.put(Note.CONTENT, content);
 		cv.put(Note.ACTIVATION_DATE, activationDate);
 		cv.put(Note.IS_SYNCH, 0);
 		db.insert(Note.TABLE_NAME, null, cv);
 	}
 
-	public static List<Note> loadNotesForCourse(Context context, long courseId) {
+	public static List<Note> loadNotesForCourse(Context context, long internalCourseId) {
 		SQLiteDatabase db = DatabaseHelper.getInstance(context).getReadableDatabase();
 		List<Note> notes = new ArrayList<>();
-		Cursor c = db.query(Note.TABLE_NAME, null, null, null, null, null, null);
+		Cursor c = db.query(Note.TABLE_NAME, null, Note.COURSE_ID + "=?", new String[]{internalCourseId + ""}, null, null, Note.ACTIVATION_DATE + " ASC");
 		while (c.moveToNext()) {
 			Note note = new Note(c);
 			notes.add(note);
 		}
+		c.close();
 
 		return notes;
 	}
 
-	public static void deleteNoteById(Context context, long noteId) {
+	public static void deleteNoteById(Context context, long internalNoteId) {
 		SQLiteDatabase db = DatabaseHelper.getInstance(context).getReadableDatabase();
 
-		db.delete(Note.TABLE_NAME, Note._ID + "=?", new String[]{noteId + ""});
+		db.delete(Note.TABLE_NAME, Note._ID + "=?", new String[]{internalNoteId + ""});
 
+	}
+
+	public static long getExternalCourseIdByInternalCourseId(Context context, long internalCourseId) {
+		SQLiteDatabase db = DatabaseHelper.getInstance(context).getReadableDatabase();
+		long externalCourseId = Long.MIN_VALUE;
+
+		Cursor c = db.query(Course.TABLE_NAME, null, Course._ID + "=?", new String[]{internalCourseId + ""}, null, null, null);
+		if (c.moveToFirst()) {
+			externalCourseId = c.getLong(c.getColumnIndexOrThrow(Course.EXTERNAL_COURSE_ID));
+		}
+
+		return externalCourseId;
 	}
 }

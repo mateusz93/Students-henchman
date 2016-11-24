@@ -35,10 +35,12 @@ public class NotesAdapter extends BaseAdapter implements AlertDialogCallback {
 	private final LayoutInflater mInflater;
 	private long noteToDelete = Long.MIN_VALUE;
 	private List<Note> mValues;
+	private long courseId;
 
-	public NotesAdapter(Context context, FragmentManager fm) {
+	public NotesAdapter(Context context, FragmentManager fm, long courseId) {
 		mContext = context;
 		mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		this.courseId = courseId;
 
 		AlertDialogHelper.readjustYesNoCallback(fm, this, DELETE_NOTE_TAG);
 		init();
@@ -46,7 +48,7 @@ public class NotesAdapter extends BaseAdapter implements AlertDialogCallback {
 
 	private void init() {
 		mValues = new ArrayList<>();
-		mValues = TimeTableUtils.loadNotesForCourse(mContext, 1L);
+		mValues = TimeTableUtils.loadNotesForCourse(mContext, courseId);
 	}
 
 	@Override
@@ -95,6 +97,11 @@ public class NotesAdapter extends BaseAdapter implements AlertDialogCallback {
 			addedDate = (TextView) view.findViewById(R.id.note_item_added_date);
 			deleteNote = (ImageButton) view.findViewById(R.id.delete_note);
 		}
+	}
+
+	public void refreshNotes() {
+		init();
+		notifyDataSetChanged();
 	}
 
 	private class DelNoteOnClickListener implements View.OnClickListener {
