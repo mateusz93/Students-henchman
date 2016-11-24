@@ -1,51 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:orientation="vertical">
+              android:orientation="vertical"
+              tools:context=".timetable_plan.activity.TimetableActivity">
 
     <include
         android:id="@+id/tool_bar"
         layout="@layout/tool_bar"/>
 
-    <ViewSwitcher
-        android:id="@+id/view_switcher"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-        <RelativeLayout
-            android:id="@+id/progress_bar_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ProgressBar
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"/>
-
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <FrameLayout
+            android:id="@+id/days_container"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_weight="0.5"
+            />
 
-            <FrameLayout
-                android:id="@+id/days_container"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5"
-                />
+        <View
+            style="@style/vertical_divider"/>
 
-            <View
-                style="@style/vertical_divider"/>
-
-            <FrameLayout
-                android:id="@+id/timetable_details_container"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5"
-                />
-        </LinearLayout>
-    </ViewSwitcher>
+        <FrameLayout
+            android:id="@+id/timetable_details_container"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            />
+    </LinearLayout>
 </LinearLayout>
