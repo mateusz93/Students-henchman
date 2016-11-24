@@ -5,12 +5,10 @@ import android.content.IntentFilter;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.content.AsyncTaskLoader;
-import android.support.v4.util.ArrayMap;
 import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import edu.p.lodz.pl.studentshenchman.database.DatabaseHelper;
 import edu.p.lodz.pl.studentshenchman.database.models.Course;
@@ -21,30 +19,31 @@ import edu.p.lodz.pl.studentshenchman.database.models.Teacher;
  * Created by Michał on 2016-11-20.
  */
 
-public class CoursesLoader extends AsyncTaskLoader<Map<String, List<CoursesLoaderObject>>> {
+public class CoursesLoader extends AsyncTaskLoader<List<CoursesLoaderObject>> {
 	private static final String TAG = CoursesLoader.class.getName();
 
-	private Map<String, List<CoursesLoaderObject>> mData;
+	private List<CoursesLoaderObject> mData;
+	private String mDayAbbreviation;
 
-	public CoursesLoader(Context context) {
+	public CoursesLoader(Context context, String dayAbbreviation) {
 		super(context);
+		this.mDayAbbreviation = dayAbbreviation;
 	}
 
 	@Override
-	public Map<String, List<CoursesLoaderObject>> loadInBackground() {
-		Map<String, List<CoursesLoaderObject>> courses = new ArrayMap<>();
+	public List<CoursesLoaderObject> loadInBackground() {
+		List<CoursesLoaderObject> courses = new ArrayList<>();
 
 		loadCourses(courses);
 
 		return courses;
 	}
 
-	private void loadCourses(Map<String, List<CoursesLoaderObject>> courses) {
+	private void loadCourses(List<CoursesLoaderObject> coursesForTheDay) {
 		SQLiteDatabase db = DatabaseHelper.getInstance(getContext()).getReadableDatabase();
-		List<CoursesLoaderObject> coursesForTheDay;
 
-		Cursor c = db.query(Course.TABLE_NAME, null, null, null, null, null, null);
-		Log.e(TAG, "Curses count: " + c.getCount());
+		Cursor c = db.query(Course.TABLE_NAME, null, Course.DAY + "=?", new String[]{mDayAbbreviation}, null, null, null);
+		Log.e(TAG, "Curses found for the day count: " + c.getCount());
 		Course course;
 		Teacher teacher = new Teacher();
 		DeanGroup deanGroup = new DeanGroup();
@@ -71,7 +70,8 @@ public class CoursesLoader extends AsyncTaskLoader<Map<String, List<CoursesLoade
 			loaderObject.setTeacherName(teacher.getName());
 			loaderObject.setDeanGroupName(deanGroup.getName());
 
-			if (null != courses.get(course.getDay())) {
+			coursesForTheDay.add(loaderObject);
+			/*if (null != courses.get(course.getDay())) {
 				coursesForTheDay = courses.remove(course.getDay());
 				coursesForTheDay.add(loaderObject);
 				courses.put(course.getDay(), coursesForTheDay);
@@ -79,14 +79,14 @@ public class CoursesLoader extends AsyncTaskLoader<Map<String, List<CoursesLoade
 				coursesForTheDay = new ArrayList<>();
 				coursesForTheDay.add(loaderObject);
 				courses.put(course.getDay(), coursesForTheDay);
-			}
+			}*/
 		}
 		c.close();
 	}
 
 
 	@Override
-	public void deliverResult(Map<String, List<CoursesLoaderObject>> data) {
+	public void deliverResult(List<CoursesLoaderObject> data) {
 		if (isReset()) {
 			// The Loader has been reset; ignore the result and invalidate the data.
 			releaseResources(data);
@@ -95,7 +95,7 @@ public class CoursesLoader extends AsyncTaskLoader<Map<String, List<CoursesLoade
 
 		// Hold a reference to the old data so it doesn't get garbage collected.
 		// We must protect it until the new data has been delivered.
-		Map<String, List<CoursesLoaderObject>> oldData = mData;
+		List<CoursesLoaderObject> oldData = mData;
 		mData = data;
 
 		if (isStarted()) {
@@ -163,7 +163,7 @@ public class CoursesLoader extends AsyncTaskLoader<Map<String, List<CoursesLoade
 	}
 
 	@Override
-	public void onCanceled(Map<String, List<CoursesLoaderObject>> data) {
+	public void onCanceled(List<CoursesLoaderObject> data) {
 		// Attempt to cancel the current asynchronous load.
 		super.onCanceled(data);
 
@@ -172,7 +172,7 @@ public class CoursesLoader extends AsyncTaskLoader<Map<String, List<CoursesLoade
 		releaseResources(data);
 	}
 
-	private void releaseResources(Map<String, List<CoursesLoaderObject>> data) {
+	private void releaseResources(List<CoursesLoaderObject> data) {
 		// For a simple List, there is nothing to do. For something like a Cursor, we
 		// would close it in this method. All resources associated with the Loader
 		// should be released here.
