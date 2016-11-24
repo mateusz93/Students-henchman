@@ -10,6 +10,7 @@ import java.util.List;
 
 import edu.p.lodz.pl.studentshenchman.database.DatabaseHelper;
 import edu.p.lodz.pl.studentshenchman.database.models.Course;
+import edu.p.lodz.pl.studentshenchman.database.models.DeanGroup;
 import edu.p.lodz.pl.studentshenchman.database.models.Note;
 import edu.p.lodz.pl.studentshenchman.database.models.Teacher;
 import edu.p.lodz.pl.studentshenchman.utils.SelectedCourseContext;
@@ -20,13 +21,17 @@ import edu.p.lodz.pl.studentshenchman.utils.SelectedCourseContext;
 
 public class TimeTableUtils {
 
-	public static SelectedCourseContext createCourseContext(Context context, long courseId) {
+	public static SelectedCourseContext createCourseContext(Context context, long internalCourseId) {
 		SQLiteDatabase db = DatabaseHelper.getInstance(context).getReadableDatabase();
 		SelectedCourseContext selectedCourseContext = new SelectedCourseContext();
+		Course course = new Course();
+		Teacher teacher = new Teacher();
+		DeanGroup deanGroup = new DeanGroup();
 
-		Cursor c = db.query(Course.TABLE_NAME, null, Course._ID + "=?", new String[]{courseId + ""}, null, null, null);
-		Course course = new Course(c);
-
+		Cursor c = db.query(Course.TABLE_NAME, null, Course._ID + "=?", new String[]{internalCourseId + ""}, null, null, null);
+		if (c.moveToFirst()) {
+			course = new Course(c);
+		}
 		/*c = db.query(Room.TABLE_NAME, null, Room.EXTERNAL_ROOM_ID + "=?", new String[]{course.getExternalRoomId() + ""}, null, null, null);
 		Room room = Room.fromCursor2Room(c);*/
 
@@ -34,11 +39,17 @@ public class TimeTableUtils {
 		Build build = Build.fromCursor2Build(c);*/
 
 		c = db.query(Teacher.TABLE_NAME, null, Teacher.EXTERNAL_TEACHER_ID + "=?", new String[]{course.getExternalTeacherId() + ""}, null, null, null);
-		Teacher teacher = new Teacher(c);
+		if (c.moveToFirst()) {
+			teacher = new Teacher(c);
+		}
+		c = db.query(DeanGroup.TABLE_NAME, null, DeanGroup.EXTERNAL_DEAN_GROUP_ID + "=?", new String[]{course.getExternalDeanGroupId() + ""}, null, null, null);
+		if (c.moveToFirst()) {
+			deanGroup = new DeanGroup(c);
+		}
 
 		c.close();
 
-		selectedCourseContext.setCourseId(courseId);
+		selectedCourseContext.setCourseId(internalCourseId);
 		selectedCourseContext.setCourseExternalId(course.getExternalId());
 		selectedCourseContext.setCourseName(course.getName());
 		selectedCourseContext.setCourseType("unknown");
@@ -47,6 +58,9 @@ public class TimeTableUtils {
 		selectedCourseContext.setBuildName("unknown");
 		selectedCourseContext.setLatitude(0.0);
 		selectedCourseContext.setLongitude(0.0);
+		selectedCourseContext.setGroupName(deanGroup.getName());
+		selectedCourseContext.setGroupAbbreviation(deanGroup.getAbbreviation());
+		selectedCourseContext.setTime(course.getTime());
 
 		return selectedCourseContext;
 	}
