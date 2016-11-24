@@ -8,26 +8,44 @@
         android:id="@+id/tool_bar"
         layout="@layout/tool_bar"/>
 
-    <LinearLayout
+    <ViewSwitcher
+        android:id="@+id/view_switcher"
         android:layout_width="match_parent"
-        android:orientation="horizontal"
         android:layout_height="match_parent">
-        <fragment
-            android:id="@+id/days_fragment"
-            android:name="edu.p.lodz.pl.studentshenchman.timetable_plan.fragments.TimetableDaysFragment"
-            android:layout_width="0dp"
-            android:layout_weight="0.5"
-            android:layout_height="match_parent"
-            />
 
-        <View
-            style="@style/vertical_divider"/>
+        <RelativeLayout
+            android:id="@+id/progress_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <FrameLayout
-            android:id="@+id/timetable_details_container"
-            android:layout_width="0dp"
-            android:layout_weight="0.5"
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            />
-    </LinearLayout>
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:id="@+id/days_container"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                />
+
+            <View
+                style="@style/vertical_divider"/>
+
+            <FrameLayout
+                android:id="@+id/timetable_details_container"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                />
+        </LinearLayout>
+    </ViewSwitcher>
 </LinearLayout>
