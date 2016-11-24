@@ -18,12 +18,15 @@ public class SelectedCourseContext implements Parcelable {
 	private String buildName;
 	private double latitude;
 	private double longitude;
+	private String groupName;
+	private String groupAbbreviation;
+	private String time;
 
 	public SelectedCourseContext() {
 	}
 
 	public SelectedCourseContext(long courseId, long courseExternalId, String courseName, String courseType, String teacher,
-	                             String roomName, String buildName, double latitude, double longitude) {
+	                             String roomName, String buildName, double latitude, double longitude, String groupName, String groupAbbreviation, String time) {
 		this.courseId = courseId;
 		this.courseExternalId = courseExternalId;
 		this.courseName = courseName;
@@ -33,6 +36,9 @@ public class SelectedCourseContext implements Parcelable {
 		this.buildName = buildName;
 		this.latitude = latitude;
 		this.longitude = longitude;
+		this.groupName = groupName;
+		this.groupAbbreviation = groupAbbreviation;
+		this.time = time;
 	}
 
 	protected SelectedCourseContext(Parcel in) {
@@ -45,6 +51,9 @@ public class SelectedCourseContext implements Parcelable {
 		buildName = in.readString();
 		latitude = in.readDouble();
 		longitude = in.readDouble();
+		groupName = in.readString();
+		groupAbbreviation = in.readString();
+		time = in.readString();
 	}
 
 	public static final Creator<SelectedCourseContext> CREATOR = new Creator<SelectedCourseContext>() {
@@ -75,6 +84,9 @@ public class SelectedCourseContext implements Parcelable {
 		dest.writeString(buildName);
 		dest.writeDouble(latitude);
 		dest.writeDouble(longitude);
+		dest.writeString(groupName);
+		dest.writeString(groupAbbreviation);
+		dest.writeString(time);
 	}
 
 	public long getCourseId() {
@@ -149,6 +161,30 @@ public class SelectedCourseContext implements Parcelable {
 		this.longitude = longitude;
 	}
 
+	public String getGroupAbbreviation() {
+		return groupAbbreviation;
+	}
+
+	public void setGroupAbbreviation(String groupAbbreviation) {
+		this.groupAbbreviation = groupAbbreviation;
+	}
+
+	public String getGroupName() {
+		return groupName;
+	}
+
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
+	}
+
 	@Override
 	public String toString() {
 		return "SelectedCourseContext{" +
@@ -161,6 +197,8 @@ public class SelectedCourseContext implements Parcelable {
 				", buildName='" + buildName + '\'' +
 				", latitude=" + latitude +
 				", longitude=" + longitude +
+				", groupName='" + groupName + '\'' +
+				", groupAbbreviation='" + groupAbbreviation + '\'' +
 				'}';
 	}
 }
