@@ -11,7 +11,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -26,7 +25,6 @@ import edu.p.lodz.pl.studentshenchman.R;
 import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainFragment;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.activity.TimetableActivity;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.adapters.CourseListAdapter;
-import edu.p.lodz.pl.studentshenchman.timetable_plan.interfaces.CourseDialogFragmentInterface;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.utils.CoursesLoader;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.utils.CoursesLoaderObject;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.utils.TimeTableUtils;
@@ -50,14 +48,13 @@ public class DayFragment extends StudentShenchmanMainFragment implements LoaderM
 	public static final String TAB_DAY_CODE = "tab_day_code";
 	public static final String TAB_DAY_ABBREVIATION = "tab_day_abbreviation";
 
-	private RelativeLayout mProgressBarLayout;
 	private RelativeLayout mEmptyLayout;
+	private RelativeLayout mProgressBarLayout;
 	private RecyclerView mRecyclerView;
 	private StaggeredGridLayoutManager mStaggeredLayoutManager;
 	private CourseListAdapter mAdapter;
 
 	private SelectedCourseInterface mSelectedCourseInterface;
-	private CourseDialogFragmentInterface mDialogFragmentInterface;
 
 	public static DayFragment getInstance(String tabName, int tabNumber, String dayCode, String dayAbbreviation) {
 		DayFragment day = new DayFragment();
@@ -76,9 +73,7 @@ public class DayFragment extends StudentShenchmanMainFragment implements LoaderM
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
-
 		mSelectedCourseInterface = (TimetableActivity) getActivity();
-		mDialogFragmentInterface = (TimetableActivity) getActivity();
 
 	}
 
@@ -86,12 +81,11 @@ public class DayFragment extends StudentShenchmanMainFragment implements LoaderM
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
-
 		View view = inflater.inflate(R.layout.day_fragment, container, false);
 
 		mRecyclerView = (RecyclerView) view.findViewById(R.id.list);
-		mProgressBarLayout = (RelativeLayout) view.findViewById(R.id.progress_bar_layout);
 		mEmptyLayout = (RelativeLayout) view.findViewById(R.id.empty_layout);
+		mProgressBarLayout = (RelativeLayout) view.findViewById(R.id.progress_bar_layout);
 		mStaggeredLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
 		mRecyclerView.setLayoutManager(mStaggeredLayoutManager);
 		mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext()));
@@ -99,21 +93,15 @@ public class DayFragment extends StudentShenchmanMainFragment implements LoaderM
 			@Override
 			public void onItemClick(View view, int position) {
 				SelectedCourseContext courseContext = null;
-				long courseId = mAdapter.getItemId(position);
-				try {
-					courseContext = TimeTableUtils.createCourseContext(getContext(), courseId);
-				} catch (Exception e) {
-					Log.e(TAG, e.getMessage());
-				}
-				mSelectedCourseInterface.selectedCourse(new SelectedCourseContext());
-
-
+				long internalCourseId = mAdapter.getItemId(position);
+				courseContext = TimeTableUtils.createCourseContext(getContext(), internalCourseId);
+				mSelectedCourseInterface.selectedCourse(courseContext);
 			}
 
 			@Override
 			public void onLongItemClick(View view, int position) {
-				//mDialogFragmentInterface.showEditOptionsDialogFragment(new SelectedCourseContext());
-				mAdapter.notifyItemRemoved(0);
+				//mAdapter.notifyItemRemoved(0);
+				// tutaj mozna pokazac jakies opcje ale na razie nie wykonuje zadnej akcji
 			}
 		}));
 		mRecyclerView.setHasFixedSize(true);
@@ -127,58 +115,60 @@ public class DayFragment extends StudentShenchmanMainFragment implements LoaderM
 	}
 
 	@Override
-	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-		getActivity().getSupportLoaderManager().initLoader(COURSES_LOADER_ID + getArguments().getString(TAB_NAME).hashCode(), getArguments(), this);
-
-	}
-
-	private void generateView(List<CoursesLoaderObject> data) {
-		mAdapter.setItems(data);
+	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+		getLoaderManager().initLoader(COURSES_LOADER_ID, getArguments(), this);
 	}
 
 	@Override
 	public Loader<List<CoursesLoaderObject>> onCreateLoader(int id, Bundle args) {
-		if (id == COURSES_LOADER_ID + getArguments().getString(TAB_NAME).hashCode()) {
-			showProgressBar();
-			return new CoursesLoader(getContext(), getArguments().getString(TAB_DAY_CODE), getArguments().getString(TAB_DAY_ABBREVIATION));
+		if (id == COURSES_LOADER_ID) {
+			showProgressbar();
+			return new CoursesLoader(getContext(), getArguments().getString(TAB_DAY_ABBREVIATION));
 		}
 		return null;
 	}
 
 	@Override
 	public void onLoadFinished(Loader<List<CoursesLoaderObject>> loader, List<CoursesLoaderObject> data) {
-		if (loader.getId() == COURSES_LOADER_ID + getArguments().getString(TAB_NAME).hashCode()) {
-			if (data != null && data.size() > 0) {
-				showListLayout();
-				generateView(data);
-			} else {
-				showEmptyLayout();
-			}
+		if (loader.getId() == COURSES_LOADER_ID) {
+			generateView(data);
 		}
 	}
 
 	@Override
 	public void onLoaderReset(Loader<List<CoursesLoaderObject>> loader) {
-		mAdapter.setItems(new ArrayList<>());
+		// do nothing
 	}
 
-	private void showProgressBar() {
-		mRecyclerView.setVisibility(View.GONE);
+	private void generateView(List<CoursesLoaderObject> data) {
+
+		if (null == data || data.size() == 0) {
+			showEmptyLayout();
+		} else {
+			showListView();
+			mAdapter.setItems(data);
+		}
+		hideProgressBar();
+	}
+
+	private void hideProgressBar() {
+		mProgressBarLayout.setVisibility(View.GONE);
+	}
+
+	private void showListView() {
+		mRecyclerView.setVisibility(View.VISIBLE);
 		mEmptyLayout.setVisibility(View.GONE);
-		mProgressBarLayout.setVisibility(View.VISIBLE);
 	}
 
 	private void showEmptyLayout() {
 		mRecyclerView.setVisibility(View.GONE);
 		mEmptyLayout.setVisibility(View.VISIBLE);
-		mProgressBarLayout.setVisibility(View.GONE);
 	}
 
-	private void showListLayout() {
-		mRecyclerView.setVisibility(View.VISIBLE);
+	private void showProgressbar() {
+		mRecyclerView.setVisibility(View.GONE);
 		mEmptyLayout.setVisibility(View.GONE);
-		mProgressBarLayout.setVisibility(View.GONE);
+		mProgressBarLayout.setVisibility(View.VISIBLE);
 	}
 
 	private static class DividerItemDecoration extends RecyclerView.ItemDecoration {
@@ -276,4 +266,5 @@ public class DayFragment extends StudentShenchmanMainFragment implements LoaderM
 	public interface SelectedCourseInterface {
 		void selectedCourse(SelectedCourseContext selectedCourseContext);
 	}
+
 }

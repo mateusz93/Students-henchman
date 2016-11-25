@@ -44,7 +44,7 @@ public class ChooseCourseDialogFragment extends DialogFragment {
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		callback = (TimetableActivity) getActivity();
+//		callback = (TimetableActivity) getActivity();
 	}
 
 	@Nullable

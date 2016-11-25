@@ -9,6 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +19,7 @@ import edu.p.lodz.pl.studentshenchman.R;
 import edu.p.lodz.pl.studentshenchman.abstract_ui.StudentShenchmanMainFragment;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.activity.TimetableActivity;
 import edu.p.lodz.pl.studentshenchman.timetable_plan.adapters.TimeTableDaysAdapter;
+import edu.p.lodz.pl.studentshenchman.timetable_plan.event.RefreshTabs;
 
 /**
  * Created by Michał on 2016-10-12.
@@ -42,10 +46,10 @@ public class TimetableDaysFragment extends StudentShenchmanMainFragment {
 		mViewPager = (ViewPager) view.findViewById(R.id.viewpager_container);
 		mTabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
 
-		List<Fragment> fragments = getRequiredFragments();
-		mTimeTableDaysAdapter = new TimeTableDaysAdapter(getContext(), getFragmentManager(), fragments);
+		List<DayFragment> fragments = getRequiredFragments();
+		mTimeTableDaysAdapter = new TimeTableDaysAdapter(getContext(), getChildFragmentManager(), fragments);
 		mViewPager.setAdapter(mTimeTableDaysAdapter);
-		//mViewPager.setPageTransformer(false, new CubeInTransformer());
+
 		setUpActionBar();
 
 		return view;
@@ -78,8 +82,8 @@ public class TimetableDaysFragment extends StudentShenchmanMainFragment {
 		mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
 	}
 
-	private List<Fragment> getRequiredFragments() {
-		List<Fragment> fragments = new ArrayList<>();
+	private List<DayFragment> getRequiredFragments() {
+		List<DayFragment> fragments = new ArrayList<>();
 		fragments.add(DayFragment.getInstance(getString(R.string.monday), 1, "MONDAY", "Pn"));
 		fragments.add(DayFragment.getInstance(getString(R.string.tuesday), 2, "TUESDAY", "Wt"));
 		fragments.add(DayFragment.getInstance(getString(R.string.wednesday), 3, "WEDNESDAY", "Sr"));
@@ -89,9 +93,4 @@ public class TimetableDaysFragment extends StudentShenchmanMainFragment {
 		return fragments;
 	}
 
-	@Override
-	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-		super.onViewCreated(view, savedInstanceState);
-
-	}
 }

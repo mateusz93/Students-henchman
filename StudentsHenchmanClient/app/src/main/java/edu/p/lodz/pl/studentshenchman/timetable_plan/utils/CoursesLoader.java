@@ -8,8 +8,6 @@ import android.support.v4.content.AsyncTaskLoader;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import edu.p.lodz.pl.studentshenchman.database.DatabaseHelper;
@@ -22,39 +20,30 @@ import edu.p.lodz.pl.studentshenchman.database.models.Teacher;
  */
 
 public class CoursesLoader extends AsyncTaskLoader<List<CoursesLoaderObject>> {
+	private static final String TAG = CoursesLoader.class.getName();
 
 	private List<CoursesLoaderObject> mData;
-	private String mDayCode;
 	private String mDayAbbreviation;
 
-	public CoursesLoader(Context context, String dayCode, String dayAbbreviation) {
+	public CoursesLoader(Context context, String dayAbbreviation) {
 		super(context);
-
-		mDayCode = dayCode;
-		mDayAbbreviation = dayAbbreviation;
+		this.mDayAbbreviation = dayAbbreviation;
 	}
 
 	@Override
 	public List<CoursesLoaderObject> loadInBackground() {
 		List<CoursesLoaderObject> courses = new ArrayList<>();
-		courses = loadCourses();
+
+		loadCourses(courses);
 
 		return courses;
 	}
 
-	private List<CoursesLoaderObject> loadCourses() {
-		List<CoursesLoaderObject> values = new ArrayList<>();
-		Calendar calendar = new GregorianCalendar();
-		String formattedDate = calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DAY_OF_MONTH);
-		int weekNo = 0;
+	private void loadCourses(List<CoursesLoaderObject> coursesForTheDay) {
 		SQLiteDatabase db = DatabaseHelper.getInstance(getContext()).getReadableDatabase();
 
-		/*Cursor c = db.query(Date.TABLE_NAME, null, Date.DATE + "=?", new String[]{formattedDate}, null, null, null, null);
-		if (c.moveToFirst()) {
-			weekNo = c.getInt(c.getColumnIndexOrThrow(Date.WEEK_NO));
-		}*/
-
-		Cursor c = db.query(Course.TABLE_NAME, null, Course.DAY + "=?", new String[]{mDayAbbreviation}, null, null, null);
+		Cursor c = db.query(Course.TABLE_NAME, null, Course.DAY + "=?", new String[]{mDayAbbreviation}, null, null, Course.TIME + " ASC");
+		Log.e(TAG, "Curses found for the day count: " + c.getCount());
 		Course course;
 		Teacher teacher = new Teacher();
 		DeanGroup deanGroup = new DeanGroup();
@@ -80,10 +69,10 @@ public class CoursesLoader extends AsyncTaskLoader<List<CoursesLoaderObject>> {
 			loaderObject.setTime(course.getTime());
 			loaderObject.setTeacherName(teacher.getName());
 			loaderObject.setDeanGroupName(deanGroup.getName());
-			values.add(loaderObject);
+
+			coursesForTheDay.add(loaderObject);
 		}
 		c.close();
-		return values;
 	}
 
 

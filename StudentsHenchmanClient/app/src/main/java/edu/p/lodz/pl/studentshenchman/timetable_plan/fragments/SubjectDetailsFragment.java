@@ -28,6 +28,9 @@ import edu.p.lodz.pl.studentshenchman.utils.animation.AnimationHelper;
 
 public class SubjectDetailsFragment extends StudentShenchmanMainFragment {
 	private static final String TAG = SubjectDetailsFragment.class.getName();
+	public static final String COURSE_ID = TAG + ":course_id";
+
+	public static final int ADD_NOTE_REQUEST_CODE = 102;
 
 	private ListView mSubjectNoteList;
 	private FloatingActionButton mAddSubjectNoteFAB;
@@ -41,16 +44,18 @@ public class SubjectDetailsFragment extends StudentShenchmanMainFragment {
 	private ImageView mLessonNavigator;
 
 	NotesAdapter mNotesAdapter;
+	SelectedCourseContext mCourseContext;
 
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.subject_details_fragment, container, false);
-		SelectedCourseContext courseContext;
+
+		mCourseContext = new SelectedCourseContext();
 		if (getActivity() instanceof TimetableActivity)
-			courseContext = ((TimetableActivity) getActivity()).getSelectedCourseContext();
-		if (getActivity() instanceof SubjectDetailsActivity)
-			courseContext = ((SubjectDetailsActivity) getActivity()).getSelectedCourseContext();
+			mCourseContext = ((TimetableActivity) getActivity()).getSelectedCourseContext();
+		else if (getActivity() instanceof SubjectDetailsActivity)
+			mCourseContext = ((SubjectDetailsActivity) getActivity()).getSelectedCourseContext();
 
 		mSubjectName = (TextView) view.findViewById(R.id.item_lesson_name);
 		//mSubjectType = (TextView) view.findViewById(R.id.subject_type);
@@ -65,20 +70,20 @@ public class SubjectDetailsFragment extends StudentShenchmanMainFragment {
 		mSubjectNoteList.setOnScrollListener(new NoteOnScrollListener());
 		mLessonNavigator = (ImageView) view.findViewById(R.id.navigate_item_icon);
 
-		mSubjectName.setText("Projektowanie aplikacji internetowych");
-		mLector.setText("dr inz. Rafal Kielbik");
-		mLocationBuild.setText("CTI");
-		mLocationRoom.setText("302");
-		mTime.setText("10:15 - 12:00");
+		mSubjectName.setText(mCourseContext.getCourseName());
+		mLector.setText(mCourseContext.getTeacher());
+		mLocationBuild.setText(mCourseContext.getBuildName());
+		mLocationRoom.setText(mCourseContext.getRoomName());
+		mTime.setText(mCourseContext.getTime());
 
-		mHeaderTitle.setText("CWICZENIA");
+		mHeaderTitle.setText(mCourseContext.getGroupName());
 
 		return view;
 	}
 
 	@Override
 	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-		mNotesAdapter = new NotesAdapter(getContext(), getActivity().getSupportFragmentManager());
+		mNotesAdapter = new NotesAdapter(getContext(), getActivity().getSupportFragmentManager(), mCourseContext.getCourseId());
 		mSubjectNoteList.setAdapter(mNotesAdapter);
 	}
 
@@ -86,16 +91,16 @@ public class SubjectDetailsFragment extends StudentShenchmanMainFragment {
 		@Override
 		public void onClick(View v) {
 			Intent intent = new Intent(getActivity(), AddNoteActivity.class);
-			startActivityForResult(intent, 500);
+			intent.putExtra(COURSE_ID, mCourseContext.getCourseId());
+			startActivityForResult(intent, ADD_NOTE_REQUEST_CODE);
 		}
 	}
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == 500) {
+		if (requestCode == ADD_NOTE_REQUEST_CODE) {
 			if (resultCode == Activity.RESULT_OK) {
-				mNotesAdapter = new NotesAdapter(getContext(), getActivity().getSupportFragmentManager());
-				mSubjectNoteList.setAdapter(mNotesAdapter);
+				mNotesAdapter.refreshNotes();
 			}
 		}
 
@@ -110,7 +115,7 @@ public class SubjectDetailsFragment extends StudentShenchmanMainFragment {
 		@Override
 		public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 			AnimationHelper.startSlideBottomAnimation(mAddSubjectNoteFAB);
-			/*if (totalItemCount <= visibleItemCount) {
+			if (totalItemCount <= visibleItemCount) {
 				AnimationHelper.startSlideBottomAnimation(mAddSubjectNoteFAB);
 				mAddSubjectNoteFAB.setVisibility(View.VISIBLE);
 			} else if (firstVisibleItem + visibleItemCount >= totalItemCount - visibleItemCount) {
@@ -118,7 +123,7 @@ public class SubjectDetailsFragment extends StudentShenchmanMainFragment {
 			} else {
 				AnimationHelper.startSlideBottomAnimation(mAddSubjectNoteFAB);
 				mAddSubjectNoteFAB.setVisibility(View.VISIBLE);
-			}*/
+			}
 		}
 	}
 }

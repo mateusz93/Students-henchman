@@ -65,12 +65,10 @@ public class Teacher implements BaseColumns {
 	}
 
 	public Teacher(Cursor cursor) {
-		if (cursor.moveToFirst()) {
-			id = (cursor.getLong(cursor.getColumnIndexOrThrow(Teacher._ID)));
-			externalId = (cursor.getLong(cursor.getColumnIndexOrThrow(Teacher.EXTERNAL_TEACHER_ID)));
-			name = (cursor.getString(cursor.getColumnIndexOrThrow(Teacher.NAME)));
-			email = (cursor.getString(cursor.getColumnIndexOrThrow(Teacher.EMAIL)));
-		}
+		id = (cursor.getLong(cursor.getColumnIndexOrThrow(Teacher._ID)));
+		externalId = (cursor.getLong(cursor.getColumnIndexOrThrow(Teacher.EXTERNAL_TEACHER_ID)));
+		name = (cursor.getString(cursor.getColumnIndexOrThrow(Teacher.NAME)));
+		email = (cursor.getString(cursor.getColumnIndexOrThrow(Teacher.EMAIL)));
 	}
 
 	public long getId() {

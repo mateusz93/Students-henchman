@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -49,7 +48,6 @@ public class DownloadSettingsWorker extends AbstractWorker<Response<SettingsRS>>
 	@Override
 	public void onCompleted() {
 		Log.i(TAG, "Settings downloaded successfully");
-		Toast.makeText(mContext, "Settings downloaded successfully", Toast.LENGTH_SHORT).show();
 		notifyTaskFinished(FinishedWorkerStatus.SUCCESS);
 	}
 

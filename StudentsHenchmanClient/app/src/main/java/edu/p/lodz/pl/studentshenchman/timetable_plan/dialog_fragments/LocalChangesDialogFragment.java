@@ -36,7 +36,7 @@ public class LocalChangesDialogFragment extends DialogFragment {
 	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		callback = (TimetableActivity) getActivity();
+		//callback = (TimetableActivity) getActivity();
 	}
 
 	@NonNull
